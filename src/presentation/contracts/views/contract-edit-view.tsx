@@ -1,0 +1,35 @@
+import { Container } from '@mui/material';
+import { paths } from '../../../app/routes/paths';
+import SearchIdNotFound from '../../../app/routes/guard/search-id-not-found';
+import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
+import { useSearchByIdContract } from '../hooks/use-search-by-id-contract';
+
+type Props = {
+    id: string;
+}
+
+export default function ContractEditView({ id }: Props) {
+
+    const { contract, error, isLoading } = useSearchByIdContract(id);
+
+    return (
+        <SearchIdNotFound isLoading={isLoading} data={!!contract} error={error}>
+            <Container maxWidth='xl'>
+                <CustomBreadcrumbs
+                    sx={{ display: "inline" }}
+                    heading={`Editar: ${contract?.number} `}
+                    links={[
+                        { name: 'Inicio', href: paths.dashboard.root },
+                        { name: 'Contratos', href: paths.dashboard.contracts.root },
+                        { name: `${contract?.number}` },
+                    ]}
+                />
+                {/* <ContractForm
+                    callback={redirectData}
+                    contract={contract ? contractToNewContract(contract) : undefined}
+                /> */}
+            </Container>
+        </SearchIdNotFound>
+    );
+}
+

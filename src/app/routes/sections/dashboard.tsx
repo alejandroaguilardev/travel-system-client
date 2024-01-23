@@ -1,0 +1,79 @@
+import { lazy, Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+import DashboardLayout from '../../../layouts/dashboard/layout';
+import LoadingScreen from '../../../components/loading-screen/loading-screen';
+import { AuthGuard } from '../../../presentation/auth/guard';
+import UserSystemGuard from '../../../presentation/auth/guard/user-system-guard';
+
+const DashboardPage = lazy(() => import('../../pages/admin/index'));
+
+const PermissionPage = lazy(() => import('../../pages/admin/permission'));
+const PermissionNewPage = lazy(() => import('../../pages/admin/permission/crear'));
+const PermissionIdPage = lazy(() => import('../../pages/admin/permission/[id]/index'));
+
+const RolePage = lazy(() => import('../../pages/admin/role'));
+const RoleNewPage = lazy(() => import('../../pages/admin/role/crear'));
+const RoleIdPage = lazy(() => import('../../pages/admin/role/[id]/index'));
+
+const UserPage = lazy(() => import('../../pages/admin/user'));
+const UserNewPage = lazy(() => import('../../pages/admin/user/crear'));
+const UserIdPage = lazy(() => import('../../pages/admin/user/[id]/index'));
+
+const ContractPage = lazy(() => import('../../pages/admin/contract/index'));
+const ContractNewPage = lazy(() => import('../../pages/admin/contract/crear'));
+const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'));
+
+const ClientPage = lazy(() => import('../../pages/admin/client'));
+
+export const dashboardRoutes = [
+  {
+    path: 'dashboard',
+    element: (
+      <AuthGuard>
+        <UserSystemGuard>
+          <DashboardLayout>
+            <Suspense fallback={<LoadingScreen />}>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+        </UserSystemGuard>
+      </AuthGuard>
+    ),
+    children: [
+      { element: <DashboardPage />, index: true },
+      {
+        path: 'contratos',
+        children: [
+          { element: <ContractPage />, index: true },
+          { path: 'crear', element: <ContractNewPage /> },
+          { path: ':id/:action', element: <ContractIdPage /> },
+        ],
+      },
+      { path: 'clientes', element: <ClientPage /> },
+      {
+        path: 'usuarios/roles',
+        children: [
+          { element: <RolePage />, index: true },
+          { path: 'crear', element: <RoleNewPage /> },
+          { path: ':id/:action', element: <RoleIdPage /> },
+        ],
+      },
+      {
+        path: 'usuarios/permisos',
+        children: [
+          { element: <PermissionPage />, index: true },
+          { path: 'crear', element: <PermissionNewPage /> },
+          { path: ':id/:action', element: <PermissionIdPage /> },
+        ],
+      },
+      {
+        path: 'usuarios',
+        children: [
+          { element: <UserPage />, index: true },
+          { path: 'crear', element: <UserNewPage /> },
+          { path: ':id/:action', element: <UserIdPage /> },
+        ],
+      },
+    ],
+  },
+];

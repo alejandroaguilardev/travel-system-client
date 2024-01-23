@@ -1,0 +1,39 @@
+import { FC } from "react"
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { NewContract } from '../../../../modules/contracts/domain/contract';
+import FormProvider from '../../../../components/hook-form/form-provider';
+import { TabGenericProvider, TabSwitcher } from '../../../../components/tab-generic';
+import { ActionsButtonsForm } from '../../../../components/hook-form/actions-buttons-form';
+import { tabs } from "./tabs";
+import { defaultValues, contractSchema } from "./contract-validations";
+import { useFormContract } from "./use-form-new-contract";
+
+type Props = {
+    callback: () => void
+}
+
+export const ContractForm: FC<Props> = ({ callback }) => {
+    const methods = useForm({
+        resolver: yupResolver<NewContract>(contractSchema),
+        defaultValues,
+    });
+
+    const { onSubmit } = useFormContract({ callback });
+
+    return (
+        <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
+            <TabGenericProvider defaultValue={tabs[0].value}>
+                <TabSwitcher
+                    tabs={tabs}
+                />
+            </TabGenericProvider>
+
+            <ActionsButtonsForm
+                name="contrato"
+                edit={false}
+            />
+
+        </FormProvider >
+    )
+}
