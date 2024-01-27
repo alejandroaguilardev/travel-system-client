@@ -3,7 +3,8 @@ import { StatusDefinition } from './contract-status';
 import { User } from '../../users/domain/user';
 import { DocumentationDefinition } from './interfaces/documentation';
 import { CageDefinition } from './interfaces/cage';
-import { TypeTraveling } from './travel/contract-travel';
+import { TypeTraveling } from './interfaces/travel';
+import { Pet } from '../../pets/domain/pet';
 
 export interface Contract {
     id: string;
@@ -14,7 +15,7 @@ export interface Contract {
     endDate: Date | null;
     services: ServicesDefinition;
     guideNumber: string;
-    pets: string[];
+    pets: Pet[];
 }
 
 export interface NewContract extends Omit<Contract, "id" | "guideNumber" | "services" | "endDate" | "pets" | "client" | "guideNumber" | "status"> {

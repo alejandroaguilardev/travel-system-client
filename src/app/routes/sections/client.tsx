@@ -6,6 +6,7 @@ import { AuthGuard } from '../../../presentation/auth/guard';
 
 
 const ClientPage = lazy(() => import('../../pages/client'));
+const HistoryPage = lazy(() => import('../../pages/client/history'));
 
 export const clientsRoutes = [
     {
@@ -21,6 +22,12 @@ export const clientsRoutes = [
         ),
         children: [
             { element: <ClientPage />, index: true },
+            {
+                path: 'historial',
+                children: [
+                    { element: <HistoryPage />, index: true },
+                ],
+            },
         ],
     },
 ];

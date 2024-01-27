@@ -8,18 +8,21 @@ interface Props extends IProps {
 }
 
 export default function RHFSwitch({ name, ...other }: Props) {
-  const { control } = useFormContext();
+  const { control, formState } = useFormContext();
 
   return (
-    <FormControlLabel
-      control={
-        < Controller
-          name={name}
-          control={control}
-          render={({ field }) => <Switch {...field} checked={field.value} />}
-        />
-      }
-      {...other}
-    />
+    <>
+      <FormControlLabel
+        control={
+          < Controller
+            name={name}
+            control={control}
+            render={({ field }) => <Switch {...field} checked={field.value} />}
+          />
+        }
+        {...other}
+      />
+      {formState.errors[name] && formState.errors[name]?.message}
+    </>
   );
 }

@@ -12,6 +12,7 @@ export const useContractFormGeneral = () => {
 
     const cage = watch("cage.hasServiceIncluded");
     const travel = watch("travel.hasServiceIncluded");
+    const typeTraveling = watch("travel.typeTraveling");
     const startDate = fDate(watch("startDate"), 'yyyy-MM-dd');
 
     useEffect(() => {
@@ -22,6 +23,15 @@ export const useContractFormGeneral = () => {
         }
     }, [clientDefault])
 
+    useEffect(() => {
+        if (travel && typeTraveling === "none") {
+            setValue("travel.typeTraveling", "accompanied")
+        }
+        if (!travel) {
+            setValue("travel.typeTraveling", "none")
+        }
+    }, [travel, typeTraveling])
+
     const handleClient = (value: User | null) => {
         setClient(value as User | null);
         setValue("client", value?.id ?? "")
@@ -30,9 +40,9 @@ export const useContractFormGeneral = () => {
     const handleCageChosen = (value: string) => {
         const cage = JSON.parse(value) as CageChosen;
         setValue("cage.chosen", {
-            model: cage.model,
-            dimensions: cage.dimensions,
-            type: cage.type,
+            model: cage.modelCage,
+            dimensions: cage.dimensionsCage,
+            type: cage.typeCage,
         });
 
     }
@@ -40,6 +50,7 @@ export const useContractFormGeneral = () => {
         client,
         cage,
         travel,
+        typeTraveling,
         startDate,
         handleClient,
         handleCageChosen,

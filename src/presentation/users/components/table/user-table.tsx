@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { MRT_ColumnDef, MRT_Row } from 'material-react-table';
+import { MRT_ColumnDef } from 'material-react-table';
 import { User } from '../../../../modules/users/domain/user';
 import { TablePagination } from '../../../../components/material-table/table-pagination';
 import { COLLECTIONS } from '../../../../modules/shared/domain/collections';
@@ -53,7 +53,7 @@ export const UserTable: FC<Props> = ({ onSelected, deleteItem, }) => {
             collection={COLLECTIONS.users}
             columns={columns}
             globalFilterProperties={userGlobalFilterProperties}
-            renderRowActionMenuItems={({ row }) => [<RenderRowActionMenuItem<MRT_Row<User>>
+            renderRowActionMenuItems={({ row }) => [<RenderRowActionMenuItem
                 item={{
                     name: "Visualizar",
                     icon: "eyeBold",
@@ -61,7 +61,7 @@ export const UserTable: FC<Props> = ({ onSelected, deleteItem, }) => {
                 }}
                 key="view"
             />,
-            <RenderRowActionMenuItem<MRT_Row<User>>
+            <RenderRowActionMenuItem
                 item={{
                     name: "Editar",
                     icon: "editTable",

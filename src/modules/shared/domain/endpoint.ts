@@ -14,5 +14,6 @@ export const endpoints = {
     },
     contracts: {
         root: '/contracts',
+        client: '/contracts/client',
     },
 };

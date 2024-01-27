@@ -1,17 +1,39 @@
-import useSWR from "swr";
-import { endpoints } from '../../../modules/shared/domain/endpoint';
+import { useState, useEffect } from 'react';
 import { contractService } from '../../../modules/contracts/infrastructure/contract.service';
 import { Contract } from '../../../modules/contracts/domain/contract';
 
 export const useSearchByIdContract = (contractId: string) => {
-    const { data, error, isLoading, mutate } = useSWR([endpoints.contracts, contractId], () => contractService.searchById<Contract>(contractId)
-    )
+    const [contract, setContract] = useState<Contract | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleRefetch = () => mutate();
+    const fetchData = async () => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const response = await contractService.searchById<Contract>(contractId);
+            setContract(response);
+        } catch (error) {
+            setContract(null)
+            setError(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [contractId]);
+
+    const handleRefetch = () => {
+        fetchData();
+    };
+
     return {
-        contract: data,
+        contract,
         isLoading,
         error,
         handleRefetch
-    }
-}
+    };
+};

@@ -46,8 +46,8 @@ export default function HeaderSimple() {
       >
         <Logo />
 
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Link href="/" component={RouterLink} color="inherit" sx={{ typography: 'subtitle2' }}>
+        <Stack direction="row" alignItems="center" spacing={1} >
+          <Link href="https://wa.me/51994748870" target='_blank' rel="noopener noreferrer" component={RouterLink} color="inherit" sx={{ typography: 'subtitle2' }} display={{ xs: "none", md: "inherit" }}>
             ¿Necesitas Ayuda?
           </Link>
           <SettingsButton />

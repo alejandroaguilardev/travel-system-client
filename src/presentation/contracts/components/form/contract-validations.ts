@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { NewContract } from '../../../../modules/contracts/domain/contract';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { TRAVEL_TYPES } from '../../../../modules/contracts/domain/travel/contract-travel';
+import { TypeTraveling } from '../../../../modules/contracts/domain/interfaces/travel';
 
 const defaultValues: NewContract = {
     id: '',
@@ -14,9 +15,9 @@ const defaultValues: NewContract = {
         hasServiceIncluded: false,
         swornDeclaration: false,
         chosen: {
-            model: '',
-            dimensions: '',
-            type: '',
+            modelCage: '',
+            dimensionsCage: '',
+            typeCage: '',
         },
         recommendation: '',
     },
@@ -68,9 +69,9 @@ const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         swornDeclaration: Yup.boolean().required('Campo requerido'),
         chosen: Yup.object().shape({
-            model: Yup.string(),
-            dimensions: Yup.string(),
-            type: Yup.string().oneOf(['', 'rígida', 'flexible', 'especial'] as const),
+            modelCage: Yup.string(),
+            dimensionsCage: Yup.string(),
+            typeCage: Yup.string().oneOf(['', 'rígida', 'flexible', 'especial'] as const),
         }),
         recommendation: Yup.string(),
     }),
@@ -107,7 +108,8 @@ const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
     }),
     travel: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
-        typeTraveling: Yup.string().required('Campo requerido').oneOf(TRAVEL_TYPES.map((type) => type.value)),
+        typeTraveling: Yup.string().required('Campo requerido').oneOf(
+            ['none' as TypeTraveling, ...TRAVEL_TYPES.map((type) => type.value)], "No es una opción válida"),
     }),
 });
 

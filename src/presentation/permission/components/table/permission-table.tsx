@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { MRT_ColumnDef, MRT_Row } from 'material-react-table';
+import { MRT_ColumnDef } from 'material-react-table';
 import { Permission } from '../../../../modules/permissions/domain/permission';
 import { TablePagination } from '../../../../components/material-table/table-pagination';
 import { COLLECTIONS } from '../../../../modules/shared/domain/collections';
@@ -48,7 +48,7 @@ export const PermissionTable: FC<Props> = ({ onSelected, deleteItem, }) => {
             collection={COLLECTIONS.permissions}
             columns={columns}
             globalFilterProperties={userGlobalFilterProperties}
-            renderRowActionMenuItems={({ row }) => [<RenderRowActionMenuItem<MRT_Row<Permission>>
+            renderRowActionMenuItems={({ row }) => [<RenderRowActionMenuItem
                 item={{
                     name: "Visualizar",
                     icon: "eyeBold",
@@ -56,7 +56,7 @@ export const PermissionTable: FC<Props> = ({ onSelected, deleteItem, }) => {
                 }}
                 key="view"
             />,
-            <RenderRowActionMenuItem<MRT_Row<Permission>>
+            <RenderRowActionMenuItem
                 item={{
                     name: "Editar",
                     icon: "editTable",

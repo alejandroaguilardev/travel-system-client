@@ -7,12 +7,14 @@ import { contractService } from '../../../../modules/contracts/infrastructure/co
 import { CustomFormEvent } from '../../../../components/hook-form/types';
 import { errorsShowNotification } from '../../../../modules/shared/infrastructure/helpers/errors-show-notification';
 import { useMessage } from '../../../../hooks/use-message';
+import { contractUpdater } from '../../../../modules/contracts/application/update/contract-updater';
 
 type Props = {
+    contract?: NewContract;
     callback: () => void;
 }
 
-export const useFormContract = ({ callback }: Props) => {
+export const useFormContract = ({ callback, contract }: Props) => {
 
     const { reload } = useRouter();
     const { showNotification } = useMessage();
@@ -20,7 +22,9 @@ export const useFormContract = ({ callback }: Props) => {
     const onSubmit: SubmitHandler<NewContract> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
-            const response = await contractCreator(contractService, uuid)(data)
+            const response = contract
+                ? await contractUpdater(contractService, uuid)(data?.id!, data)
+                : await contractCreator(contractService, uuid)(data)
 
             showNotification(response.message);
             nativeEvent.submitter?.value === "reload"

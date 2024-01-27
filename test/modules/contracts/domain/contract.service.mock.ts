@@ -3,5 +3,7 @@ export const contractServiceMock = {
     remove: jest.fn(),
     search: jest.fn(),
     searchById: jest.fn(),
-    update: jest.fn()
+    update: jest.fn(),
+    searchClientById: jest.fn(),
+    updateDocumentationClient: jest.fn()
 }

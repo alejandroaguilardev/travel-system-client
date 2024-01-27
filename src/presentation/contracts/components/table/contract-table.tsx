@@ -1,12 +1,9 @@
-import { FC, useMemo } from 'react';
-import { MRT_ColumnDef, MRT_Row } from 'material-react-table';
-import { paths } from '../../../../app/routes/paths';
+import { FC, ReactNode, useMemo } from 'react';
+import { MRT_ColumnDef, MRT_ColumnFiltersState, MRT_SortingState } from 'material-react-table';
 import { Contract } from '../../../../modules/contracts/domain/contract';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { fDate } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import { COLLECTIONS } from '../../../../modules/shared/domain/collections';
-import { RenderRowActionMenuItem } from '../../../../components/material-table/render-row-action-menu-item';
-import { RenderRowActionMenuItemButton } from '../../../../components/material-table/render-row-action-menu-item-button';
 import { TablePagination } from '../../../../components/material-table/table-pagination';
 import Label from '../../../../components/label/label';
 import { statusColor } from './status-color';
@@ -14,11 +11,15 @@ import { contractGlobalFilterProperties } from './contract-global-filter-propert
 
 
 type Props = {
-    onSelected: (contract: Contract) => void;
-    deleteItem: () => void;
+    options?: {
+        columnQueryFilters?: MRT_ColumnFiltersState | undefined;
+        sortingQueryFilters?: MRT_SortingState | undefined;
+        renderRowActionMenuItems?: (row: Contract) => ReactNode[]
+    }
 }
 
-export const ContractTable: FC<Props> = ({ onSelected, deleteItem, }) => {
+export const ContractTable: FC<Props> = ({ options }) => {
+    const { renderRowActionMenuItems, columnQueryFilters, sortingQueryFilters } = options ?? {};
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
@@ -57,36 +58,14 @@ export const ContractTable: FC<Props> = ({ onSelected, deleteItem, }) => {
         <TablePagination<Contract>
             name={ContractTable?.displayName || 'table'}
             collection={COLLECTIONS.contracts}
+            columnQueryFilters={columnQueryFilters}
+            sortingQueryFilters={sortingQueryFilters}
             columns={columns}
             globalFilterProperties={contractGlobalFilterProperties}
-            renderRowActionMenuItems={({ row }) => [<RenderRowActionMenuItem<MRT_Row<Contract>>
-                item={{
-                    name: "Visualizar",
-                    icon: "eyeBold",
-                    href: paths.dashboard.contracts.view(row.original.id)
-                }}
-                key="view"
-            />,
-            <RenderRowActionMenuItem<MRT_Row<Contract>>
-                item={{
-                    name: "Editar",
-                    icon: "editTable",
-                    href: paths.dashboard.contracts.edit(row.original.id)
-                }}
-                key="edit"
-            />,
-            <RenderRowActionMenuItemButton<Contract>
-                item={{
-                    name: "Eliminar",
-                    icon: "removeBox",
-                }}
-                row={row.original}
-                onSelected={(value) => {
-                    onSelected(value);
-                    deleteItem();
-                }}
-                key="remove"
-            />]}
+            renderRowActionMenuItems={({ row }) => renderRowActionMenuItems
+                ? renderRowActionMenuItems(row.original)
+                : []
+            }
         />
     )
 }

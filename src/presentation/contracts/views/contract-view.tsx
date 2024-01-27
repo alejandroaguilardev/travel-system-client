@@ -7,6 +7,7 @@ import { Contract } from '../../../modules/contracts/domain/contract';
 import { ContractTable } from '../components/table/contract-table';
 import { DialogDelete } from '../../../components/delete-item/delete-dialog-button';
 import { useDeleteContract } from '../hooks/use-delete-contract';
+import { ContractRenderRowActionsMenuItems } from '../components/table/contract-render-row-actions-menu-items';
 
 
 export default function ContractView() {
@@ -37,8 +38,9 @@ export default function ContractView() {
             />
             {!isLoading &&
                 <ContractTable
-                    onSelected={handleSelected}
-                    deleteItem={deleteItem.onTrue}
+                    options={{
+                        renderRowActionMenuItems: (row: Contract) => ContractRenderRowActionsMenuItems({ row, deleteItem: deleteItem.onTrue, onSelected: handleSelected })
+                    }}
                 />
             }
 

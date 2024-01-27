@@ -39,7 +39,7 @@
   "include": [
     "**/*.ts",
     "**/*.tsx", 
-    "commitlint.config.js",
+    "commitlint.config.js", "src/presentation/client/components/cards/card-cagetsx",
 ],
   "references": [
     {
