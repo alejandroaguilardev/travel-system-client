@@ -38,6 +38,12 @@ export default function LoginView() {
     try {
       const user = await login?.(data.email, data.password);
       const access = user.roles.length > 0 ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;
+
+      if (access === PATH_AFTER_LOGIN && returnTo === "/") {
+        router.push(access);
+        return;
+      }
+
       router.push(returnTo || access);
     } catch (error) {
       reset();

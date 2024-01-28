@@ -6,13 +6,7 @@ import Iconify from 'src/components/iconify';
 import { varHover } from 'src/components/animate';
 import { useSettingsContext } from 'src/components/settings';
 
-// ----------------------------------------------------------------------
-
-type Props = {
-  sx?: SxProps<Theme>;
-};
-
-export default function SettingsButton({ sx }: Props) {
+export default function SettingsButton() {
   const settings = useSettingsContext();
 
   return (

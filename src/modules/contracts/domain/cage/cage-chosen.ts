@@ -1,9 +1,10 @@
+export const TYPE_CAGE = ['rígida', 'flexible', 'especial'] as const;
+
 export interface CageChosen {
     modelCage?: string;
     dimensionsCage?: string;
     typeCage?: '' | 'rígida' | 'flexible' | 'especial';
 }
-
 export const CAGES_CHOSEN: CageChosen[] = [
     { modelCage: 'ML45', dimensionsCage: '43*27*33', typeCage: 'rígida' },
     { modelCage: 'ML50', dimensionsCage: '50*33*33', typeCage: 'rígida' },

@@ -9,7 +9,7 @@ export default function ClientPage() {
                 <title> Dashboard Clientes</title>
             </Helmet>
 
-            <UserView />
+            <UserView type='Cliente' />
         </>
     );
 }

@@ -8,7 +8,6 @@ import { ActionsButtonsForm } from '../../../../components/hook-form/actions-but
 import { tabs } from "./tabs";
 import { defaultValues, contractSchema } from "./contract-validations";
 import { useFormContract } from "./use-form-new-contract";
-import { DocumentationFormGeneral } from "../../../client/components/documentation/form/documentation-form-general";
 
 type Props = {
     contract?: NewContract;
@@ -38,3 +37,4 @@ export const ContractForm: FC<Props> = ({ contract, callback }) => {
         </FormProvider >
     )
 }
+3

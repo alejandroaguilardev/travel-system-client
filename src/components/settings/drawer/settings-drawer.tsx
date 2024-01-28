@@ -13,12 +13,14 @@ import BaseOptions from './base-option';
 import LayoutOptions from './layout-options';
 import PresetsOptions from './presets-options';
 import FullScreenOption from './fullscreen-option';
+import { useAuthContext } from '../../../presentation/auth/hooks/use-auth-context';
 
 
 export default function SettingsDrawer() {
   const theme = useTheme();
 
   const settings = useSettingsContext();
+  const { user } = useAuthContext();
 
   const labelStyles = {
     mb: 1.5,
@@ -115,7 +117,8 @@ export default function SettingsDrawer() {
       <Scrollbar>
         <Stack spacing={3} sx={{ p: 3 }}>
           {renderMode}
-          {renderLayout}
+
+          {user && user?.roles?.length > 0 && renderLayout}
           {renderPresets}
         </Stack>
       </Scrollbar>

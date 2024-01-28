@@ -3,8 +3,8 @@ import { Box } from "@mui/material";
 import { Contract } from '../../../../modules/contracts/domain/contract';
 import CardDocumentation from "../documentation/card-documentation";
 import Header from "../header/header";
-import CardCage from "../cards/card-cage";
-import CardTravel from "../cards/card-travel";
+import CardCage from "../cage/card-cage";
+import CardTravel from "../travel/card-travel";
 
 type Props = {
     contract: Contract
@@ -29,11 +29,11 @@ export const SelectedContract: FC<Props> = ({ contract }) => {
                 />
                 <CardCage
                     cage={contract.services.cage}
-                    onView={() => false}
+                    contractId={contract.id}
                 />
                 <CardTravel
                     travel={contract.services.travel}
-                    onView={() => false}
+                    contractId={contract.id}
                 />
             </Box>
         </>

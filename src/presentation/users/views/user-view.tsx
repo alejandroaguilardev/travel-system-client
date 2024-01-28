@@ -9,7 +9,11 @@ import { DialogDelete } from '../../../components/delete-item/delete-dialog-butt
 import { useDeleteUser } from '../hooks/use-delete-user';
 
 
-export default function UserView() {
+type Props = {
+    type?: "Cliente" | "Usuario";
+}
+
+export default function UserView({ type = "Usuario" }: Props) {
     const { selected, handleSelected } = useSelectedValue<User>();
     const deleteItem = useBoolean();
     const { handleDelete, isLoading } = useDeleteUser()
@@ -19,7 +23,7 @@ export default function UserView() {
             <CustomBreadcrumbs
                 heading="Gestión de Usuarios"
                 links={[
-                    { name: 'Usuarios', href: paths.dashboard.users.root },
+                    { name: type + "s", href: paths.dashboard.users.root },
                     {
                         name: 'Listado',
                     }
@@ -31,7 +35,7 @@ export default function UserView() {
                         href={paths.dashboard.users.new}
                         variant="contained"
                     >
-                        Nuevo Usuario
+                        Nuevo {type}
                     </Button>
                 }
             />

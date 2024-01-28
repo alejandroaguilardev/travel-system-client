@@ -3,6 +3,7 @@ import { NewContract } from '../../../../modules/contracts/domain/contract';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { TRAVEL_TYPES } from '../../../../modules/contracts/domain/travel/contract-travel';
 import { TypeTraveling } from '../../../../modules/contracts/domain/interfaces/travel';
+import { TYPE_CAGE } from '../../../../modules/contracts/domain/cage/cage-chosen';
 
 const defaultValues: NewContract = {
     id: '',
@@ -71,7 +72,7 @@ const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
         chosen: Yup.object().shape({
             modelCage: Yup.string(),
             dimensionsCage: Yup.string(),
-            typeCage: Yup.string().oneOf(['', 'rígida', 'flexible', 'especial'] as const),
+            typeCage: Yup.string().oneOf(['', ...TYPE_CAGE] as const),
         }),
         recommendation: Yup.string(),
     }),

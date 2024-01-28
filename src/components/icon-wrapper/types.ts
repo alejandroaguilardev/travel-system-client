@@ -5,6 +5,7 @@ export const ICON_TYPE = {
   addImage: 'add-image.svg',
   addressMarker: 'address-marker.svg',
   alertTriangleFill: 'alert-triangle-fill.svg',
+  airport: 'airport.svg',
   arrowCircleDownFill: 'arrow-circle-down-fill.svg',
   arrival: 'arrival.svg',
   arrowIosBackFill: 'arrow-ios-back-fill.svg',

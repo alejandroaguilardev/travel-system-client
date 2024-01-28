@@ -4,7 +4,6 @@ import ClientLayout from '../../../layouts/client/layout';
 import LoadingScreen from '../../../components/loading-screen/loading-screen';
 import { AuthGuard } from '../../../presentation/auth/guard';
 
-
 const ClientPage = lazy(() => import('../../pages/client'));
 const HistoryPage = lazy(() => import('../../pages/client/history'));
 

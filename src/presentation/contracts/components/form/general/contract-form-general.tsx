@@ -8,10 +8,6 @@ import { useContractFormGeneral } from './use-contract-form-general';
 import { TRAVEL_TYPES } from '../../../../../modules/contracts/domain/travel/contract-travel';
 import { CAGES_CHOSEN } from '../../../../../modules/contracts/domain/cage/cage-chosen';
 
-// TODO GUARDAR JAULA
-// TODO PROBAR ENDPOINT DE GUARDAR
-// TODO EDITAR FLUJO CLIENTE Y USUARIO
-
 export const ContractFormGeneral = () => {
     const { client, cage, travel, startDate, handleClient, handleCageChosen } = useContractFormGeneral();
 
