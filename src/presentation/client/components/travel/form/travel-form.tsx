@@ -13,9 +13,10 @@ type Props = {
     travel: TravelDefinition;
     readonly: boolean;
     onCancel: () => void;
+    user?: boolean;
 }
 
-export const TravelForm: FC<Props> = ({ travel, onCancel, readonly, contractId }) => {
+export const TravelForm: FC<Props> = ({ travel, onCancel, user, readonly, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<PartialTravelDefinition>(travelSchema),
         defaultValues: travel,
@@ -25,9 +26,9 @@ export const TravelForm: FC<Props> = ({ travel, onCancel, readonly, contractId }
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-            <TravelFormGeneral readonly={readonly} />
+            <TravelFormGeneral readonly={readonly} user={user} />
 
-            {!readonly &&
+            {(!readonly || user) &&
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                         Cancelar

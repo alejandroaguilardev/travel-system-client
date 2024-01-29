@@ -4,12 +4,12 @@ import { useContractStore } from '../../../../state/contract/contract-store';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { fDateTime } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import Label from '../../../../components/label/label';
-import { useHeader } from './use-header';
+import { useFinish } from '../../../contracts/hooks/use-finish';
 
 
 const Header = () => {
-    const { contract } = useContractStore();
-    const { handleFinishClick } = useHeader();
+    const { contract, onSelected } = useContractStore();
+    const { handleFinishClick } = useFinish({ contract, callback: () => onSelected(null) });
 
     return (
         <>

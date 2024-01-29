@@ -1,4 +1,4 @@
-import { Divider, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import { Divider, MenuItem, Stack, Typography } from '@mui/material';
 import { OrderValue } from '../../../../../modules/shared/domain/criteria/sorting';
 import { capitalize } from '../../../../../modules/shared/domain/helpers/capitalize';
 import { User } from '../../../../../modules/users/domain/user';
@@ -6,10 +6,10 @@ import { AutocompleteServer } from '../../../../../components/autocomplete/selec
 import { RHFTextField, RHFSwitch, ErrorMessage } from '../../../../../components/hook-form';
 import { useContractFormGeneral } from './use-contract-form-general';
 import { TRAVEL_TYPES } from '../../../../../modules/contracts/domain/travel/contract-travel';
-import { CAGES_CHOSEN } from '../../../../../modules/contracts/domain/cage/cage-chosen';
+import { ContractFormCage } from '../cage/contract-form-cage';
 
 export const ContractFormGeneral = () => {
-    const { client, cage, travel, startDate, handleClient, handleCageChosen } = useContractFormGeneral();
+    const { client, travel, startDate, cage, handleClient } = useContractFormGeneral();
 
     return (
         <Stack spacing={1} marginBottom={2}>
@@ -84,26 +84,14 @@ export const ContractFormGeneral = () => {
                     />
                 </Stack>
                 <Divider />
-                <Stack spacing={1} marginBottom={1}>
-                    <Typography>VENTA DE JAULA:</Typography>
-                    <RHFSwitch
-                        name='cage.hasServiceIncluded'
-                        label="Incluye Jaula Pet travel"
-                    />
-                    {cage &&
-                        <TextField
-                            select
-                            label="Selecciona tu jaula"
-                            onChange={(e) => handleCageChosen(e.target.value)}
-                        >
-                            {CAGES_CHOSEN.map((option) => (
-                                <MenuItem key={option.modelCage} value={JSON.stringify(option)}>
-                                    {option.modelCage}  {option.dimensionsCage} {`(${capitalize(option.typeCage)})`}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    }
-                </Stack >
+                <Typography>VENTA DE JAULA:</Typography>
+                <RHFSwitch
+                    name='cage.hasServiceIncluded'
+                    label="Incluye Jaula Pet travel"
+                />
+                {cage &&
+                    <ContractFormCage />
+                }
                 <Divider />
 
                 <Stack spacing={1} marginBottom={1}>

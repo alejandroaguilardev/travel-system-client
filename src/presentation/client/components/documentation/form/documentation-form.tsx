@@ -9,12 +9,13 @@ import { documentationSchema } from "./documentation-validation";
 import { DocumentationFormGeneral } from './documentation-form-general';
 
 type Props = {
+    role?: "user"
     contractId: string
     documentation: DocumentationDefinition;
     onCancel: () => void
 }
 
-export const DocumentationForm: FC<Props> = ({ documentation, onCancel, contractId }) => {
+export const DocumentationForm: FC<Props> = ({ role, documentation, onCancel, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<DocumentationDefinition>(documentationSchema),
         defaultValues: documentation,
@@ -25,7 +26,7 @@ export const DocumentationForm: FC<Props> = ({ documentation, onCancel, contract
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
 
-            <DocumentationFormGeneral documentation={documentation} />
+            <DocumentationFormGeneral documentation={documentation} role={role} />
 
 
             <Box display="flex" gap={1} justifyContent="center" mb={4}>

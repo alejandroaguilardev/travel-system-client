@@ -8,7 +8,7 @@ export default function PermissionIdPage() {
     return (
         <>
             <Helmet>
-                <title> Dashboard Editar Permiso</title>
+                <title> Dashboard  Permiso</title>
             </Helmet>
             <SearchIdNotFoundParams
                 Edit={PermissionEditView}

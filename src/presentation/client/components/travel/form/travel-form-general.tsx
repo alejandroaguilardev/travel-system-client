@@ -7,16 +7,28 @@ import IconWrapper from '../../../../../components/icon-wrapper/icon-wrapper';
 
 type Props = {
     readonly: boolean;
+    user?: boolean;
 }
 
-export const TravelFormGeneral: FC<Props> = ({ readonly }) => {
+const editPermit = (readonly: boolean, user?: boolean): boolean => {
+    if (readonly) {
+        if (user) return false;
+        return readonly;
+    }
+    if (user) return true;
 
+    return false;
+}
+
+export const TravelFormGeneral: FC<Props> = ({ user, readonly }) => {
+    const edit = editPermit(readonly, user)
     const { watch } = useFormContext();
     const typeTraveling: TypeTraveling = watch('typeTraveling');
     const code: TypeTraveling = watch('airlineReservation.code');
 
     return (
         <Stack spacing={1} my={1}>
+            {JSON.stringify(edit)}
             {readonly ?
                 <Alert variant='outlined' sx={{ width: "100%" }} severity={code ? "success" : "warning"}>
                     {code
@@ -36,33 +48,33 @@ export const TravelFormGeneral: FC<Props> = ({ readonly }) => {
                 name="airlineReservation.code"
                 label="Código de reserva (*)"
                 InputProps={{
-                    readOnly: readonly
+                    readOnly: edit
                 }}
-                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
             <RHFTextField
                 name="airlineReservation.flightNumber"
                 label="Número de vuelo (*)"
                 InputProps={{
-                    readOnly: readonly
+                    readOnly: edit
                 }}
-                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
             <RHFTextField
                 name="airlineReservation.departureAirport"
                 label="Aeropuerto de salida (*)"
                 InputProps={{
-                    readOnly: readonly
+                    readOnly: edit
                 }}
-                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
             <RHFTextField
                 name="airlineReservation.destinationAirport"
                 label="Aeropuerto de llegada (*)"
                 InputProps={{
-                    readOnly: readonly
+                    readOnly: edit
                 }}
-                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
             <RHFTextField
                 name="airlineReservation.departureDate"
@@ -70,10 +82,10 @@ export const TravelFormGeneral: FC<Props> = ({ readonly }) => {
                 label="Fecha de salida (*)"
                 InputProps={{
                     startAdornment: <IconWrapper icon="date" />,
-                    readOnly: readonly
+                    readOnly: edit
 
                 }}
-                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
             <RHFTextField
                 name="airlineReservation.arrivalDate"
@@ -81,10 +93,10 @@ export const TravelFormGeneral: FC<Props> = ({ readonly }) => {
                 label="Fecha de llegada (*)"
                 InputProps={{
                     startAdornment: <IconWrapper icon="date" />,
-                    readOnly: readonly,
+                    readOnly: edit,
 
                 }}
-                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
 
             {
@@ -108,25 +120,25 @@ export const TravelFormGeneral: FC<Props> = ({ readonly }) => {
                         name="petPerCharge.receptor"
                         label="Receptor (*)"
                         InputProps={{
-                            readOnly: readonly
+                            readOnly: edit
                         }}
-                        style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                     />
                     <RHFTextField
                         name="petPerCharge.phone"
                         label="Teléfono (*)"
                         InputProps={{
-                            readOnly: readonly
+                            readOnly: edit
                         }}
-                        style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                     />
                     <RHFTextField
                         name="petPerCharge.email"
                         label="Correo Electrónico"
                         InputProps={{
-                            readOnly: readonly
+                            readOnly: edit
                         }}
-                        style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                     />
 
                     <RHFTextField
@@ -136,23 +148,23 @@ export const TravelFormGeneral: FC<Props> = ({ readonly }) => {
                         InputProps={{
                             startAdornment: <IconWrapper icon="date" />
                         }}
-                        style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                     />
                     <RHFTextField
                         name="petPerCharge.pickupLocation"
                         label="Lugar de recojo (*)"
                         InputProps={{
-                            readOnly: readonly
+                            readOnly: edit
                         }}
-                        style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                     />
                     <RHFTextField
                         name="petPerCharge.specialRequests"
                         label="Solitudes opcionales"
                         InputProps={{
-                            readOnly: readonly
+                            readOnly: edit
                         }}
-                        style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                     />
                 </>
             }

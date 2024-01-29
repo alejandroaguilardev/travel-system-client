@@ -39,6 +39,7 @@ export default function ContractView() {
             {!isLoading &&
                 <ContractTable
                     options={{
+                        sortingQueryFilters: [{ id: "startDate", desc: true }],
                         renderRowActionMenuItems: (row: Contract) => ContractRenderRowActionsMenuItems({ row, deleteItem: deleteItem.onTrue, onSelected: handleSelected })
                     }}
                 />

@@ -6,9 +6,10 @@ import { useDocumentFormGeneral } from "./use-document-form-general";
 
 type Props = {
     documentation: DocumentationDefinition;
+    role?: | "user"
 }
 
-export const DocumentationFormGeneral: FC<Props> = ({ documentation }) => {
+export const DocumentationFormGeneral: FC<Props> = ({ documentation, role }) => {
     const { switchClient, switchUser } = useDocumentFormGeneral(documentation);
 
     return (
@@ -21,7 +22,7 @@ export const DocumentationFormGeneral: FC<Props> = ({ documentation }) => {
                             key={value.name}
                             name={`${value.name}.isApplied`}
                             label={value.label}
-                            style={{ pointerEvents: 'none', opacity: 0.5 }} />
+                            style={!role ? { pointerEvents: 'none', opacity: 0.5 } : {}} />
                     ))}
                 </>
                 :
@@ -34,7 +35,9 @@ export const DocumentationFormGeneral: FC<Props> = ({ documentation }) => {
                             key={value.name}
                             name={`${value.name}.isApplied`}
                             label={value.label}
+                            style={role === "user" ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                         />
+
                     ))}
                 </>
             }

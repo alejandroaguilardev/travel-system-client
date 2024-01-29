@@ -41,7 +41,6 @@ export function useNavData() {
         subheader: 'Gestión Pet travel',
         items: [
           { title: 'Contratos', path: paths.dashboard.contracts.root, icon: ICONS.dashboard },
-          { title: 'Clientes', path: paths.dashboard.clients.root, icon: ICONS.ecommerce },
         ],
       },
 

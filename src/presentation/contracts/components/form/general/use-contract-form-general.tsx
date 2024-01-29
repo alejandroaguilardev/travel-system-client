@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { User } from '../../../../../modules/users/domain/user';
 import { userService } from '../../../../../modules/users/infrastructure/user.service';
-import { CageChosen } from '../../../../../modules/contracts/domain/cage/cage-chosen';
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 
 export const useContractFormGeneral = () => {
@@ -10,10 +9,10 @@ export const useContractFormGeneral = () => {
     const [client, setClient] = useState<User | null>(null);
     const clientDefault: string = getValues("client");
 
-    const cage = watch("cage.hasServiceIncluded");
     const travel = watch("travel.hasServiceIncluded");
     const typeTraveling = watch("travel.typeTraveling");
     const startDate = fDate(watch("startDate"), 'yyyy-MM-dd');
+    const cage = watch("cage.hasServiceIncluded");
 
     useEffect(() => {
         if (clientDefault) {
@@ -37,15 +36,7 @@ export const useContractFormGeneral = () => {
         setValue("client", value?.id ?? "")
     }
 
-    const handleCageChosen = (value: string) => {
-        const cage = JSON.parse(value) as CageChosen;
-        setValue("cage.chosen", {
-            model: cage.modelCage,
-            dimensions: cage.dimensionsCage,
-            type: cage.typeCage,
-        });
 
-    }
     return {
         client,
         cage,
@@ -53,6 +44,5 @@ export const useContractFormGeneral = () => {
         typeTraveling,
         startDate,
         handleClient,
-        handleCageChosen,
     }
 }

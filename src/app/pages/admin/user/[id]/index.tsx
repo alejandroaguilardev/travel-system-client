@@ -8,7 +8,7 @@ export default function UserIdPage() {
     return (
         <>
             <Helmet>
-                <title> Dashboard Editar Rol</title>
+                <title> Dashboard  Rol</title>
             </Helmet>
             <SearchIdNotFoundParams
                 Edit={UserEditView}
