@@ -4,9 +4,9 @@ import { Contract, NewContract } from '../domain/contract';
 import { ContractService } from '../domain/contract.service';
 import { endpoints } from '../../shared/domain/endpoint';
 import { ResponseSuccess } from '../../shared/domain/response/response-success';
-import { DocumentationDefinition } from '../domain/interfaces/documentation';
-import { CageDefinition } from '../domain/interfaces/cage';
-import { PartialTravelDefinition } from '../domain/interfaces/travel';
+import { Documentation } from '../domain/contract-services/documentation/documentation';
+import { Cage } from '../domain/contract-services/cage/cage';
+import { PartialTravel } from '../domain/contract-services/travel/contract-travel';
 
 
 export const contractService: ContractService = {
@@ -19,16 +19,16 @@ export const contractService: ContractService = {
         const { data } = await axiosInstance.patch<ResponseSuccess>(`${endpoints.contracts.root}/${id}`, body);
         return data;
     },
-    updateDocumentationClient: async (contractId: string, body: DocumentationDefinition): Promise<Contract> => {
-        const { data } = await axiosInstance.patch<Contract>(`${endpoints.contracts.root}/${contractId}/documentation/client`, body);
+    updateDocumentation: async (contractId: string, body: Documentation): Promise<Contract> => {
+        const { data } = await axiosInstance.patch<Contract>(`${endpoints.contracts.root}/${contractId}/documentation`, body);
         return data;
     },
-    updateCage: async (contractId: string, body: CageDefinition): Promise<Contract> => {
-        const { data } = await axiosInstance.patch<Contract>(`${endpoints.contracts.root}/${contractId}/cage/client`, body);
+    updateCage: async (contractId: string, body: Cage): Promise<Contract> => {
+        const { data } = await axiosInstance.patch<Contract>(`${endpoints.contracts.root}/${contractId}/cage`, body);
         return data;
     },
-    updateTravel: async (contractId: string, body: PartialTravelDefinition): Promise<Contract> => {
-        const { data } = await axiosInstance.patch<Contract>(`${endpoints.contracts.root}/${contractId}/travel/client`, body);
+    updateTravel: async (contractId: string, body: PartialTravel): Promise<Contract> => {
+        const { data } = await axiosInstance.patch<Contract>(`${endpoints.contracts.root}/${contractId}/travel`, body);
         return data;
     },
     finish: async (contractId: string): Promise<ResponseSuccess> => {

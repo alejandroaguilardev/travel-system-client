@@ -1,4 +1,4 @@
-import { StatusDefinition } from '../contract-status';
+import { ContractStatus } from '../../contract-status';
 
 export type TypeTraveling = 'accompanied' | 'charge' | 'none';
 
@@ -21,15 +21,16 @@ export interface TravelPetPerCharge {
   specialRequests: string;
 };
 
-export interface TravelDefinition {
-  status: StatusDefinition;
+export interface Travel {
+  status: ContractStatus;
   hasServiceIncluded: boolean;
+  hasServiceAccompanied: boolean;
   typeTraveling: TypeTraveling;
   airlineReservation: TravelAirlineReservation,
   petPerCharge: TravelPetPerCharge;
 }
 
-export interface PartialTravelDefinition extends Omit<Partial<TravelDefinition>, "airlineReservation" | "petPerCharge"> {
+export interface PartialTravel extends Omit<Partial<Travel>, "airlineReservation" | "petPerCharge"> {
   airlineReservation: Partial<TravelAirlineReservation>;
   petPerCharge: Partial<TravelPetPerCharge>;
 };

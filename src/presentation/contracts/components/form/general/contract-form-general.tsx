@@ -1,15 +1,17 @@
-import { Divider, MenuItem, Stack, Typography } from '@mui/material';
+import { Divider, Stack, Typography } from '@mui/material';
 import { OrderValue } from '../../../../../modules/shared/domain/criteria/sorting';
 import { capitalize } from '../../../../../modules/shared/domain/helpers/capitalize';
 import { User } from '../../../../../modules/users/domain/user';
 import { AutocompleteServer } from '../../../../../components/autocomplete/selector/autocomplete-server';
 import { RHFTextField, RHFSwitch, ErrorMessage } from '../../../../../components/hook-form';
 import { useContractFormGeneral } from './use-contract-form-general';
-import { TRAVEL_TYPES } from '../../../../../modules/contracts/domain/travel/contract-travel';
 import { ContractFormCage } from '../cage/contract-form-cage';
+import { CertificateSwitch } from './certificate-switch';
+import { CageSelected } from '../../../../client/components/cage/form/cage-selected';
+
 
 export const ContractFormGeneral = () => {
-    const { client, travel, startDate, cage, handleClient } = useContractFormGeneral();
+    const { client, startDate, travel, cage, handleClient } = useContractFormGeneral();
 
     return (
         <Stack spacing={1} marginBottom={2}>
@@ -52,36 +54,44 @@ export const ContractFormGeneral = () => {
             <Divider />
             <Stack spacing={1} marginBottom={1}>
                 <Typography>DOCUMENTACIÓN PARA EL VIAJE:</Typography>
+
                 <Stack direction={{ xs: "column", md: "row" }} flexWrap="wrap" spacing={1} marginBottom={1}>
 
-                    <RHFSwitch
-                        name='documentation.vaccinationCertificate.hasServiceIncluded'
-                        label="Certificado de vacuna"
+                    <CertificateSwitch
+                        label='Certificado de vacuna'
+                        name="documentation.vaccinationCertificate"
                     />
-                    <RHFSwitch
-                        name='documentation.healthCertificate.hasServiceIncluded'
-                        label="Certificado de salud"
+
+                    <CertificateSwitch
+                        label='Certificado de salud'
+                        name="documentation.healthCertificate"
                     />
-                    <RHFSwitch
-                        name='documentation.chipCertificate.hasServiceIncluded'
-                        label="Certificado de chip"
+
+                    <CertificateSwitch
+                        label='Certificado de chip'
+                        name="documentation.chipCertificate"
                     />
-                    <RHFSwitch
-                        name='documentation.senasaDocuments.hasServiceIncluded'
-                        label="Documentos de SENASA"
+
+                    <CertificateSwitch
+                        label='Documentos de SENASA'
+                        name="documentation.senasaDocuments"
                     />
-                    <RHFSwitch
-                        name='documentation.rabiesSeroLogicalTest.hasServiceIncluded'
-                        label="Test serológico de rabia"
+
+                    <CertificateSwitch
+                        label='Test serológico de rabia'
+                        name="documentation.rabiesSeroLogicalTest"
                     />
-                    <RHFSwitch
-                        name='documentation.importLicense.hasServiceIncluded'
-                        label="Permiso de importación"
+
+                    <CertificateSwitch
+                        label='Permiso de importación'
+                        name="documentation.importLicense"
                     />
-                    <RHFSwitch
-                        name='documentation.emotionalSupportCertificate.hasServiceIncluded'
-                        label="Certificado de soporte emocional"
+
+                    <CertificateSwitch
+                        label='Certificado de soporte emocional'
+                        name="documentation.emotionalSupportCertificate"
                     />
+
                 </Stack>
                 <Divider />
                 <Typography>VENTA DE JAULA:</Typography>
@@ -90,29 +100,24 @@ export const ContractFormGeneral = () => {
                     label="Incluye Jaula Pet travel"
                 />
                 {cage &&
-                    <ContractFormCage />
+                    <>
+                        <ContractFormCage />
+                        <CageSelected readonly keyField='cage.chosen' />
+                    </>
                 }
                 <Divider />
 
                 <Stack spacing={1} marginBottom={1}>
-                    <Typography>SERVICIO DE VIAJE O ACOMPAÑADO DE UNA PERSONA O DE UN VIAJE POR CARGO :</Typography>
-
+                    <Typography>SERVICIO DE VIAJE  UNA MASCOTA:</Typography>
                     <RHFSwitch
                         name='travel.hasServiceIncluded'
-                        label="Incluye el servicio"
+                        label="Incluye el servicio de viaje de una mascota por cargo"
                     />
-                    {travel &&
-                        <RHFTextField
-                            name='travel.typeTraveling'
-                            select
-                            label="Selecciona tipo de viaje"
-                        >
-                            {TRAVEL_TYPES.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </RHFTextField>
+                    {!travel &&
+                        <RHFSwitch
+                            name='travel.hasServiceAccompanied'
+                            label="Servicio de acompañamiento al aeropuerto"
+                        />
                     }
                 </Stack>
                 <Divider />

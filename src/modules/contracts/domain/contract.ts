@@ -1,19 +1,19 @@
-import { ServicesDefinition } from './interfaces/services';
-import { StatusDefinition } from './contract-status';
+import { ContractServices } from './contract-services/services';
+import { ContractStatus } from './contract-status';
 import { User } from '../../users/domain/user';
-import { DocumentationDefinition } from './interfaces/documentation';
-import { CageDefinition } from './interfaces/cage';
-import { TypeTraveling } from './interfaces/travel';
+import { Documentation } from './contract-services/documentation/documentation';
+import { Cage } from './contract-services/cage/cage';
 import { Pet } from '../../pets/domain/pet';
+import { TypeTraveling } from './contract-services/travel/contract-travel';
 
 export interface Contract {
     id: string;
     number: string;
     client: User;
-    status: StatusDefinition;
+    status: ContractStatus;
     startDate: Date;
     endDate: Date | null;
-    services: ServicesDefinition;
+    services: ContractServices;
     guideNumber: string;
     pets: Pet[];
 }
@@ -22,10 +22,11 @@ export interface NewContract extends Omit<Contract, "id" | "guideNumber" | "serv
     id?: string;
     client: string;
     pets?: string[];
-    cage?: CageDefinition;
-    documentation: DocumentationDefinition
+    cage?: Cage;
+    documentation: Documentation
     travel: {
         hasServiceIncluded: boolean,
+        hasServiceAccompanied: boolean;
         typeTraveling: TypeTraveling;
     }
 }

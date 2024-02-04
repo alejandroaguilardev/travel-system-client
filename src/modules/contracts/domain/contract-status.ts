@@ -1,6 +1,6 @@
-export type StatusDefinition = 'none' | 'pending' | 'in-process' | 'completed' | 'canceled' | 'suspended';
+export type ContractStatus = 'none' | 'pending' | 'in-process' | 'completed' | 'canceled' | 'suspended';
 
-export const CONTRACT_STATUS: { value: StatusDefinition, label: string }[] = [
+export const CONTRACT_STATUS: { value: ContractStatus, label: string }[] = [
     {
         value: "none",
         label: " NINGUNO"

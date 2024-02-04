@@ -1,7 +1,7 @@
-import { Card, Stack, Avatar, Divider, Typography, ListItemText } from '@mui/material';
+import { Card, Stack, Avatar, Divider, Typography, ListItemText, Box, Alert, Button } from '@mui/material';
 import Label from '../../../../components/label/label';
 import { statusColor } from '../../../contracts/components/table/status-color';
-import { DocumentationDefinition } from '../../../../modules/contracts/domain/interfaces/documentation';
+import { Documentation } from '../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import IconWrapper from '../../../../components/icon-wrapper/icon-wrapper';
 import { useBoolean } from '../../../../hooks/use-boolean';
@@ -9,7 +9,7 @@ import { DialogContract } from '../dialog/dialog-contract';
 import { DocumentationForm } from './form/documentation-form';
 
 type Props = {
-    documentation: DocumentationDefinition;
+    documentation: Documentation;
     contractId: string;
 };
 
@@ -53,70 +53,29 @@ export default function CardDocumentation({ documentation, contractId }: Props) 
                             {CONTRACT_STATUS.find(_ => _.value === documentation.status)?.label}
                         </Label>
                     </Stack>
+
+                    <ListItemText
+                        sx={{ my: 1, }}
+                        secondary={documentation.status === "completed"
+                            ? "TODOS LOS DOCUMENTOS RECIBIDOS. LISTOS PARA EL SIGUIENTE PASO. ¡GRACIAS!."
+                            : "FALTAN DOCUMENTOS NECESARIOS. POR FAVOR, PROPORCIONE LA INFORMACIÓN."}
+                        secondaryTypographyProps={{
+                            component: 'span',
+                            typography: 'caption',
+                            color: 'text.disabled',
+                        }}
+                    />
+                    <Box display="flex" justifyContent="center" my={2}>
+                        {
+                            documentation.status === "completed" ?
+                                <Alert variant='outlined' >REQUISITOS COMPLETADOS</Alert>
+                                :
+                                <Button variant='outlined' color="error" fullWidth >Consultar Requisitos</Button>
+                        }
+                    </Box>
                 </Stack>
 
-                <Divider sx={{ borderStyle: 'dashed' }} />
 
-                {[
-                    {
-                        label: <Label color={documentation.vaccinationCertificate.isApplied ? "success" : "error"} width="100%">
-                            Certificado de vacuna
-                        </Label>,
-                        icon: <IconWrapper width={16} icon="vaccination" sx={{ flexShrink: 0 }} />,
-                    },
-                    {
-                        label: <Label color={documentation.healthCertificate.isApplied ? "success" : "error"} sx={{ width: "100%" }}>
-                            Certificado de salud
-                        </Label>,
-                        icon: <IconWrapper width={16} icon="health" sx={{ flexShrink: 0 }} />,
-                    },
-                    {
-                        label: <Label color={documentation.chipCertificate.isApplied ? "success" : "error"} width="100%">
-                            Certificado de chip
-                        </Label>,
-                        icon: <IconWrapper width={16} icon="chip" sx={{ flexShrink: 0 }} />,
-                    },
-                    {
-                        label: <Label color={documentation.senasaDocuments.isApplied ? "success" : "error"} width="100%">
-                            Documentos de SENASA
-                        </Label>,
-                        icon: <IconWrapper width={16} icon="docs" sx={{ flexShrink: 0 }} />,
-                    },
-                    {
-                        label: <Label color={documentation.rabiesSeroLogicalTest.isApplied ? "success" : "error"} width="100%">
-                            Test serológico de rabia
-                        </Label>,
-                        icon: <IconWrapper width={16} icon="testCase" sx={{ flexShrink: 0 }} />,
-                    },
-                    {
-                        label: <Label color={documentation.importLicense.isApplied ? "success" : "error"} width="100%">
-                            Permiso de importación
-                        </Label>,
-                        icon: <IconWrapper width={16} icon="homeImport" sx={{ flexShrink: 0 }} />,
-                    },
-                    {
-                        label: <Label color={documentation.emotionalSupportCertificate.isApplied ? "success" : "error"} width="100%">
-                            Certificado de soporte emocional
-                        </Label>,
-                        icon: <IconWrapper width={16} icon="emotional" sx={{ flexShrink: 0 }} />,
-                    },
-                ].map((item, index) => (
-                    <Stack
-                        mb={1}
-                        px={4}
-                        key={index}
-                        spacing={0.5}
-                        flexShrink={0}
-                        direction="row"
-                        alignItems="center"
-                        sx={{ color: 'text.disabled', minWidth: 0 }}
-                    >
-                        {item.icon}
-                        <Typography variant="caption" noWrap width="100%">
-                            {item.label}
-                        </Typography>
-                    </Stack>
-                ))}
             </Card>
             {
                 dialog.value &&

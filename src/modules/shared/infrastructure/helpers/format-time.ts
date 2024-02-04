@@ -17,6 +17,11 @@ export function fTimestamp(date: InputValue) {
     return date ? getTime(new Date(date)) : '';
 }
 
+export function fDateTimeLong(date: InputValue, newFormat?: string): string {
+    const fm = newFormat || "EEEE, d MMMM y 'at' h:mm a"
+    return date ? format(new Date(date), fm, { locale: es }) : '';
+}
+
 export function fToNow(date: InputValue) {
     return date
         ? formatDistanceToNow(new Date(date), {

@@ -1,10 +1,8 @@
 import { FC } from "react";
-import { Alert, MenuItem, Stack } from "@mui/material";
-import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
-import { RHFSwitch } from "src/components/hook-form";
-import { TYPE_CAGE } from '../../../../../modules/contracts/domain/cage/cage-chosen';
+import { Alert, Stack } from "@mui/material";
 import { useFormContext } from 'react-hook-form';
 import { ContractFormCage } from '../../../../contracts/components/form/cage/contract-form-cage';
+import { CageSelected } from "./cage-selected";
 
 type Props = {
     readonly: boolean;
@@ -23,50 +21,7 @@ export const CageFormGeneral: FC<Props> = ({ readonly, user }) => {
                 : <Alert variant='outlined' severity="info" sx={{ width: "100%" }}>Su contrato no incluye la responsabilidad de Pet Travel sobre la jaula. {recommendation && `De igual manera te recomendamos la jaula  ${recommendation}`}</Alert>
             }
             {user && readonly && <ContractFormCage keyValue="chosen" />}
-            <>  <RHFTextField
-                name="chosen.typeCage"
-                select
-                label="Tpo de jaula"
-                InputProps={{
-                    readOnly: readonly
-                }}
-                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-
-            >
-                {TYPE_CAGE.map((option) => (
-                    <MenuItem key={option} value={option}>
-                        {option.toUpperCase()}
-                    </MenuItem>
-                ))}
-            </RHFTextField>
-                <RHFTextField
-                    name="chosen.modelCage"
-                    label="Modelo de jaula"
-                    InputProps={{
-                        readOnly: readonly
-                    }}
-                    style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-
-                />
-                <RHFTextField
-                    name="chosen.dimensionsCage"
-                    label="Dimensiones"
-                    InputProps={{
-                        readOnly: readonly
-                    }}
-                    style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-
-                />
-
-            </>
-
-            {
-                (!readonly || (user && readonly)) &&
-                <RHFSwitch
-                    name="swornDeclaration"
-                    label="Acepto ser responsable de esta declaración"
-                />
-            }
+            <CageSelected readonly={readonly} keyField="chosen" />
         </Stack >
     );
 }

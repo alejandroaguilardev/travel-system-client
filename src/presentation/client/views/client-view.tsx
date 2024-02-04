@@ -8,6 +8,7 @@ import { ListContract } from '../components/contract/list-contract';
 import RouterLink from '../../../app/routes/components/router-link';
 import { paths } from '../../../app/routes/paths';
 import IconWrapper from '../../../components/icon-wrapper/icon-wrapper';
+import LoadingScreen from '../../../components/loading-screen/loading-screen';
 
 export default function ClientView() {
     const { contract: contracts, error, isLoading } = useQueryContract();
@@ -18,9 +19,9 @@ export default function ClientView() {
         if (!isLoading) {
             onSelected(contracts.length > 0 ? contracts[0] : null);
         }
-    }, [contracts, error,])
+    }, [contracts, error])
 
-    if (isLoading) return <></>
+    if (isLoading) return <LoadingScreen />
 
     return (
         <Container maxWidth='xl'>

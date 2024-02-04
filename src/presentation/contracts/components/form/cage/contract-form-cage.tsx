@@ -1,8 +1,8 @@
+import { FC } from 'react';
 import { Stack, TextField, MenuItem } from '@mui/material';
-import { CAGES_CHOSEN } from '../../../../../modules/contracts/domain/cage/cage-chosen';
+import { CAGES_CHOSEN } from '../../../../../modules/contracts/domain/contract-services/cage/cage-chosen';
 import { capitalize } from '../../../../../modules/shared/domain/helpers';
 import { useContractFormCage } from './use-contract-form-cage';
-import { FC } from 'react';
 
 type Props = {
     keyValue?: string;

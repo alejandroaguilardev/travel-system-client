@@ -23,13 +23,31 @@ export const useContractFormGeneral = () => {
     }, [clientDefault])
 
     useEffect(() => {
-        if (travel && typeTraveling === "none") {
-            setValue("travel.typeTraveling", "accompanied")
-        }
-        if (!travel) {
-            setValue("travel.typeTraveling", "none")
+        if (travel && typeTraveling === "accompanied") {
+            setValue("travel.typeTraveling", "charge");
+            return;
         }
     }, [travel, typeTraveling])
+
+    useEffect(() => {
+        if (travel) {
+            setValue("travel.hasServiceAccompanied", false)
+        } else {
+            setValue("travel.typeTraveling", "accompanied")
+        }
+    }, [travel])
+
+    useEffect(() => {
+        if (!cage) {
+            setValue("cage.chosen", {
+                modelCage: "",
+                dimensionsCage: "",
+                typeCage: "",
+                user: "",
+            });
+        }
+    }, [cage])
+
 
     const handleClient = (value: User | null) => {
         setClient(value as User | null);
@@ -41,7 +59,6 @@ export const useContractFormGeneral = () => {
         client,
         cage,
         travel,
-        typeTraveling,
         startDate,
         handleClient,
     }

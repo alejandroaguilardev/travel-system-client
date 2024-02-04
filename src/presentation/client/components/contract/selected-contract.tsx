@@ -1,16 +1,22 @@
 import { FC } from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Contract } from '../../../../modules/contracts/domain/contract';
 import CardDocumentation from "../documentation/card-documentation";
 import Header from "../header/header";
 import CardCage from "../cage/card-cage";
 import CardTravel from "../travel/card-travel";
+import { useFinish } from '../../../contracts/hooks/use-finish';
+import { useContractStore } from '../../../../state/contract/contract-store';
+import { IconWrapper } from "../../../../components/icon-wrapper";
 
 type Props = {
     contract: Contract
 }
 
 export const SelectedContract: FC<Props> = ({ contract }) => {
+    const { onSelected } = useContractStore();
+    const { handleFinishClick } = useFinish({ contract, callback: () => onSelected(null) });
+
     return (
         <>
             <Header />
@@ -36,6 +42,19 @@ export const SelectedContract: FC<Props> = ({ contract }) => {
                     contractId={contract.id}
                 />
             </Box>
+            {contract?.status === "completed" &&
+                <Button
+                    onClick={handleFinishClick}
+                    variant='contained'
+                    color="primary"
+                    fullWidth
+                    sx={{ my: 2 }}
+                    startIcon={<IconWrapper icon="checkCircleFill" />}
+                >
+                    Dar por finalizado el Servicio
+                </Button>
+            }
+
         </>
     )
 }

@@ -1,16 +1,16 @@
 import { FC } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { PartialTravelDefinition, TravelDefinition } from '../../../../../modules/contracts/domain/interfaces/travel';
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { Box, Button } from "@mui/material";
 import { useFormTravel } from "./use-form-travel";
 import { travelSchema } from "./travel-validation";
-import { TravelFormGeneral } from './travel-form-general';
+import { TravelFormGeneral } from './general/travel-form-general';
+import { PartialTravel, Travel } from '../../../../../modules/contracts/domain/contract-services/travel/contract-travel';
 
 type Props = {
     contractId: string
-    travel: TravelDefinition;
+    travel: Travel;
     readonly: boolean;
     onCancel: () => void;
     user?: boolean;
@@ -18,7 +18,7 @@ type Props = {
 
 export const TravelForm: FC<Props> = ({ travel, onCancel, user, readonly, contractId }) => {
     const methods = useForm({
-        resolver: yupResolver<PartialTravelDefinition>(travelSchema),
+        resolver: yupResolver<PartialTravel>(travelSchema),
         defaultValues: travel,
     });
 

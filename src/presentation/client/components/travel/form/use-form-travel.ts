@@ -5,7 +5,7 @@ import { contractService } from '../../../../../modules/contracts/infrastructure
 import uuid from "../../../../../modules/shared/infrastructure/adapter/uuid";
 import { useContractStore } from '../../../../../state/contract/contract-store';
 import { travelUpdater } from '../../../../../modules/contracts/application/update/travel-updater';
-import { PartialTravelDefinition } from '../../../../../modules/contracts/domain/interfaces/travel';
+import { PartialTravel } from '../../../../../modules/contracts/domain/contract-services/travel/contract-travel';
 
 type Props = {
     contractId: string;
@@ -16,7 +16,7 @@ export const useFormTravel = ({ contractId, callback }: Props) => {
     const { showNotification } = useMessage();
     const { onSelected } = useContractStore();
 
-    const onSubmit: SubmitHandler<PartialTravelDefinition> = async (data) => {
+    const onSubmit: SubmitHandler<PartialTravel> = async (data) => {
         try {
             const response = await travelUpdater(contractService, uuid)(contractId, data)
             showNotification("Actualizado correctamente ");

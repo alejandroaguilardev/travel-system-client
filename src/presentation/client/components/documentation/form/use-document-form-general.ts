@@ -1,10 +1,11 @@
 import { DocumentationSwitches, documentationSwitches, documentationSwitchesName } from '../../../../contracts/components/form/general/documentation-values';
-import { DocumentationDefinition } from '../../../../../modules/contracts/domain/interfaces/documentation';
+import { Documentation } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { useEffect, useState } from 'react';
 
-export const useDocumentFormGeneral = (documentation: DocumentationDefinition) => {
+export const useDocumentFormGeneral = (documentation: Documentation) => {
     const [switchUser, setSwitchUser] = useState<DocumentationSwitches[]>([]);
     const [switchClient, setSwitchClient] = useState<DocumentationSwitches[]>([]);
+    const [isLoading, setLoading] = useState(true);
 
 
     useEffect(() => {
@@ -26,10 +27,12 @@ export const useDocumentFormGeneral = (documentation: DocumentationDefinition) =
         })
         setSwitchUser(user);
         setSwitchClient(client);
+        setLoading(false);
     }, [documentation])
 
     return {
         switchUser,
-        switchClient
+        switchClient,
+        isLoading
     }
 }

@@ -1,17 +1,16 @@
 import { FC } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CageDefinition } from '../../../../../modules/contracts/domain/interfaces/cage';
+import { Cage } from '../../../../../modules/contracts/domain/contract-services/cage/cage';
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { Box, Button } from "@mui/material";
 import { useFormCage } from "./use-form-cage";
 import { cageSchema } from "./cage-validation";
 import { CageFormGeneral } from './cage-form-general';
-import { ContractFormCage } from '../../../../contracts/components/form/cage/contract-form-cage';
 
 type Props = {
     contractId: string
-    cage: CageDefinition;
+    cage: Cage;
     readonly: boolean;
     onCancel: () => void;
     user?: boolean
@@ -19,7 +18,7 @@ type Props = {
 
 export const CageForm: FC<Props> = ({ cage, onCancel, readonly, contractId, user = false }) => {
     const methods = useForm({
-        resolver: yupResolver<CageDefinition>(cageSchema),
+        resolver: yupResolver<Cage>(cageSchema),
         defaultValues: cage,
     });
 

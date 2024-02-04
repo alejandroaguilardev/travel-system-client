@@ -1,14 +1,14 @@
 import { ContractService } from '../../domain/contract.service';
 import { UuidService } from '../../../shared/domain/ports/uuid';
 import { ErrorInvalidadArgument } from '../../../shared/domain/errors/error-invalid-argument';
-import { DocumentationDefinition } from '../../domain/interfaces/documentation';
+import { Documentation } from '../../domain/contract-services/documentation/documentation';
 import { Contract } from '../../domain/contract';
 
-export const documentationClientUpdater = (contractService: ContractService, uuid: UuidService) => async (contractId: string, documentation: DocumentationDefinition): Promise<Contract> => {
+export const documentationUpdater = (contractService: ContractService, uuid: UuidService) => async (contractId: string, documentation: Documentation): Promise<Contract> => {
     if (!uuid.validate(contractId)) {
         throw new ErrorInvalidadArgument("el identificador no es válido");
     }
 
-    const response = await contractService.updateDocumentationClient(contractId, documentation);
+    const response = await contractService.updateDocumentation(contractId, documentation);
     return response;
 }

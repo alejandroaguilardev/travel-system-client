@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { DocumentationDefinition } from '../../../../../modules/contracts/domain/interfaces/documentation';
+import { Documentation } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { Box, Button } from "@mui/material";
 import { useFormDocumentation } from "./use-form-documentation";
@@ -11,13 +11,13 @@ import { DocumentationFormGeneral } from './documentation-form-general';
 type Props = {
     role?: "user"
     contractId: string
-    documentation: DocumentationDefinition;
+    documentation: Documentation;
     onCancel: () => void
 }
 
 export const DocumentationForm: FC<Props> = ({ role, documentation, onCancel, contractId }) => {
     const methods = useForm({
-        resolver: yupResolver<DocumentationDefinition>(documentationSchema),
+        resolver: yupResolver<Documentation>(documentationSchema),
         defaultValues: documentation,
     });
 

@@ -2,17 +2,21 @@ import { Button, Container } from '@mui/material';
 import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { paths } from '../../../app/routes/paths';
 import { RouterLink } from '../../../app/routes/components';
-import { useSelectedValue } from '../../../hooks';
-import { Contract } from '../../../modules/contracts/domain/contract';
 import { ContractTable } from '../../contracts/components/table/contract-table';
 import IconWrapper from '../../../components/icon-wrapper/icon-wrapper';
 import { useAuthContext } from '../../auth/hooks/use-auth-context';
+import { useContractStore } from '../../../state/contract/contract-store';
+import { useEffect } from 'react';
 
 
 
 export default function HistoryView() {
     const { user } = useAuthContext();
-    const { selected, handleSelected } = useSelectedValue<Contract>();
+    const { onSelected } = useContractStore();
+
+    useEffect(() => {
+        onSelected(null);
+    }, [onSelected])
 
     return (
         <Container maxWidth='xl'>
