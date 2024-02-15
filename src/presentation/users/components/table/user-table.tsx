@@ -20,13 +20,13 @@ export const UserTable: FC<Props> = ({ onSelected, deleteItem, }) => {
             {
                 header: 'Nombre',
                 accessorKey: 'name',
-                accessorFn: (row) => row.name.toUpperCase(),
+                accessorFn: (row) => row.profile.name.toUpperCase(),
                 minSize: 200
             },
             {
                 header: 'Apellido',
                 accessorKey: 'lastName',
-                accessorFn: (row) => row.lastName.toUpperCase(),
+                accessorFn: (row) => row.profile.lastName.toUpperCase(),
                 minSize: 200
             },
             {

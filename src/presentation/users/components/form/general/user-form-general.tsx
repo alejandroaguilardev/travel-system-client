@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { MenuItem, Stack } from '@mui/material';
 import { Role } from '../../../../../modules/roles/domain/role';
 import { OrderValue } from '../../../../../modules/shared/domain/criteria/sorting';
 import { capitalize } from '../../../../../modules/shared/domain/helpers/capitalize';
@@ -13,14 +13,14 @@ export const UserFormGeneral = () => {
         <Stack spacing={1} marginBottom={2}>
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
                 <RHFTextField
-                    name='name'
+                    name='profile.name'
                     fullWidth
                     label="Primer Nombre (*)"
                     variant="outlined"
                     inputAdornment
                 />
                 <RHFTextField
-                    name='secondName'
+                    name='profile.secondName'
                     fullWidth
                     label="Segundo Nombre"
                     variant="outlined"
@@ -29,14 +29,14 @@ export const UserFormGeneral = () => {
             </Stack>
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
                 <RHFTextField
-                    name='lastName'
+                    name='profile.lastName'
                     fullWidth
                     label="Primer Apellido (*)"
                     variant="outlined"
                     inputAdornment
                 />
                 <RHFTextField
-                    name='secondLastName'
+                    name='profile.secondLastName'
                     fullWidth
                     label="Segundo Apellido"
                     variant="outlined"
@@ -51,6 +51,25 @@ export const UserFormGeneral = () => {
                     variant="outlined"
                     inputAdornment
                 />
+            </Stack>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+                <RHFTextField
+                    name='profile.phone'
+                    fullWidth
+                    label="Teléfono (*)"
+                    variant="outlined"
+                    inputAdornment
+                />
+                <RHFTextField
+                    name='profile.gender'
+                    fullWidth
+                    label="Sexo (*)"
+                    variant="outlined"
+                    inputAdornment
+                >
+                    <MenuItem value="male">Hombre</MenuItem>
+                    <MenuItem value="female">Mujer</MenuItem>
+                </RHFTextField>
             </Stack>
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
 

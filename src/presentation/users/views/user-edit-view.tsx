@@ -23,11 +23,11 @@ export default function UserEditView({ id }: Props) {
             <Container maxWidth='xl'>
                 <CustomBreadcrumbs
                     sx={{ display: "inline" }}
-                    heading={`Editar: ${capitalize(user?.name)} `}
+                    heading={`Editar: ${capitalize(user?.profile?.name)} `}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Usuarios', href: paths.dashboard.users.root },
-                        { name: `${capitalize(user?.name)}` },
+                        { name: `${capitalize(user?.profile?.name)}` },
                     ]}
                 />
                 <UserForm

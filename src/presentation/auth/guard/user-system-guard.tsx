@@ -10,7 +10,7 @@ export default function UserSystemGuard({ children }: Props) {
 
 
 
-    if (user?.roles.length === 0) return <NotFoundPage />
+    if (user?.roles.length === 0 && !user?.auth?.admin) return <NotFoundPage />
 
     return <>{children}</>;
 }
