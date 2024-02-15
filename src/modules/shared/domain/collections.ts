@@ -3,6 +3,7 @@ export const COLLECTIONS = {
     permissions: 'permissions',
     users: 'users',
     contracts: 'contracts',
+    cages: 'cages',
 } as const;
 
 export type Collections = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];

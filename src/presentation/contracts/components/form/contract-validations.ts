@@ -2,9 +2,9 @@ import * as Yup from 'yup';
 import { NewContract } from '../../../../modules/contracts/domain/contract';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { TRAVEL_TYPES, TypeTraveling } from '../../../../modules/contracts/domain/contract-services/travel/contract-travel';
-import { TYPE_CAGE } from '../../../../modules/contracts/domain/contract-services/cage/cage-chosen';
 import { DocumentationCertificate } from '../../../../modules/contracts/domain/contract-services/documentation/documentation-certificate';
 import { documentationSchema } from '../../../client/components/documentation/form/documentation-validation';
+import { CAGE_TYPE } from '../../../../modules/cages/domain/cage-type';
 
 const certificate: DocumentationCertificate = {
     hasServiceIncluded: false,
@@ -59,7 +59,7 @@ const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
         chosen: Yup.object().shape({
             modelCage: Yup.string(),
             dimensionsCage: Yup.string(),
-            typeCage: Yup.string().oneOf(['', ...TYPE_CAGE] as const),
+            typeCage: Yup.string().oneOf(['', ...CAGE_TYPE] as const),
             user: Yup.string(),
         }),
         recommendation: Yup.string(),

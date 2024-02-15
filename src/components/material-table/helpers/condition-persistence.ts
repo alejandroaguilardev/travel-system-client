@@ -4,6 +4,7 @@ import { userService } from '../../../modules/users/infrastructure/user.service'
 import { permissionService } from '../../../modules/permissions/infrastructure/permission.service';
 import { roleService } from '../../../modules/roles/infrastructure/role.service';
 import { contractService } from '../../../modules/contracts/infrastructure/contract.service';
+import { cageService } from '../../../modules/cages/infrastructure/cages.service';
 
 export const conditionPersistence = (collection: Collections): ServiceSearch => {
     switch (collection) {
@@ -15,6 +16,8 @@ export const conditionPersistence = (collection: Collections): ServiceSearch => 
             return roleService.search;
         case COLLECTIONS.permissions:
             return permissionService.search;
+        case COLLECTIONS.cages:
+            return cageService.search;
         default:
             throw new Error("No existe la colección");
     }

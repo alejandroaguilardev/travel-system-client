@@ -1,4 +1,3 @@
-export const TYPE_CAGE = ['rígida', 'flexible', 'especial'] as const;
 
 export interface CageChosen {
     modelCage?: string;

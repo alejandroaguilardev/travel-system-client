@@ -23,6 +23,10 @@ const ContractPage = lazy(() => import('../../pages/admin/contract/index'));
 const ContractNewPage = lazy(() => import('../../pages/admin/contract/crear'));
 const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'));
 
+const CagePage = lazy(() => import('../../pages/admin/cage/index'));
+const CageNewPage = lazy(() => import('../../pages/admin/cage/crear'));
+const CageIdPage = lazy(() => import('../../pages/admin/cage/[id]/index'));
+
 const ClientPage = lazy(() => import('../../pages/admin/client'));
 
 export const dashboardRoutes = [
@@ -50,6 +54,14 @@ export const dashboardRoutes = [
         ],
       },
       { path: 'clientes', element: <ClientPage /> },
+      {
+        path: 'jaulas',
+        children: [
+          { element: <CagePage />, index: true },
+          { path: 'crear', element: <CageNewPage /> },
+          { path: ':id/:action', element: <CageIdPage /> },
+        ],
+      },
       {
         path: 'usuarios/roles',
         children: [

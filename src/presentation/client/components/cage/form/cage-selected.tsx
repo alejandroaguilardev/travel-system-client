@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { MenuItem } from "@mui/material";
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
-import { TYPE_CAGE } from '../../../../../modules/contracts/domain/contract-services/cage/cage-chosen';
+import { CAGE_TYPE } from '../../../../../modules/cages/domain/cage-type';
 
 type Props = {
     readonly: boolean;
@@ -15,14 +15,14 @@ export const CageSelected: FC<Props> = ({ readonly, keyField }) => {
             <RHFTextField
                 name={`${keyField}.typeCage`}
                 select
-                label="Tpo de jaula"
+                label="Tipo de jaula"
                 InputProps={{
                     readOnly: readonly
                 }}
                 style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
 
             >
-                {TYPE_CAGE.map((option) => (
+                {CAGE_TYPE.map((option) => (
                     <MenuItem key={option} value={option}>
                         {option.toUpperCase()}
                     </MenuItem>
