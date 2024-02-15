@@ -39,7 +39,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
                             </Typography>
                         </TableCell>
                         <TableCell>
-                            <Typography>{capitalize(user.name)} {capitalize(user.secondName)}</Typography>
+                            <Typography>{capitalize(user.profile.name)} {capitalize(user.profile.secondName)}</Typography>
                         </TableCell>
                     </TableRow>
                     <TableRow hover component="th" scope="row">
@@ -49,7 +49,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
                             </Typography>
                         </TableCell>
                         <TableCell>
-                            <Typography>{capitalize(user.lastName)} {capitalize(user.secondLastName)}</Typography>
+                            <Typography>{capitalize(user.profile.lastName)} {capitalize(user.profile.secondLastName)}</Typography>
                         </TableCell>
                     </TableRow>
                     <TableRow hover component="th" scope="row">

@@ -17,11 +17,11 @@ export default function UserIdView({ id }: Props) {
             <Container maxWidth='xl'>
                 <CustomBreadcrumbs
                     sx={{ display: "inline" }}
-                    heading={`Visualizar: ${user?.name}`}
+                    heading={`Visualizar: ${user?.profile?.name}`}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Usuarios', href: paths.dashboard.users.root },
-                        { name: `${user?.name}` },
+                        { name: `${user?.profile?.name}` },
                     ]}
                 />
                 <UserDetail user={user!} />

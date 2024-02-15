@@ -63,16 +63,16 @@ describe("UserForm", () => {
         const email = screen.getByLabelText('Correo Electrónico (*)') as HTMLInputElement;
 
 
-        fireEvent.change(name, { target: { value: data.name } });
-        fireEvent.change(secondName, { target: { value: data.secondName } });
-        fireEvent.change(lastName, { target: { value: data.lastName } });
-        fireEvent.change(secondLastName, { target: { value: data.secondLastName } });
+        fireEvent.change(name, { target: { value: data.profile.name } });
+        fireEvent.change(secondName, { target: { value: data.profile.secondName } });
+        fireEvent.change(lastName, { target: { value: data.profile.lastName } });
+        fireEvent.change(secondLastName, { target: { value: data.profile.secondLastName } });
         fireEvent.change(email, { target: { value: data.email } });
 
-        expect(name.value).toBe(data.name);
-        expect(secondName.value).toBe(data.secondName);
-        expect(lastName.value).toBe(data.lastName);
-        expect(secondLastName.value).toBe(data.secondLastName);
+        expect(name.value).toBe(data.profile.name);
+        expect(secondName.value).toBe(data.profile.secondName);
+        expect(lastName.value).toBe(data.profile.lastName);
+        expect(secondLastName.value).toBe(data.profile.secondLastName);
         expect(email.value).toBe(data.email);
     });
 
@@ -97,10 +97,10 @@ describe("UserForm", () => {
         const email = screen.getByLabelText('Correo Electrónico (*)') as HTMLInputElement;
 
         await act(async () => {
-            fireEvent.change(name, { target: { value: data.name } });
-            fireEvent.change(secondName, { target: { value: data.secondName } });
-            fireEvent.change(lastName, { target: { value: data.lastName } });
-            fireEvent.change(secondLastName, { target: { value: data.secondLastName } });
+            fireEvent.change(name, { target: { value: data.profile.name } });
+            fireEvent.change(secondName, { target: { value: data.profile.secondName } });
+            fireEvent.change(lastName, { target: { value: data.profile.lastName } });
+            fireEvent.change(secondLastName, { target: { value: data.profile.secondLastName } });
             fireEvent.change(email, { target: { value: data.email } });
 
             const form = screen.getByRole("form");

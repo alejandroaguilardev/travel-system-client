@@ -1,15 +1,15 @@
 import { User } from '../../../../modules/users/domain/user';
 
 interface FilterProperty {
-    field: keyof User;
+    field: keyof User | string;
     value: string;
 }
 
 export const userGlobalFilterProperties: FilterProperty[] = [
-    { field: "name", value: "string" },
-    { field: "lastName", value: "string" },
-    { field: "secondName", value: "string" },
-    { field: "lastName", value: "string" },
-    { field: "secondLastName", value: "string" },
+    { field: "profile.name", value: "string" },
+    { field: "profile.lastName", value: "string" },
+    { field: "profile.secondName", value: "string" },
+    { field: "profile.lastName", value: "string" },
+    { field: "profile.secondLastName", value: "string" },
     { field: "email", value: "string" },
 ];
