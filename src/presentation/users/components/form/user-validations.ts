@@ -12,7 +12,7 @@ const defaultValues: NewUser = {
         lastName: "",
         secondLastName: "",
         phone: "",
-        gender: "",
+        gender: "male",
         birthDate: new Date(),
         department: "",
         province: "",
@@ -23,7 +23,6 @@ const defaultValues: NewUser = {
     status: "active",
     auth: {
         admin: false,
-        rememberToken: ""
     },
 };
 const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
@@ -36,21 +35,21 @@ const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
         name: Yup.string()
             .required("El nombre es requerido")
             .min(1, "El nombre debe tener al menos un carácter")
-            .max(20, "El nombre debe tener como máximo 20 caracteres")
+            .max(45, "El nombre debe tener como máximo 20 caracteres")
             .matches(/^[a-zA-Z0-9\s]+$/, "El nombre solo puede contener letras y números"),
         secondName: Yup.string()
-            .max(20, "El segundo nombre debe tener como máximo 20 caracteres")
+            .max(45, "El segundo nombre debe tener como máximo 20 caracteres")
             .matches(/^[a-zA-Z0-9\s]*$/, "El segundo nombre solo puede contener letras, números y espacios"),
         lastName: Yup.string()
             .required("El apellido es requerido")
             .min(1, "El apellido debe tener al menos un carácter")
-            .max(20, "El apellido debe tener como máximo 20 caracteres")
+            .max(45, "El apellido debe tener como máximo 20 caracteres")
             .matches(/^[a-zA-Z0-9\s]+$/, "El apellido solo puede contener letras y números"),
         secondLastName: Yup.string()
-            .max(20, "El segundo apellido debe tener como máximo 20 caracteres")
+            .max(45, "El segundo apellido debe tener como máximo 20 caracteres")
             .matches(/^[a-zA-Z0-9\s]*$/, "El segundo apellido solo puede contener letras, números y espacios"),
         phone: Yup.string().required("El teléfono es requerido"),
-        gender: Yup.string().required("El sexo es requerido"),
+        gender: Yup.string().oneOf(['male', 'female']).required("El sexo es requerido"),
         birthDate: Yup.date(),
         department: Yup.string(),
         province: Yup.string(),
@@ -61,7 +60,6 @@ const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
     status: Yup.string().oneOf(STATUS),
     auth: Yup.object().shape({
         admin: Yup.boolean(),
-        rememberToken: Yup.string(),
     }),
 });
 

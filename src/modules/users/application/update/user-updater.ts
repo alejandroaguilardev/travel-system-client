@@ -9,6 +9,10 @@ export const userUpdater = (userService: UserService, uuid: UuidService) => asyn
     if (!uuid.validate(userId)) {
         throw new ErrorInvalidadArgument("el identificador no es válido");
     }
+
+    delete user.auth?.lastLogin;
+    delete user.auth?.rememberToken;
+
     const response = await userService.update(userId, user);
     return response;
 }

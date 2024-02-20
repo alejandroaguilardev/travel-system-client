@@ -1,8 +1,9 @@
 import { Container } from '@mui/material';
-import { paths } from '../../../app/routes/paths';
-import { useRouter } from '../../../app/routes/hooks/use-router';
-import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
-import { UserForm } from '../components/form/user-form';
+import { paths } from '../../../../app/routes/paths';
+import { useRouter } from '../../../../app/routes/hooks/use-router';
+import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
+import { UserForm } from '../../components/form/user-form';
+import { ConditionUserProvider } from '../../contexts/condition-user-context';
 
 
 export default function UserNewView() {
@@ -21,7 +22,9 @@ export default function UserNewView() {
                     { name: `Crear` },
                 ]}
             />
-            <UserForm callback={redirectData} />
+            <ConditionUserProvider isUser>
+                <UserForm callback={redirectData} />
+            </ConditionUserProvider>
         </Container>
     );
 }

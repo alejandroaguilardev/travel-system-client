@@ -3,44 +3,43 @@ import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-bre
 import { paths } from '../../../app/routes/paths';
 import { RouterLink } from '../../../app/routes/components';
 import { useSelectedValue, useBoolean } from '../../../hooks';
-import { User } from '../../../modules/users/domain/user';
-import { UserTable } from '../components/table/user-table';
+import { Pet } from '../../../modules/pets/domain/pet';
+import { PetTable } from '../components/table/pet-table';
 import { DialogDelete } from '../../../components/delete-item/delete-dialog-button';
-import { useDeleteUser } from '../hooks/use-delete-user';
+import { useDeletePet } from '../hooks/use-delete-pet';
+import { PermissionGuard } from '../../permission/components/guard/permission-guard';
+import { AuthGroup, AuthPermission } from '../../../modules/auth/domain/auth-permission';
 
 
-type Props = {
-    type?: "Cliente" | "Usuario";
-}
-
-export default function UserView({ type = "Usuario" }: Props) {
-    const { selected, handleSelected } = useSelectedValue<User>();
+export default function PetView() {
+    const { selected, handleSelected } = useSelectedValue<Pet>();
     const deleteItem = useBoolean();
-    const { handleDelete, isLoading } = useDeleteUser()
+    const { handleDelete, isLoading } = useDeletePet()
 
     return (
         <Container maxWidth='xl'>
             <CustomBreadcrumbs
-                heading="Gestión de Usuarios"
+                heading="Gestión de Mascotas"
                 links={[
-                    { name: type + "s", href: paths.dashboard.users.root },
+                    { name: 'Mascotas', href: paths.dashboard.pets.root },
                     {
                         name: 'Listado',
                     }
                 ]}
                 action={
-
-                    <Button
-                        component={RouterLink}
-                        href={paths.dashboard.users.new}
-                        variant="contained"
-                    >
-                        Nuevo {type}
-                    </Button>
+                    <PermissionGuard group={AuthGroup.PETS} permission={AuthPermission.CREATE}>
+                        <Button
+                            component={RouterLink}
+                            href={paths.dashboard.pets.new}
+                            variant="contained"
+                        >
+                            Nueva Mascota
+                        </Button>
+                    </PermissionGuard>
                 }
             />
             {!isLoading &&
-                <UserTable
+                <PetTable
                     onSelected={handleSelected}
                     deleteItem={deleteItem.onTrue}
                 />

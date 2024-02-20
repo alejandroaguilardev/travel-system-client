@@ -7,7 +7,7 @@ import { AutocompleteServer } from '../../../../../components/autocomplete/selec
 import { useUserFormGeneral } from './use-user-form-general';
 
 export const UserFormGeneral = () => {
-    const { roles, handleRoles } = useUserFormGeneral()
+    const { roles, isUser, handleRoles } = useUserFormGeneral()
 
     return (
         <Stack spacing={1} marginBottom={2}>
@@ -66,26 +66,30 @@ export const UserFormGeneral = () => {
                     label="Sexo (*)"
                     variant="outlined"
                     inputAdornment
+                    select
                 >
                     <MenuItem value="male">Hombre</MenuItem>
                     <MenuItem value="female">Mujer</MenuItem>
                 </RHFTextField>
             </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+            {
+                isUser &&
+                <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
 
-                <AutocompleteServer<Role>
-                    collection='roles'
-                    sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
-                    globalFilterProperties={[{ field: "name", value: "string" }]}
-                    defaultValue={roles}
-                    callback={handleRoles}
-                    getOptionLabel={(option: Role) => capitalize(option.name)}
-                    textField={{
-                        label: "Seleccionar roles"
-                    }}
-                    multiple
-                />
-            </Stack>
+                    <AutocompleteServer<Role>
+                        collection='roles'
+                        sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
+                        globalFilterProperties={[{ field: "name", value: "string" }]}
+                        defaultValue={roles}
+                        callback={handleRoles}
+                        getOptionLabel={(option: Role) => capitalize(option.name)}
+                        textField={{
+                            label: "Seleccionar roles"
+                        }}
+                        multiple
+                    />
+                </Stack>
+            }
         </Stack >
     )
 }

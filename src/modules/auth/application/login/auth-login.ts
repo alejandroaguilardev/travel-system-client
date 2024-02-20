@@ -6,9 +6,7 @@ export const authLogin = (authService: AuthService, manageAccessToken: (token: s
         const { token, user } = await authService.login(email, password);
         manageAccessToken(token);
 
-        console.log(user)
         user.roles = user.roles?.[0]?.id ? user.roles : [];
-        console.log(user)
         return user;
     }
 }

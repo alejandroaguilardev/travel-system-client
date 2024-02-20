@@ -28,6 +28,12 @@ const CageNewPage = lazy(() => import('../../pages/admin/cage/crear'));
 const CageIdPage = lazy(() => import('../../pages/admin/cage/[id]/index'));
 
 const ClientPage = lazy(() => import('../../pages/admin/client'));
+const ClientNewPage = lazy(() => import('../../pages/admin/client/crear'));
+const ClientIdPage = lazy(() => import('../../pages/admin/client/[id]/index'));
+
+const PetsPage = lazy(() => import('../../pages/admin/pet'));
+const PetsNewPage = lazy(() => import('../../pages/admin/pet/crear'));
+const PetsIdPage = lazy(() => import('../../pages/admin/pet/[id]/index'));
 
 export const dashboardRoutes = [
   {
@@ -53,7 +59,22 @@ export const dashboardRoutes = [
           { path: ':id/:action', element: <ContractIdPage /> },
         ],
       },
-      { path: 'clientes', element: <ClientPage /> },
+      {
+        path: 'clientes',
+        children: [
+          { element: <ClientPage />, index: true },
+          { path: 'crear', element: <ClientNewPage /> },
+          { path: ':id/:action', element: <ClientIdPage /> },
+        ],
+      },
+      {
+        path: 'mascotas',
+        children: [
+          { element: <PetsPage />, index: true },
+          { path: 'crear', element: <PetsNewPage /> },
+          { path: ':id/:action', element: <PetsIdPage /> },
+        ],
+      },
       {
         path: 'jaulas',
         children: [

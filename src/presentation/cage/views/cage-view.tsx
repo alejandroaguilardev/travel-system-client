@@ -7,6 +7,8 @@ import { Cage } from '../../../modules/cages/domain/cage';
 import { CageTable } from '../components/table/cage-table';
 import { DialogDelete } from '../../../components/delete-item/delete-dialog-button';
 import { useDeleteCage } from '../hooks/use-delete-cage';
+import { PermissionGuard } from '../../permission/components/guard/permission-guard';
+import { AuthGroup, AuthPermission } from '../../../modules/auth/domain/auth-permission';
 
 
 export default function CageView() {
@@ -25,14 +27,15 @@ export default function CageView() {
                     }
                 ]}
                 action={
-
-                    <Button
-                        component={RouterLink}
-                        href={paths.dashboard.cages.new}
-                        variant="contained"
-                    >
-                        Nuevo Permiso
-                    </Button>
+                    <PermissionGuard group={AuthGroup.CAGES} permission={AuthPermission.CREATE}>
+                        <Button
+                            component={RouterLink}
+                            href={paths.dashboard.cages.new}
+                            variant="contained"
+                        >
+                            Nueva Jaula
+                        </Button>
+                    </PermissionGuard>
                 }
             />
             {!isLoading &&

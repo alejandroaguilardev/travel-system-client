@@ -7,6 +7,8 @@ import { paths } from '../../../../app/routes/paths';
 import { RenderRowActionMenuItem } from '../../../../components/material-table/render-row-action-menu-item';
 import { RenderRowActionMenuItemButton } from '../../../../components/material-table/render-row-action-menu-item-button';
 import { cageGlobalFilterProperties } from './cage-global-filter-properties';
+import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
+import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
 
 
 type Props = {
@@ -47,34 +49,40 @@ export const CageTable: FC<Props> = ({ onSelected, deleteItem, }) => {
             collection={COLLECTIONS.cages}
             columns={columns}
             globalFilterProperties={cageGlobalFilterProperties}
-            renderRowActionMenuItems={({ row }) => [<RenderRowActionMenuItem
-                item={{
-                    name: "Visualizar",
-                    icon: "eyeBold",
-                    href: paths.dashboard.cages.view(row.original.id)
-                }}
-                key="view"
-            />,
-            <RenderRowActionMenuItem
-                item={{
-                    name: "Editar",
-                    icon: "editTable",
-                    href: paths.dashboard.cages.edit(row.original.id)
-                }}
-                key="edit"
-            />,
-            <RenderRowActionMenuItemButton<Cage>
-                item={{
-                    name: "Eliminar",
-                    icon: "removeBox",
-                }}
-                row={row.original}
-                onSelected={(value) => {
-                    onSelected(value);
-                    deleteItem();
-                }}
-                key="remove"
-            />]}
+            renderRowActionMenuItems={({ row }) => [
+                <PermissionGuard group={AuthGroup.CAGES} permission={AuthPermission.READ} key="view">
+                    <RenderRowActionMenuItem
+                        item={{
+                            name: "Visualizar",
+                            icon: "eyeBold",
+                            href: paths.dashboard.cages.view(row.original.id)
+                        }}
+                    />
+                </PermissionGuard>,
+                <PermissionGuard group={AuthGroup.CAGES} permission={AuthPermission.EDIT} key="edit">
+                    <RenderRowActionMenuItem
+                        item={{
+                            name: "Editar",
+                            icon: "editTable",
+                            href: paths.dashboard.cages.edit(row.original.id)
+                        }}
+                    />
+                </PermissionGuard>,
+                <PermissionGuard group={AuthGroup.CAGES} permission={AuthPermission.DELETE}>
+                    <RenderRowActionMenuItemButton<Cage>
+                        item={{
+                            name: "Eliminar",
+                            icon: "removeBox",
+                        }}
+                        row={row.original}
+                        onSelected={(value) => {
+                            onSelected(value);
+                            deleteItem();
+                        }}
+                        key="remove"
+                    />
+                </PermissionGuard>
+            ]}
         />
     )
 }

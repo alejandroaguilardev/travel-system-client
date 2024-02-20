@@ -37,7 +37,7 @@ export default function LoginView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const user = await login?.(data.email, data.password);
-      const access = user.roles.length > 0 ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;
+      const access = (user.roles.length > 0 || user?.auth?.admin) ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;
 
       if (access === PATH_AFTER_LOGIN && returnTo === "/") {
         router.push(access);

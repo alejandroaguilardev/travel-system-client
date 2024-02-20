@@ -7,7 +7,7 @@ export const CageFormGeneral = () => (
         <RHFTextField
             name="typeCage"
             select
-            label="Tipo de jaula"
+            label="Tipo de jaula (*)"
         >
             {CAGE_TYPE.map((option) => (
                 <MenuItem key={option} value={option}>
@@ -17,11 +17,11 @@ export const CageFormGeneral = () => (
         </RHFTextField>
         <RHFTextField
             name="modelCage"
-            label="Modelo de jaula"
+            label="Modelo de jaula (*)"
         />
         <RHFTextField
             name="dimensionsCage"
-            label="Dimensiones de la jaula"
+            label="Dimensiones de la jaula (*)"
         />
     </Stack >
 )

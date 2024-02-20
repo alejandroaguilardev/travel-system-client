@@ -8,7 +8,7 @@ import MotionContainer from '../../components/animate/motion-container';
 import { varBounce } from '../../components/animate/variants/bounce';
 import { useAuthContext } from '../auth/hooks';
 
-export default function NotFoundView() {
+export default function NotAuthorizationView() {
 
   const { user } = useAuthContext();
   const route = user && user?.roles?.length > 0 ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;

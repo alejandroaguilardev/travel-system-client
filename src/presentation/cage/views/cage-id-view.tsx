@@ -20,7 +20,7 @@ export default function CageIdView({ id }: Props) {
                     heading={`Visualizar: ${cage?.modelCage}`}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
-                        { name: 'Permisos', href: paths.dashboard.cages.root },
+                        { name: 'Jaulas', href: paths.dashboard.cages.root },
                         { name: `${cage?.modelCage}` },
                     ]}
                 />

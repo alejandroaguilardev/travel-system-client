@@ -19,7 +19,7 @@ export function servicesHost<T>(axios: AxiosInstance, endpoint: string): Service
             return data;
         },
         update: async (id: string, body: T): Promise<ResponseSuccess> => {
-            const { data } = await axios.patch<ResponseSuccess>(`${endpoint}/${id}`, body);
+            const { data } = await axios.put<ResponseSuccess>(`${endpoint}/${id}`, body);
             return data;
         },
         remove: async (id: string): Promise<ResponseSuccess> => {

@@ -14,7 +14,7 @@ export default function CageNewView() {
         <Container maxWidth='xl'>
             <CustomBreadcrumbs
                 sx={{ display: "inline" }}
-                heading="Crear  nuevo permiso"
+                heading="Crear nueva jaula"
                 links={[
                     { name: 'Inicio', href: paths.dashboard.root },
                     { name: 'Jaulas', href: paths.dashboard.cages.root },

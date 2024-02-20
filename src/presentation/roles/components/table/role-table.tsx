@@ -7,6 +7,8 @@ import { paths } from '../../../../app/routes/paths';
 import { RenderRowActionMenuItem } from '../../../../components/material-table/render-row-action-menu-item';
 import { RenderRowActionMenuItemButton } from '../../../../components/material-table/render-row-action-menu-item-button';
 import { userGlobalFilterProperties } from './role-global-filter-properties';
+import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
+import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
 
 
 type Props = {
@@ -48,34 +50,39 @@ export const RoleTable: FC<Props> = ({ onSelected, deleteItem, }) => {
             collection={COLLECTIONS.roles}
             columns={columns}
             globalFilterProperties={userGlobalFilterProperties}
-            renderRowActionMenuItems={({ row }) => [<RenderRowActionMenuItem
-                item={{
-                    name: "Visualizar",
-                    icon: "eyeBold",
-                    href: paths.dashboard.roles.view(row.original.id)
-                }}
-                key="view"
-            />,
-            <RenderRowActionMenuItem
-                item={{
-                    name: "Editar",
-                    icon: "editTable",
-                    href: paths.dashboard.roles.edit(row.original.id)
-                }}
-                key="edit"
-            />,
-            <RenderRowActionMenuItemButton<Role>
-                item={{
-                    name: "Eliminar",
-                    icon: "removeBox",
-                }}
-                row={row.original}
-                onSelected={(value) => {
-                    onSelected(value);
-                    deleteItem();
-                }}
-                key="remove"
-            />]}
+            renderRowActionMenuItems={({ row }) => [
+                <PermissionGuard group={AuthGroup.ROLES} permission={AuthPermission.READ} key="view">
+                    <RenderRowActionMenuItem
+                        item={{
+                            name: "Visualizar",
+                            icon: "eyeBold",
+                            href: paths.dashboard.roles.view(row.original.id)
+                        }}
+                    />
+                </PermissionGuard>,
+                <PermissionGuard group={AuthGroup.ROLES} permission={AuthPermission.EDIT} key="edit">
+                    <RenderRowActionMenuItem
+                        item={{
+                            name: "Editar",
+                            icon: "editTable",
+                            href: paths.dashboard.roles.edit(row.original.id)
+                        }}
+                    />
+                </PermissionGuard>,
+                <PermissionGuard group={AuthGroup.ROLES} permission={AuthPermission.DELETE} key="remove">
+                    <RenderRowActionMenuItemButton<Role>
+                        item={{
+                            name: "Eliminar",
+                            icon: "removeBox",
+                        }}
+                        row={row.original}
+                        onSelected={(value) => {
+                            onSelected(value);
+                            deleteItem();
+                        }}
+                    />
+                </PermissionGuard>
+            ]}
         />
     )
 }

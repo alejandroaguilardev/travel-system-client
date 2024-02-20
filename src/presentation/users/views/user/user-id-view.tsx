@@ -1,9 +1,9 @@
 import { Container } from '@mui/material';
-import { paths } from '../../../app/routes/paths';
-import SearchIdNotFound from '../../../app/routes/guard/search-id-not-found';
-import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
-import { useSearchByIdUser } from '../hooks/use-search-by-id-user';
-import UserDetail from '../components/details/user-detail';
+import { paths } from '../../../../app/routes/paths';
+import SearchIdNotFound from '../../../../app/routes/guard/search-id-not-found';
+import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
+import { useSearchByIdUser } from '../../hooks/use-search-by-id-user';
+import UserDetail from '../../components/details/user-detail';
 
 type Props = {
     id: string;

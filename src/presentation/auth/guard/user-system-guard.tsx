@@ -8,8 +8,6 @@ type Props = {
 export default function UserSystemGuard({ children }: Props) {
     const { user } = useAuthContext();
 
-
-
     if (user?.roles.length === 0 && !user?.auth?.admin) return <NotFoundPage />
 
     return <>{children}</>;

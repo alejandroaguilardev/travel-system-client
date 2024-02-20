@@ -15,6 +15,9 @@ export const endpoints = {
     cages: {
         root: '/cages',
     },
+    pets: {
+        root: '/pets',
+    },
     contracts: {
         root: '/contracts',
         client: '/contracts/client',

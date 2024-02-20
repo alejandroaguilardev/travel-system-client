@@ -16,7 +16,7 @@ export const contractService: ContractService = {
         return data;
     },
     update: async (id: string, body: Partial<NewContract>): Promise<ResponseSuccess> => {
-        const { data } = await axiosInstance.patch<ResponseSuccess>(`${endpoints.contracts.root}/${id}`, body);
+        const { data } = await axiosInstance.put<ResponseSuccess>(`${endpoints.contracts.root}/${id}`, body);
         return data;
     },
     updateDocumentation: async (contractId: string, body: Documentation): Promise<Contract> => {
