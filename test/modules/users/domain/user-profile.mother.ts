@@ -3,8 +3,11 @@ import { ProfileInterface } from '../../../../src/modules/users/domain/user-prof
 import { firstNameCreateMother } from './first-name.mother';
 import { lastNameCreateMother } from './last-name.mother';
 import { phoneMother } from '../../shared/domain/phone.mother';
+import { PROFILE_DOCUMENT } from '../../../../src/modules/users/domain/profile/profile-document';
 
 export const userProfileMother = (profile?: ProfileInterface): ProfileInterface => ({
+    document: profile?.document ?? PROFILE_DOCUMENT[faker.number.int({ min: 0, max: 3 })],
+    documentNumber: profile?.documentNumber ?? faker.number.int({ min: 100000000, max: 1000000000 }).toString(),
     name: profile?.name ?? firstNameCreateMother(),
     secondName: profile?.secondName ?? firstNameCreateMother(),
     lastName: profile?.lastName ?? lastNameCreateMother(),

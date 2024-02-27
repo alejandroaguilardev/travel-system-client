@@ -4,7 +4,7 @@ import { UuidService } from '../../../shared/domain/ports/uuid';
 import { ResponseSuccess } from '../../../shared/domain/response/response-success';
 import { ErrorInvalidadArgument } from '../../../shared/domain/errors/error-invalid-argument';
 
-export const petUpdater = (petService: PetService, uuid: UuidService) => async (petId: string, pet: Partial<Pet>): Promise<ResponseSuccess> => {
+export const petUpdater = (petService: PetService, uuid: UuidService) => async (petId: string, pet: Partial<Pet>): Promise<{ response: ResponseSuccess, pet: Pet }> => {
 
     if (!uuid.validate(petId)) {
         throw new ErrorInvalidadArgument("el identificador no es válido");
@@ -14,5 +14,5 @@ export const petUpdater = (petService: PetService, uuid: UuidService) => async (
     delete pet.user;
 
     const response = await petService.update(petId, pet);
-    return response;
+    return { response, pet: pet as Pet };
 }

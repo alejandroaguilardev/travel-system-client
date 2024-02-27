@@ -5,23 +5,23 @@ import { ContractFormCage } from '../../../../contracts/components/form/cage/con
 import { CageSelected } from "./cage-selected";
 
 type Props = {
-    readonly: boolean;
+    hasServiceIncluded: boolean;
     user?: boolean;
 }
 
-export const CageFormGeneral: FC<Props> = ({ readonly, user }) => {
+export const CageFormGeneral: FC<Props> = ({ hasServiceIncluded, user }) => {
 
     const { watch } = useFormContext();
     const recommendation = watch('recommendation');
 
     return (
         <Stack spacing={1} my={1}>
-            {readonly ?
+            {hasServiceIncluded ?
                 <Alert variant='outlined' sx={{ width: "100%" }}>Pet Travel proporciona le proporciona la siguiente jaula  como parte integral de su servicio, conforme a lo estipulado en su contrato</Alert>
                 : <Alert variant='outlined' severity="info" sx={{ width: "100%" }}>Su contrato no incluye la responsabilidad de Pet Travel sobre la jaula. {recommendation && `De igual manera te recomendamos la jaula  ${recommendation}`}</Alert>
             }
-            {user && readonly && <ContractFormCage keyValue="chosen" />}
-            <CageSelected readonly={readonly} keyField="chosen" />
+            {user && hasServiceIncluded && <ContractFormCage keyValue="chosen" />}
+            <CageSelected readonly={!hasServiceIncluded} keyField="chosen" />
         </Stack >
     );
 }

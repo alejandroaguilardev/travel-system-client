@@ -1,16 +1,41 @@
-import { MenuItem, Stack } from '@mui/material';
+import { Divider, MenuItem, Stack } from '@mui/material';
 import { Role } from '../../../../../modules/roles/domain/role';
 import { OrderValue } from '../../../../../modules/shared/domain/criteria/sorting';
 import { capitalize } from '../../../../../modules/shared/domain/helpers/capitalize';
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 import { AutocompleteServer } from '../../../../../components/autocomplete/selector/autocomplete-server';
 import { useUserFormGeneral } from './use-user-form-general';
+import { PROFILE_DOCUMENT } from '../../../../../modules/users/domain/profile/profile-document';
 
 export const UserFormGeneral = () => {
     const { roles, isUser, handleRoles } = useUserFormGeneral()
 
     return (
         <Stack spacing={1} marginBottom={2}>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+                <RHFTextField
+                    name='profile.document'
+                    fullWidth
+                    label="Documento (*)"
+                    variant="outlined"
+                    inputAdornment
+                    select
+                >
+                    {PROFILE_DOCUMENT.map((document) => (
+                        <MenuItem key={document} value={document}>
+                            {document}
+                        </MenuItem>
+                    ))}
+                </RHFTextField>
+                <RHFTextField
+                    name='profile.documentNumber'
+                    fullWidth
+                    label="Número de documento (*)"
+                    variant="outlined"
+                    inputAdornment
+                />
+            </Stack>
+            <Divider sx={{ mb: 2 }} />
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
                 <RHFTextField
                     name='profile.name'

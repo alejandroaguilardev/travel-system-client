@@ -31,28 +31,11 @@ describe("ContractForm", () => {
 
         const numberField = screen.getByLabelText('Número de contrato (*)');
         const startDateField = screen.getByLabelText('Fecha de contrato (*)');
-
-        const vaccinationSwitch = screen.getByLabelText('Certificado de vacuna');
-        const healthSwitch = screen.getByLabelText('Certificado de salud');
-        const chipSwitch = screen.getByLabelText('Certificado de chip');
-        const senasaSwitch = screen.getByLabelText('Documentos de SENASA');
-        const rabiesSwitch = screen.getByLabelText('Test serológico de rabia');
-        const importSwitch = screen.getByLabelText('Permiso de importación');
-        const emotionalSwitch = screen.getByLabelText('Certificado de soporte emocional');
-
-        const cageSwitch = screen.getByLabelText('Incluye Jaula Pet travel');
+        const client = screen.getByLabelText('cliente');
 
         expect(numberField).toBeInTheDocument();
         expect(startDateField).toBeInTheDocument();
-
-        expect(vaccinationSwitch).toBeInTheDocument();
-        expect(healthSwitch).toBeInTheDocument();
-        expect(chipSwitch).toBeInTheDocument();
-        expect(senasaSwitch).toBeInTheDocument();
-        expect(rabiesSwitch).toBeInTheDocument();
-        expect(importSwitch).toBeInTheDocument();
-        expect(emotionalSwitch).toBeInTheDocument();
-        expect(cageSwitch).toBeInTheDocument();
+        expect(client).toBeInTheDocument();
 
     });
 

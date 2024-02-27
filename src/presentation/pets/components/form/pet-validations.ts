@@ -15,6 +15,7 @@ const defaultValues: NewPet = {
     country: "Perú",
     type: "",
     sterilized: "No",
+    adopter: "",
 };
 
 const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape({
@@ -53,6 +54,7 @@ const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape({
         .required("El tipo es requerido")
         .min(1, "El tipo debe tener al menos un carácter")
         .max(3, "El tipo debe tener como máximo 255 caracteres"),
+    adopter: Yup.string().required("El adopter es requerido"),
     user: Yup.string(),
 });
 

@@ -5,7 +5,7 @@ import uuid from '../../../../src/modules/shared/infrastructure/adapter/uuid';
 import { MessageCreateMother } from '../../shared/domain/response-message.mother';
 import { permissionServiceMock } from "../domain/permission.service.mock";
 
-describe("PermissionCreator", () => {
+describe("PermissionRemover", () => {
 
     it("should_successfully_permission_remove", async () => {
         const id = uuidCreateMother();

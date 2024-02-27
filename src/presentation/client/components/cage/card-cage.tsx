@@ -1,20 +1,23 @@
-import { Card, Stack, Avatar, Divider, Typography, ListItemText, Box, Button, Alert, Chip } from '@mui/material';
+import { Card, Stack, Avatar, Divider, ListItemText, Box, Button, Alert } from '@mui/material';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { Cage } from '../../../../modules/contracts/domain/contract-services/cage/cage';
 import { useBoolean } from '../../../../hooks/use-boolean';
-import IconWrapper from '../../../../components/icon-wrapper/icon-wrapper';
 import Label from '../../../../components/label/label';
 import { statusColor } from '../../../contracts/components/table/status-color';
 import { DialogContract } from '../dialog/dialog-contract';
 import { CageForm } from './form/cage-form';
+import { useContractStore } from '../../../../state/contract/contract-store';
 
 type Props = {
     cage: Cage;
     contractId: string;
+    detailId: string;
+    finish: boolean;
 };
 
-export default function CardCage({ cage, contractId }: Props) {
+export default function CardCage({ cage, contractId, detailId, finish }: Props) {
     const dialog = useBoolean();
+    const { onSelected, onSelectedDetail } = useContractStore();
 
     return (
         <>
@@ -77,7 +80,6 @@ export default function CardCage({ cage, contractId }: Props) {
                 </Stack>
 
                 <Divider sx={{ borderStyle: 'dashed' }} />
-
             </Card >
 
             {dialog.value &&
@@ -90,7 +92,14 @@ export default function CardCage({ cage, contractId }: Props) {
                         onCancel={dialog.onFalse}
                         contractId={contractId}
                         cage={cage}
-                        readonly={cage.hasServiceIncluded}
+                        hasServiceIncluded={!cage.hasServiceIncluded}
+                        noShowButton={finish}
+                        detailId={detailId}
+                        callback={(response) => {
+                            onSelected(response?.contract ?? null);
+                            onSelectedDetail(response?.contractDetail ?? null);
+                            dialog.onFalse();
+                        }}
                     />
 
                 </DialogContract>

@@ -1,10 +1,10 @@
-import { contractCreator } from '../../../../src/modules/contracts/application/create/contract-creator';
+import { contractCreator, contractCreatorFormat } from '../../../../src/modules/contracts/application/create/contract-creator';
 import uuid from '../../../../src/modules/shared/infrastructure/adapter/uuid';
 import { MessageCreateMother } from '../../shared/domain/response-message.mother';
 import { contractCreateMother } from "../domain/contract.mother"
 import { contractServiceMock } from "../domain/contract.service.mock";
 
-describe("PermissionCreator", () => {
+describe("ContractCreator", () => {
 
     it("should_successfully_contract_create", async () => {
         const dataForm = contractCreateMother();
@@ -21,7 +21,7 @@ describe("PermissionCreator", () => {
         contractServiceMock.save.mockResolvedValueOnce(response);
         await contractCreator(contractServiceMock, uuid)(dataForm)
 
-        expect(contractServiceMock.save).toHaveBeenCalledWith(dataForm)
+        expect(contractServiceMock.save).toHaveBeenCalledWith(contractCreatorFormat(dataForm))
     })
 
     it("should_failed_contract_create", async () => {

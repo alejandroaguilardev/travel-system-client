@@ -1,11 +1,11 @@
 import { CSSProperties, FC, useEffect } from "react";
 import { Stack } from "@mui/material"
-import RHFSwitch from '../../../../../components/hook-form/rhf-switch';
+import RHFSwitch from '../../../../../../components/hook-form/rhf-switch';
 import { useFormContext } from "react-hook-form";
-import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
-import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import IconWrapper from '../../../../../components/icon-wrapper/icon-wrapper';
-import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
+import RHFTextField from '../../../../../../components/hook-form/rhf-text-field';
+import { fDate } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
+import IconWrapper from '../../../../../../components/icon-wrapper/icon-wrapper';
+import { useAuthContext } from '../../../../../auth/hooks/use-auth-context';
 
 type Props = {
     name: string;
@@ -25,7 +25,6 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, style = {} }) 
     useEffect(() => {
         if (!hasServiceIncluded) {
             setValue(`${name}.expectedDate`, new Date());
-            setValue(`${name}.executionDate`, null);
         }
     }, [hasServiceIncluded])
 
@@ -77,11 +76,7 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, style = {} }) 
                         variant="outlined"
                         InputProps={{
                             startAdornment: <IconWrapper icon="date" />,
-                            sx: !edit ? {
-                                opacity: 0.4,
-                                pointerEvents: "not-allowed",
-                                cursor: "not-allowed"
-                            } : {}
+                            sx: style
                         }}
                     />
                 </>

@@ -1,6 +1,9 @@
+import { ProfileDocument } from "./profile/profile-document";
 import { UserGender } from "./user-gender";
 
 export interface ProfileInterface {
+    document: ProfileDocument;
+    documentNumber: string;
     name: string;
     secondName?: string;
     lastName: string;

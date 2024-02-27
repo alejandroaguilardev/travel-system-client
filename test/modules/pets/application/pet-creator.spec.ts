@@ -12,7 +12,7 @@ describe("PetCreator", () => {
         petServiceMock.save.mockResolvedValueOnce(response);
         const expected = await petCreator(petServiceMock, uuid)(dataForm)
 
-        expect(expected.message).toBe(response.message);
+        expect(expected.response.message).toBe(response.message);
     })
 
     it("should_successfully_pet_create_to_have_call", async () => {

@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { User } from '../../../../../modules/users/domain/user';
+import { NewUser, User } from '../../../../../modules/users/domain/user';
 import { userService } from '../../../../../modules/users/infrastructure/user.service';
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import { useClientDialogContext } from '../../../../client/components/search-client/client-dialog-context';
 
 export const useContractFormGeneral = () => {
     const { setValue, getValues, watch } = useFormContext();
     const [client, setClient] = useState<User | null>(null);
     const clientDefault: string = getValues("client");
 
-    const travel = watch("travel.hasServiceIncluded");
-    const typeTraveling = watch("travel.typeTraveling");
     const startDate = fDate(watch("startDate"), 'yyyy-MM-dd');
-    const cage = watch("cage.hasServiceIncluded");
+    const { client: clientContext, handleClient: handleClientContext } = useClientDialogContext();
+
 
     useEffect(() => {
         if (clientDefault) {
@@ -23,42 +23,24 @@ export const useContractFormGeneral = () => {
     }, [clientDefault])
 
     useEffect(() => {
-        if (travel && typeTraveling === "accompanied") {
-            setValue("travel.typeTraveling", "charge");
-            return;
+        if (clientContext) {
+            const clientSelected = { ...clientContext, roles: [] } as User;
+            setClient(clientSelected)
+            setValue("client", clientContext?.id ?? "");
         }
-    }, [travel, typeTraveling])
 
-    useEffect(() => {
-        if (travel) {
-            setValue("travel.hasServiceAccompanied", false)
-        } else {
-            setValue("travel.typeTraveling", "accompanied")
-        }
-    }, [travel])
-
-    useEffect(() => {
-        if (!cage) {
-            setValue("cage.chosen", {
-                modelCage: "",
-                dimensionsCage: "",
-                typeCage: "",
-                user: "",
-            });
-        }
-    }, [cage])
+    }, [clientContext])
 
 
     const handleClient = (value: User | null) => {
+        handleClientContext(value as NewUser | null);
         setClient(value as User | null);
-        setValue("client", value?.id ?? "")
+        setValue("client", value?.id ?? "");
     }
 
 
     return {
         client,
-        cage,
-        travel,
         startDate,
         handleClient,
     }

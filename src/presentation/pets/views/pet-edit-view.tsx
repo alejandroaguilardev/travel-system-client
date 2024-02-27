@@ -29,7 +29,7 @@ export default function PetEditView({ id }: Props) {
                         { name: `${capitalize(pet?.name)}` },
                     ]}
                 />
-                <PetForm callback={redirectData} pet={pet} />
+                <PetForm callback={redirectData} pet={pet} adopterId={pet?.adopter} />
             </Container>
         </SearchIdNotFound>
     );

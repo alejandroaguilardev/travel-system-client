@@ -1,13 +1,19 @@
 import { Box, MenuItem, Stack } from '@mui/material';
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 import { PET_GENDERS, PetGender } from '../../../../../modules/pets/domain/pet-gender';
+import { SearchClient } from '../../../../client/components/search-client/search-client';
 import { usePetFormGeneral } from './use-pet-form-general';
 
 export const PetFormGeneral = () => {
-    const { chip, chipDate, birthDate } = usePetFormGeneral();
+    const { chip, chipDate, birthDate, client, handleClient } = usePetFormGeneral();
 
     return (
         <Stack spacing={1} marginBottom={1}>
+            <SearchClient
+                client={client}
+                handleClient={handleClient}
+                field='adopter'
+            />
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
                 <RHFTextField
                     name="name"

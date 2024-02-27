@@ -5,6 +5,7 @@ import { userCreateMother } from '../../modules/users/domain/user.mother';
 import * as hooks from "../../../src/presentation/users/components/form/use-form-user";
 import RHFTextField from '../../../src/components/hook-form/rhf-text-field';
 import { ConditionUserProvider } from '../../../src/presentation/users/contexts/condition-user-context';
+import userEvent from "@testing-library/user-event";
 
 jest.mock('../../../src/modules/roles/infrastructure/role.service');
 jest.mock('../../../src/modules/users/infrastructure/user.service');
@@ -32,6 +33,8 @@ describe("UserForm", () => {
             </MemoryRouter>
         );
 
+        const document = screen.getByLabelText('Documento (*)');
+        const numberDocument = screen.getByLabelText('Número de documento (*)');
         const name = screen.getByLabelText('Primer Nombre (*)');
         const secondName = screen.getByLabelText('Segundo Nombre');
         const lastName = screen.getByLabelText('Primer Apellido (*)');
@@ -41,6 +44,8 @@ describe("UserForm", () => {
         const phone = screen.getByLabelText('Teléfono (*)');
         const gender = screen.getByLabelText('Sexo (*)');
 
+        expect(document).toBeInTheDocument();
+        expect(numberDocument).toBeInTheDocument();
         expect(name).toBeInTheDocument();
         expect(secondName).toBeInTheDocument();
         expect(lastName).toBeInTheDocument();
@@ -62,6 +67,7 @@ describe("UserForm", () => {
         );
         const data = userCreateMother();
 
+        const documentNumber = screen.getByLabelText('Número de documento (*)') as HTMLInputElement;
         const name = screen.getByLabelText('Primer Nombre (*)') as HTMLInputElement;
         const secondName = screen.getByLabelText('Segundo Nombre') as HTMLInputElement;
         const lastName = screen.getByLabelText('Primer Apellido (*)') as HTMLInputElement;
@@ -70,6 +76,7 @@ describe("UserForm", () => {
         const roles = screen.getByLabelText('Seleccionar roles') as HTMLInputElement;
         const phone = screen.getByLabelText('Teléfono (*)') as HTMLInputElement;
 
+        fireEvent.change(documentNumber, { target: { value: data.profile.documentNumber } });
         fireEvent.change(name, { target: { value: data.profile.name } });
         fireEvent.change(secondName, { target: { value: data.profile.secondName } });
         fireEvent.change(lastName, { target: { value: data.profile.lastName } });
@@ -78,6 +85,7 @@ describe("UserForm", () => {
         fireEvent.change(roles, { target: { value: data.roles } });
         fireEvent.change(phone, { target: { value: data.profile.phone } });
 
+        expect(documentNumber.value).toBe(data.profile.documentNumber);
         expect(name.value).toBe(data.profile.name);
         expect(secondName.value).toBe(data.profile.secondName);
         expect(lastName.value).toBe(data.profile.lastName);
@@ -100,6 +108,7 @@ describe("UserForm", () => {
             </MemoryRouter>
         );
 
+        const numberDocument = screen.getByLabelText('Número de documento (*)');
         const name = screen.getByLabelText('Primer Nombre (*)') as HTMLInputElement;
         const secondName = screen.getByLabelText('Segundo Nombre') as HTMLInputElement;
 
@@ -110,6 +119,8 @@ describe("UserForm", () => {
         const phone = screen.getByLabelText('Teléfono (*)') as HTMLInputElement;
 
         await act(async () => {
+            fireEvent.change(numberDocument, { target: { value: data.profile.documentNumber } });
+
             fireEvent.change(name, { target: { value: data.profile.name } });
             fireEvent.change(secondName, { target: { value: data.profile.secondName } });
             fireEvent.change(lastName, { target: { value: data.profile.lastName } });

@@ -17,7 +17,7 @@ describe("UserUpdater", () => {
         userServiceMock.update.mockResolvedValueOnce(response);
         const expected = await userUpdater(userServiceMock, uuid)(id, dataForm)
 
-        expect(expected.message).toBe(response.message)
+        expect(expected.response.message).toBe(response.message)
     })
 
     it("should_successfully_user_update_to_have_call", async () => {

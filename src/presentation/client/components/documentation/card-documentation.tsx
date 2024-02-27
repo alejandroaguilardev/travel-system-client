@@ -1,20 +1,23 @@
-import { Card, Stack, Avatar, Divider, Typography, ListItemText, Box, Alert, Button } from '@mui/material';
+import { Card, Stack, Avatar, ListItemText, Box, Alert, Button } from '@mui/material';
 import Label from '../../../../components/label/label';
 import { statusColor } from '../../../contracts/components/table/status-color';
 import { Documentation } from '../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
-import IconWrapper from '../../../../components/icon-wrapper/icon-wrapper';
 import { useBoolean } from '../../../../hooks/use-boolean';
 import { DialogContract } from '../dialog/dialog-contract';
 import { DocumentationForm } from './form/documentation-form';
+import { useContractStore } from '../../../../state/contract/contract-store';
 
 type Props = {
     documentation: Documentation;
     contractId: string;
+    detailId: string;
+    finish: boolean;
 };
 
-export default function CardDocumentation({ documentation, contractId }: Props) {
+export default function CardDocumentation({ documentation, finish, contractId, detailId }: Props) {
     const dialog = useBoolean();
+    const { onSelected, onSelectedDetail } = useContractStore();
 
     return (
         <>
@@ -88,6 +91,13 @@ export default function CardDocumentation({ documentation, contractId }: Props) 
                         onCancel={dialog.onFalse}
                         contractId={contractId}
                         documentation={documentation}
+                        detailId={detailId}
+                        noShowButton={finish}
+                        callback={(response) => {
+                            onSelected(response?.contract ?? null);
+                            onSelectedDetail(response?.contractDetail ?? null);
+                            dialog.onFalse();
+                        }}
                     />
 
                 </DialogContract>

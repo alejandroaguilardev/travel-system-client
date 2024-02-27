@@ -61,7 +61,7 @@ const PetDetails: React.FC<PetDetailsProps> = ({ pet }) => {
                             </Typography>
                         </TableCell>
                         <TableCell>
-                            <Typography>{fDate(pet.date)}</Typography>
+                            <Typography>{fDate(pet.birthDate)}</Typography>
                         </TableCell>
                     </TableRow>
                     <TableRow hover component="th" scope="row">

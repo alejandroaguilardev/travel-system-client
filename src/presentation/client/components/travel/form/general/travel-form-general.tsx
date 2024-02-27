@@ -5,17 +5,17 @@ import IconWrapper from '../../../../../../components/icon-wrapper/icon-wrapper'
 import { useTravelGeneralForm } from "./use-travel-general-form";
 
 type Props = {
-    readonly: boolean;
+    hasServiceIncluded: boolean;
     user?: boolean;
 }
 
-export const TravelFormGeneral: FC<Props> = ({ user, readonly }) => {
-    const { code, typeTraveling, editPermit } = useTravelGeneralForm();
-    const edit = editPermit(readonly, user)
+export const TravelFormGeneral: FC<Props> = ({ user, hasServiceIncluded }) => {
+    const { code, typeTraveling, departureDate, arrivalDate, editPermit } = useTravelGeneralForm();
+    const edit = editPermit(hasServiceIncluded, user)
 
     return (
         <Stack spacing={1} my={1}>
-            {readonly ?
+            {hasServiceIncluded ?
                 <Alert variant='outlined' sx={{ width: "100%" }} severity={code ? "success" : "warning"}>
                     {code
                         ? "Esa es la reserva ofrecida por Pet Travel, la cual forma parte integral de nuestros servicios, de acuerdo con los términos estipulados en su contrato."
@@ -69,6 +69,7 @@ export const TravelFormGeneral: FC<Props> = ({ user, readonly }) => {
                     name="airlineReservation.departureDate"
                     type="date"
                     label="Fecha de salida (*)"
+                    value={departureDate}
                     InputProps={{
                         startAdornment: <IconWrapper icon="date" />,
                         readOnly: edit
@@ -79,6 +80,7 @@ export const TravelFormGeneral: FC<Props> = ({ user, readonly }) => {
                 <RHFTextField
                     name="airlineReservation.arrivalDate"
                     type="date"
+                    value={arrivalDate}
                     label="Fecha de llegada (*)"
                     InputProps={{
                         startAdornment: <IconWrapper icon="date" />,

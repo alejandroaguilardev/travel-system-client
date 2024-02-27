@@ -15,7 +15,7 @@ describe("PetUpdater", () => {
         petServiceMock.update.mockResolvedValueOnce(response);
         const expected = await petUpdater(petServiceMock, uuid)(id, dataForm)
 
-        expect(expected.message).toBe(response.message)
+        expect(expected.response.message).toBe(response.message)
     })
 
     it("should_successfully_pet_update_to_have_call", async () => {

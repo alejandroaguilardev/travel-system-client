@@ -6,14 +6,18 @@ import { Travel } from '../../../../modules/contracts/domain/contract-services/t
 import { useBoolean } from '../../../../hooks/use-boolean';
 import { DialogContract } from '../dialog/dialog-contract';
 import { TravelForm } from './form/travel-form';
+import { useContractStore } from '../../../../state/contract/contract-store';
 
 type Props = {
     travel: Travel;
     contractId: string;
+    detailId: string;
+    finish: boolean;
 };
 
-export default function CardTravel({ travel, contractId }: Props) {
+export default function CardTravel({ travel, contractId, detailId, finish }: Props) {
     const dialog = useBoolean();
+    const { onSelected, onSelectedDetail } = useContractStore();
 
     return (
         <>
@@ -87,9 +91,15 @@ export default function CardTravel({ travel, contractId }: Props) {
                         onCancel={dialog.onFalse}
                         contractId={contractId}
                         travel={travel}
-                        readonly={travel.hasServiceIncluded}
+                        hasServiceIncluded={travel.hasServiceIncluded}
+                        detailId={detailId}
+                        noShowButton={finish}
+                        callback={(response) => {
+                            onSelected(response?.contract ?? null);
+                            onSelectedDetail(response?.contractDetail ?? null);
+                            dialog.onFalse();
+                        }}
                     />
-
                 </DialogContract>
             }
         </>

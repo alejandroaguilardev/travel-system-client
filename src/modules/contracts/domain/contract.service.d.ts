@@ -1,14 +1,14 @@
 import { ServiceHost } from '../../shared/domain/services/services-host';
-import { Contract, NewContract } from './contract';
+import { Contract, NewPostContract } from './contract';
+import { ContractDetail } from './contract-detail';
 import { Cage } from './contract-services/cage/cage';
 import { Documentation } from './contract-services/documentation/documentation';
 import { PartialTravel } from './travel/travel';
+import { ServiceSearch } from '../../shared/domain/services/service-search';
 
-export interface ContractService extends ServiceHost<NewContract> {
-    update(id: string, body: Partial<NewContract>): Promise<ResponseSuccess>;
+export interface ContractService extends ServiceHost<NewPostContract> {
+    update(id: string, body: Partial<NewPostContract>): Promise<ResponseSuccess>;
     searchClientById(clientId: string): Promise<Contract[]>;
-    updateDocumentation(contractId: string, documentation: Documentation): Promise<Contract>;
-    updateCage(contractId: string, cage: Cage): Promise<Contract>;
-    updateTravel(contractId: string, cage: PartialTravel): Promise<Contract>;
+    searchClient: ServiceSearch;
     finish(contractId: string): Promise<ResponseSuccess>;
 }

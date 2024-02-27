@@ -11,7 +11,7 @@ import { errorsShowNotification } from '../../../../modules/shared/infrastructur
 
 type Props = {
     user?: NewUser;
-    callback: () => void;
+    callback: (user?: NewUser) => void;
 }
 
 export const useFormUser = ({ user, callback }: Props) => {
@@ -22,14 +22,14 @@ export const useFormUser = ({ user, callback }: Props) => {
     const onSubmit: SubmitHandler<NewUser> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
-            const response = user
+            const { response, user: newUser } = user
                 ? await userUpdater(userService, uuid)(data?.id!, data)
                 : await userCreator(userService, uuid)(data)
 
             showNotification(response.message);
             nativeEvent.submitter?.value === "reload"
                 ? reload()
-                : callback();
+                : callback(newUser);
         } catch (error) {
             errorsShowNotification(error, showNotification)
         }

@@ -7,28 +7,33 @@ import { useFormTravel } from "./use-form-travel";
 import { travelSchema } from "./travel-validation";
 import { TravelFormGeneral } from './general/travel-form-general';
 import { PartialTravel, Travel } from '../../../../../modules/contracts/domain/contract-services/travel/contract-travel';
+import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/domain/contract-detail.service';
 
 type Props = {
-    contractId: string
+    contractId: string;
+    detailId: string;
     travel: Travel;
-    readonly: boolean;
+    hasServiceIncluded: boolean;
+    noShowButton?: boolean;
+    callback: (response?: ContractDetailUpdateResponse) => void
     onCancel: () => void;
     user?: boolean;
 }
 
-export const TravelForm: FC<Props> = ({ travel, onCancel, user, readonly, contractId }) => {
+export const TravelForm: FC<Props> = ({ travel, detailId, noShowButton = false, callback, onCancel, user, hasServiceIncluded, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<PartialTravel>(travelSchema),
         defaultValues: travel,
     });
 
-    const { onSubmit } = useFormTravel({ contractId, callback: onCancel });
+    const { onSubmit } = useFormTravel({ contractId, detailId, callback });
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-            <TravelFormGeneral readonly={readonly} user={user} />
 
-            {(!readonly || user) &&
+            <TravelFormGeneral hasServiceIncluded={hasServiceIncluded} user={user} />
+
+            {(!noShowButton || user) &&
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                         Cancelar

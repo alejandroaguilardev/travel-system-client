@@ -3,7 +3,7 @@ import { contractService } from '../../../modules/contracts/infrastructure/contr
 import uuid from "../../../modules/shared/infrastructure/adapter/uuid";
 import { contractFinish } from '../../../modules/contracts/application/finish/contract-finish';
 import { errorsShowNotification } from '../../../modules/shared/infrastructure/helpers/errors-show-notification';
-import { Contract } from 'src/modules/contracts/domain/contract';
+import { Contract } from '../../../modules/contracts/domain/contract';
 
 type Props = {
     contract: Contract | null;

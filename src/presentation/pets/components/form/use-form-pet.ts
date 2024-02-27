@@ -11,7 +11,7 @@ import { errorsShowNotification } from '../../../../modules/shared/infrastructur
 
 type Props = {
     pet?: Pet;
-    callback: () => void;
+    callback: (petUpdated: Pet) => void;
 }
 
 export const useFormPet = ({ pet, callback }: Props) => {
@@ -22,14 +22,14 @@ export const useFormPet = ({ pet, callback }: Props) => {
     const onSubmit: SubmitHandler<NewPet> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
-            const response = pet
+            const { response, pet: petUpdated } = pet
                 ? await petUpdater(petService, uuid)(data?.id!, data)
                 : await petCreator(petService, uuid)(data)
 
             showNotification(response.message);
             nativeEvent.submitter?.value === "reload"
                 ? reload()
-                : callback();
+                : callback(petUpdated);
         } catch (error) {
             errorsShowNotification(error, showNotification)
         }

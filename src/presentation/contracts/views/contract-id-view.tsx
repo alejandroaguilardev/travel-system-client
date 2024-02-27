@@ -17,7 +17,7 @@ export default function ContractIdView({ id }: Props) {
             <Container maxWidth='xl'>
                 <CustomBreadcrumbs
                     sx={{ display: "inline" }}
-                    heading={`Visualizar: ${contract?.number}`}
+                    heading={`Visualizar Contrato N° ${contract?.number}`}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Contratos', href: paths.dashboard.contracts.root },

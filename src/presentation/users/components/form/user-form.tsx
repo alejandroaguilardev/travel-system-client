@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { NewUser } from '../../../../modules/users/domain/user';
+import { NewUser, User } from '../../../../modules/users/domain/user';
 import FormProvider from '../../../../components/hook-form/form-provider';
 import { TabGenericProvider, TabSwitcher } from '../../../../components/tab-generic';
 import { ActionsButtonsForm } from '../../../../components/hook-form/actions-buttons-form';
@@ -11,10 +11,11 @@ import { useFormUser } from "./use-form-user";
 
 type Props = {
     user?: NewUser;
-    callback: () => void
+    notReload?: boolean;
+    callback: (newUser?: NewUser) => void
 }
 
-export const UserForm: FC<Props> = ({ user, callback }) => {
+export const UserForm: FC<Props> = ({ user, notReload, callback }) => {
     const methods = useForm({
         resolver: yupResolver<NewUser>(userSchema),
         defaultValues: user ?? defaultValues,
@@ -33,6 +34,7 @@ export const UserForm: FC<Props> = ({ user, callback }) => {
             <ActionsButtonsForm
                 name="usuario"
                 edit={!!user}
+                notReload={notReload}
             />
 
         </FormProvider >

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Alert, Divider, Skeleton, Stack } from "@mui/material";
 import { Documentation } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { useDocumentFormGeneral } from "./use-document-form-general";
-import { CertificateSwitch } from '../../../../contracts/components/form/general/certificate-switch';
+import { CertificateSwitch } from '../../../../contracts/components/form/pet/detail/certificate-switch';
 
 type Props = {
     documentation: Documentation;

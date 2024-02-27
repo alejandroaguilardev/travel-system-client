@@ -15,6 +15,7 @@ export interface Pet {
     type: string;
     sterilized: string;
     status: Status;
+    adopter: string;
     user?: string;
 }
 

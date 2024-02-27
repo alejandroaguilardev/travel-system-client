@@ -4,10 +4,11 @@ import { useContractStore } from '../../../../state/contract/contract-store';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import Label from '../../../../components/label/label';
+import { capitalize } from '../../../../modules/shared/domain/helpers/capitalize';
 
 
 const Header = () => {
-    const { contract } = useContractStore();
+    const { contract, contractDetail } = useContractStore();
 
     return (
         <>
@@ -31,19 +32,30 @@ const Header = () => {
                         mb: 1
                     }}
                 />
-                {
-                    contract?.services?.travel?.typeTraveling === "charge" &&
-                    <ListItemText
-                        sx={{
-                            width: "100%",
-                            textAlign: { xs: "left", md: "right" }
-                        }}
-                        primary={<> Número de guía: {contract?.guideNumber || "-- --"}</>}
-                        primaryTypographyProps={{
-                            typography: 'subtitle1',
-                        }}
-                    />
-                }
+
+
+                <ListItemText
+                    sx={{
+                        width: "100%",
+                        textAlign: { xs: "left", md: "right" }
+                    }}
+                    primary={
+                        contractDetail?.travel?.typeTraveling === "charge" ?
+                            <>
+                                Número de guía: {contractDetail?.guideNumber || "-- --"}
+                            </>
+                            : ""}
+                    primaryTypographyProps={{
+                        typography: 'subtitle1',
+                    }}
+                    secondary={capitalize(contractDetail?.pet.name)}
+                    secondaryTypographyProps={{
+                        mt: 1,
+                        component: 'span',
+                        typography: 'caption',
+                        color: 'text.disabled',
+                    }}
+                />
 
             </Box>
 

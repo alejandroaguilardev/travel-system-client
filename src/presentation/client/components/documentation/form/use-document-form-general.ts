@@ -1,6 +1,6 @@
-import { DocumentationSwitches, documentationSwitches, documentationSwitchesName } from '../../../../contracts/components/form/general/documentation-values';
-import { Documentation } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { useEffect, useState } from 'react';
+import { DocumentationSwitches, documentationSwitches, documentationSwitchesName } from '../../../../contracts/components/form/pet/detail/documentation-values';
+import { Documentation } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 
 export const useDocumentFormGeneral = (documentation: Documentation) => {
     const [switchUser, setSwitchUser] = useState<DocumentationSwitches[]>([]);

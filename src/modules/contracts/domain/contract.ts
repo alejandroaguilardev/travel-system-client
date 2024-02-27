@@ -1,10 +1,6 @@
-import { ContractServices } from './contract-services/services';
 import { ContractStatus } from './contract-status';
 import { User } from '../../users/domain/user';
-import { Documentation } from './contract-services/documentation/documentation';
-import { Cage } from './contract-services/cage/cage';
-import { Pet } from '../../pets/domain/pet';
-import { TypeTraveling } from './contract-services/travel/contract-travel';
+import { ContractDetail, NewContractDetail, NewPostContractDetail } from './contract-detail';
 
 export interface Contract {
     id: string;
@@ -12,26 +8,16 @@ export interface Contract {
     client: User;
     status: ContractStatus;
     startDate: Date;
-    endDate: Date | null;
-    services: ContractServices;
-    guideNumber: string;
-    pets: Pet[];
+    endDate: Date;
+    details: ContractDetail[];
+    user: string;
 }
 
-export interface NewContract extends Omit<Contract, "id" | "guideNumber" | "services" | "endDate" | "pets" | "client" | "guideNumber" | "status"> {
+export interface NewContract extends Omit<Contract, "id" | "endDate" | "client" | "guideNumber" | "status" | "details" | "user"> {
     id?: string;
     client: string;
-    pets?: string[];
-    cage?: Cage;
-    documentation: Documentation
-    travel: {
-        hasServiceIncluded: boolean,
-        hasServiceAccompanied: boolean;
-        typeTraveling: TypeTraveling;
-    }
+    details: NewContractDetail[]
 }
-
-export interface UpdateContract extends Omit<Contract, "client" | "pets"> {
-    client: string;
-    pets: string[]
+export interface NewPostContract extends Omit<NewContract, "details"> {
+    details: NewPostContractDetail[]
 }

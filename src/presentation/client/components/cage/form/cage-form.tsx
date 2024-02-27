@@ -7,27 +7,31 @@ import { Box, Button } from "@mui/material";
 import { useFormCage } from "./use-form-cage";
 import { cageSchema } from "./cage-validation";
 import { CageFormGeneral } from './cage-form-general';
+import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/domain/contract-detail.service';
 
 type Props = {
-    contractId: string
+    contractId: string;
+    detailId: string;
     cage: Cage;
-    readonly: boolean;
+    hasServiceIncluded: boolean;
+    noShowButton: boolean;
     onCancel: () => void;
+    callback: (response?: ContractDetailUpdateResponse) => void
     user?: boolean
 }
 
-export const CageForm: FC<Props> = ({ cage, onCancel, readonly, contractId, user = false }) => {
+export const CageForm: FC<Props> = ({ cage, onCancel, callback, hasServiceIncluded, detailId, contractId, user = false, noShowButton }) => {
     const methods = useForm({
         resolver: yupResolver<Cage>(cageSchema),
         defaultValues: cage,
     });
 
-    const { onSubmit } = useFormCage({ contractId, callback: onCancel });
+    const { onSubmit } = useFormCage({ contractId, detailId, callback });
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-            <CageFormGeneral readonly={readonly} user={user} />
-            {(!readonly || user) &&
+            <CageFormGeneral hasServiceIncluded={hasServiceIncluded} user={user} />
+            {(!noShowButton || user) &&
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                         Cancelar

@@ -8,16 +8,18 @@ import { fDate } from '../../../src/modules/shared/infrastructure/helpers/format
 
 jest.mock('../../../src/modules/pets/infrastructure/pets.service');
 
+
 jest.mock('../../../src/components/autocomplete/selector/autocomplete-server', () => ({
     AutocompleteServer: jest.fn(() => {
         return (
             <RHFTextField
-                name='roles'
-                label="Seleccionar roles"
+                name='adopter'
+                label="cliente"
             />
         );
     }),
 }));
+
 
 describe("PetForm", () => {
     const callback = jest.fn();
@@ -97,8 +99,10 @@ describe("PetForm", () => {
         const race = screen.getByLabelText('Raza (*)') as HTMLInputElement;
         const chip = screen.getByLabelText('Chip') as HTMLInputElement;
         const color = screen.getByLabelText('Color (*)') as HTMLInputElement;
+        const clientField = screen.getByLabelText('cliente') as HTMLInputElement;
 
         await act(async () => {
+            fireEvent.change(clientField, { target: { value: data.adopter } });
             fireEvent.change(name, { target: { value: data.name } });
             fireEvent.change(birthDate, { target: { value: data.birthDate } });
             fireEvent.change(type, { target: { value: data.type } });
