@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { MenuItem } from '@mui/material';
 import { RenderRowActionMenuItemButton } from '../../../../components/material-table/render-row-action-menu-item-button';
 import { RenderRowActionMenuItem } from '../../../../components/material-table/render-row-action-menu-item';
@@ -31,30 +31,29 @@ export const ContractRenderRowActionsMenuItems = ({ onSelected, deleteItem, row 
                 }}
             />
         </PermissionGuard>,
-        <>
+        <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.FINISH} key="finish">
             {row.status === "completed" && !row.endDate &&
-                <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.FINISH} key="finish">
-                    <MenuItem
-                        onClick={handleFinishClick}
-                    >
-                        <IconWrapper icon="check" mr={2} />
-                        Finalizar
-                    </MenuItem>
-                </PermissionGuard>
+                <MenuItem
+                    onClick={handleFinishClick}
+                >
+                    <IconWrapper icon="check" mr={2} />
+                    Finalizar
+                </MenuItem>
             }
+        </PermissionGuard>,
 
-            {row.status !== "completed" &&
-                <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.EDIT} key="edit">
-                    <RenderRowActionMenuItem
-                        item={{
-                            name: "Editar",
-                            icon: "editTable",
-                            href: paths.dashboard.contracts.edit(row.id)
-                        }}
-                    />
-                </PermissionGuard>
+        <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.EDIT} key="edit">
+            {
+                row.status !== "completed" &&
+                <RenderRowActionMenuItem
+                    item={{
+                        name: "Editar",
+                        icon: "editTable",
+                        href: paths.dashboard.contracts.edit(row.id)
+                    }}
+                />
             }
-        </>,
+        </PermissionGuard>,
         <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION} key="documentation">
             <RenderRowActionMenuItem
                 item={{
@@ -64,7 +63,7 @@ export const ContractRenderRowActionsMenuItems = ({ onSelected, deleteItem, row 
                 }}
             />
         </PermissionGuard>,
-        <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.CAGE}>
+        <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.CAGE} key="cage">
             <RenderRowActionMenuItem
                 item={{
                     name: "Requisitos de Jaula",

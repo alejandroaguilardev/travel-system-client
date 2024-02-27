@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { uuidCreateMother } from '../../shared/domain/uuid.mother';
 import { contractStatusCreateMother } from './contract-status.mother';
-import { stringCreateMother } from '../../shared/domain/string.mother';
 import { chosenCreateMother } from './chosen.mother';
 import { typeTravelingCreateMother } from './type-traveling-mother';
 import { dateMother } from '../../shared/domain/date.mother';
@@ -17,7 +16,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             status: contractStatusCreateMother(),
             hasServiceIncluded: faker.datatype.boolean(),
             chosen: chosenCreateMother(),
-            recommendation: stringCreateMother({ count: { min: 1, max: 1 } })
+            recommendation: chosenCreateMother()
         },
         documentation: {
             chipCertificate: {

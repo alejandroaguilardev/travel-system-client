@@ -1,7 +1,8 @@
 import { FC } from "react";
-import { MenuItem } from "@mui/material";
+import { MenuItem, InputAdornment } from '@mui/material';
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 import { CAGE_TYPE } from '../../../../../modules/cages/domain/cage-type';
+import Iconify from '../../../../../components/iconify';
 
 type Props = {
     readonly: boolean;
@@ -14,25 +15,28 @@ export const CageSelected: FC<Props> = ({ readonly, keyField }) => {
         <>
             <RHFTextField
                 name={`${keyField}.typeCage`}
-                select
                 label="Tipo de jaula"
+                inputAdornment
                 InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <Iconify icon="mdi:text" />
+                        </InputAdornment>
+                    ),
                     readOnly: readonly
                 }}
                 style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-
-            >
-                {CAGE_TYPE.map((option) => (
-                    <MenuItem key={option} value={option}>
-                        {option.toUpperCase()}
-                    </MenuItem>
-                ))}
-            </RHFTextField>
+            />
             <RHFTextField
                 name={`${keyField}.modelCage`}
                 label="Modelo de jaula"
                 InputProps={{
-                    readOnly: readonly
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <Iconify icon="mdi:text" />
+                        </InputAdornment>
+                    ),
+                    readOnly: readonly,
                 }}
                 style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
 
@@ -40,11 +44,16 @@ export const CageSelected: FC<Props> = ({ readonly, keyField }) => {
             <RHFTextField
                 name={`${keyField}.dimensionsCage`}
                 label="Dimensiones"
+                inputAdornment
                 InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <Iconify icon="mdi:text" />
+                        </InputAdornment>
+                    ),
                     readOnly: readonly
                 }}
                 style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-
             />
 
         </>

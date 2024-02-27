@@ -1,8 +1,10 @@
-import { Box, MenuItem, Stack } from '@mui/material';
+import { Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 import { PET_GENDERS, PetGender } from '../../../../../modules/pets/domain/pet-gender';
 import { SearchClient } from '../../../../client/components/search-client/search-client';
 import { usePetFormGeneral } from './use-pet-form-general';
+import { ContractFormCage } from '../../../../contracts/components/form/cage/contract-form-cage';
+import { CageSelected } from '../../../../client/components/cage/form/cage-selected';
 
 export const PetFormGeneral = () => {
     const { chip, chipDate, birthDate, client, handleClient } = usePetFormGeneral();
@@ -86,6 +88,14 @@ export const PetFormGeneral = () => {
                 </RHFTextField>
 
             </Stack>
+            <Divider />
+            <Typography fontWeight="bold">
+                Recomendación de la jaula de la mascota
+            </Typography>
+            <Divider />
+            <ContractFormCage keyValue='cageRecommendation' />
+            <CageSelected keyField="cageRecommendation" readonly />
+
         </Stack>
     )
 }

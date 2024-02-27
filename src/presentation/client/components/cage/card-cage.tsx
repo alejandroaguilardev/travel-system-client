@@ -7,6 +7,7 @@ import { statusColor } from '../../../contracts/components/table/status-color';
 import { DialogContract } from '../dialog/dialog-contract';
 import { CageForm } from './form/cage-form';
 import { useContractStore } from '../../../../state/contract/contract-store';
+import { CageChosen } from '../../../../modules/contracts/domain/contract-services/cage/cage-chosen';
 
 type Props = {
     cage: Cage;
@@ -91,8 +92,9 @@ export default function CardCage({ cage, contractId, detailId, finish }: Props) 
                     <CageForm
                         onCancel={dialog.onFalse}
                         contractId={contractId}
-                        cage={cage}
-                        hasServiceIncluded={!cage.hasServiceIncluded}
+                        cage={cageSelected(cage)}
+                        hasServiceIncluded={cage.hasServiceIncluded}
+                        isRecommendation={!!cage.recommendation?.modelCage && !cage.hasServiceIncluded}
                         noShowButton={finish}
                         detailId={detailId}
                         callback={(response) => {
@@ -107,4 +109,18 @@ export default function CardCage({ cage, contractId, detailId, finish }: Props) 
 
         </>
     );
+}
+
+
+const cageSelected = (cage: Cage): Cage => {
+    let {chosen} = cage;
+
+    if (!chosen?.modelCage && !cage.hasServiceIncluded) {
+        chosen = cage?.recommendation ?? cage.chosen;
+    }
+
+    return {
+        ...cage,
+        chosen
+    }
 }

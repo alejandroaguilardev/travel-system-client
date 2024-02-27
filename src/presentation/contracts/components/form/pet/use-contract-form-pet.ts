@@ -24,7 +24,11 @@ const detailInit: NewContractDetail = {
         },
         hasServiceIncluded: false,
         status: "pending",
-        recommendation: ""
+        recommendation: {
+            dimensionsCage: "",
+            modelCage: "",
+            typeCage: ""
+        }
     },
     pet: {} as Pet,
     travel: {
@@ -68,7 +72,22 @@ export const useContractFormPet = () => {
             return;
         }
 
-        setValue("details", [...details, { ...detailInit, pet, id: uuid.generate() }]);
+        setValue("details", [
+            ...details,
+            {
+                ...detailInit,
+                pet,
+                id: uuid.generate(),
+                cage: {
+                    ...detailInit.cage,
+                    recommendation: {
+                        dimensionsCage: pet?.cageRecommendation?.dimensionsCage ?? "",
+                        modelCage: pet?.cageRecommendation?.modelCage ?? "",
+                        typeCage: pet?.cageRecommendation?.typeCage ?? ""
+                    }
+                },
+            }
+        ]);
     }
 
     const removePet = (detail: NewContractDetail) => {

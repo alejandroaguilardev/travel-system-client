@@ -1,5 +1,6 @@
 import { Status } from "../../shared/domain/status";
 import { PetGender } from "./pet-gender";
+import { CageChosen } from '../../contracts/domain/contract-services/cage/cage-chosen';
 
 export interface Pet {
     id: string;
@@ -14,9 +15,10 @@ export interface Pet {
     country: string;
     type: string;
     sterilized: string;
-    status: Status;
+    status?: Status;
     adopter: string;
     user?: string;
+    cageRecommendation?: CageChosen;
 }
 
 export interface NewPet extends Omit<Pet, 'id' | 'chip' | 'chipDate' | 'status' | 'user'> {

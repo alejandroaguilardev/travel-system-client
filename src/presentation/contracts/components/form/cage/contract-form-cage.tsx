@@ -17,6 +17,7 @@ export const ContractFormCage: FC<Props> = ({ keyValue }: Props) => {
             <TextField
                 select
                 label="Selecciona tu jaula"
+                defaultValue=""
                 onChange={(e) => handleCageChosen(e.target.value, keyValue)}
             >
                 {CAGES_CHOSEN.map((option) => (

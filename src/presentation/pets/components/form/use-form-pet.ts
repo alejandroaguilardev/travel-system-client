@@ -23,7 +23,7 @@ export const useFormPet = ({ pet, callback }: Props) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
             const { response, pet: petUpdated } = pet
-                ? await petUpdater(petService, uuid)(data?.id!, data)
+                ? await petUpdater(petService, uuid)(data?.id!, data as Pet)
                 : await petCreator(petService, uuid)(data)
 
             showNotification(response.message);

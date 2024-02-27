@@ -64,8 +64,16 @@ export const ContractFormPetDetail = ({ field }: Props) => {
                 />
                 {cage &&
                     <>
-                        <ContractFormCage />
+                        <Typography fontWeight="bold">Selección de Jaula</Typography>
+                        <ContractFormCage keyValue={`${field}cage.chosen`} />
                         <CageSelected readonly keyField={`${field}cage.chosen`} />
+                    </>
+                }
+                {!cage &&
+                    <>
+                        <Typography fontWeight="bold">Recomendación de Jaula</Typography>
+                        <ContractFormCage keyValue={`${field}cage.recommendation`} />
+                        <CageSelected readonly keyField={`${field}cage.recommendation`} />
                     </>
                 }
                 <Divider />

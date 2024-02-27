@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { NewPet } from '../../../../modules/pets/domain/pet';
-import { STATUS } from '../../../../modules/shared/domain/status';
+import { CAGE_TYPE } from '../../../../modules/cages/domain/cage-type';
 
 const defaultValues: NewPet = {
     id: "",
@@ -16,6 +16,11 @@ const defaultValues: NewPet = {
     type: "",
     sterilized: "No",
     adopter: "",
+    cageRecommendation: {
+        dimensionsCage: "",
+        modelCage: "",
+        typeCage: ""
+    }
 };
 
 const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape({
@@ -56,6 +61,11 @@ const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape({
         .max(3, "El tipo debe tener como máximo 255 caracteres"),
     adopter: Yup.string().required("El adopter es requerido"),
     user: Yup.string(),
-});
+    cageRecommendation: Yup.object().shape({
+        modelCage: Yup.string(),
+        dimensionsCage: Yup.string(),
+        typeCage: Yup.string().oneOf(['', ...CAGE_TYPE] as const),
+    })
+})
 
 export { defaultValues, petSchema };

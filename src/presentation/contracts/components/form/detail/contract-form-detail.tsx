@@ -25,36 +25,28 @@ export const ContractFormDetail = () => {
                     <TableBody>
                         <TableRow hover>
                             <TableCell sx={{ width: "50%" }}>
-                                <Typography variant="subtitle1" gutterBottom>
-                                    Número de Contrato:
-                                </Typography>
+                                Número de Contrato:
                             </TableCell>
                             <TableCell sx={{ width: "50%" }}>
-                                <Typography>{contract.number}</Typography>
+                                {contract.number}
                             </TableCell>
                         </TableRow>
                         <TableRow hover>
                             <TableCell sx={{ width: "50%" }}>
-                                <Typography variant="subtitle1" gutterBottom>
-                                    Fecha de Inicio:
-                                </Typography>
+                                Fecha de Inicio:
                             </TableCell>
                             <TableCell sx={{ width: "50%" }}>
-                                <Typography>{fDateTimeLong(contract.startDate)}</Typography>
+                                {fDateTimeLong(contract.startDate)}
                             </TableCell>
                         </TableRow>
                         <TableRow hover>
-                            <TableCell sx={{ width: "50%" }}>
-                                <Typography variant="subtitle1" gutterBottom>
-                                    Seleccionar Cliente:
-                                </Typography>
+                            <TableCell sx={{ width: "50%" }} >
+                                Seleccionar Cliente:
                             </TableCell>
                             <TableCell sx={{ width: "50%" }}>
-                                <Typography>
-                                    {client?.profile.name} {client?.profile.lastName}
-                                    <Divider />
-                                    {client?.profile.document} {client?.profile.documentNumber}
-                                </Typography>
+                                {client?.profile.name} {client?.profile.lastName}
+                                <Divider />
+                                {client?.profile.document} {client?.profile.documentNumber}
 
                             </TableCell>
                         </TableRow>
@@ -139,14 +131,7 @@ export const ContractFormDetail = () => {
                         </Typography>
                         <Table sx={{ width: "100%" }}>
                             <TableBody>
-                                {detail.cage?.recommendation ?
-                                    <TableRow hover>
-                                        <TableCell sx={{ width: "50%" }}>Recomendación:</TableCell>
-                                        <TableCell sx={{ width: "50%" }}>
-                                            {detail.cage.recommendation}
-                                        </TableCell>
-                                    </TableRow>
-                                    :
+                                {detail.cage?.hasServiceIncluded ?
                                     <TableRow hover>
                                         <TableCell sx={{ width: "50%" }}>Selección de Jaula:</TableCell>
                                         <TableCell sx={{ width: "50%" }}>
@@ -157,6 +142,18 @@ export const ContractFormDetail = () => {
                                             Dimensión: {capitalize(detail.cage?.chosen?.dimensionsCage)}
                                         </TableCell>
                                     </TableRow>
+                                    :
+                                    <TableRow hover>
+                                        <TableCell sx={{ width: "50%" }}>Recomendación de Jaula:</TableCell>
+                                        <TableCell sx={{ width: "50%" }}>
+                                            Tipo: {capitalize(detail.cage?.recommendation?.dimensionsCage)}
+                                            <Divider />
+                                            Modelo: {capitalize(detail.cage?.recommendation?.modelCage)}
+                                            <Divider />
+                                            Dimensión: {capitalize(detail.cage?.recommendation?.dimensionsCage)}
+                                        </TableCell>
+                                    </TableRow>
+
                                 }
                             </TableBody>
                         </Table>
