@@ -12,6 +12,7 @@ export const paths = {
   },
   auth: {
     login: `${ROOTS.AUTH}/login`,
+    recover: `${ROOTS.AUTH}/recuperar`,
   },
 
   dashboard: {
