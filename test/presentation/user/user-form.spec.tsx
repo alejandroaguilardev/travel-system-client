@@ -5,7 +5,6 @@ import { userCreateMother } from '../../modules/users/domain/user.mother';
 import * as hooks from "../../../src/presentation/users/components/form/use-form-user";
 import RHFTextField from '../../../src/components/hook-form/rhf-text-field';
 import { ConditionUserProvider } from '../../../src/presentation/users/contexts/condition-user-context';
-import userEvent from "@testing-library/user-event";
 
 jest.mock('../../../src/modules/roles/infrastructure/role.service');
 jest.mock('../../../src/modules/users/infrastructure/user.service');
@@ -126,7 +125,6 @@ describe("UserForm", () => {
             fireEvent.change(lastName, { target: { value: data.profile.lastName } });
             fireEvent.change(secondLastName, { target: { value: data.profile.secondLastName } });
             fireEvent.change(email, { target: { value: data.email } });
-            fireEvent.change(phone, { target: { value: data.profile.phone } });
             fireEvent.change(phone, { target: { value: data.profile.phone } });
 
             const form = screen.getByRole("form");

@@ -8,7 +8,9 @@ const ROOTS = {
 export const paths = {
   root: '/',
   client: {
-    history: "historial"
+    history: "/historial",
+    profile: "/perfil",
+    changePassword: "seguridad"
   },
   auth: {
     login: `${ROOTS.AUTH}/login`,

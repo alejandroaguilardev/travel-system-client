@@ -8,6 +8,9 @@ type Payload = {
     [Types.LOGIN]: {
         user: AuthUserType;
     };
+    [Types.UPDATE]: {
+        user: AuthUserType;
+    };
     [Types.LOGOUT]: undefined;
 };
 
@@ -23,6 +26,12 @@ export const AuthReducer = (state: AuthStateType, action: ActionsType) => {
         };
     }
     if (action.type === Types.LOGIN) {
+        return {
+            ...state,
+            user: action.payload.user,
+        };
+    }
+    if (action.type === Types.UPDATE) {
         return {
             ...state,
             user: action.payload.user,

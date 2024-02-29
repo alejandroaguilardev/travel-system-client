@@ -16,8 +16,6 @@ export const userCreateMother = (newUser?: Partial<User>): User => {
         user: newUser?.user ?? uuidCreateMother(),
         profile: userProfileMother(newUser?.profile),
         auth: UserAuthMother(newUser?.auth),
-
-
     };
 }
 

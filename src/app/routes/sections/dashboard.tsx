@@ -18,7 +18,6 @@ const RoleIdPage = lazy(() => import('../../pages/admin/role/[id]/index'));
 const UserPage = lazy(() => import('../../pages/admin/user'));
 const UserNewPage = lazy(() => import('../../pages/admin/user/crear'));
 const UserIdPage = lazy(() => import('../../pages/admin/user/[id]/index'));
-
 const ContractPage = lazy(() => import('../../pages/admin/contract/index'));
 const ContractNewPage = lazy(() => import('../../pages/admin/contract/crear'));
 const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'));

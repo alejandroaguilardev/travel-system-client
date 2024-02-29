@@ -39,8 +39,8 @@ const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
             .oneOf(PROFILE_DOCUMENT)
             .required("El documento es requerido"),
         documentNumber: Yup.string()
-            .min(1, "El nombre debe tener al menos un carácter")
-            .max(45, "El nombre debe tener como máximo 45 caracteres")
+            .min(1, "El número de documento debe tener al menos un carácter")
+            .max(45, "El número de documento debe tener como máximo 45 caracteres")
             .required("El número de documento es requerido"),
         name: Yup.string()
             .required("El nombre es requerido")
