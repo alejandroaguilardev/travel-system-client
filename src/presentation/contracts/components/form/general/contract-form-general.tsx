@@ -40,7 +40,7 @@ export const ContractFormGeneral = () => {
                     globalFilterProperties={[{ field: "name", value: "string" }, { field: "lastName", value: "string" }]}
                     defaultValue={client}
                     callback={(value) => handleClient(value as User | null)}
-                    getOptionLabel={(option: User) => `${capitalize(option.name)} ${capitalize(option.secondLastName)} ${capitalize(option.lastName)} ${capitalize(option.secondLastName)}`}
+                    getOptionLabel={(option: User) => `${capitalize(option?.profile?.name)} ${capitalize(option?.profile?.secondLastName)} ${capitalize(option?.profile?.lastName)} ${capitalize(option?.profile?.secondLastName)}`}
                     textField={{
                         label: "Seleccionar cliente(*)",
                         placeholder: "Buscar cliente..."

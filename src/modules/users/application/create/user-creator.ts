@@ -5,7 +5,6 @@ import { ResponseSuccess } from '../../../shared/domain/response/response-succes
 
 export const userCreator = (userService: UserService, uuid: UuidService) => async (user: NewUser): Promise<ResponseSuccess> => {
     user.id = uuid.generate()!;
-    user.password = "12345678";
     const response = await userService.save(user);
     return response;
 }

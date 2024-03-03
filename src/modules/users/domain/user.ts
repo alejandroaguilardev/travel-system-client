@@ -1,13 +1,17 @@
 import { Role } from '../../roles/domain/role';
+import { UserAuthInterface } from './user-auth.interface';
+import { ProfileInterface } from './user-profile.interface';
+import { Status } from '../../shared/domain/status';
+
 
 export interface User {
   id: string,
-  name: string,
-  secondName?: string,
-  lastName: string,
-  secondLastName?: string,
   email: string,
   roles: Role[],
+  profile: ProfileInterface;
+  user?: string;
+  status?: Status;
+  auth?: UserAuthInterface;
 }
 
 
@@ -15,7 +19,6 @@ export interface User {
 export interface NewUser extends Omit<User, 'id' | 'roles'> {
   id?: string;
   roles?: string[];
-  password?: string;
 }
 
 
