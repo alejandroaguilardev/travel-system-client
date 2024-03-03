@@ -5,8 +5,9 @@ import { roleService } from '../../../../../modules/roles/infrastructure/role.se
 import { useConditionContext } from '../../../contexts/condition-user-context';
 
 export const useUserFormGeneral = () => {
-    const { setValue, getValues } = useFormContext();
+    const { setValue, getValues, watch } = useFormContext();
     const { isUser } = useConditionContext();
+    const phone = watch("profile.phone");
 
     const [roles, setRoles] = useState<Role[]>([]);
     const rolesDefault: string[] = getValues("roles") ?? [];
@@ -25,9 +26,13 @@ export const useUserFormGeneral = () => {
         }
     }
 
+    const handlePhone = (value: string) => setValue("profile.phone", value);
+
     return {
         roles,
         isUser,
-        handleRoles
+        phone,
+        handleRoles,
+        handlePhone
     }
 }

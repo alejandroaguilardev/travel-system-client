@@ -3,6 +3,7 @@ export interface DocumentationCertificate {
     isApplied: boolean;
     expectedDate: Date;
     executionDate: Date | null;
+    resultDate: Date | null;
     user?: string;
 };
 

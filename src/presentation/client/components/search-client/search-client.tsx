@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, TextFieldProps, Typography } from '@mui/material';
 import { User } from '../../../../modules/users/domain/user';
 import { AutocompleteServer } from '../../../../components/autocomplete/selector/autocomplete-server';
 import { OrderValue } from '../../../../modules/shared/domain/criteria/sorting';
@@ -7,6 +7,7 @@ import { capitalize } from '../../../../modules/shared/domain/helpers/capitalize
 import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
 import { ErrorMessage } from '../../../../components/hook-form/error-message';
 import { useClientDialogContext } from './client-dialog-context';
+import { Criteria } from '../../../../modules/shared/domain/criteria/criteria';
 
 
 const globalFilterProperties = [
@@ -28,36 +29,47 @@ const getOptionLabel = (option: User) => {
     return `${document} ${documentNumber} ${names}`
 
 }
-type Props = {
+type Props = Partial<Criteria> & {
     client: User | null;
     field: string;
     handleClient: (user: User | null) => void;
+    textField?: TextFieldProps;
+    newPerson?: boolean;
 }
 
-export const SearchClient = ({ client, field, handleClient }: Props) => {
+export const SearchClient = ({
+    client,
+    field,
+    handleClient,
+    textField = {
+        label: "Seleccionar cliente(*)",
+        placeholder: "Buscar cliente...",
+    },
+    newPerson = true,
+    ...rest
+}: Props) => {
     const { onTrue } = useClientDialogContext();
 
     return (
         <>
             <AutocompleteServer<User>
+                {...rest}
                 collection='users'
                 sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
                 globalFilterProperties={globalFilterProperties}
                 defaultValue={client}
                 callback={(value) => handleClient(value as User | null)}
                 getOptionLabel={getOptionLabel}
-                textField={{
-                    label: "Seleccionar cliente(*)",
-                    placeholder: "Buscar cliente...",
-                }}
+                textField={textField}
                 noOptionsText={
                     <Box width="100%" >
-                        <PermissionGuard group={AuthGroup.CLIENT} permission={AuthPermission.CREATE}>
-                            <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la persona que está buscando. ¿Desea crear un cliente ahora? </Typography>
+                        <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la persona que está buscando. ¿Desea crear un cliente ahora? </Typography>
+                        {newPerson && <PermissionGuard group={AuthGroup.CLIENT} permission={AuthPermission.CREATE}>
                             <Button variant="outlined" fullWidth onClick={onTrue}>
                                 Nuevo Cliente
                             </Button>
                         </PermissionGuard>
+                        }
                     </Box>
                 }
 

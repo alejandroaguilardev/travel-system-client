@@ -3,11 +3,12 @@ import { DocumentationCertificate } from './documentation-certificate';
 
 export interface Documentation {
   status: ContractStatus;
-  vaccinationCertificate: DocumentationCertificate;
-  healthCertificate: DocumentationCertificate;
   chipCertificate: DocumentationCertificate;
-  senasaDocuments: DocumentationCertificate;
+  vaccinationCertificate: DocumentationCertificate;
   rabiesSeroLogicalTest: DocumentationCertificate;
+  chipReview: DocumentationCertificate;
   importLicense: DocumentationCertificate;
+  healthCertificate: DocumentationCertificate;
+  senasaDocuments: DocumentationCertificate;
   emotionalSupportCertificate: DocumentationCertificate;
 }

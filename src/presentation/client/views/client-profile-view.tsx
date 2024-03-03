@@ -8,7 +8,7 @@ export default function ClientProfileView() {
     return (
         <Container maxWidth='xl'>
             <Typography variant='h4' textAlign="center" mb={2}>Actualizar mi perfil </Typography>
-            <ClientProfileForm callback={() => false} profile={user?.profile} />
+            <ClientProfileForm callback={() => false} profileClient={{ phone: user?.profile.phone ?? "" }} />
         </Container>
     );
 }

@@ -33,6 +33,10 @@ export const useContractSteps = () => {
                     showNotification("El cliente no ha sido agregado correctamente", { variant: "error" });
                     return;
                 }
+                if (!values.adviser) {
+                    showNotification("El asesor no ha sido seleccionado", { variant: "error" });
+                    return;
+                }
                 setActiveStep((prevActiveStep) => prevActiveStep + 1)
             }
         },

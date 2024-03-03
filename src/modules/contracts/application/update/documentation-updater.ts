@@ -15,6 +15,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
             isApplied: documentation.vaccinationCertificate.isApplied,
             expectedDate: documentation.vaccinationCertificate.expectedDate,
             executionDate: documentation.vaccinationCertificate.executionDate,
+            resultDate: documentation.vaccinationCertificate.resultDate,
             user: documentation.vaccinationCertificate?.user
         },
         healthCertificate: {
@@ -22,6 +23,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
             isApplied: documentation.healthCertificate.isApplied,
             expectedDate: documentation.healthCertificate.expectedDate,
             executionDate: documentation.healthCertificate.executionDate,
+            resultDate: documentation.healthCertificate.resultDate,
             user: documentation.healthCertificate?.user
         },
         chipCertificate: {
@@ -29,13 +31,23 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
             isApplied: documentation.chipCertificate.isApplied,
             expectedDate: documentation.chipCertificate.expectedDate,
             executionDate: documentation.chipCertificate.executionDate,
+            resultDate: documentation.chipCertificate.resultDate,
             user: documentation.chipCertificate?.user
+        },
+        chipReview: {
+            hasServiceIncluded: documentation.chipReview.hasServiceIncluded,
+            isApplied: documentation.chipReview.isApplied,
+            expectedDate: documentation.chipReview.expectedDate,
+            executionDate: documentation.chipReview.executionDate,
+            resultDate: documentation.chipReview.resultDate,
+            user: documentation.chipReview?.user
         },
         senasaDocuments: {
             hasServiceIncluded: documentation.senasaDocuments.hasServiceIncluded,
             isApplied: documentation.senasaDocuments.isApplied,
             expectedDate: documentation.senasaDocuments.expectedDate,
             executionDate: documentation.senasaDocuments.executionDate,
+            resultDate: documentation.senasaDocuments.resultDate,
             user: documentation.senasaDocuments?.user
         },
         rabiesSeroLogicalTest: {
@@ -43,6 +55,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
             isApplied: documentation.rabiesSeroLogicalTest.isApplied,
             expectedDate: documentation.rabiesSeroLogicalTest.expectedDate,
             executionDate: documentation.rabiesSeroLogicalTest.executionDate,
+            resultDate: documentation.rabiesSeroLogicalTest.resultDate,
             user: documentation.rabiesSeroLogicalTest?.user
         },
         importLicense: {
@@ -50,6 +63,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
             isApplied: documentation.importLicense.isApplied,
             expectedDate: documentation.importLicense.expectedDate,
             executionDate: documentation.importLicense.executionDate,
+            resultDate: documentation.importLicense.resultDate,
             user: documentation.importLicense?.user
         },
         emotionalSupportCertificate: {
@@ -57,6 +71,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
             isApplied: documentation.emotionalSupportCertificate.isApplied,
             expectedDate: documentation.emotionalSupportCertificate.expectedDate,
             executionDate: documentation.emotionalSupportCertificate.executionDate,
+            resultDate: documentation.emotionalSupportCertificate.resultDate,
             user: documentation.emotionalSupportCertificate?.user
         },
     }

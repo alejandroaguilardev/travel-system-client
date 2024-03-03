@@ -25,7 +25,13 @@ export const DocumentationFormGeneral: FC<Props> = ({ documentation, role }) => 
                             key={value.name}
                             name={`${value.name}`}
                             label={value.label}
-                            style={!role ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                            style={
+                                {
+                                    ...!role
+                                        ? { pointerEvents: 'none', opacity: 0.5 }
+                                        : {},
+
+                                }}
                             edit
                         />
                     ))}
@@ -40,7 +46,11 @@ export const DocumentationFormGeneral: FC<Props> = ({ documentation, role }) => 
                             key={value.name}
                             name={`${value.name}`}
                             label={value.label}
-                            style={role === "user" ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                            style={{
+                                ...role === "user"
+                                    ? { pointerEvents: 'none', opacity: 0.5 }
+                                    : {},
+                            }}
                             edit
                         />
 

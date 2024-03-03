@@ -9,6 +9,7 @@ import {
     Divider,
     useTheme,
     Box,
+    Paper,
 } from '@mui/material';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
 import { Contract } from '../../../../modules/contracts/domain/contract';
@@ -29,75 +30,89 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
     const theme = useTheme();
 
     return (
-        <PaperCustom>
-            <Typography variant="h5" gutterBottom>
-                Detalles del Contrato
-            </Typography>
-            <Divider sx={{ marginBottom: theme.spacing(2) }} />
+        <>
+            <Paper
+                sx={{
+                    p: 3,
+                    my: 3,
+                }}>
 
-            <Table sx={{ width: "100%" }}>
-                <TableBody>
-                    <TableRow hover>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Typography variant="subtitle1" gutterBottom>
-                                Número de Contrato:
-                            </Typography>
-                        </TableCell>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Typography>{contract.number}</Typography>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow hover>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Typography variant="subtitle1" gutterBottom>
-                                Fecha de Inicio:
-                            </Typography>
-                        </TableCell>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Typography>{fDateTimeLong(contract.startDate)}</Typography>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow hover>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Typography variant="subtitle1" gutterBottom>
-                                Fecha de Finalización:
-                            </Typography>
-                        </TableCell>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Typography>{contract.endDate ? fDateTimeLong(contract.endDate) : "--"}</Typography>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow hover>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Typography variant="subtitle1" gutterBottom>
-                                Cliente:
-                            </Typography>
-                        </TableCell>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Typography>{contract.client.profile.document} {contract.client.profile.documentNumber}</Typography>
-                            <Divider />
-                            <Typography>{contract.client.profile.name} {contract.client.profile.lastName}</Typography>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow hover>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Typography variant="subtitle1" gutterBottom>
-                                Estado:
-                            </Typography>
-                        </TableCell>
-                        <TableCell sx={{ width: "50%" }}>
-                            <Label color={statusColor(contract.status)}>
-                                {CONTRACT_STATUS.find(_ => _.value === contract.status)?.label}
-                            </Label>
-                        </TableCell>
-                    </TableRow>
+                <Typography variant="h5" gutterBottom>
+                    Detalles del Contrato
+                </Typography>
+                <Divider sx={{ marginBottom: theme.spacing(2) }} />
 
-                </TableBody>
-            </Table>
+                <Table sx={{ width: "100%" }}>
+                    <TableBody>
+                        <TableRow hover>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Número de Contrato:
+                                </Typography>
+                            </TableCell>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography>{contract.number}</Typography>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow hover>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Fecha de Inicio:
+                                </Typography>
+                            </TableCell>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography>{fDateTimeLong(contract.startDate)}</Typography>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow hover>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Fecha de Finalización:
+                                </Typography>
+                            </TableCell>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography>{contract.endDate ? fDateTimeLong(contract.endDate) : "--"}</Typography>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow hover>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Cliente:
+                                </Typography>
+                            </TableCell>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography>{contract.client.profile.document} {contract.client.profile.documentNumber}</Typography>
+                                <Divider />
+                                <Typography>{contract.client.profile.name} {contract.client.profile.lastName}</Typography>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow hover>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Estado:
+                                </Typography>
+                            </TableCell>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Label color={statusColor(contract.status)}>
+                                    {CONTRACT_STATUS.find(_ => _.value === contract.status)?.label}
+                                </Label>
+                            </TableCell>
+                        </TableRow>
+
+                    </TableBody>
+                </Table>
+            </Paper>
+
             {contract.details.map(detail => (
-                <Fragment key={`${detail.id}`}>
+                <Paper
+                    sx={{
+                        p: 3,
+                        my: 3,
+                    }} key={`${detail.id}`}>
+                    <Typography variant="subtitle1" gutterBottom >
+                        {detail.pet.name}
+                    </Typography>
                     <Divider sx={{ marginY: theme.spacing(2) }} />
-
                     <Typography variant="subtitle1" gutterBottom >
                         Servicio de Documentación
                     </Typography>
@@ -243,10 +258,10 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                             Volver Atrás
                         </Button>
                     </Box>
-                </Fragment>
+                </Paper>
             ))
             }
-        </PaperCustom >
+        </ >
     );
 };
 

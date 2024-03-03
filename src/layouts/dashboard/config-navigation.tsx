@@ -62,7 +62,6 @@ export function useNavData() {
 
       hasPermission(user, AuthGroup.PETS, AuthPermission.LIST) && options.push({ title: 'Mascotas', path: paths.dashboard.pets.root, icon: ICONS.blog });
 
-      hasPermission(user, AuthGroup.CAGES, AuthPermission.LIST) && options.push({ title: 'Jaulas', path: paths.dashboard.cages.root, icon: ICONS.kanban })
 
       if (options.length > 0) {
         menu.push({
@@ -81,6 +80,7 @@ export function useNavData() {
 
 
 
+      hasPermission(user, AuthGroup.CAGES, AuthPermission.LIST) && administration.push({ title: 'Jaulas', path: paths.dashboard.cages.root, icon: ICONS.kanban })
 
 
       if (users.length > 0) {

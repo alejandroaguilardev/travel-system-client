@@ -77,13 +77,7 @@ export default function CustomizedSteppers({ steps, componentFinish }: Props) {
                 </>
             ) : (
                 <>
-                    <Paper
-                        sx={{
-                            p: 3,
-                            my: 3,
-                        }}
-                    >{getStepContent(steps, activeStep)}
-                    </Paper>
+                    {getStepContent(steps, activeStep)}
 
                     <Box display="flex" alignItems="center" >
                         <Button fullWidth disabled={activeStep === 0} variant='outlined' onClick={handleBack} sx={{ mr: 1 }}>

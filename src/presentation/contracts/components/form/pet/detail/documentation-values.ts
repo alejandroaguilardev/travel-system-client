@@ -5,28 +5,32 @@ export type DocumentationSwitches = {
 
 export const documentationSwitches: DocumentationSwitches[] = [
     {
-        name: 'vaccinationCertificate',
-        label: 'Certificado de vacuna'
-    },
-    {
-        name: 'healthCertificate',
-        label: 'Certificado de salud'
-    },
-    {
         name: 'chipCertificate',
         label: 'Certificado de chip'
     },
     {
-        name: 'senasaDocuments',
-        label: 'Documentos de SENASA'
+        name: 'vaccinationCertificate',
+        label: 'Certificado de vacuna'
     },
     {
         name: 'rabiesSeroLogicalTest',
         label: 'Test serológico de rabia'
     },
     {
+        name: 'chipReview',
+        label: 'Revisión de lectura de chip'
+    },
+    {
         name: 'importLicense',
         label: 'Permiso de importación'
+    },
+    {
+        name: 'healthCertificate',
+        label: 'Certificado de salud'
+    },
+    {
+        name: 'senasaDocuments',
+        label: 'Documentos de SENASA'
     },
     {
         name: 'emotionalSupportCertificate',

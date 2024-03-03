@@ -1,4 +1,4 @@
-import { Divider, MenuItem, Stack } from '@mui/material';
+import { Divider, InputAdornment, MenuItem, Stack } from '@mui/material';
 import { Role } from '../../../../../modules/roles/domain/role';
 import { OrderValue } from '../../../../../modules/shared/domain/criteria/sorting';
 import { capitalize } from '../../../../../modules/shared/domain/helpers/capitalize';
@@ -6,9 +6,12 @@ import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 import { AutocompleteServer } from '../../../../../components/autocomplete/selector/autocomplete-server';
 import { useUserFormGeneral } from './use-user-form-general';
 import { PROFILE_DOCUMENT } from '../../../../../modules/users/domain/profile/profile-document';
+import RHFSwitch from '../../../../../components/hook-form/rhf-switch';
+import { PhoneNumber } from '../../../../../components/phone-number/phone-number';
+import Iconify from '../../../../../components/iconify';
 
 export const UserFormGeneral = () => {
-    const { roles, isUser, handleRoles } = useUserFormGeneral()
+    const { roles, phone, isUser, handleRoles, handlePhone } = useUserFormGeneral()
 
     return (
         <Stack spacing={1} marginBottom={2}>
@@ -78,12 +81,18 @@ export const UserFormGeneral = () => {
                 />
             </Stack>
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
-                <RHFTextField
-                    name='profile.phone'
-                    fullWidth
+                <PhoneNumber
+                    valueDefault={phone}
+                    callback={handlePhone}
                     label="Teléfono (*)"
                     variant="outlined"
-                    inputAdornment
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Iconify icon="mdi:text" />
+                            </InputAdornment>
+                        )
+                    }}
                 />
                 <RHFTextField
                     name='profile.gender'
@@ -100,7 +109,6 @@ export const UserFormGeneral = () => {
             {
                 isUser &&
                 <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
-
                     <AutocompleteServer<Role>
                         collection='roles'
                         sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
@@ -112,6 +120,13 @@ export const UserFormGeneral = () => {
                             label: "Seleccionar roles"
                         }}
                         multiple
+                    />
+                    <RHFSwitch
+                        name="isAdvisor"
+                        label="¿Este usuario será un asesor?"
+                        sx={{
+                            width: "100%"
+                        }}
                     />
                 </Stack>
             }

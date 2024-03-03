@@ -37,6 +37,7 @@ export const contractToNewContract = (contract: Contract): NewContract => {
         number: contract.number,
         startDate: contract.startDate,
         details,
+        adviser: contract.adviser,
     }
 }
 

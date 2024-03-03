@@ -16,3 +16,7 @@ export interface ProfileInterface {
     district?: string;
     direction?: string;
 }
+
+export type ProfileClient = {
+    phone: string;
+}

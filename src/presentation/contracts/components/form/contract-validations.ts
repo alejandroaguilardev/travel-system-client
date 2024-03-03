@@ -7,7 +7,8 @@ const defaultValues: NewContract = {
     client: '',
     number: '',
     startDate: new Date(),
-    details: []
+    details: [],
+    adviser: '',
 
 };
 
@@ -17,6 +18,7 @@ const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
     number: Yup.string().required('El número de contrato es requerido'),
     startDate: Yup.date().required('La fecha de inicio es requerida'),
     details: Yup.array().required('Los detalles del contrato son requeridos'),
+    adviser: Yup.string().required('Debe indicar el asesor del cliente'),
 });
 
 export { defaultValues, contractSchema };

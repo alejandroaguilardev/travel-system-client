@@ -3,7 +3,7 @@ import { servicesHost } from '../../shared/infrastructure/services/http.services
 import axiosInstance from '../../shared/infrastructure/http/axios.host';
 import { NewUser } from '../domain/user';
 import { UserService } from '../domain/user.service';
-import { ProfileInterface } from '../domain/user-profile.interface';
+import { ProfileClient } from '../domain/user-profile.interface';
 import { ResponseSuccess } from '../../shared/domain/response/response-success';
 
 export const userService: UserService = {
@@ -15,7 +15,7 @@ export const userService: UserService = {
         });
         return data;
     },
-    async updateProfile(profile: ProfileInterface): Promise<ResponseSuccess> {
+    async updateProfile(profile: ProfileClient): Promise<ResponseSuccess> {
         const { data } = await axiosInstance.patch<ResponseSuccess>(`${endpoints.users.root}/profile`, profile);
         return data;
     }

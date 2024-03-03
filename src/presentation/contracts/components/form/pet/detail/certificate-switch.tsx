@@ -1,5 +1,5 @@
 import { CSSProperties, FC, useEffect } from "react";
-import { Stack } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import RHFSwitch from '../../../../../../components/hook-form/rhf-switch';
 import { useFormContext } from "react-hook-form";
 import RHFTextField from '../../../../../../components/hook-form/rhf-text-field';
@@ -21,6 +21,7 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, style = {} }) 
     const isApplied = watch(`${name}.isApplied`);
     const expectedDate = watch(`${name}.expectedDate`);
     const executionDate = watch(`${name}.executionDate`);
+    const resultDate = watch(`${name}.resultDate`);
 
     useEffect(() => {
         if (!hasServiceIncluded) {
@@ -76,9 +77,32 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, style = {} }) 
                         variant="outlined"
                         InputProps={{
                             startAdornment: <IconWrapper icon="date" />,
-                            sx: style
+                            sx: {
+                                ...style,
+                                backgroundColor: watch(`${name}.executionDate`) ? "#98fb98" : "#f08080"
+
+                            }
                         }}
                     />
+                    {name === "rabiesSeroLogicalTest" ?
+                        <RHFTextField
+                            name={`${name}.resultDate`}
+                            type='date'
+                            value={fDate(resultDate, 'yyyy-MM-dd')}
+                            fullWidth
+                            label="Fecha de muestra enviada (*)"
+                            variant="outlined"
+                            InputProps={{
+                                startAdornment: <IconWrapper icon="date" />,
+                                sx: {
+                                    ...style,
+                                    backgroundColor: watch(`${name}.resultDate`) ? "#98fb98" : "#f08080"
+
+                                }
+                            }}
+                        />
+                        : <Box width="100%" />
+                    }
                 </>
             }
         </Stack>

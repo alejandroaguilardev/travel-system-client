@@ -11,6 +11,7 @@ const certificate: DocumentationCertificate = {
     isApplied: false,
     expectedDate: new Date(),
     executionDate: null,
+    resultDate: null,
     user: ""
 }
 
@@ -45,6 +46,7 @@ const detailInit: NewContractDetail = {
         rabiesSeroLogicalTest: { ...certificate },
         importLicense: { ...certificate },
         emotionalSupportCertificate: { ...certificate },
+        chipReview: { ...certificate }
     },
 }
 

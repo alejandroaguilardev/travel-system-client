@@ -18,25 +18,13 @@ export const ContractFormPetDetail = ({ field }: Props) => {
                 <Typography>DOCUMENTACIÓN PARA EL VIAJE:</Typography>
 
                 <Stack direction={{ xs: "column", md: "row" }} flexWrap="wrap" spacing={1} marginBottom={1}>
-
-                    <CertificateSwitch
-                        label='Certificado de vacuna'
-                        name={`${field}documentation.vaccinationCertificate`}
-                    />
-
-                    <CertificateSwitch
-                        label='Certificado de salud'
-                        name={`${field}documentation.healthCertificate`}
-                    />
-
                     <CertificateSwitch
                         label='Certificado de chip'
                         name={`${field}documentation.chipCertificate`}
                     />
-
                     <CertificateSwitch
-                        label='Documentos de SENASA'
-                        name={`${field}documentation.senasaDocuments`}
+                        label='Certificado de vacuna'
+                        name={`${field}documentation.vaccinationCertificate`}
                     />
 
                     <CertificateSwitch
@@ -48,6 +36,16 @@ export const ContractFormPetDetail = ({ field }: Props) => {
                         label='Permiso de importación'
                         name={`${field}documentation.importLicense`}
 
+                    />
+
+                    <CertificateSwitch
+                        label='Certificado de salud'
+                        name={`${field}documentation.healthCertificate`}
+                    />
+
+                    <CertificateSwitch
+                        label='Documentos de SENASA'
+                        name={`${field}documentation.senasaDocuments`}
                     />
 
                     <CertificateSwitch

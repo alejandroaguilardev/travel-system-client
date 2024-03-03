@@ -10,6 +10,7 @@ export interface Contract {
     startDate: Date;
     endDate: Date;
     details: ContractDetail[];
+    adviser: string;
     user: string;
 }
 

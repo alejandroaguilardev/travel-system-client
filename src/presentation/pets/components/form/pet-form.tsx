@@ -16,9 +16,10 @@ type Props = {
     adopterId?: string;
     callback: (petUpdated: Pet) => void;
     notReload?: boolean;
+    onCancel?: VoidFunction
 }
 
-export const PetForm: FC<Props> = ({ pet, adopterId, notReload, callback }) => {
+export const PetForm: FC<Props> = ({ pet, adopterId, notReload, callback, onCancel }) => {
     const methods = useForm({
         resolver: yupResolver<NewPet>(petSchema),
         defaultValues: pet ?? { ...defaultValues, adopter: adopterId ?? defaultValues.adopter },
@@ -39,6 +40,7 @@ export const PetForm: FC<Props> = ({ pet, adopterId, notReload, callback }) => {
                     name="Mascota"
                     edit={!!pet}
                     notReload={notReload}
+                    onCancel={onCancel}
                 />
 
             </FormProvider>

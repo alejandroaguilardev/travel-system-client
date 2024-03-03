@@ -4,15 +4,20 @@ import { NewUser, User } from '../../../../../modules/users/domain/user';
 import { userService } from '../../../../../modules/users/infrastructure/user.service';
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { useClientDialogContext } from '../../../../client/components/search-client/client-dialog-context';
+import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 
 export const useContractFormGeneral = () => {
     const { setValue, getValues, watch } = useFormContext();
+
     const [client, setClient] = useState<User | null>(null);
+    const [adviser, setAdvisor] = useState<User | null>(null);
+
     const clientDefault: string = getValues("client");
+    const adviserDefault: string = getValues("adviser");
 
     const startDate = fDate(watch("startDate"), 'yyyy-MM-dd');
     const { client: clientContext, handleClient: handleClientContext } = useClientDialogContext();
-
+    const { user } = useAuthContext();
 
     useEffect(() => {
         if (clientDefault) {
@@ -20,7 +25,15 @@ export const useContractFormGeneral = () => {
                 .then(response => setClient(response))
                 .catch(() => setClient(null));
         }
-    }, [clientDefault])
+    }, [clientDefault]);
+
+    useEffect(() => {
+        if (adviserDefault) {
+            userService.searchById<User>(adviserDefault)
+                .then(response => setAdvisor(response))
+                .catch(() => setAdvisor(null));
+        }
+    }, [adviserDefault]);
 
     useEffect(() => {
         if (clientContext) {
@@ -31,6 +44,14 @@ export const useContractFormGeneral = () => {
 
     }, [clientContext])
 
+    useEffect(() => {
+        if (user) {
+            setAdvisor(user)
+            setValue("adviser", user?.id ?? "");
+        }
+
+    }, [user])
+
 
     const handleClient = (value: User | null) => {
         handleClientContext(value as NewUser | null);
@@ -38,10 +59,17 @@ export const useContractFormGeneral = () => {
         setValue("client", value?.id ?? "");
     }
 
+    const handleAdvisor = (value: User | null) => {
+        setAdvisor(value as User | null);
+        setValue("adviser", value?.id ?? "");
+    }
+
 
     return {
         client,
+        adviser,
         startDate,
         handleClient,
+        handleAdvisor
     }
 }

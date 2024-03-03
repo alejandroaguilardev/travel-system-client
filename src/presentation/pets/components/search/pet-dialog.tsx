@@ -24,6 +24,7 @@ export const PetDialogForm = () => {
                                     onFalse();
                                 }}
                                 notReload
+                                onCancel={onFalse}
                             />
                         </ConditionUserProvider>
                     </DialogContent>

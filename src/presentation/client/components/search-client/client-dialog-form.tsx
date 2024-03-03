@@ -16,6 +16,7 @@ export const ClientDialogForm = () => {
                         onFalse();
                     }}
                         notReload
+                        onCancel={onFalse}
                     />
                 </ConditionUserProvider>
             </DialogContent>

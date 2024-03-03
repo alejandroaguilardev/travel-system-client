@@ -19,6 +19,7 @@ jest.mock('../../../src/components/autocomplete/selector/autocomplete-server', (
         );
     }),
 }));
+const ext = "+51";
 
 describe("UserForm", () => {
     const callback = jest.fn();
@@ -72,7 +73,6 @@ describe("UserForm", () => {
         const lastName = screen.getByLabelText('Primer Apellido (*)') as HTMLInputElement;
         const secondLastName = screen.getByLabelText('Segundo Apellido') as HTMLInputElement;
         const email = screen.getByLabelText('Correo Electrónico (*)') as HTMLInputElement;
-        const roles = screen.getByLabelText('Seleccionar roles') as HTMLInputElement;
         const phone = screen.getByLabelText('Teléfono (*)') as HTMLInputElement;
 
         fireEvent.change(documentNumber, { target: { value: data.profile.documentNumber } });
@@ -81,8 +81,7 @@ describe("UserForm", () => {
         fireEvent.change(lastName, { target: { value: data.profile.lastName } });
         fireEvent.change(secondLastName, { target: { value: data.profile.secondLastName } });
         fireEvent.change(email, { target: { value: data.email } });
-        fireEvent.change(roles, { target: { value: data.roles } });
-        fireEvent.change(phone, { target: { value: data.profile.phone } });
+        fireEvent.change(phone, { target: { value: ext + data.profile.phone } });
 
         expect(documentNumber.value).toBe(data.profile.documentNumber);
         expect(name.value).toBe(data.profile.name);
@@ -90,7 +89,7 @@ describe("UserForm", () => {
         expect(lastName.value).toBe(data.profile.lastName);
         expect(secondLastName.value).toBe(data.profile.secondLastName);
         expect(email.value).toBe(data.email);
-        expect(phone.value).toBe(data.profile.phone);
+        expect(phone.value).toBe(ext + data.profile.phone);
     });
 
     it("submits_user_form_with_valid_data", async () => {
@@ -106,7 +105,6 @@ describe("UserForm", () => {
                 </ConditionUserProvider>
             </MemoryRouter>
         );
-
         const numberDocument = screen.getByLabelText('Número de documento (*)');
         const name = screen.getByLabelText('Primer Nombre (*)') as HTMLInputElement;
         const secondName = screen.getByLabelText('Segundo Nombre') as HTMLInputElement;
@@ -125,7 +123,7 @@ describe("UserForm", () => {
             fireEvent.change(lastName, { target: { value: data.profile.lastName } });
             fireEvent.change(secondLastName, { target: { value: data.profile.secondLastName } });
             fireEvent.change(email, { target: { value: data.email } });
-            fireEvent.change(phone, { target: { value: data.profile.phone } });
+            fireEvent.change(phone, { target: { value: ext + data.profile.phone } });
 
             const form = screen.getByRole("form");
 

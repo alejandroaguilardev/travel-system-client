@@ -14,10 +14,9 @@ const Header = () => {
         <>
             <Box mb={1} display={{ xs: "block", md: "flex" }} justifyContent="space-between" alignItems="center">
                 <ListItemText
-                    primary={` N° de contrato: ${contract?.number}`}
-                    secondary={`${contract?.startDate
-                        ? fDateTimeLong(contract.startDate)
-                        : ""}`}
+                    primary={`Nombre: ${capitalize(contractDetail?.pet.name)} `}
+                    secondary={`N° de contrato: ${contract?.number}`}
+
                     primaryTypographyProps={{
                         typography: 'subtitle1',
                     }}
@@ -48,7 +47,9 @@ const Header = () => {
                     primaryTypographyProps={{
                         typography: 'subtitle1',
                     }}
-                    secondary={capitalize(contractDetail?.pet.name)}
+                    secondary={`${contract?.startDate
+                        ? fDateTimeLong(contract.startDate)
+                        : ""}`}
                     secondaryTypographyProps={{
                         mt: 1,
                         component: 'span',

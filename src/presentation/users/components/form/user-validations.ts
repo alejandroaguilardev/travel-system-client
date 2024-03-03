@@ -27,6 +27,7 @@ const defaultValues: NewUser = {
     auth: {
         admin: false,
     },
+    isAdvisor: false,
 };
 const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
     id: Yup.string(),
@@ -45,19 +46,15 @@ const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
         name: Yup.string()
             .required("El nombre es requerido")
             .min(1, "El nombre debe tener al menos un carácter")
-            .max(45, "El nombre debe tener como máximo 45 caracteres")
-            .matches(/^[a-zA-Z0-9\s]+$/, "El nombre solo puede contener letras y números"),
+            .max(45, "El nombre debe tener como máximo 45 caracteres"),
         secondName: Yup.string()
-            .max(45, "El segundo nombre debe tener como máximo 45 caracteres")
-            .matches(/^[a-zA-Z0-9\s]*$/, "El segundo nombre solo puede contener letras, números y espacios"),
+            .max(45, "El segundo nombre debe tener como máximo 45 caracteres"),
         lastName: Yup.string()
             .required("El apellido es requerido")
             .min(1, "El apellido debe tener al menos un carácter")
-            .max(45, "El apellido debe tener como máximo 45 caracteres")
-            .matches(/^[a-zA-Z0-9\s]+$/, "El apellido solo puede contener letras y números"),
+            .max(45, "El apellido debe tener como máximo 45 caracteres"),
         secondLastName: Yup.string()
-            .max(45, "El segundo apellido debe tener como máximo 45 caracteres")
-            .matches(/^[a-zA-Z0-9\s]*$/, "El segundo apellido solo puede contener letras, números y espacios"),
+            .max(45, "El segundo apellido debe tener como máximo 45 caracteres"),
         phone: Yup.string().required("El teléfono es requerido"),
         gender: Yup.string().oneOf(['male', 'female']).required("El sexo es requerido"),
         birthDate: Yup.date(),
@@ -71,6 +68,7 @@ const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
     auth: Yup.object().shape({
         admin: Yup.boolean(),
     }),
+    isAdvisor: Yup.boolean(),
 });
 
 export { defaultValues, userSchema };

@@ -10,7 +10,7 @@ export default function RoleNewPage() {
     return (
         <>
             <Helmet>
-                <title> Dashboard Crear Rol</title>
+                <title> Dashboard Crear Usuario</title>
             </Helmet>
             <RoutePermissionGuard user={user} group={AuthGroup.USERS} permission={AuthPermission.CREATE}>
                 <UserNewView />

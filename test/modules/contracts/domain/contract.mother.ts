@@ -11,5 +11,6 @@ export const contractCreateMother = (contract?: Partial<NewContract>): NewContra
         startDate: new Date(),
         id: contract?.id ?? uuidCreateMother(),
         details: contract?.details ?? contractDetailCreateMother(),
+        adviser: contract?.adviser ?? uuidCreateMother(),
     };
 }
