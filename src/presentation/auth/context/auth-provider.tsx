@@ -7,6 +7,7 @@ import { authVerify } from '../../../modules/auth/application/verify/auth-verify
 import { AuthStateType, Types } from '../types';
 import { AuthReducer } from './auth-reducer';
 import { AuthContext } from './auth-context';
+import { User } from '../../../modules/users/domain/user';
 
 type Props = {
   children: React.ReactNode;
@@ -77,6 +78,16 @@ export function AuthProvider({ children }: Props) {
   }, []);
 
 
+  const update = useCallback(async (user: User) => {
+    dispatch({
+      type: Types.UPDATE,
+      payload: {
+        user,
+      },
+    });
+  }, []);
+
+
   const checkAuthenticated = state.user ? 'authenticated' : 'unauthenticated';
 
   const status = state.loading ? 'loading' : checkAuthenticated;
@@ -90,8 +101,9 @@ export function AuthProvider({ children }: Props) {
       unauthenticated: status === 'unauthenticated',
       login,
       logout,
+      update,
     }),
-    [login, logout, state.user, status]
+    [login, logout, state.user, status, update]
   );
 
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;

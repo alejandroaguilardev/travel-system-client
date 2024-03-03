@@ -1,4 +1,4 @@
-import { Permission } from '../../permissions/domain/permission';
+import { Permission, hasPermission } from '../../permissions/domain/permission';
 
 export interface Role {
     id: string;
@@ -20,4 +20,17 @@ export const roleToNewRole = (role: Role): NewRole => {
         return permission.id;
     });
     return { ...role, permissions }
+}
+
+
+export const hasRolePermission = (roles: Role[], currentGroup: string, currentPermission: string): boolean => {
+    let isPermission = false;
+    roles.forEach(role => {
+        role.permissions.forEach(_ => {
+            if (hasPermission(_, currentGroup, currentPermission)) {
+                isPermission = true;
+            }
+        });
+    });
+    return isPermission;
 }

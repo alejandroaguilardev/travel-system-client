@@ -13,7 +13,7 @@ describe('LoginView', () => {
     beforeEach(() => {
         const { container: renderContainer } = render(
             <MemoryRouter>
-                <AuthContext.Provider value={{ login: mockLogin, authenticated: false, loading: false, logout: jest.fn(), method: "jwt", unauthenticated: false, user: null }}>
+                <AuthContext.Provider value={{ login: mockLogin, authenticated: false, loading: false, logout: jest.fn(), method: "jwt", unauthenticated: false, user: null, update: jest.fn() }}>
                     <LoginView />
                 </AuthContext.Provider>
             </MemoryRouter>

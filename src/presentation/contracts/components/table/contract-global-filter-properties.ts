@@ -7,5 +7,5 @@ interface FilterProperty {
 
 export const contractGlobalFilterProperties: FilterProperty[] = [
     { field: "number", value: "string" },
-    { field: "guideNumber", value: "string" },
+    { field: "status", value: "string" },
 ];

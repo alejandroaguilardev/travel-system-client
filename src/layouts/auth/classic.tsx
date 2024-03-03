@@ -26,7 +26,7 @@ export default function AuthClassicLayout({ children }: Props) {
       direction="row"
       justifyContent="center"
       alignItems="center"
-      height="100vh"
+      height={{ xs: "80vh ", md: "100vh" }}
     >
       {renderContent}
     </Stack>

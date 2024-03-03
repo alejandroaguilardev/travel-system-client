@@ -4,7 +4,7 @@ import { ReactNode, useRef } from 'react';
 import { SnackbarProvider, SnackbarKey } from 'notistack';
 import { alpha, useTheme } from '@mui/material/styles';
 import { Box, GlobalStyles, IconButton } from '@mui/material';
-import { ColorSchema } from 'src/theme/palette';
+import { ColorSchema } from '../../theme/palette';
 import { IconKeys, IconWrapper } from '../icon-wrapper';
 
 // ----------------------------------------------------------------------

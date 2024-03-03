@@ -12,16 +12,17 @@ import { useAuthContext } from '../../presentation/auth/hooks';
 import usePopover from '../../components/custom-popover/use-popover';
 import { varHover } from '../../components/animate';
 import CustomPopover from '../../components/custom-popover/custom-popover';
+import { paths } from '../../app/routes/paths';
 
 
 const OPTIONS = [
   {
     label: 'Perfil',
-    linkTo: '/#1',
+    linkTo: paths.client.profile,
   },
   {
     label: 'Seguridad',
-    linkTo: '/#2',
+    linkTo: paths.client.changePassword
   },
 ];
 
@@ -66,7 +67,6 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          // src={user?.photoURL}
           alt={user?.profile.name}
           sx={{
             width: 36,

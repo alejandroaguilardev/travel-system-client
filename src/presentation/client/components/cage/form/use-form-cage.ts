@@ -1,27 +1,26 @@
 import { SubmitHandler } from "react-hook-form";
 import { useMessage } from '../../../../../hooks/use-message';
-import { CageDefinition } from '../../../../../modules/contracts/domain/interfaces/cage';
+import { Cage } from '../../../../../modules/contracts/domain/contract-services/cage/cage';
 import { errorsShowNotification } from '../../../../../modules/shared/infrastructure/helpers/errors-show-notification';
-import { contractService } from '../../../../../modules/contracts/infrastructure/contract.service';
 import { cageUpdater } from '../../../../../modules/contracts/application/update/cage-updater';
 import uuid from "../../../../../modules/shared/infrastructure/adapter/uuid";
-import { useContractStore } from '../../../../../state/contract/contract-store';
+import { contractDetailService } from '../../../../../modules/contracts/infrastructure/contract-detail.service';
+import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/domain/contract-detail.service';
 
 type Props = {
     contractId: string;
-    callback: VoidFunction
+    detailId: string;
+    callback: (response?: ContractDetailUpdateResponse) => void
 }
 
-export const useFormCage = ({ contractId, callback }: Props) => {
+export const useFormCage = ({ contractId, detailId, callback }: Props) => {
     const { showNotification } = useMessage();
-    const { onSelected } = useContractStore();
 
-    const onSubmit: SubmitHandler<CageDefinition> = async (data) => {
+    const onSubmit: SubmitHandler<Cage> = async (data) => {
         try {
-            const response = await cageUpdater(contractService, uuid)(contractId, data)
+            const response = await cageUpdater(contractDetailService, uuid)(contractId, detailId, data)
             showNotification("Actualizado correctamente ");
-            onSelected(response);
-            callback();
+            callback(response);
         } catch (error) {
             errorsShowNotification(error, showNotification)
         }

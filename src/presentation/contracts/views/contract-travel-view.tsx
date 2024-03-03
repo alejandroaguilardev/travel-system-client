@@ -3,11 +3,10 @@ import { paths } from '../../../app/routes/paths';
 import SearchIdNotFound from '../../../app/routes/guard/search-id-not-found';
 import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { useSearchByIdContract } from '../hooks/use-search-by-id-contract';
-import { ContractForm } from '../components/form/contract-form';
 import { useRouter } from '../../../app/routes/hooks/use-router';
-import { contractToNewContract } from '../../../modules/contracts/domain/contract-to-new-contract';
 import { NotFoundView } from '../../error';
 import { TravelForm } from '../../client/components/travel/form/travel-form';
+import { AccordionPet } from '../components/accordion-pet/accordion-pet';
 
 type Props = {
     id: string;
@@ -34,13 +33,19 @@ export default function ContractTravelView({ id }: Props) {
                         { name: `${contract?.number}` },
                     ]}
                 />
-                <TravelForm
-                    onCancel={redirectData}
-                    contractId={id}
-                    travel={contract.services.travel}
-                    readonly={contract.services.travel.hasServiceIncluded}
-                    user
-                />
+                {contract.details.map((detail, index) => (
+                    <AccordionPet detail={detail} index={index} key={detail.id}>
+                        <TravelForm
+                            onCancel={redirectData}
+                            callback={() => false}
+                            contractId={id}
+                            detailId={detail.id}
+                            travel={detail.travel}
+                            hasServiceIncluded={detail.travel.hasServiceIncluded}
+                            user
+                        />
+                    </AccordionPet>
+                ))}
             </Container>
         </SearchIdNotFound>
     );

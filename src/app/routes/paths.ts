@@ -8,10 +8,13 @@ const ROOTS = {
 export const paths = {
   root: '/',
   client: {
-    history: "historial"
+    history: "/historial",
+    profile: "/perfil",
+    changePassword: "seguridad"
   },
   auth: {
     login: `${ROOTS.AUTH}/login`,
+    recover: `${ROOTS.AUTH}/recuperar`,
   },
 
   dashboard: {
@@ -31,6 +34,18 @@ export const paths = {
       view: (id: string) => `${ROOTS.DASHBOARD}/clientes/${id}/visualizar`,
       edit: (id: string) => `${ROOTS.DASHBOARD}/clientes/${id}/editar`,
     },
+    cages: {
+      root: `${ROOTS.DASHBOARD}/jaulas`,
+      new: `${ROOTS.DASHBOARD}/jaulas/crear`,
+      view: (id: string) => `${ROOTS.DASHBOARD}/jaulas/${id}/visualizar`,
+      edit: (id: string) => `${ROOTS.DASHBOARD}/jaulas/${id}/editar`,
+    },
+    pets: {
+      root: `${ROOTS.DASHBOARD}/mascotas`,
+      new: `${ROOTS.DASHBOARD}/mascotas/crear`,
+      view: (id: string) => `${ROOTS.DASHBOARD}/mascotas/${id}/visualizar`,
+      edit: (id: string) => `${ROOTS.DASHBOARD}/mascotas/${id}/editar`,
+    },
     users: {
       root: `${ROOTS.DASHBOARD_USER}`,
       new: `${ROOTS.DASHBOARD_USER}/crear`,
@@ -48,6 +63,6 @@ export const paths = {
       new: `${ROOTS.DASHBOARD_USER}/permisos/crear`,
       view: (id: string) => `${ROOTS.DASHBOARD_USER}/permisos/${id}/visualizar`,
       edit: (id: string) => `${ROOTS.DASHBOARD_USER}/permisos/${id}/editar`,
-    }
+    },
   },
 };

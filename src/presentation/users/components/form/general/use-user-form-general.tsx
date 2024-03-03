@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Role } from '../../../../../modules/roles/domain/role';
 import { roleService } from '../../../../../modules/roles/infrastructure/role.service';
+import { useConditionContext } from '../../../contexts/condition-user-context';
 
 export const useUserFormGeneral = () => {
-    const { setValue, getValues } = useFormContext();
+    const { setValue, getValues, watch } = useFormContext();
+    const { isUser } = useConditionContext();
+    const phone = watch("profile.phone");
+
     const [roles, setRoles] = useState<Role[]>([]);
     const rolesDefault: string[] = getValues("roles") ?? [];
-
     useEffect(() => {
         if (rolesDefault.length > 0) {
             Promise.all(rolesDefault.map((role) => roleService.searchById<Role>(role)))
@@ -23,8 +26,13 @@ export const useUserFormGeneral = () => {
         }
     }
 
+    const handlePhone = (value: string) => setValue("profile.phone", value);
+
     return {
         roles,
-        handleRoles
+        isUser,
+        phone,
+        handleRoles,
+        handlePhone
     }
 }

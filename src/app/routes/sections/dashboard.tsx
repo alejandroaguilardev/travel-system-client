@@ -18,12 +18,21 @@ const RoleIdPage = lazy(() => import('../../pages/admin/role/[id]/index'));
 const UserPage = lazy(() => import('../../pages/admin/user'));
 const UserNewPage = lazy(() => import('../../pages/admin/user/crear'));
 const UserIdPage = lazy(() => import('../../pages/admin/user/[id]/index'));
-
 const ContractPage = lazy(() => import('../../pages/admin/contract/index'));
 const ContractNewPage = lazy(() => import('../../pages/admin/contract/crear'));
 const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'));
 
+const CagePage = lazy(() => import('../../pages/admin/cage/index'));
+const CageNewPage = lazy(() => import('../../pages/admin/cage/crear'));
+const CageIdPage = lazy(() => import('../../pages/admin/cage/[id]/index'));
+
 const ClientPage = lazy(() => import('../../pages/admin/client'));
+const ClientNewPage = lazy(() => import('../../pages/admin/client/crear'));
+const ClientIdPage = lazy(() => import('../../pages/admin/client/[id]/index'));
+
+const PetsPage = lazy(() => import('../../pages/admin/pet'));
+const PetsNewPage = lazy(() => import('../../pages/admin/pet/crear'));
+const PetsIdPage = lazy(() => import('../../pages/admin/pet/[id]/index'));
 
 export const dashboardRoutes = [
   {
@@ -49,7 +58,30 @@ export const dashboardRoutes = [
           { path: ':id/:action', element: <ContractIdPage /> },
         ],
       },
-      { path: 'clientes', element: <ClientPage /> },
+      {
+        path: 'clientes',
+        children: [
+          { element: <ClientPage />, index: true },
+          { path: 'crear', element: <ClientNewPage /> },
+          { path: ':id/:action', element: <ClientIdPage /> },
+        ],
+      },
+      {
+        path: 'mascotas',
+        children: [
+          { element: <PetsPage />, index: true },
+          { path: 'crear', element: <PetsNewPage /> },
+          { path: ':id/:action', element: <PetsIdPage /> },
+        ],
+      },
+      {
+        path: 'jaulas',
+        children: [
+          { element: <CagePage />, index: true },
+          { path: 'crear', element: <CageNewPage /> },
+          { path: ':id/:action', element: <CageIdPage /> },
+        ],
+      },
       {
         path: 'usuarios/roles',
         children: [

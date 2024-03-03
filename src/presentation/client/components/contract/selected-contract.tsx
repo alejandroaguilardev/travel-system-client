@@ -1,16 +1,25 @@
 import { FC } from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Contract } from '../../../../modules/contracts/domain/contract';
 import CardDocumentation from "../documentation/card-documentation";
 import Header from "../header/header";
 import CardCage from "../cage/card-cage";
 import CardTravel from "../travel/card-travel";
+import { useFinish } from '../../../contracts/hooks/use-finish';
+import { useContractStore } from '../../../../state/contract/contract-store';
+import { IconWrapper } from "../../../../components/icon-wrapper";
+import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
+import { statusError } from '../../../../modules/contracts/domain/contract-status';
 
 type Props = {
-    contract: Contract
+    contract: Contract;
+    contractDetail: ContractDetail;
 }
 
-export const SelectedContract: FC<Props> = ({ contract }) => {
+export const SelectedContract: FC<Props> = ({ contract, contractDetail }) => {
+    const { onSelected } = useContractStore();
+    const { handleFinishClick } = useFinish({ contract, callback: () => onSelected(null) });
+
     return (
         <>
             <Header />
@@ -24,18 +33,37 @@ export const SelectedContract: FC<Props> = ({ contract }) => {
                 }}
             >
                 <CardDocumentation
-                    documentation={contract.services.documentation}
+                    documentation={contractDetail.documentation}
                     contractId={contract.id}
+                    detailId={contractDetail.id}
+                    finish={statusError(contract.status, contract.endDate)}
                 />
                 <CardCage
-                    cage={contract.services.cage}
+                    cage={contractDetail.cage}
                     contractId={contract.id}
+                    detailId={contractDetail.id}
+                    finish={statusError(contract.status, contract.endDate)}
                 />
                 <CardTravel
-                    travel={contract.services.travel}
+                    travel={contractDetail.travel}
                     contractId={contract.id}
+                    detailId={contractDetail.id}
+                    finish={statusError(contract.status, contract.endDate)}
                 />
             </Box>
+            {contract?.status === "completed" &&
+                <Button
+                    onClick={handleFinishClick}
+                    variant='contained'
+                    color="primary"
+                    fullWidth
+                    sx={{ my: 2 }}
+                    startIcon={<IconWrapper icon="checkCircleFill" />}
+                >
+                    Dar por finalizado el Servicio
+                </Button>
+            }
+
         </>
     )
 }

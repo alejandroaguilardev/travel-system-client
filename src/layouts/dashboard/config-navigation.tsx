@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
 import { paths } from '../../app/routes/paths';
 import SvgColor from '../../components/svg-color';
+import { useAuthContext } from '../../presentation/auth/hooks/use-auth-context';
+import { hasRolePermission } from '../../modules/roles/domain/role';
+import { AuthGroup, AuthPermission } from '../../modules/auth/domain/auth-permission';
+import { User } from '../../modules/users/domain/user';
 
 
 const icon = (name: string) => (
@@ -34,33 +38,73 @@ const ICONS = {
   dashboard: icon('ic_dashboard'),
 };
 
-export function useNavData() {
-  const data = useMemo(
-    () => [
-      {
-        subheader: 'Gestión Pet travel',
-        items: [
-          { title: 'Contratos', path: paths.dashboard.contracts.root, icon: ICONS.dashboard },
-        ],
-      },
+const hasPermission = (user: User | null, group: AuthGroup, permission: AuthPermission): boolean => {
+  const roles = user?.roles ?? [];
+  if (user?.auth?.admin) return true;
+  return hasRolePermission(roles, group, permission);
+}
 
-      {
-        subheader: 'Administración del sistema',
-        items: [
-          {
-            title: 'Usuarios y permisos',
-            path: paths.dashboard.users.root,
-            icon: ICONS.user,
-            children: [
-              { title: 'Usuarios', path: paths.dashboard.users.root },
-              { title: 'Roles', path: paths.dashboard.roles.root },
-              { title: 'Permisos', path: paths.dashboard.permissions.root },
-            ],
-          },
-        ],
-      },
-    ],
-    []
+
+export function useNavData() {
+  const { user } = useAuthContext();
+
+
+
+  const data = useMemo(
+    () => {
+      const menu = [];
+      const options = [];
+
+      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) && options.push({ title: 'Contratos', path: paths.dashboard.contracts.root, icon: ICONS.dashboard })
+
+
+      hasPermission(user, AuthGroup.CLIENT, AuthPermission.LIST) && options.push({ title: 'Clientes', path: paths.dashboard.clients.root, icon: ICONS.user });
+
+      hasPermission(user, AuthGroup.PETS, AuthPermission.LIST) && options.push({ title: 'Mascotas', path: paths.dashboard.pets.root, icon: ICONS.blog });
+
+
+      if (options.length > 0) {
+        menu.push({
+          subheader: 'Gestión Pet travel',
+          items: options,
+        })
+      }
+
+      const administration = [];
+      const users = [];
+
+
+      hasPermission(user, AuthGroup.USERS, AuthPermission.LIST) && users.push({ title: 'Usuarios', path: paths.dashboard.users.root });
+      hasPermission(user, AuthGroup.ROLES, AuthPermission.LIST) && users.push({ title: 'Roles', path: paths.dashboard.roles.root });
+      hasPermission(user, AuthGroup.PERMISSIONS, AuthPermission.LIST) && users.push({ title: 'Permisos', path: paths.dashboard.permissions.root });
+
+
+
+      hasPermission(user, AuthGroup.CAGES, AuthPermission.LIST) && administration.push({ title: 'Jaulas', path: paths.dashboard.cages.root, icon: ICONS.kanban })
+
+
+      if (users.length > 0) {
+        administration.push({
+          title: 'Usuarios y permisos',
+          path: paths.dashboard.users.root,
+          icon: ICONS.user,
+          children: users,
+        });
+      }
+
+      if (administration.length > 0) {
+        menu.push({
+          subheader: 'Administración del sistema',
+          items: administration,
+        })
+      }
+
+
+      return menu;
+
+
+    },
+    [user]
   );
 
   return data;

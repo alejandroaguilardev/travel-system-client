@@ -7,6 +7,8 @@ import { Role } from '../../../modules/roles/domain/role';
 import { RoleTable } from '../components/table/role-table';
 import { DialogDelete } from '../../../components/delete-item/delete-dialog-button';
 import { useDeleteRole } from '../hooks/use-delete-role';
+import { PermissionGuard } from '../../permission/components/guard/permission-guard';
+import { AuthGroup, AuthPermission } from '../../../modules/auth/domain/auth-permission';
 
 
 export default function RoleView() {
@@ -25,14 +27,15 @@ export default function RoleView() {
                     }
                 ]}
                 action={
-
-                    <Button
-                        component={RouterLink}
-                        href={paths.dashboard.roles.new}
-                        variant="contained"
-                    >
-                        Nuevo Rol
-                    </Button>
+                    <PermissionGuard group={AuthGroup.ROLES} permission={AuthPermission.CREATE}>
+                        <Button
+                            component={RouterLink}
+                            href={paths.dashboard.roles.new}
+                            variant="contained"
+                        >
+                            Nuevo Rol
+                        </Button>
+                    </PermissionGuard>
                 }
             />
             {!isLoading &&

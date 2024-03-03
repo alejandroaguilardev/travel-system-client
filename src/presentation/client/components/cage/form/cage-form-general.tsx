@@ -1,72 +1,28 @@
 import { FC } from "react";
-import { Alert, MenuItem, Stack } from "@mui/material";
-import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
-import { RHFSwitch } from "src/components/hook-form";
-import { TYPE_CAGE } from '../../../../../modules/contracts/domain/cage/cage-chosen';
+import { Alert, Stack } from "@mui/material";
 import { useFormContext } from 'react-hook-form';
 import { ContractFormCage } from '../../../../contracts/components/form/cage/contract-form-cage';
+import { CageSelected } from "./cage-selected";
+import { Cage } from '../../../../../modules/contracts/domain/contract-services/cage/cage';
 
 type Props = {
-    readonly: boolean;
+    hasServiceIncluded: boolean;
     user?: boolean;
 }
 
-export const CageFormGeneral: FC<Props> = ({ readonly, user }) => {
+export const CageFormGeneral: FC<Props> = ({ hasServiceIncluded, user }) => {
 
-    const { watch } = useFormContext();
+    const { watch } = useFormContext<Cage>();
     const recommendation = watch('recommendation');
 
     return (
         <Stack spacing={1} my={1}>
-            {readonly ?
+            {hasServiceIncluded ?
                 <Alert variant='outlined' sx={{ width: "100%" }}>Pet Travel proporciona le proporciona la siguiente jaula  como parte integral de su servicio, conforme a lo estipulado en su contrato</Alert>
-                : <Alert variant='outlined' severity="info" sx={{ width: "100%" }}>Su contrato no incluye la responsabilidad de Pet Travel sobre la jaula. {recommendation && `De igual manera te recomendamos la jaula  ${recommendation}`}</Alert>
+                : <Alert variant='outlined' severity="info" sx={{ width: "100%" }}>Su contrato no incluye la responsabilidad de Pet Travel sobre la jaula. {recommendation?.modelCage && `De igual manera te recomendamos la jaula  ${recommendation.modelCage}`}</Alert>
             }
-            {user && readonly && <ContractFormCage keyValue="chosen" />}
-            <>  <RHFTextField
-                name="chosen.typeCage"
-                select
-                label="Tpo de jaula"
-                InputProps={{
-                    readOnly: readonly
-                }}
-                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-
-            >
-                {TYPE_CAGE.map((option) => (
-                    <MenuItem key={option} value={option}>
-                        {option.toUpperCase()}
-                    </MenuItem>
-                ))}
-            </RHFTextField>
-                <RHFTextField
-                    name="chosen.modelCage"
-                    label="Modelo de jaula"
-                    InputProps={{
-                        readOnly: readonly
-                    }}
-                    style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-
-                />
-                <RHFTextField
-                    name="chosen.dimensionsCage"
-                    label="Dimensiones"
-                    InputProps={{
-                        readOnly: readonly
-                    }}
-                    style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-
-                />
-
-            </>
-
-            {
-                (!readonly || (user && readonly)) &&
-                <RHFSwitch
-                    name="swornDeclaration"
-                    label="Acepto ser responsable de esta declaración"
-                />
-            }
+            {user && hasServiceIncluded && <ContractFormCage keyValue="chosen" />}
+            <CageSelected readonly={!hasServiceIncluded} keyField="chosen" />
         </Stack >
     );
 }

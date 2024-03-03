@@ -26,7 +26,7 @@ const NotFoundContract: React.FC = () => {
                 <Divider />
 
                 <Link component={RouterLink} href={paths.client.history}>
-                    <Button variant="contained" color="primary" href="/" style={{ marginTop: '20px' }}>
+                    <Button variant="contained" color="primary" style={{ marginTop: '20px' }}>
                         Ver mi historial de Operaciones
                     </Button>
                 </Link>

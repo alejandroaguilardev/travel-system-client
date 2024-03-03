@@ -1,22 +1,23 @@
-import { Card, Stack, Avatar, Typography, ListItemText, Alert, Button, Box } from '@mui/material';
+import { Card, Stack, Avatar, ListItemText, Alert, Button, Box } from '@mui/material';
 import Label from '../../../../components/label/label';
 import { statusColor } from '../../../contracts/components/table/status-color';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
-import IconWrapper from '../../../../components/icon-wrapper/icon-wrapper';
-import { TravelDefinition } from '../../../../modules/contracts/domain/interfaces/travel';
-import { fDate } from '../../../../modules/shared/infrastructure/helpers/format-time';
-import { TRAVEL_TYPES } from '../../../../modules/contracts/domain/travel/contract-travel';
+import { Travel } from '../../../../modules/contracts/domain/contract-services/travel/contract-travel';
 import { useBoolean } from '../../../../hooks/use-boolean';
 import { DialogContract } from '../dialog/dialog-contract';
 import { TravelForm } from './form/travel-form';
+import { useContractStore } from '../../../../state/contract/contract-store';
 
 type Props = {
-    travel: TravelDefinition;
+    travel: Travel;
     contractId: string;
+    detailId: string;
+    finish: boolean;
 };
 
-export default function CardTravel({ travel, contractId }: Props) {
+export default function CardTravel({ travel, contractId, detailId, finish }: Props) {
     const dialog = useBoolean();
+    const { onSelected, onSelectedDetail } = useContractStore();
 
     return (
         <>
@@ -55,9 +56,12 @@ export default function CardTravel({ travel, contractId }: Props) {
                             {CONTRACT_STATUS.find(_ => _.value === travel.status)?.label}
                         </Label>
                     </Stack>
+
                     <ListItemText
                         sx={{ my: 1 }}
-                        secondary={TRAVEL_TYPES.find(_ => _.value === travel.typeTraveling)?.label}
+                        secondary={travel.status === "completed"
+                            ? "¡TODO LISTO PARA EL SIGUIENTE PASO! CONFIRME LOS DETALLES Y ¡GRACIAS POR PREPARARSE!"
+                            : "FALTAN DETALLES IMPORTANTES PARA SU VIAJE. POR FAVOR, PROPORCIONE LA INFORMACIÓN."}
                         secondaryTypographyProps={{
                             component: 'span',
                             typography: 'caption',
@@ -65,64 +69,17 @@ export default function CardTravel({ travel, contractId }: Props) {
                         }}
                     />
 
+                    <Box display="flex" justifyContent="center" my={2}>
+                        {
+                            travel.status === "completed" ?
+                                <Alert variant='outlined'>DETALLES CONFIRMADOS</Alert>
+                                :
+                                <Button variant='outlined' color="error" fullWidth>Revisar Detalles del Viaje</Button>
+                        }
+                    </Box>
                 </Stack>
 
-                <ListItemText
-                    sx={{ px: 3 }}
-                    primary="Información de Reserva:" primaryTypographyProps={{
-                        typography: 'subtitle1',
-                    }}
-                />
-                <Box rowGap={1.5} display="grid" gridTemplateColumns="repeat(2, 1fr)" sx={{ px: 3, mb: 3 }}>
-                    {[
-                        {
-                            label: `Código ${travel?.airlineReservation?.code || "-- --"}`,
-                            icon: <IconWrapper width={16} icon="code" sx={{ flexShrink: 0 }} />,
-                        },
-                        {
-                            label: `N° ${travel?.airlineReservation?.flightNumber || "-- --"}`,
-                            icon: <IconWrapper width={16} icon="number" sx={{ flexShrink: 0 }} />,
-                        },
-                        {
-                            label: ` ${travel?.airlineReservation?.departureAirport || "-- --"}`,
-                            icon: <IconWrapper width={16} icon="airport" sx={{ flexShrink: 0 }} />,
-                        },
-                        {
-                            label: ` ${travel?.airlineReservation?.destinationAirport || "-- --"}`,
-                            icon: <IconWrapper width={16} icon="airport" sx={{ flexShrink: 0 }} />,
-                        },
-                        {
-                            label: `Salida:  ${travel?.airlineReservation?.departureDate ? fDate(travel.airlineReservation.departureDate) : "-- --"}`,
-                            icon: <IconWrapper width={16} icon="departure" sx={{ flexShrink: 0 }} />,
-                        },
-                        {
-                            label: `Legada: ${travel?.airlineReservation?.arrivalDate ? fDate(travel.airlineReservation.arrivalDate) : "-- --"}`,
-                            icon: <IconWrapper width={16} icon="arrival" sx={{ flexShrink: 0 }} />,
-                        },
-                    ].map((item) => (
-                        <Stack
-                            key={item.label}
-                            spacing={0.5}
-                            flexShrink={0}
-                            direction="row"
-                            alignItems="center"
-                            sx={{ color: 'text.disabled', minWidth: 0 }}
-                        >
-                            {item.icon}
-                            <Typography variant="caption" noWrap>
-                                {item.label}
-                            </Typography>
-                        </Stack>
-                    ))}
-                </Box>
-                <Box display="flex" justifyContent="center" my={2}>
-                    {
-                        travel.hasServiceIncluded ?
-                            <Alert variant='outlined' sx={{ width: "90%" }}>Servicio Incluido con Pet Travel</Alert>
-                            :
-                            <Button variant='outlined' color="primary" fullWidth sx={{ width: "90%" }}>Gestionar Reserva</Button>
-                    }
-                </Box>
+
             </Card>
             {dialog.value &&
                 <DialogContract
@@ -134,9 +91,15 @@ export default function CardTravel({ travel, contractId }: Props) {
                         onCancel={dialog.onFalse}
                         contractId={contractId}
                         travel={travel}
-                        readonly={travel.hasServiceIncluded}
+                        hasServiceIncluded={travel.hasServiceIncluded}
+                        detailId={detailId}
+                        noShowButton={finish}
+                        callback={(response) => {
+                            onSelected(response?.contract ?? null);
+                            onSelectedDetail(response?.contractDetail ?? null);
+                            dialog.onFalse();
+                        }}
                     />
-
                 </DialogContract>
             }
         </>

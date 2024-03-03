@@ -8,25 +8,36 @@ import { ListContract } from '../components/contract/list-contract';
 import RouterLink from '../../../app/routes/components/router-link';
 import { paths } from '../../../app/routes/paths';
 import IconWrapper from '../../../components/icon-wrapper/icon-wrapper';
+import LoadingScreen from '../../../components/loading-screen/loading-screen';
 
 export default function ClientView() {
-    const { contract: contracts, error, isLoading } = useQueryContract();
+    const { contract: contracts, isLoading } = useQueryContract();
 
-    const { contract, onSelected } = useContractStore();
+    const { contract, contractDetail, onSelected, onSelectedDetail } = useContractStore();
 
     useEffect(() => {
         if (!isLoading) {
             onSelected(contracts.length > 0 ? contracts[0] : null);
         }
-    }, [contracts, error,])
+    }, [isLoading, contracts])
 
-    if (isLoading) return <></>
+    useEffect(() => {
+        if (!isLoading) {
+            if (contracts.length > 0) {
+                onSelectedDetail(contracts[0].details.length > 0 ? contracts[0].details[0] : null);
+            } else {
+                onSelectedDetail(null);
+            }
+        }
+    }, [isLoading])
+
+    if (isLoading) return <LoadingScreen />
 
     return (
         <Container maxWidth='xl'>
-            {contract
+            {contract && contractDetail
                 ? <>
-                    <SelectedContract contract={contract} />
+                    <SelectedContract contract={contract} contractDetail={contractDetail} />
                     <ListContract contracts={contracts} />
 
                     <Box display="flex" justifyContent="center">

@@ -3,9 +3,10 @@ import { paths } from '../../../app/routes/paths';
 import SearchIdNotFound from '../../../app/routes/guard/search-id-not-found';
 import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { useSearchByIdContract } from '../hooks/use-search-by-id-contract';
-import { useRouter } from '../../../app/routes/hooks/use-router';
 import { DocumentationForm } from '../../client/components/documentation/form/documentation-form';
 import { NotFoundView } from '../../error';
+import { AccordionPet } from '../components/accordion-pet/accordion-pet';
+import { useRouter } from '../../../app/routes/hooks/use-router';
 
 type Props = {
     id: string;
@@ -31,12 +32,19 @@ export default function ContractDocumentationView({ id }: Props) {
                         { name: `${contract?.number}` },
                     ]}
                 />
-                <DocumentationForm
-                    role='user'
-                    onCancel={redirectData}
-                    contractId={id}
-                    documentation={contract?.services.documentation}
-                />
+                {contract.details.map((detail, index) => (
+                    <AccordionPet detail={detail} index={index} key={detail.id}>
+                        <DocumentationForm
+                            noShowButton={false}
+                            role='user'
+                            onCancel={redirectData}
+                            callback={() => false}
+                            contractId={id}
+                            detailId={detail.id}
+                            documentation={detail.documentation}
+                        />
+                    </AccordionPet>
+                ))}
             </Container>
         </SearchIdNotFound>
     );

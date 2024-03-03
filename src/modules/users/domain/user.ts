@@ -3,7 +3,6 @@ import { UserAuthInterface } from './user-auth.interface';
 import { ProfileInterface } from './user-profile.interface';
 import { Status } from '../../shared/domain/status';
 
-
 export interface User {
   id: string,
   email: string,
@@ -12,15 +11,13 @@ export interface User {
   user?: string;
   status?: Status;
   auth?: UserAuthInterface;
+  isAdvisor?: boolean;
 }
-
-
 
 export interface NewUser extends Omit<User, 'id' | 'roles'> {
   id?: string;
   roles?: string[];
 }
-
 
 export const userToNewUser = (user: User): NewUser => {
 

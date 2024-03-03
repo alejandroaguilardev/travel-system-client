@@ -7,6 +7,8 @@ import { paths } from '../../../../app/routes/paths';
 import { RenderRowActionMenuItem } from '../../../../components/material-table/render-row-action-menu-item';
 import { RenderRowActionMenuItemButton } from '../../../../components/material-table/render-row-action-menu-item-button';
 import { userGlobalFilterProperties } from './permission-global-filter-properties';
+import { PermissionGuard } from '../guard/permission-guard';
+import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
 
 
 type Props = {
@@ -48,34 +50,39 @@ export const PermissionTable: FC<Props> = ({ onSelected, deleteItem, }) => {
             collection={COLLECTIONS.permissions}
             columns={columns}
             globalFilterProperties={userGlobalFilterProperties}
-            renderRowActionMenuItems={({ row }) => [<RenderRowActionMenuItem
-                item={{
-                    name: "Visualizar",
-                    icon: "eyeBold",
-                    href: paths.dashboard.permissions.view(row.original.id)
-                }}
-                key="view"
-            />,
-            <RenderRowActionMenuItem
-                item={{
-                    name: "Editar",
-                    icon: "editTable",
-                    href: paths.dashboard.permissions.edit(row.original.id)
-                }}
-                key="edit"
-            />,
-            <RenderRowActionMenuItemButton<Permission>
-                item={{
-                    name: "Eliminar",
-                    icon: "removeBox",
-                }}
-                row={row.original}
-                onSelected={(value) => {
-                    onSelected(value);
-                    deleteItem();
-                }}
-                key="remove"
-            />]}
+            renderRowActionMenuItems={({ row }) => [
+                <PermissionGuard group={AuthGroup.PERMISSIONS} permission={AuthPermission.READ} key="view">
+                    <RenderRowActionMenuItem
+                        item={{
+                            name: "Visualizar",
+                            icon: "eyeBold",
+                            href: paths.dashboard.permissions.view(row.original.id)
+                        }}
+                    />
+                </PermissionGuard>,
+                <PermissionGuard group={AuthGroup.PERMISSIONS} permission={AuthPermission.EDIT} key="edit">
+                    <RenderRowActionMenuItem
+                        item={{
+                            name: "Editar",
+                            icon: "editTable",
+                            href: paths.dashboard.permissions.edit(row.original.id)
+                        }}
+                    />
+                </PermissionGuard>,
+                <PermissionGuard group={AuthGroup.PERMISSIONS} permission={AuthPermission.DELETE} key="remove">
+                    <RenderRowActionMenuItemButton<Permission>
+                        item={{
+                            name: "Eliminar",
+                            icon: "removeBox",
+                        }}
+                        row={row.original}
+                        onSelected={(value) => {
+                            onSelected(value);
+                            deleteItem();
+                        }}
+                    />
+                </PermissionGuard>
+            ]}
         />
     )
 }

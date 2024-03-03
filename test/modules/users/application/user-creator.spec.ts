@@ -14,7 +14,7 @@ describe("UserCreator", () => {
         userServiceMock.save.mockResolvedValueOnce(response);
         const expected = await userCreator(userServiceMock, uuid)(dataForm)
 
-        expect(expected.message).toBe(response.message)
+        expect(expected.response.message).toBe(response.message)
     })
 
     it("should_successfully_user_create_to_have_call", async () => {

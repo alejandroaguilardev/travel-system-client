@@ -6,7 +6,10 @@ import { passwordCreatedMother } from '../../users/domain/password.mother';
 describe('authLogin', () => {
     const authServiceMock = {
         login: jest.fn(),
-        verify: jest.fn()
+        verify: jest.fn(),
+        recover: jest.fn(),
+        resetPassword: jest.fn(),
+
     }
 
     const manageAccessToken = jest.fn();

@@ -7,6 +7,8 @@ import { Permission } from '../../../modules/permissions/domain/permission';
 import { PermissionTable } from '../components/table/permission-table';
 import { DialogDelete } from '../../../components/delete-item/delete-dialog-button';
 import { useDeletePermission } from '../hooks/use-delete-permission';
+import { PermissionGuard } from '../components/guard/permission-guard';
+import { AuthGroup, AuthPermission } from '../../../modules/auth/domain/auth-permission';
 
 
 export default function PermissionView() {
@@ -25,14 +27,15 @@ export default function PermissionView() {
                     }
                 ]}
                 action={
-
-                    <Button
-                        component={RouterLink}
-                        href={paths.dashboard.permissions.new}
-                        variant="contained"
-                    >
-                        Nuevo Permiso
-                    </Button>
+                    <PermissionGuard group={AuthGroup.PERMISSIONS} permission={AuthPermission.CREATE}>
+                        <Button
+                            component={RouterLink}
+                            href={paths.dashboard.permissions.new}
+                            variant="contained"
+                        >
+                            Nuevo Permiso
+                        </Button>
+                    </PermissionGuard>
                 }
             />
             {!isLoading &&

@@ -4,6 +4,8 @@ import { User } from '../../../../modules/users/domain/user';
 import { capitalize } from '../../../../modules/shared/domain/helpers';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
 import { PaperCustom } from '../../../../components/paper/paper-custom';
+import { userGenders } from '../../../../modules/users/domain/user-gender';
+import { fDate } from '../../../../modules/shared/infrastructure/helpers/format-time';
 
 interface UserDetailsProps {
     user: User;
@@ -16,7 +18,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
     return (
         <PaperCustom>
             <Typography variant="h5" gutterBottom>
-                Detalles del Rol
+                Detalles del usuario
             </Typography>
             <Divider sx={{ marginBottom: theme.spacing(2) }} />
 
@@ -62,6 +64,49 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
                             <Typography>{capitalize(user.email)}</Typography>
                         </TableCell>
                     </TableRow>
+
+                    <TableRow hover component="th" scope="row">
+                        <TableCell>
+                            <Typography variant="subtitle1" gutterBottom>
+                                Teléfono:
+                            </Typography>
+                        </TableCell>
+                        <TableCell>
+                            <Typography>{user.profile.phone}</Typography>
+                        </TableCell>
+                    </TableRow>
+
+                    <TableRow hover component="th" scope="row">
+                        <TableCell>
+                            <Typography variant="subtitle1" gutterBottom>
+                                Sexo:
+                            </Typography>
+                        </TableCell>
+                        <TableCell>
+                            <Typography>{user?.profile?.gender
+                                ? userGenders[user.profile.gender]
+                                : "No definido"
+                            }</Typography>
+                        </TableCell>
+                    </TableRow>
+
+                    <TableRow hover component="th" scope="row">
+                        <TableCell>
+                            <Typography variant="subtitle1" gutterBottom>
+                                Fecha de nacimiento:
+                            </Typography>
+                        </TableCell>
+                        <TableCell>
+                            <Typography>
+                                {
+                                    user?.profile?.birthDate
+                                        ? fDate(user.profile.birthDate)
+                                        : "--"
+                                }
+                            </Typography>
+                        </TableCell>
+                    </TableRow>
+
                     <TableRow hover component="th" scope="row">
                         <TableCell >
                             <Typography variant="subtitle1" gutterBottom>
@@ -69,7 +114,22 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
                             </Typography>
                         </TableCell>
                         <TableCell>
-                            <Typography>{user.roles.map((_) => capitalize(_.name)).join(", ")}</Typography>
+                            <Typography>{
+                                user.roles && user.roles.length > 0 ?
+                                    user.roles.map((_) => capitalize(_.name)).join(", ")
+                                    : "--"
+                            }
+                            </Typography>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow hover component="th" scope="row">
+                        <TableCell >
+                            <Typography variant="subtitle1" gutterBottom>
+                                Administrador:
+                            </Typography>
+                        </TableCell>
+                        <TableCell>
+                            <Typography>{user.auth?.admin ? "Si" : "No"} </Typography>
                         </TableCell>
                     </TableRow>
                 </TableBody>

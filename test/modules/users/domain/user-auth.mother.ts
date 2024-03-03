@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { UserAuthInterface } from "src/modules/users/domain/user-auth.interface";
+import { UserAuthInterface } from "../../../../src/modules/users/domain/user-auth.interface";
 
 export const UserAuthMother = (auth?: UserAuthInterface): UserAuthInterface => ({
     admin: auth?.admin ?? faker.datatype.boolean(),

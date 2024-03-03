@@ -11,10 +11,12 @@ import { useFormUser } from "./use-form-user";
 
 type Props = {
     user?: NewUser;
-    callback: () => void
+    notReload?: boolean;
+    callback: (newUser?: NewUser) => void;
+    onCancel?: VoidFunction;
 }
 
-export const UserForm: FC<Props> = ({ user, callback }) => {
+export const UserForm: FC<Props> = ({ user, notReload, callback, onCancel }) => {
     const methods = useForm({
         resolver: yupResolver<NewUser>(userSchema),
         defaultValues: user ?? defaultValues,
@@ -33,6 +35,8 @@ export const UserForm: FC<Props> = ({ user, callback }) => {
             <ActionsButtonsForm
                 name="usuario"
                 edit={!!user}
+                notReload={notReload}
+                onCancel={onCancel}
             />
 
         </FormProvider >

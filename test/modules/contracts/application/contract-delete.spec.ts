@@ -5,7 +5,7 @@ import uuid from '../../../../src/modules/shared/infrastructure/adapter/uuid';
 import { MessageCreateMother } from '../../shared/domain/response-message.mother';
 import { contractServiceMock } from "../domain/contract.service.mock";
 
-describe("PermissionCreator", () => {
+describe("ContractDelete", () => {
 
     it("should_successfully_contract_remove", async () => {
         const id = uuidCreateMother();

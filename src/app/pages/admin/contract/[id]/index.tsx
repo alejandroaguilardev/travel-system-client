@@ -6,6 +6,9 @@ import { useParams } from '../../../../routes/hooks/use-params';
 import ContractDocumentationView from '../../../../../presentation/contracts/views/contract-documentation-view';
 import ContractCageView from '../../../../../presentation/contracts/views/contract-cage-view';
 import ContractTravelView from '../../../../../presentation/contracts/views/contract-travel-view';
+import { RoutePermissionGuard } from '../../../../routes/guard/route-permission.guard';
+import { useAuthContext } from '../../../../../presentation/auth/hooks/use-auth-context';
+import { AuthGroup, AuthPermission } from '../../../../../modules/auth/domain/auth-permission';
 
 enum RoutesActions {
     VIEW = "visualizar",
@@ -16,6 +19,7 @@ enum RoutesActions {
 }
 
 export default function ContractIdPage() {
+    const { user } = useAuthContext();
     const params = useParams();
     const { id } = params;
     const action = params.action as RoutesActions;
@@ -29,11 +33,34 @@ export default function ContractIdPage() {
             <Helmet>
                 <title> Contrato</title>
             </Helmet>
-            {action === RoutesActions.VIEW && <ContractIdView id={id} />}
-            {action === RoutesActions.EDIT && <ContractEditView id={id} />}
-            {action === RoutesActions.DOCUMENTATION && <ContractDocumentationView id={id} />}
-            {action === RoutesActions.CAGE && <ContractCageView id={id} />}
-            {action === RoutesActions.TRAVEL && <ContractTravelView id={id} />}
+            {action === RoutesActions.VIEW &&
+                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.READ}>
+                    <ContractIdView id={id} />
+                </RoutePermissionGuard>}
+
+            {action === RoutesActions.EDIT &&
+                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.EDIT}>
+                    <ContractEditView id={id} />
+                </RoutePermissionGuard>
+            }
+
+            {action === RoutesActions.DOCUMENTATION &&
+                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION}>
+                    <ContractDocumentationView id={id} />
+                </RoutePermissionGuard>
+            }
+
+            {action === RoutesActions.CAGE &&
+                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.CAGE}>
+                    <ContractCageView id={id} />
+                </RoutePermissionGuard>
+            }
+
+            {action === RoutesActions.TRAVEL &&
+                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.TRAVEL}>
+                    <ContractTravelView id={id} />
+                </RoutePermissionGuard>
+            }
         </>
     );
 }

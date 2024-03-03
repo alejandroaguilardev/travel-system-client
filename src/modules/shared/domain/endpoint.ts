@@ -12,8 +12,15 @@ export const endpoints = {
     permissions: {
         root: '/permissions',
     },
+    cages: {
+        root: '/cages',
+    },
+    pets: {
+        root: '/pets',
+    },
     contracts: {
         root: '/contracts',
         client: '/contracts/client',
+        detail: '/contract-detail',
     },
 };

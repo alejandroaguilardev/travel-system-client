@@ -13,12 +13,12 @@ import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { useBoolean } from 'src/hooks/use-boolean';
-import { useResponsive } from 'src/hooks/use-responsive';
-import Label from 'src/components/label';
-import Iconify from 'src/components/iconify';
-import Scrollbar from 'src/components/scrollbar';
-import { varHover } from 'src/components/animate';
+import { useBoolean } from '../../../hooks/use-boolean';
+import { useResponsive } from '../../../hooks/use-responsive';
+import Label from '../../../components/label';
+import Iconify from '../../../components/iconify';
+import Scrollbar from '../../../components/scrollbar';
+import { varHover } from '../../../components/animate';
 import NotificationItem from './notification-item';
 
 const _notifications = [...Array(9)].map((_, index) => ({

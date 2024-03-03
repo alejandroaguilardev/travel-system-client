@@ -5,6 +5,7 @@ import { userRolesCreateMother } from './roles-user.mother';
 import { StatusMother } from '../../shared/domain/status-mother';
 import { UserAuthMother } from './user-auth.mother';
 import { userProfileMother } from './user-profile.mother';
+import { faker } from '@faker-js/faker';
 
 export const userCreateMother = (newUser?: Partial<User>): User => {
 
@@ -16,8 +17,7 @@ export const userCreateMother = (newUser?: Partial<User>): User => {
         user: newUser?.user ?? uuidCreateMother(),
         profile: userProfileMother(newUser?.profile),
         auth: UserAuthMother(newUser?.auth),
-
-
+        isAdvisor: newUser?.isAdvisor ?? faker.datatype.boolean(),
     };
 }
 

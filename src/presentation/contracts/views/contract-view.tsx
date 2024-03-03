@@ -8,6 +8,8 @@ import { ContractTable } from '../components/table/contract-table';
 import { DialogDelete } from '../../../components/delete-item/delete-dialog-button';
 import { useDeleteContract } from '../hooks/use-delete-contract';
 import { ContractRenderRowActionsMenuItems } from '../components/table/contract-render-row-actions-menu-items';
+import { PermissionGuard } from '../../permission/components/guard/permission-guard';
+import { AuthGroup, AuthPermission } from '../../../modules/auth/domain/auth-permission';
 
 
 export default function ContractView() {
@@ -26,14 +28,15 @@ export default function ContractView() {
                     }
                 ]}
                 action={
-
-                    <Button
-                        component={RouterLink}
-                        href={paths.dashboard.contracts.new}
-                        variant="contained"
-                    >
-                        Nuevo Contrato
-                    </Button>
+                    <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.CREATE}>
+                        <Button
+                            component={RouterLink}
+                            href={paths.dashboard.contracts.new}
+                            variant="contained"
+                        >
+                            Nuevo Contrato
+                        </Button>
+                    </PermissionGuard>
                 }
             />
             {!isLoading &&

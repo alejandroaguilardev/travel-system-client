@@ -8,6 +8,7 @@ export type AuthContextType = {
   unauthenticated: boolean;
   login: (email: string, password: string) => Promise<User>;
   logout: () => Promise<void>;
+  update: (user: User) => void;
 };
 
 export type ActionMapType<M extends { [index: string]: any }> = {
@@ -33,4 +34,5 @@ export enum Types {
   INITIAL = 'INITIAL',
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
+  UPDATE = 'UPDATE',
 }

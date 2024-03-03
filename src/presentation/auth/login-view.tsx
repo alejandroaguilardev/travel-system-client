@@ -11,6 +11,8 @@ import { LoginForm } from './components/login-form';
 import FormProvider from '../../components/hook-form/form-provider';
 import { LoginSchema, defaultValues } from './utils/login-validation-form';
 import { useAuthContext } from './hooks';
+import { paths } from '../../app/routes/paths';
+import { Box } from '@mui/material';
 
 export default function LoginView() {
   const { login } = useAuthContext();
@@ -37,7 +39,7 @@ export default function LoginView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const user = await login?.(data.email, data.password);
-      const access = user.roles.length > 0 ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;
+      const access = (user.roles.length > 0 || user?.auth?.admin) ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;
 
       if (access === PATH_AFTER_LOGIN && returnTo === "/") {
         router.push(access);
@@ -58,9 +60,16 @@ export default function LoginView() {
 
       <LoginForm errorMsg={errorMsg} />
 
-      <Link variant="body2" color="inherit" underline="always" sx={{ alignSelf: 'flex-end', mb: 2 }}>
-        ¿Olvidaste tu contraseña?
-      </Link>
+      <Box sx={{ alignSelf: 'flex-end', my: 1 }}>
+        <Link
+          href={paths.auth.recover}
+          variant="body2"
+          color="inherit"
+          underline="always"
+        >
+          ¿Olvidaste tu contraseña?
+        </Link>
+      </Box>
 
       <LoadingButton
         fullWidth

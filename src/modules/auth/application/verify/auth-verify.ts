@@ -12,6 +12,7 @@ export const authVerify = (authService: AuthService, manageAccessToken: (token: 
 
         const { token, user } = await authService.verify();
         manageAccessToken(token)
+        user.roles = user.roles?.[0]?.id ? user.roles : [];
         return user;
     }
 }

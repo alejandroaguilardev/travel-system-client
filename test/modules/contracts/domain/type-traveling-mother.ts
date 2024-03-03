@@ -1,5 +1,4 @@
-import { TRAVEL_TYPES } from '../../../../src/modules/contracts/domain/travel/contract-travel';
-import { TypeTraveling } from '../../../../src/modules/contracts/domain/interfaces/travel';
+import { TRAVEL_TYPES, TypeTraveling } from '../../../../src/modules/contracts/domain/contract-services/travel/contract-travel';
 
 export const typeTravelingCreateMother = (): TypeTraveling => {
     const randomIndex = Math.floor(Math.random() * TRAVEL_TYPES.values.length);

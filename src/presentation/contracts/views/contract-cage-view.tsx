@@ -3,15 +3,17 @@ import { paths } from '../../../app/routes/paths';
 import SearchIdNotFound from '../../../app/routes/guard/search-id-not-found';
 import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { useSearchByIdContract } from '../hooks/use-search-by-id-contract';
-import { useRouter } from '../../../app/routes/hooks/use-router';
 import { CageForm } from '../../client/components/cage/form/cage-form';
 import { NotFoundView } from '../../error';
+import { AccordionPet } from '../components/accordion-pet/accordion-pet';
+import { useRouter } from '../../../app/routes/hooks/use-router';
 
 type Props = {
     id: string;
 }
 
 export default function ContractCageView({ id }: Props) {
+
     const router = useRouter();
 
     const { contract, error, isLoading } = useSearchByIdContract(id);
@@ -32,13 +34,20 @@ export default function ContractCageView({ id }: Props) {
                         { name: `${contract?.number}` },
                     ]}
                 />
-                <CageForm
-                    onCancel={redirectData}
-                    contractId={id}
-                    cage={contract.services.cage}
-                    readonly={contract.services.cage.hasServiceIncluded}
-                    user
-                />
+                {contract.details.map((detail, index) => (
+                    <AccordionPet detail={detail} index={index} key={detail.id}>
+                        <CageForm
+                            noShowButton={false}
+                            onCancel={redirectData}
+                            callback={() => false}
+                            contractId={id}
+                            detailId={detail.id}
+                            cage={detail.cage}
+                            hasServiceIncluded={detail.cage.hasServiceIncluded}
+                            user
+                        />
+                    </AccordionPet>
+                ))}
             </Container>
         </SearchIdNotFound>
     );

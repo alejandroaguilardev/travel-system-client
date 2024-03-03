@@ -5,7 +5,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Drawer, { drawerClasses } from '@mui/material/Drawer';
-import { paper } from 'src/theme/css';
+import { paper } from '../../../theme/css';
 import Iconify from '../../iconify';
 import Scrollbar from '../../scrollbar';
 import { useSettingsContext } from '../context';
