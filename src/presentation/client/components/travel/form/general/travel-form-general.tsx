@@ -107,7 +107,7 @@ export const TravelFormGeneral: FC<Props> = ({ user, hasServiceIncluded }) => {
             {
                 typeTraveling === "charge" &&
                 <>
-                    <Typography>Reserva de aerolínea </Typography>
+                    <Typography>Envío por cargo </Typography>
                     <RHFTextField
                         name="petPerCharge.receptor"
                         label="Receptor (*)"
