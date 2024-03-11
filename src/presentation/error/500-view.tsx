@@ -8,7 +8,7 @@ import { varBounce } from '../../components/animate/variants/bounce';
 import { useAuthContext } from '../auth/hooks';
 import { PATH_AFTER_LOGIN, PATH_AFTER_LOGIN_CLIENT } from '../../app/config/config-global';
 
-export default function NotFoundView() {
+export default function Error500View() {
 
   const { user } = useAuthContext();
   const route = user && user?.roles?.length > 0 ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;

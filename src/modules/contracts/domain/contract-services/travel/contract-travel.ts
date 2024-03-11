@@ -1,5 +1,7 @@
 import { ContractStatus } from '../../contract-status';
+import { TravelAccompaniedPet } from './travel-accompanied-pet';
 import { TravelAirlineReservation } from './travel-airline-reservation';
+import { TravelDestination } from './travel-destination';
 import { TravelPetPerCharge } from './travel-pet-per-charge';
 
 export type TypeTraveling = 'accompanied' | 'charge' | 'none';
@@ -7,14 +9,17 @@ export type TypeTraveling = 'accompanied' | 'charge' | 'none';
 export interface Travel {
     status: ContractStatus;
     hasServiceIncluded: boolean;
+    hasServiceAccompanied: boolean;
     typeTraveling: TypeTraveling;
     airlineReservation: TravelAirlineReservation,
     petPerCharge: TravelPetPerCharge;
+    accompaniedPet: TravelAccompaniedPet;
+    destination: TravelDestination;
 }
 
-export interface PartialTravel extends Omit<Partial<Travel>, "airlineReservation" | "petPerCharge"> {
+export interface PartialTravel extends Omit<Partial<Travel>, "airlineReservation" | "petPerCharge" | "accompaniedPet" | "destination"> {
     airlineReservation: Partial<TravelAirlineReservation>;
-    petPerCharge: Partial<TravelPetPerCharge>;
+
 };
 export const TRAVEL_TYPES: { value: TypeTraveling, label: string }[] = [
     {

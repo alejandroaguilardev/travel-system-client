@@ -5,5 +5,4 @@ export interface TravelAirlineReservation {
     destinationAirport: string;
     departureDate: Date | null;
     arrivalDate: Date | null;
-    user?: string;
 };

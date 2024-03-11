@@ -1,7 +1,6 @@
 import { Cage } from "./contract-services/cage/cage";
 import { Documentation } from "./contract-services/documentation/documentation";
-import { TypeTraveling } from "./contract-services/travel/contract-travel";
-import { Travel } from "./contract-services/travel/travel";
+import { Travel, TypeTraveling } from "./contract-services/travel/contract-travel";
 import { Pet } from '../../pets/domain/pet';
 
 

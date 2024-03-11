@@ -66,6 +66,16 @@ export const UserTable: FC<Props> = ({ onSelected, deleteItem, path, filteredCol
             columns={columns}
             globalFilterProperties={userGlobalFilterProperties}
             renderRowActionMenuItems={({ row }) => [
+                <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.LIST} key="view">
+                    <RenderRowActionMenuItem
+                        item={{
+                            name: "Ver contratos",
+                            icon: "eyeBold",
+                            href: paths.dashboard.contracts.client(row.original.id)
+                        }}
+
+                    />
+                </PermissionGuard>,
                 <PermissionGuard group={AuthGroup.USERS} permission={AuthPermission.READ} key="view">
                     <RenderRowActionMenuItem
                         item={{

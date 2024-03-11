@@ -9,37 +9,40 @@ const ClientProfile = lazy(() => import('../../pages/client/profile/index'));
 const ClientSecurity = lazy(() => import('../../pages/client/security/index'));
 
 const HistoryPage = lazy(() => import('../../pages/client/history'));
+const TravelPage = lazy(() => import('../../pages/client/travel/[id]/index'));
 
 export const clientsRoutes = [
     {
         path: '/',
         element: (
-            <AuthGuard>
-                <ClientLayout>
-                    <Suspense fallback={<LoadingScreen />}>
-                        <Outlet />
-                    </Suspense>
-                </ClientLayout>
-            </AuthGuard>
+            <Suspense fallback={<LoadingScreen />}>
+                <Outlet />
+            </Suspense>
         ),
         children: [
-            { element: <ClientPage />, index: true },
+            { element: <ClientLayout><AuthGuard><ClientPage /></AuthGuard></ClientLayout>, index: true },
             {
                 path: 'historial',
                 children: [
-                    { element: <HistoryPage />, index: true },
+                    { element: <ClientLayout><AuthGuard><HistoryPage /></AuthGuard></ClientLayout>, index: true },
                 ],
             },
             {
                 path: 'perfil',
                 children: [
-                    { element: <ClientProfile />, index: true },
+                    { element: <ClientLayout><AuthGuard><ClientProfile /></AuthGuard></ClientLayout>, index: true },
                 ],
             },
             {
                 path: 'seguridad',
                 children: [
-                    { element: <ClientSecurity />, index: true },
+                    { element: <ClientLayout><AuthGuard><ClientSecurity /></AuthGuard></ClientLayout>, index: true },
+                ],
+            },
+            {
+                path: 'viaje/:contractId/:contractDetailId/:token',
+                children: [
+                    { element: <TravelPage />, index: true },
                 ],
             },
         ],

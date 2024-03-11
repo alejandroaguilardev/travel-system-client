@@ -1,10 +1,7 @@
-
 export interface TravelPetPerCharge {
-    receptor: string;
-    email: string;
+    name: string;
+    document: string;
+    documentNumber: string;
     phone: string;
-    pickupDateTime: Date | null;
-    pickupLocation: string;
-    specialRequests: string;
-    user?: string;
+    email: string;
 };

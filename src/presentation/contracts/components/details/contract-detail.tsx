@@ -234,17 +234,13 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                                     <TableRow hover>
                                         <TableCell sx={{ width: "50%" }}>Datos de cargo:</TableCell>
                                         <TableCell sx={{ width: "50%" }}>
-                                            Receptor: {capitalize(detail.travel.petPerCharge?.receptor)}
+                                            Receptor: {capitalize(detail.travel.petPerCharge?.name)}
                                             <Divider />
                                             E-mail: {capitalize(detail.travel.petPerCharge?.email)}
                                             <Divider />
                                             Teléfono: {capitalize(detail.travel.petPerCharge?.phone)}
                                             <Divider />
-                                            Recojo: {capitalize(detail.travel.petPerCharge?.pickupLocation)}
-                                            <Divider />
-                                            Fecha de recojo: {fDateTimeLong(detail.travel.petPerCharge?.pickupDateTime)}
-                                            <Divider />
-                                            Comentarios: {capitalize(detail.travel.petPerCharge?.specialRequests || "--")}
+
                                         </TableCell>
                                     </TableRow>
                                 </>

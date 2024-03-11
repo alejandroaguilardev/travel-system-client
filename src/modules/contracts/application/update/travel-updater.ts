@@ -1,7 +1,7 @@
 import { ErrorInvalidadArgument } from '../../../shared/domain/errors/error-invalid-argument';
 import { UuidService } from '../../../shared/domain/ports/uuid';
 import { ContractDetailService, ContractDetailUpdateResponse } from '../../domain/contract-detail.service';
-import { PartialTravel } from '../../domain/contract-services/travel/travel';
+import { PartialTravel } from '../../domain/contract-services/travel/contract-travel';
 
 export const travelUpdater = (contractService: ContractDetailService, uuid: UuidService) => async (contractId: string, detailId: string, travel: PartialTravel): Promise<ContractDetailUpdateResponse> => {
     if (!uuid.validate(contractId)) {
@@ -20,14 +20,6 @@ export const travelUpdater = (contractService: ContractDetailService, uuid: Uuid
             destinationAirport: travel.airlineReservation.destinationAirport,
             departureDate: travel.airlineReservation.departureDate,
             arrivalDate: travel.airlineReservation.arrivalDate,
-        },
-        petPerCharge: {
-            receptor: travel.petPerCharge.receptor,
-            email: travel.petPerCharge.email,
-            phone: travel.petPerCharge.phone,
-            pickupDateTime: travel.petPerCharge.pickupDateTime,
-            pickupLocation: travel.petPerCharge.pickupLocation,
-            specialRequests: travel.petPerCharge.specialRequests,
         },
     }
 

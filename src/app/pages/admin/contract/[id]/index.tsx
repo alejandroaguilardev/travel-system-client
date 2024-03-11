@@ -9,6 +9,8 @@ import ContractTravelView from '../../../../../presentation/contracts/views/cont
 import { RoutePermissionGuard } from '../../../../routes/guard/route-permission.guard';
 import { useAuthContext } from '../../../../../presentation/auth/hooks/use-auth-context';
 import { AuthGroup, AuthPermission } from '../../../../../modules/auth/domain/auth-permission';
+import ContractClientView from '../../../../../presentation/contracts/views/contract-client-view';
+import ContractPetView from '../../../../../presentation/contracts/views/contract-pet-view';
 
 enum RoutesActions {
     VIEW = "visualizar",
@@ -16,6 +18,8 @@ enum RoutesActions {
     DOCUMENTATION = "documentacion",
     CAGE = "jaula",
     TRAVEL = "viaje",
+    CLIENT = "cliente",
+    PET = "mascota",
 }
 
 export default function ContractIdPage() {
@@ -24,7 +28,7 @@ export default function ContractIdPage() {
     const { id } = params;
     const action = params.action as RoutesActions;
 
-    if (!id || !action || ![RoutesActions.EDIT, RoutesActions.VIEW, RoutesActions.DOCUMENTATION, RoutesActions.CAGE, RoutesActions.TRAVEL].includes(action)) {
+    if (!id || !action || ![RoutesActions.EDIT, RoutesActions.VIEW, RoutesActions.DOCUMENTATION, RoutesActions.CAGE, RoutesActions.TRAVEL, RoutesActions.CLIENT, RoutesActions.PET].includes(action)) {
         return <NotFoundView />;
     }
 
@@ -59,6 +63,22 @@ export default function ContractIdPage() {
             {action === RoutesActions.TRAVEL &&
                 <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.TRAVEL}>
                     <ContractTravelView id={id} />
+                </RoutePermissionGuard>
+            }
+
+            {action === RoutesActions.CLIENT &&
+                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.READ}>
+                    <ContractClientView id={id} />
+                </RoutePermissionGuard>
+            }
+
+            {action === RoutesActions.PET &&
+                <RoutePermissionGuard
+                    user={user}
+                    group={AuthGroup.CONTRACTS}
+                    permission={AuthPermission.READ}
+                >
+                    <ContractPetView id={id} />
                 </RoutePermissionGuard>
             }
         </>

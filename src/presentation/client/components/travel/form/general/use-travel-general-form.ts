@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { TypeTraveling } from '../../../../../../modules/contracts/domain/contract-services/travel/travel';
 import { useAuthContext } from '../../../../../auth/hooks/use-auth-context';
 import { fDate } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
+import { TypeTraveling } from '../../../../../../modules/contracts/domain/contract-services/travel/contract-travel';
 
 
 

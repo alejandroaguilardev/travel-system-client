@@ -9,7 +9,6 @@ import Label from '../../../../components/label/label';
 import { statusColor } from './status-color';
 import { contractGlobalFilterProperties } from './contract-global-filter-properties';
 
-
 type Props = {
     options?: {
         columnQueryFilters?: MRT_ColumnFiltersState | undefined;
@@ -23,17 +22,6 @@ export const ContractTable: FC<Props> = ({ options }) => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
-                header: 'Fecha de Inicio',
-                accessorKey: 'startDate',
-                accessorFn: (row) => fDate(row.startDate, 'dd/MM/yyyy HH:mm:ss'),
-                minSize: 200
-            },
-            {
-                header: 'Número',
-                accessorKey: 'number',
-                minSize: 200
-            },
-            {
                 header: 'Estado',
                 accessorKey: 'status',
                 Cell: ({ cell }) => {
@@ -41,6 +29,32 @@ export const ContractTable: FC<Props> = ({ options }) => {
                     return <Label color={statusColor(status)}>{CONTRACT_STATUS.find(_ => _.value === status)?.label}</Label>
                 },
                 accessorFn: (row) => row.status,
+                minSize: 170
+            },
+            {
+                header: 'Número',
+                accessorKey: 'number',
+                minSize: 170,
+            },
+            {
+                header: 'N° Documento',
+                accessorKey: 'client.profile.documentNumber',
+                minSize: 170
+            },
+            {
+                header: 'Nombre',
+                accessorKey: 'client.profile.name',
+                minSize: 170
+            },
+            {
+                header: 'Apellido',
+                accessorKey: 'client.profile.lastName',
+                minSize: 170
+            },
+            {
+                header: 'Fecha de Inicio',
+                accessorKey: 'startDate',
+                accessorFn: (row) => fDate(row.startDate, 'dd/MM/yyyy HH:mm:ss'),
                 minSize: 200
             },
             {

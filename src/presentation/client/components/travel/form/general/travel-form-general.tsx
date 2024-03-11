@@ -103,63 +103,6 @@ export const TravelFormGeneral: FC<Props> = ({ user, hasServiceIncluded }) => {
                     Viaje por cargo o bodega. Su mascota viajará de manera segura y cómoda.
                 </Alert>
             }
-
-            {
-                typeTraveling === "charge" &&
-                <>
-                    <Typography>Envío por cargo </Typography>
-                    <RHFTextField
-                        name="petPerCharge.receptor"
-                        label="Receptor (*)"
-                        InputProps={{
-                            readOnly: edit
-                        }}
-                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                    />
-                    <RHFTextField
-                        name="petPerCharge.phone"
-                        label="Teléfono (*)"
-                        InputProps={{
-                            readOnly: edit
-                        }}
-                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                    />
-                    <RHFTextField
-                        name="petPerCharge.email"
-                        label="Correo Electrónico"
-                        InputProps={{
-                            readOnly: edit
-                        }}
-                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                    />
-
-                    <RHFTextField
-                        name="petPerCharge.pickupDateTime"
-                        type="date"
-                        label="Fecha de recojo (*)"
-                        InputProps={{
-                            startAdornment: <IconWrapper icon="date" />
-                        }}
-                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                    />
-                    <RHFTextField
-                        name="petPerCharge.pickupLocation"
-                        label="Lugar de recojo (*)"
-                        InputProps={{
-                            readOnly: edit
-                        }}
-                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                    />
-                    <RHFTextField
-                        name="petPerCharge.specialRequests"
-                        label="Solitudes opcionales"
-                        InputProps={{
-                            readOnly: edit
-                        }}
-                        style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                    />
-                </>
-            }
         </Stack >
     );
 }

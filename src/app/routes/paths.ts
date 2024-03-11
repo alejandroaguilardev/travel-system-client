@@ -27,6 +27,9 @@ export const paths = {
       documentation: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/documentacion`,
       cage: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/jaula`,
       travel: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/viaje`,
+      client: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/cliente`,
+      pet: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/mascota`,
+
     },
     clients: {
       root: `${ROOTS.DASHBOARD}/clientes`,

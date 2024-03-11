@@ -61,6 +61,16 @@ export const PetTable: FC<Props> = ({ onSelected, deleteItem, }) => {
             columns={columns}
             globalFilterProperties={petGlobalFilterProperties}
             renderRowActionMenuItems={({ row }) => [
+                <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.LIST} key="view">
+                    <RenderRowActionMenuItem
+                        item={{
+                            name: "Ver contratos",
+                            icon: "eyeBold",
+                            href: paths.dashboard.contracts.pet(row.original.id)
+                        }}
+
+                    />
+                </PermissionGuard>,
                 <PermissionGuard group={AuthGroup.PETS} permission={AuthPermission.READ} key="view">
                     <RenderRowActionMenuItem
                         item={{

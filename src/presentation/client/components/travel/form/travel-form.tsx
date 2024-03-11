@@ -8,6 +8,9 @@ import { travelSchema } from "./travel-validation";
 import { TravelFormGeneral } from './general/travel-form-general';
 import { PartialTravel, Travel } from '../../../../../modules/contracts/domain/contract-services/travel/contract-travel';
 import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/domain/contract-detail.service';
+import { TabGenericProvider } from '../../../../../components/tab-generic/context/tab-generic-provider';
+import { TabSwitcher } from '../../../../../components/tab-generic/tab-switcher';
+import { AccompaniedForm } from "../../accompanied-form/accompanied-form";
 
 type Props = {
     contractId: string;
@@ -28,21 +31,39 @@ export const TravelForm: FC<Props> = ({ travel, detailId, noShowButton = false, 
 
     const { onSubmit } = useFormTravel({ contractId, detailId, callback });
 
+    const tabs = [
+        {
+            value: "Reserva",
+            component: <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
+                <TravelFormGeneral hasServiceIncluded={hasServiceIncluded} user={user} />
+                {(!noShowButton || user) &&
+                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            Actualizar
+                        </Button>
+                    </Box>
+                }
+            </FormProvider>
+        },
+        {
+            value: "Datos de certificados",
+            component: <AccompaniedForm
+                travel={travel}
+                contractId={contractId}
+                contractDetailId={detailId}
+                callback={callback}
+            />
+        },
+    ]
+
     return (
-        <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-
-            <TravelFormGeneral hasServiceIncluded={hasServiceIncluded} user={user} />
-
-            {(!noShowButton || user) &&
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        Actualizar
-                    </Button>
-                </Box>
-            }
-        </FormProvider >
+        <TabGenericProvider defaultValue={tabs[0].value}>
+            <TabSwitcher
+                tabs={tabs}
+            />
+        </TabGenericProvider>
     )
 }

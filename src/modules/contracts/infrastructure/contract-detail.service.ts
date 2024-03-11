@@ -1,5 +1,4 @@
 import axiosInstance from '../../shared/infrastructure/http/axios.host';
-import { Contract } from '../domain/contract';
 import { endpoints } from '../../shared/domain/endpoint';
 import { ContractDetailService, ContractDetailUpdateResponse } from '../domain/contract-detail.service';
 import { ContractDetail } from '../domain/contract-detail';
@@ -8,6 +7,10 @@ import { ResponseSearch } from '../../shared/domain/response/response-search';
 import { Documentation } from '../domain/contract-services/documentation/documentation';
 import { PartialTravel } from '../domain/contract-services/travel/contract-travel';
 import { Cage } from '../domain/contract-services/cage/cage';
+import { ResponseSuccess } from 'src/modules/shared/domain/response/response-success';
+import { TravelPetPerCharge } from '../domain/contract-services/travel/travel-pet-per-charge';
+import { TravelAccompaniedPet } from '../domain/contract-services/travel/travel-accompanied-pet';
+import { TravelDestination } from '../domain/contract-services/travel/travel-destination';
 
 
 export const contractDetailService: ContractDetailService = {
@@ -15,8 +18,8 @@ export const contractDetailService: ContractDetailService = {
         const { data } = await axiosInstance.get(`${endpoints.contracts.detail}${criteriaToQueryString(criteria)}`);
         return data;
     },
-    searchById: async (id: string): Promise<ContractDetail> => {
-        const { data } = await axiosInstance.get(`${endpoints.contracts.detail}/${id}`);
+    searchById: async (contractId: string, contractDetailId: string): Promise<ContractDetail> => {
+        const { data } = await axiosInstance.get(`${endpoints.contracts.detail}/${contractId}/${contractDetailId}`);
         return data;
     },
 
@@ -30,6 +33,19 @@ export const contractDetailService: ContractDetailService = {
     },
     updateTravel: async (contractId: string, detailId: string, body: PartialTravel): Promise<ContractDetailUpdateResponse> => {
         const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/travel`, body);
+        return data;
+    },
+    updateAccompaniedPet: async (
+        contractId: string,
+        detailId: string,
+        accompaniedPet: TravelAccompaniedPet,
+        destination: TravelDestination,
+        petPerCharge: TravelPetPerCharge): Promise<ContractDetailUpdateResponse> => {
+        const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/accompanied`, {
+            accompaniedPet,
+            destination,
+            petPerCharge
+        });
         return data;
     },
 } 
