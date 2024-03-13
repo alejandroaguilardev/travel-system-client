@@ -18,8 +18,8 @@ const globalFilterProperties = [
 
 const getOptionLabel = (option: Pet) => {
 
-    const {chip} = option;
-    const {name} = option;
+    const { chip } = option;
+    const { name } = option;
 
     return `${chip} ${capitalize(name)}`;
 
@@ -44,15 +44,18 @@ export const SearchPet = ({ adopterId, pet, handlePet }: Props) => {
                 callback={(value) => handlePet(value as Pet)}
                 getOptionLabel={getOptionLabel}
                 textField={{
-                    label: "Seleccionar mascota(*)",
-                    placeholder: "Buscar mascota...",
+                    label: "Buscar y/o ingresar primera mascota ",
+                    placeholder: "Nombre o chip de la mascota...",
                 }}
                 noOptionsText={
                     <Box width="100%" >
                         <PermissionGuard group={AuthGroup.PETS} permission={AuthPermission.CREATE}>
-                            <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la persona que está buscando. ¿Desea crear un mascota ahora? </Typography>
-                            <Button variant="outlined" fullWidth onClick={onTrue}>
-                                Nueva Mascota
+                            <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la mascota  que está buscando. ¿Desea crear una mascota ahora? </Typography>
+                            <Button variant="outlined" fullWidth onClick={onTrue} sx={{
+                                fontWeight: "bold",
+                                opacity: 1
+                            }}>
+                                Crear nueva mascota
                             </Button>
                         </PermissionGuard>
                     </Box>

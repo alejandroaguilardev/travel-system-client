@@ -12,23 +12,26 @@ type Props = {
     contractId: string;
     contractDetailId: string;
     travel?: Travel;
-    callback: (response?: ContractDetailUpdateResponse) => void
+    notButton?: boolean;
+    callback: (response?: ContractDetailUpdateResponse) => void;
 }
 
-export const AccompaniedForm: FC<Props> = ({ contractId, contractDetailId, travel, callback }) => {
+export const AccompaniedForm: FC<Props> = ({ contractId, notButton = false, contractDetailId, travel, callback }) => {
     const methods = useForm({
         resolver: yupResolver<TravelAccompaniedSchema>(travelAccompaniedSchema),
         defaultValues: {
             accompaniedPet: travel?.accompaniedPet ?? defaultValues.accompaniedPet,
             destination: travel?.destination ?? defaultValues.destination,
             petPerCharge: travel?.petPerCharge ?? defaultValues.petPerCharge,
-        }
+        },
+        disabled: notButton
     });
 
     const { onSubmit } = useAccompaniedForm({ contractId, contractDetailId, callback });
+
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-            <AccompaniedStep />
+            <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={notButton} />
         </FormProvider >
     )
 }

@@ -13,7 +13,7 @@ const defaultValues: NewPet = {
     color: "",
     image: "",
     country: "Perú",
-    type: "",
+    type: "Perro",
     sterilized: "No",
     adopter: "",
     cageRecommendation: {

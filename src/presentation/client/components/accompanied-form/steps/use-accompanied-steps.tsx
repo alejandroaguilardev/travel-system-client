@@ -7,41 +7,22 @@ import { ChargeFormGeneral } from './charge-form-general';
 import { DestinationFormGeneral } from './destination-form';
 import IconWrapper from '../../../../../components/icon-wrapper/icon-wrapper';
 import { TravelAccompaniedSchema } from '../accompanied-validation';
+import { Box } from '@mui/material';
 
+type Props = {
+    hasCharge: boolean;
+    notButton: boolean;
+}
 
-export const useAccompaniedSteps = () => {
+export const useAccompaniedSteps = ({ hasCharge, notButton }: Props) => {
     const { getValues } = useFormContext<TravelAccompaniedSchema>();
     const { showNotification } = useMessage();
 
     const steps: StepType[] = useMemo(() => [
         {
-            value: "Destino",
-            component: <DestinationFormGeneral />,
-            icon: <IconWrapper icon="arrival" width={24} />,
-            handleNext: (setActiveStep) => {
-                const { destination } = getValues();
-                if (!destination.countryDestination) {
-                    showNotification('Ingrese el país de destino', { variant: "error" });
-                    return;
-                }
-
-                if (!destination.cityDestination) {
-                    showNotification('Ingrese la ciudad de destino', { variant: "error" });
-                    return;
-                }
-
-                if (!destination.directionDestination) {
-                    showNotification("Indique la dirección de destino", { variant: "error" });
-                    return;
-                }
-
-                setActiveStep((prevActiveStep) => prevActiveStep + 1)
-            }
-        },
-        {
-            value: " Remitente",
-            component: <AccompaniedFormGeneral />,
-            icon: <IconWrapper icon="user" width={24} />,
+            value: " Salida",
+            component: <AccompaniedFormGeneral notButton={notButton} />,
+            icon: <IconWrapper icon="departure" width={24} />,
             handleNext: (setActiveStep) => {
                 const { accompaniedPet } = getValues();
                 if (!accompaniedPet.name) {
@@ -90,9 +71,15 @@ export const useAccompaniedSteps = () => {
             }
         },
         {
-            value: "Destinatario",
-            component: <ChargeFormGeneral />,
-            icon: <IconWrapper icon="usersGroup" width={24} />,
+            value: "Destino",
+            component: <Box mb={4}>
+                <DestinationFormGeneral notButton={notButton} />
+                {
+                    hasCharge &&
+                    <ChargeFormGeneral notButton={notButton} />
+                }
+            </Box>,
+            icon: <IconWrapper icon="arrival" width={24} />,
         },
 
 

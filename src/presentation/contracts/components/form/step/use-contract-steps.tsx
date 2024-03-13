@@ -48,7 +48,7 @@ export const useContractSteps = () => {
                 const values = getValues();
 
                 if (values.details.length === 0) {
-                    showNotification('Seleccione al menos una mascota', { variant: "error" });
+                    showNotification('Debe agregar al menos una mascota', { variant: "error" });
                     return;
                 }
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);

@@ -17,7 +17,7 @@ type Props = {
 export const useFormContract = ({ callback, contract }: Props) => {
 
     const { reload } = useRouter();
-    const { showNotification } = useMessage();
+    const { showNotification, showSuccess } = useMessage();
 
     const onSubmit: SubmitHandler<NewContract> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
@@ -26,9 +26,10 @@ export const useFormContract = ({ callback, contract }: Props) => {
                 ? await contractUpdater(contractService, uuid)(data?.id!, data)
                 : await contractCreator(contractService, uuid)(data)
 
-            showNotification(response.message);
+
+            showSuccess({ newTitle: response.message })
             nativeEvent.submitter?.value === "reload"
-                ? reload()
+                ? setTimeout(() => reload(), 1500)
                 : callback();
         } catch (error) {
             errorsShowNotification(error, showNotification)

@@ -17,19 +17,20 @@ type Props = {
 export const useFormUser = ({ user, callback }: Props) => {
 
     const { reload } = useRouter();
-    const { showNotification } = useMessage();
+    const { showNotification, showSuccess } = useMessage();
 
     const onSubmit: SubmitHandler<NewUser> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
             const { response, user: newUser } = user
                 ? await userUpdater(userService, uuid)(data?.id!, data)
-                : await userCreator(userService, uuid)(data)
+                : await userCreator(userService, uuid)(data);
 
-            showNotification(response.message);
+            showSuccess({ newTitle: response.message })
             nativeEvent.submitter?.value === "reload"
-                ? reload()
+                ? setTimeout(() => reload(), 1500)
                 : callback(newUser);
+
         } catch (error) {
             errorsShowNotification(error, showNotification)
         }

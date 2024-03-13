@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, ChangeEvent } from 'react';
-import { Box, MenuItem, Select, TextField, TextFieldProps } from '@mui/material';
+import { Alert, Box, MenuItem, Select, TextField, TextFieldProps, Typography } from '@mui/material';
 import { countries as totalCountries } from '../../modules/shared/domain/helpers/countries';
 
 export const countryURL: string = '/assets/countries/';
@@ -28,9 +28,10 @@ type Props = TextFieldProps & {
     size?: 'small' | 'medium',
     autoFocus?: boolean,
     focused?: boolean,
+    errorMessage?: string;
 }
 
-export function PhoneNumber({ valueDefault, label, callback, size = "medium", autoFocus = false, focused = false, ...rest }: Props) {
+export function PhoneNumber({ valueDefault, label, callback, size = "medium", autoFocus = false, focused = false, errorMessage, ...rest }: Props) {
 
     const [selectedCountry, setSelectedCountry] = useState<Country | null>(defaultCountry);
 
@@ -120,23 +121,35 @@ export function PhoneNumber({ valueDefault, label, callback, size = "medium", au
                     </MenuItem>
                 ))}
             </Select>
-
-            <TextField
-                {...rest}
-                size={size}
-                type="tel"
-                fullWidth
-                onChange={handleChangeInput}
-                variant="outlined"
-                label={label}
-                value={inputValue}
-                inputProps={{
-                    pattern: '^[0-9+\\s]*$',
-                    title: 'Solo números permitidos'
-                }}
-                autoFocus={autoFocus}
-                focused={focused}
-            />
+            <Box display="flex" flexDirection="column" width="100%">
+                <TextField
+                    {...rest}
+                    size={size}
+                    type="tel"
+                    fullWidth
+                    onChange={handleChangeInput}
+                    variant="outlined"
+                    label={label}
+                    value={inputValue}
+                    inputProps={{
+                        pattern: '^[0-9+\\s]*$',
+                        title: 'Solo números permitidos',
+                    }}
+                    autoFocus={autoFocus}
+                    focused={focused}
+                    sx={errorMessage ? {
+                        "& .MuiOutlinedInput-root": {
+                            "& > fieldset": {
+                                borderColor: "red"
+                            }
+                        }
+                    } : {}
+                    }
+                />
+                {errorMessage && <Typography color="red" fontSize={12}>
+                    {errorMessage}
+                </Typography>}
+            </Box>
         </Box>
     );
 }

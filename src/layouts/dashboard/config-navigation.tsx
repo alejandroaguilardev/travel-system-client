@@ -36,6 +36,7 @@ const ICONS = {
   ecommerce: icon('ic_ecommerce'),
   analytics: icon('ic_analytics'),
   dashboard: icon('ic_dashboard'),
+  pet: icon('ic_pet'),
 };
 
 const hasPermission = (user: User | null, group: AuthGroup, permission: AuthPermission): boolean => {
@@ -54,13 +55,11 @@ export function useNavData() {
     () => {
       const menu = [];
       const options = [];
-
-      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) && options.push({ title: 'Contratos', path: paths.dashboard.contracts.root, icon: ICONS.dashboard })
-
-
       hasPermission(user, AuthGroup.CLIENT, AuthPermission.LIST) && options.push({ title: 'Clientes', path: paths.dashboard.clients.root, icon: ICONS.user });
 
-      hasPermission(user, AuthGroup.PETS, AuthPermission.LIST) && options.push({ title: 'Mascotas', path: paths.dashboard.pets.root, icon: ICONS.blog });
+      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) && options.push({ title: 'Contratos', path: paths.dashboard.contracts.root, icon: ICONS.file })
+
+      hasPermission(user, AuthGroup.PETS, AuthPermission.LIST) && options.push({ title: 'Mascotas', path: paths.dashboard.pets.root, icon: ICONS.pet });
 
 
       if (options.length > 0) {
@@ -72,7 +71,6 @@ export function useNavData() {
 
       const administration = [];
       const users = [];
-
 
       hasPermission(user, AuthGroup.USERS, AuthPermission.LIST) && users.push({ title: 'Usuarios', path: paths.dashboard.users.root });
       hasPermission(user, AuthGroup.ROLES, AuthPermission.LIST) && users.push({ title: 'Roles', path: paths.dashboard.roles.root });

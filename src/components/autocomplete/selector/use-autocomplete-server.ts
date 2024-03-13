@@ -42,12 +42,17 @@ export const useAutocompleteServer = <T>({ defaultValue, collection, globalFilte
     const handleChange = useCallback((value: T | readonly T[] | null) => {
         setOption(value as T[] | T | null);
         if (callback) {
+            setGlobalFilter("");
             callback(value as T[] | T | null);
         }
     }, [callback])
 
     useEffect(() => {
-        setOptions(formatOptions ? formatOptions(rows) : rows as T[]);
+        if (globalFilter) {
+            setOptions(formatOptions ? formatOptions(rows) : rows as T[]);
+        } else {
+            setOptions([]);
+        }
     }, [rows, formatOptions])
 
     return {

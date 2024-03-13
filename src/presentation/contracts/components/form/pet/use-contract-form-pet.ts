@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import uuid from '../../../../../modules/shared/infrastructure/adapter/uuid';
 import { ContractDetail, NewContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { DocumentationCertificate } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation-certificate';
 import { Pet } from '../../../../../modules/pets/domain/pet';
 import { useMessage } from '../../../../../hooks/use-message';
+import { usePetDialogContext } from '../../../../pets/components/search/pet-dialog-context';
 
 const certificate: DocumentationCertificate = {
     hasServiceIncluded: false,
@@ -55,12 +56,20 @@ export const useContractFormPet = () => {
     const { getValues, setValue, watch } = useFormContext();
     const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
     const details: NewContractDetail[] = watch("details");
+    const { pet: petContext, handlePet: handlePetContext } = usePetDialogContext();
 
     const clientId = watch("client");
 
     const handleNewPet = (pet: Pet) => {
         setSelectedPet(pet);
     }
+
+    useEffect(() => {
+        if (petContext) {
+            setSelectedPet(petContext);
+        }
+
+    }, [petContext])
 
     const addPet = (pet: Pet | null) => {
         if (!pet) {
@@ -73,6 +82,7 @@ export const useContractFormPet = () => {
         if (details.find(detail => detail.pet.id === pet.id)) {
             return;
         }
+        handlePetContext(pet);
 
         setValue("details", [
             ...details,

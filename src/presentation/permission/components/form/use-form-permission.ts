@@ -17,7 +17,7 @@ type Props = {
 export const useFormPermission = ({ permission, callback }: Props) => {
 
     const { reload } = useRouter();
-    const { showNotification } = useMessage();
+    const { showNotification, showSuccess } = useMessage();
 
     const onSubmit: SubmitHandler<NewPermission> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
@@ -26,9 +26,10 @@ export const useFormPermission = ({ permission, callback }: Props) => {
                 ? await permissionUpdater(permissionService, uuid)(data?.id!, data)
                 : await permissionCreator(permissionService, uuid)(data)
 
-            showNotification(response.message);
+
+            showSuccess({ newTitle: response.message })
             nativeEvent.submitter?.value === "reload"
-                ? reload()
+                ? setTimeout(() => reload(), 1500)
                 : callback();
         } catch (error) {
             errorsShowNotification(error, showNotification)

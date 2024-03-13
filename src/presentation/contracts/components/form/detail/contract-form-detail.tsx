@@ -16,6 +16,7 @@ export const ContractFormDetail = () => {
 
     return (
         <Stack spacing={1} marginBottom={2}>
+            {contract.client}
             <Paper
                 sx={{
                     p: 3,

@@ -49,12 +49,13 @@ export const TravelForm: FC<Props> = ({ travel, detailId, noShowButton = false, 
             </FormProvider>
         },
         {
-            value: "Datos de certificados",
+            value: "Datos del acompañante",
             component: <AccompaniedForm
                 travel={travel}
                 contractId={contractId}
                 contractDetailId={detailId}
-                callback={callback}
+                callback={() => false}
+                notButton
             />
         },
     ]

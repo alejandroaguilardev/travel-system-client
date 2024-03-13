@@ -1,45 +1,27 @@
-import { format, getTime, formatDistanceToNow, isToday, isPast } from 'date-fns';
-import { es } from 'date-fns/locale';
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
 
 type InputValue = Date | string | number | null | undefined;
 
 export function fDate(date: InputValue, newFormat?: string) {
-    const fm = newFormat || 'dd MMM yyyy';
-    return date ? format(new Date(date), fm, { locale: es }) : '';
+    const fm = newFormat || 'DD MMMM YYYY';
+    return date ? dayjs(date).locale('es').format(fm) : '';
 }
 
 export function fDateTime(date: InputValue, newFormat?: string) {
-    const fm = newFormat || 'dd MMM yyyy p';
-    return date ? format(new Date(date), fm, { locale: es }) : '';
+    const fm = newFormat || 'DD MMMM YYYY h:mm a';
+    return date ? dayjs(date).locale('es').format(fm) : '';
 }
 
 export function fTimestamp(date: InputValue) {
-    return date ? getTime(new Date(date)) : '';
+    return date ? dayjs(date).valueOf() : '';
 }
 
 export function fDateTimeLong(date: InputValue, newFormat?: string): string {
-    const fm = newFormat || "EEEE, d MMMM y 'at' h:mm a"
-    return date ? format(new Date(date), fm, { locale: es }) : '';
+    const fm = newFormat || "dddd, D MMMM YYYY [at] h:mm a";
+    return date ? dayjs(date).locale('es').format(fm) : '';
 }
 
-export function fToNow(date: InputValue) {
-    return date
-        ? formatDistanceToNow(new Date(date), {
-            locale: es,
-            addSuffix: true,
-        })
-        : '';
+export function fDayjs(date: InputValue): any {
+    return dayjs(date)
 }
-
-export const getLabelColor = (dateReserved: string | number | Date | undefined) => {
-    if (!dateReserved) return 'background.default';
-
-    const reservationDate = new Date(dateReserved);
-    if (isToday(reservationDate)) {
-        return 'success.main';
-    }
-    if (isPast(reservationDate)) {
-        return 'error.main';
-    }
-    return 'info.main';
-};

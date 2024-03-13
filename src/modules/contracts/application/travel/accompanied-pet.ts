@@ -3,7 +3,7 @@ import { TravelAccompaniedPet } from '../../domain/contract-services/travel/trav
 import { TravelDestination } from '../../domain/contract-services/travel/travel-destination';
 import { TravelPetPerCharge } from '../../domain/contract-services/travel/travel-pet-per-charge';
 
-export const AccompaniedPetUpdater = (contractService: ContractDetailService) => async (contractId: string, detailId: string, accompaniedPet: TravelAccompaniedPet, destination: TravelDestination, petPerCharge: TravelPetPerCharge): Promise<ContractDetailUpdateResponse> => {
+export const AccompaniedPetUpdater = (contractService: ContractDetailService) => async (contractId: string, detailId: string, accompaniedPet: TravelAccompaniedPet, destination: TravelDestination, petPerCharge: Partial<TravelPetPerCharge>): Promise<ContractDetailUpdateResponse> => {
 
     const updatedAccompaniedPet: TravelAccompaniedPet = {
         name: accompaniedPet.name,
@@ -23,13 +23,12 @@ export const AccompaniedPetUpdater = (contractService: ContractDetailService) =>
         directionDestination: destination.directionDestination || "",
     }
 
-
     const updatedTravelPetPerCharge: TravelPetPerCharge = {
-        name: petPerCharge.name,
-        document: petPerCharge.document || "",
-        documentNumber: petPerCharge.documentNumber || "",
-        phone: petPerCharge.phone || "",
-        email: petPerCharge.email || ""
+        name: petPerCharge?.name ?? "",
+        document: petPerCharge?.document ?? "",
+        documentNumber: petPerCharge?.documentNumber ?? "",
+        phone: petPerCharge?.phone ?? "",
+        email: petPerCharge?.email ?? ""
     };
 
 

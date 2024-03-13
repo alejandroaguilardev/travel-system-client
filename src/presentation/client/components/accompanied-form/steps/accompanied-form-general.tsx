@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { Divider, Stack, Typography, InputAdornment, MenuItem } from '@mui/material';
+import { Divider, Stack, Typography, InputAdornment, MenuItem, TextField } from '@mui/material';
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 import { PhoneNumber } from '../../../../../components/phone-number/phone-number';
 import Iconify from '../../../../../components/iconify/iconify';
@@ -8,9 +8,14 @@ import { useUbigeo } from './use-ubigeo';
 import { AutocompleteSelectorClient } from 'src/components/autocomplete/client/autocomplete-selector-client';
 import PROVINCES from '../../../../../../public/data/province.json'
 import DISTRICTS from '../../../../../../public/data/district.json'
+import { TravelAccompaniedSchema } from '../accompanied-validation';
 
-export const AccompaniedFormGeneral = () => {
-    const { setValue, watch } = useFormContext();
+type Props = {
+    notButton: boolean;
+}
+
+export const AccompaniedFormGeneral = ({ notButton }: Props) => {
+    const { setValue, watch, formState } = useFormContext<TravelAccompaniedSchema>();
 
     const handlePhone = (value: string) => setValue("accompaniedPet.phone", value);
     const phone = watch("accompaniedPet.phone");
@@ -83,48 +88,81 @@ export const AccompaniedFormGeneral = () => {
                             </InputAdornment>
                         )
                     }}
+                    errorMessage={formState.errors.accompaniedPet?.phone?.message ?? ""}
+                    disabled={notButton}
+
                 />
             </Stack>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-                <AutocompleteSelectorClient
-                    textField={{
-                        label: "Departamento (*)"
-                    }}
-                    items={departments}
-                    defaultValue={departments.find(_ => _.id === department) || null}
-                    getOptionLabel={(d) => d?.name ?? ""}
-                    callback={(value: any) => {
-                        handleDepartment(value);
-                        handleProvinces(value.id);
-                        handleDistricts();
-                    }}
-                    propertiesFilter={["name"]}
-                />
+                {
+                    notButton
+                        ? <TextField
+                            value={departments.find(_ => _.id === department)?.name ?? ""}
+                            label="Departamento (*)"
+                            variant="outlined"
+                            disabled
+                            fullWidth
+                        />
+                        : <AutocompleteSelectorClient
+                            textField={{
+                                label: "Departamento (*)"
+                            }}
+                            items={departments}
+                            defaultValue={departments.find(_ => _.id === department) || null}
+                            getOptionLabel={(d) => d?.name ?? ""}
+                            callback={(value: any) => {
+                                handleDepartment(value);
+                                handleProvinces(value.id);
+                                handleDistricts();
+                            }}
+                            propertiesFilter={["name"]}
+                        />
+                }
 
-                <AutocompleteSelectorClient
-                    textField={{
-                        label: "Provincia (*)"
-                    }}
-                    items={provinces}
-                    defaultValue={PROVINCES.find(_ => _.province_id === province) || null}
-                    getOptionLabel={(p) => p?.name ?? ""}
-                    callback={(value: any) => {
-                        handleProvince(value);
-                        handleDistricts(value.province_id);
-                    }}
-                    propertiesFilter={["name"]}
-                />
+                {
+                    notButton
+                        ? <TextField
+                            value={PROVINCES.find(_ => _.province_id === province)?.name ?? ""}
+                            label="Departamento (*)"
+                            variant="outlined"
+                            disabled
+                            fullWidth
+                        />
+                        : <AutocompleteSelectorClient
+                            textField={{
+                                label: "Provincia (*)"
+                            }}
+                            items={provinces}
+                            defaultValue={PROVINCES.find(_ => _.province_id === province) || null}
+                            getOptionLabel={(p) => p?.name ?? ""}
+                            callback={(value: any) => {
+                                handleProvince(value);
+                                handleDistricts(value.province_id);
+                            }}
+                            propertiesFilter={["name"]}
+                        />
+                }
 
-                <AutocompleteSelectorClient
-                    textField={{
-                        label: "Distrito (*)"
-                    }}
-                    items={districts}
-                    defaultValue={DISTRICTS.find(_ => _.district_id === district) || null}
-                    getOptionLabel={(d) => d?.name ?? ""}
-                    callback={(value: any) => handleDistrict(value)}
-                    propertiesFilter={["name"]}
-                />
+                {
+                    notButton
+                        ? <TextField
+                            value={DISTRICTS.find(_ => _.district_id === district)?.name ?? ""}
+                            label="Departamento (*)"
+                            variant="outlined"
+                            disabled
+                            fullWidth
+                        />
+                        : <AutocompleteSelectorClient
+                            textField={{
+                                label: "Distrito (*)"
+                            }}
+                            items={districts}
+                            defaultValue={DISTRICTS.find(_ => _.district_id === district) || null}
+                            getOptionLabel={(d) => d?.name ?? ""}
+                            callback={(value: any) => handleDistrict(value)}
+                            propertiesFilter={["name"]}
+                        />
+                }
             </Stack>
 
             <RHFTextField

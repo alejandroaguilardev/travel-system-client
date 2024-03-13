@@ -17,7 +17,7 @@ type Props = {
 export const useFormCage = ({ cage, callback }: Props) => {
 
     const { reload } = useRouter();
-    const { showNotification } = useMessage();
+    const { showNotification, showSuccess } = useMessage();
 
     const onSubmit: SubmitHandler<NewCage> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
@@ -26,10 +26,11 @@ export const useFormCage = ({ cage, callback }: Props) => {
                 ? await cageUpdater(cageService, uuid)(data?.id!, data)
                 : await cageCreator(cageService, uuid)(data)
 
-            showNotification(response.message);
+            showSuccess({ newTitle: response.message })
             nativeEvent.submitter?.value === "reload"
-                ? reload()
+                ? setTimeout(() => reload(), 1500)
                 : callback();
+
         } catch (error) {
             errorsShowNotification(error, showNotification)
         }

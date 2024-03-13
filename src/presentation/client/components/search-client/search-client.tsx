@@ -43,7 +43,7 @@ export const SearchClient = ({
     handleClient,
     textField = {
         label: "Seleccionar cliente(*)",
-        placeholder: "Buscar cliente...",
+        placeholder: "Buscar y seleccionar un cliente...",
     },
     newPerson = true,
     ...rest
@@ -66,7 +66,7 @@ export const SearchClient = ({
                         <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la persona que está buscando. ¿Desea crear un cliente ahora? </Typography>
                         {newPerson && <PermissionGuard group={AuthGroup.CLIENT} permission={AuthPermission.CREATE}>
                             <Button variant="outlined" fullWidth onClick={onTrue}>
-                                Nuevo Cliente
+                                Crear nuevo cliente
                             </Button>
                         </PermissionGuard>
                         }

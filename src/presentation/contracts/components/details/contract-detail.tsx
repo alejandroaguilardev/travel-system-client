@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
     Typography,
     Button,
@@ -14,7 +14,6 @@ import {
 import { useRouter } from '../../../../app/routes/hooks/use-router';
 import { Contract } from '../../../../modules/contracts/domain/contract';
 import { capitalize } from '../../../../modules/shared/domain/helpers';
-import { PaperCustom } from '../../../../components/paper/paper-custom';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import Label from '../../../../components/label/label';

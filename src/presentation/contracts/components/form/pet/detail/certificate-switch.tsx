@@ -3,9 +3,10 @@ import { Box, Stack } from "@mui/material"
 import RHFSwitch from '../../../../../../components/hook-form/rhf-switch';
 import { useFormContext } from "react-hook-form";
 import RHFTextField from '../../../../../../components/hook-form/rhf-text-field';
-import { fDate } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
+import { fDate, fDayjs } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
 import IconWrapper from '../../../../../../components/icon-wrapper/icon-wrapper';
 import { useAuthContext } from '../../../../../auth/hooks/use-auth-context';
+import { RHFDate } from "../../../../../../components/hook-form/rhf-date";
 
 type Props = {
     name: string;
@@ -52,53 +53,37 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, style = {} }) 
             />
             {(hasServiceIncluded || edit) &&
                 <>
-                    <RHFTextField
+                    <RHFDate
                         name={`${name}.expectedDate`}
-                        type='date'
-                        value={fDate(expectedDate, 'yyyy-MM-dd')}
-                        fullWidth
+                        value={fDayjs(expectedDate)}
                         label="Fecha prevista (*)"
-                        variant="outlined"
-                        InputProps={{
-                            startAdornment: <IconWrapper icon="date" />,
-                            sx: edit ? {
-                                opacity: 0.4,
-                                pointerEvents: "not-allowed",
-                                cursor: "not-allowed"
-                            } : {}
-                        }}
+
+                        sx={edit ? {
+                            opacity: 0.4,
+                            pointerEvents: "not-allowed",
+                            cursor: "not-allowed"
+                        } : {}}
                     />
-                    <RHFTextField
+                    <RHFDate
                         name={`${name}.executionDate`}
-                        type='date'
-                        value={fDate(executionDate, 'yyyy-MM-dd')}
-                        fullWidth
+                        value={fDayjs(executionDate)}
                         label="Fecha de Ejecución (*)"
-                        variant="outlined"
-                        InputProps={{
-                            startAdornment: <IconWrapper icon="date" />,
-                            sx: {
-                                ...style,
-                                backgroundColor: watch(`${name}.executionDate`) ? "#98fb98" : "#f08080"
-
-                            }
-                        }}
+                        sx={edit ? {
+                            opacity: 0.4,
+                            pointerEvents: "not-allowed",
+                            cursor: "not-allowed"
+                        } : {}}
                     />
-                    {name === "rabiesSeroLogicalTest" ?
-                        <RHFTextField
-                            name={`${name}.resultDate`}
-                            type='date'
-                            value={fDate(resultDate, 'yyyy-MM-dd')}
-                            fullWidth
-                            label="Fecha de muestra enviada (*)"
-                            variant="outlined"
-                            InputProps={{
-                                startAdornment: <IconWrapper icon="date" />,
-                                sx: {
-                                    ...style,
-                                    backgroundColor: watch(`${name}.resultDate`) ? "#98fb98" : "#f08080"
 
-                                }
+
+                    {name === "rabiesSeroLogicalTest" ?
+                        <RHFDate
+                            name={`${name}.resultDate`}
+                            value={fDayjs(resultDate)}
+                            label="Fecha de muestra enviada (*)"
+                            sx={{
+                                ...style,
+                                backgroundColor: watch(`${name}.resultDate`) ? "#98fb98" : "#f08080"
                             }}
                         />
                         : <Box width="100%" />

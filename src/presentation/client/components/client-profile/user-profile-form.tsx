@@ -4,7 +4,7 @@ import { useUserProfileForm } from './use-user-profile-form';
 import Iconify from '../../../../components/iconify';
 
 export const UserProfileForm = () => {
-    const { phone, handlePhone } = useUserProfileForm();
+    const { phone, phoneError, handlePhone } = useUserProfileForm();
     return (
         <Stack spacing={1} marginBottom={2}>
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
@@ -20,6 +20,7 @@ export const UserProfileForm = () => {
                             </InputAdornment>
                         )
                     }}
+                    errorMessage={phoneError}
                 />
             </Stack>
         </Stack >

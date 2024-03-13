@@ -3,11 +3,13 @@ import { useFormContext } from 'react-hook-form';
 import { Role } from '../../../../../modules/roles/domain/role';
 import { roleService } from '../../../../../modules/roles/infrastructure/role.service';
 import { useConditionContext } from '../../../contexts/condition-user-context';
+import { NewUser } from '../../../../../modules/users/domain/user';
 
 export const useUserFormGeneral = () => {
-    const { setValue, getValues, watch } = useFormContext();
+    const { setValue, getValues, watch, formState } = useFormContext<NewUser>();
     const { isUser } = useConditionContext();
     const phone = watch("profile.phone");
+    const phoneError = formState.errors.profile?.phone?.message ?? "";
 
     const [roles, setRoles] = useState<Role[]>([]);
     const rolesDefault: string[] = getValues("roles") ?? [];
@@ -32,6 +34,7 @@ export const useUserFormGeneral = () => {
         roles,
         isUser,
         phone,
+        phoneError,
         handleRoles,
         handlePhone
     }

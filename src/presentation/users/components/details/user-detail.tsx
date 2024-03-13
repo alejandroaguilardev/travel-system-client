@@ -107,21 +107,19 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
                         </TableCell>
                     </TableRow>
 
-                    <TableRow hover component="th" scope="row">
-                        <TableCell >
-                            <Typography variant="subtitle1" gutterBottom>
-                                Roles:
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Typography>{
-                                user.roles && user.roles.length > 0 ?
-                                    user.roles.map((_) => capitalize(_.name)).join(", ")
-                                    : "--"
-                            }
-                            </Typography>
-                        </TableCell>
-                    </TableRow>
+                    {user.roles && user.roles.length > 0 &&
+                        <TableRow hover component="th" scope="row">
+                            <TableCell >
+                                <Typography variant="subtitle1" gutterBottom>
+                                    Roles:
+                                </Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography>{user.roles.map((_) => capitalize(_.name)).join(", ")}
+                                </Typography>
+                            </TableCell>
+                        </TableRow>
+                    }
                     <TableRow hover component="th" scope="row">
                         <TableCell >
                             <Typography variant="subtitle1" gutterBottom>

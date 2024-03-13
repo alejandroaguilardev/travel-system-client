@@ -9,6 +9,7 @@ import ProgressBar from './components/progress-bar';
 import { MotionLazy } from './components/animate/motion-lazy';
 import { SettingsProvider, SettingsDrawer } from './components/settings';
 import { AuthProvider, AuthConsumer } from './presentation/auth/context';
+import { AlertModalProvider } from './components/alert-modal/alert-modal-context';
 
 export default function App() {
   useScrollToTop();
@@ -28,7 +29,9 @@ export default function App() {
             <ProgressBar />
             <AuthConsumer>
               <SnackbarProvider>
-                <Router />
+                <AlertModalProvider>
+                  <Router />
+                </AlertModalProvider>
               </SnackbarProvider>
             </AuthConsumer>
           </MotionLazy>

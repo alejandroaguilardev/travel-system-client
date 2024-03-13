@@ -5,11 +5,11 @@ import FormProvider from '../../../../components/hook-form/form-provider';
 import { TabGenericProvider, TabSwitcher } from '../../../../components/tab-generic';
 import { NewPet, Pet } from '../../../../modules/pets/domain/pet';
 import { useFormPet } from "./use-form-pet";
-import { tabs } from "./tabs";
 import { ActionsButtonsForm } from '../../../../components/hook-form/actions-buttons-form';
 import { defaultValues, petSchema } from "./pet-validations";
 import { ClientDialogProvider } from '../../../client/components/search-client/client-dialog-context';
 import { ClientDialogForm } from '../../../client/components/search-client/client-dialog-form';
+import { PetFormGeneral } from "./general/pet-form-general";
 
 type Props = {
     pet?: Pet;
@@ -26,6 +26,14 @@ export const PetForm: FC<Props> = ({ pet, adopterId, notReload, callback, onCanc
     });
 
     const { onSubmit } = useFormPet({ pet, callback });
+
+
+    const tabs = [
+        {
+            value: "Datos Generales",
+            component: <PetFormGeneral />
+        },
+    ]
 
     return (
         <ClientDialogProvider clientId={adopterId} >

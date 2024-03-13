@@ -11,7 +11,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 // components
 import Label from 'src/components/label';
 import FileThumbnail from 'src/components/file-thumbnail';
-import { fToNow } from '../../../modules/shared/infrastructure/helpers/format-time';
 
 // ----------------------------------------------------------------------
 
@@ -78,7 +77,7 @@ export default function NotificationItem({ notification }: NotificationItemProps
             />
           }
         >
-          {fToNow(notification.createdAt)}
+          {JSON.stringify(notification.createdAt)}
           {notification.category}
         </Stack>
       }

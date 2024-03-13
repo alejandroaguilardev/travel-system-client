@@ -1,15 +1,15 @@
 
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { User } from '../../../../../modules/users/domain/user';
 import { userService } from '../../../../../modules/users/infrastructure/user.service';
 
 export const usePetFormGeneral = () => {
     const { setValue, watch, getValues } = useFormContext();
     const chip = watch("chip");
-    const birthDate = fDate(watch("birthDate"), 'yyyy-MM-dd');
-    const chipDate = fDate(watch("chipDate"), 'yyyy-MM-dd');
+    const birthDate: Date = fDayjs(watch("birthDate"));
+    const chipDate: Date = fDayjs(watch("chipDate"));
 
     const [client, setClient] = useState<User | null>(null);
     const clientDefault: string = getValues("adopter");

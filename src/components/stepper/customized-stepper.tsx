@@ -20,9 +20,10 @@ function getStepContent(steps: StepType[], step: number) {
 type Props = {
     steps: StepType[];
     componentFinish: ReactNode;
+    notButton?: boolean;
 }
 
-export default function CustomizedSteppers({ steps, componentFinish }: Props) {
+export default function CustomizedSteppers({ steps, notButton, componentFinish }: Props) {
     const [activeStep, setActiveStep] = useState(0);
 
     const handleNext = () => {
@@ -80,11 +81,14 @@ export default function CustomizedSteppers({ steps, componentFinish }: Props) {
                     {getStepContent(steps, activeStep)}
 
                     <Box display="flex" alignItems="center" >
+
                         <Button fullWidth disabled={activeStep === 0} variant='outlined' onClick={handleBack} sx={{ mr: 1 }}>
                             Regresar
                         </Button>
                         {activeStep === steps.length - 1
-                            ? componentFinish
+                            ? <>
+                                {!notButton ? componentFinish : ""}
+                            </>
 
                             : <Button fullWidth variant="contained" onClick={handleNext} sx={{ mr: 1 }}>
                                 Siguiente

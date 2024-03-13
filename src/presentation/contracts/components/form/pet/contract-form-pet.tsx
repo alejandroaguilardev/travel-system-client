@@ -1,19 +1,20 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, IconButton, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Alert, Button, IconButton, Stack, Typography } from '@mui/material';
 import { capitalize } from '../../../../../modules/shared/domain/helpers/capitalize';
 import IconWrapper from '../../../../../components/icon-wrapper/icon-wrapper';
 import Iconify from '../../../../../components/iconify';
 import { SearchPet } from '../../../../pets/components/search/search-pet';
 import { ContractFormPetDetail } from './detail/contract-form-pet-detail';
 import { useContractFormPet } from './use-contract-form-pet';
+import { useFormContext } from 'react-hook-form';
 
 export const ContractFormPet = () => {
     const { selectedPet, clientId, details, addPet, removePet, handleNewPet } = useContractFormPet();
 
     return (
-        <Stack spacing={1} marginBottom={2}>
+        <Stack spacing={1} marginBottom={2} marginTop={2}>
             <SearchPet adopterId={clientId} pet={selectedPet} handlePet={handleNewPet} />
-            <Button variant='outlined' onClick={() => addPet(selectedPet)} >
-                Agregar Mascota
+            <Button fullWidth variant='outlined' onClick={() => addPet(selectedPet)} startIcon={<IconWrapper icon="add" />}>
+                Agregar más mascotas al contrato
             </Button>
             {details.length > 0
                 ? details.map((detail, index) => (
@@ -32,7 +33,7 @@ export const ContractFormPet = () => {
                         </AccordionDetails>
                     </Accordion>
                 ))
-                : <Typography textAlign="center">No hay mascotas seleccionadas en este momento.</Typography>
+                : <Alert severity='error' variant='filled' sx={{ my: 5 }}>No hay mascotas seleccionadas en este momento, debes indicar al menos una.</Alert>
             }
         </Stack>
     )

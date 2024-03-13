@@ -19,7 +19,7 @@ export default function ClientView() {
         if (!isLoading) {
             onSelected(contracts.length > 0 ? contracts[0] : null);
         }
-    }, [isLoading, contracts])
+    }, [isLoading, contracts]);
 
     useEffect(() => {
         if (!isLoading) {
@@ -37,7 +37,11 @@ export default function ClientView() {
         <Container maxWidth='xl'>
             {contract && contractDetail
                 ? <>
-                    <SelectedContract contract={contract} contractDetail={contractDetail} />
+                    <SelectedContract
+                        contract={contract}
+                        contractDetail={contractDetail}
+                    />
+
                     <ListContract contracts={contracts} />
 
                     <Box display="flex" justifyContent="center">

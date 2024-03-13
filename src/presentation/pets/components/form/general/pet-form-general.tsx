@@ -1,12 +1,17 @@
 import { Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
-import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
-import { PET_GENDERS, PetGender } from '../../../../../modules/pets/domain/pet-gender';
-import { SearchClient } from '../../../../client/components/search-client/search-client';
-import { usePetFormGeneral } from './use-pet-form-general';
-import { ContractFormCage } from '../../../../contracts/components/form/cage/contract-form-cage';
 import { CageSelected } from '../../../../client/components/cage/form/cage-selected';
+import { SearchClient } from '../../../../client/components/search-client/search-client';
+import { PET_GENDERS, PetGender } from '../../../../../modules/pets/domain/pet-gender';
+import { ContractFormCage } from '../../../../contracts/components/form/cage/contract-form-cage';
+import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
+import { RHFDate } from '../../../../../components/hook-form/rhf-date';
+import { usePetFormGeneral } from './use-pet-form-general';
 
-export const PetFormGeneral = () => {
+type Props = {
+    hasRecommendation?: boolean
+}
+
+export const PetFormGeneral = ({ hasRecommendation = false }: Props) => {
     const { chip, chipDate, birthDate, client, handleClient } = usePetFormGeneral();
 
     return (
@@ -21,20 +26,25 @@ export const PetFormGeneral = () => {
                     name="name"
                     label="Nombre (*)"
                 />
-                <RHFTextField
+                <RHFDate
                     name="birthDate"
                     value={birthDate}
-                    type='birthDate'
                     label="Fecha de nacimiento (*)"
-                    inputAdornment
                 />
             </Stack>
 
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
                 <RHFTextField
                     name="type"
-                    label="Animal (*)"
-                />
+                    label="Especie (*)"
+                    select
+                >
+                    <MenuItem value="Perro">Perro</MenuItem>
+                    <MenuItem value="Gato">Gato</MenuItem>
+                    <MenuItem value="Hurón">Hurón</MenuItem>
+                    <MenuItem value="Otros">Otros</MenuItem>
+                </RHFTextField>
+
                 <RHFTextField
                     name="race"
                     label="Raza (*)"
@@ -46,12 +56,10 @@ export const PetFormGeneral = () => {
                     name="chip"
                     label="Chip"
                 />
-                {chip ? <RHFTextField
+                {chip ? <RHFDate
                     name="chipDate"
                     value={chipDate}
-                    type='date'
                     label="Chip Fecha de instalación"
-                    inputAdornment
                 /> : <Box width="100%" />}
             </Stack>
 
@@ -88,13 +96,18 @@ export const PetFormGeneral = () => {
                 </RHFTextField>
 
             </Stack>
-            <Divider />
-            <Typography fontWeight="bold">
-                Recomendación de la jaula de la mascota
-            </Typography>
-            <Divider />
-            <ContractFormCage keyValue='cageRecommendation' />
-            <CageSelected keyField="cageRecommendation" readonly />
+            {
+                hasRecommendation &&
+                <>
+                    <Divider />
+                    <Typography fontWeight="bold">
+                        Recomendación de la jaula de la mascota
+                    </Typography>
+                    <Divider />
+                    <ContractFormCage keyValue='cageRecommendation' />
+                    <CageSelected keyField="cageRecommendation" readonly />
+                </>
+            }
 
         </Stack>
     )

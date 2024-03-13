@@ -4,7 +4,7 @@ import { TravelDestination } from '../../../../modules/contracts/domain/contract
 import { TravelPetPerCharge } from '../../../../modules/contracts/domain/contract-services/travel/travel-pet-per-charge';
 
 export interface TravelAccompaniedSchema {
-    petPerCharge: TravelPetPerCharge;
+    petPerCharge: Partial<TravelPetPerCharge>;
     accompaniedPet: TravelAccompaniedPet;
     destination: TravelDestination;
 }
@@ -54,12 +54,12 @@ export const destinationSchema: Yup.ObjectSchema<TravelDestination> = Yup.object
     directionDestination: Yup.string().required('La dirección de destino es un campo obligatorio'),
 });
 
-export const petPerChargeSchema: Yup.ObjectSchema<TravelPetPerCharge> = Yup.object().shape({
-    name: Yup.string().required('El nombre es un campo obligatorio'),
-    document: Yup.string().required('El documento es un campo obligatorio'),
-    documentNumber: Yup.string().required('El número de documento es un campo obligatorio'),
-    phone: Yup.string().required('El teléfono es un campo obligatorio'),
-    email: Yup.string().email('Formato de correo electrónico no válido').required('El correo electrónico es un campo obligatorio'),
+export const petPerChargeSchema: Yup.ObjectSchema<Partial<TravelPetPerCharge>> = Yup.object().shape({
+    name: Yup.string(),
+    document: Yup.string(),
+    documentNumber: Yup.string(),
+    phone: Yup.string(),
+    email: Yup.string().email('Formato de correo electrónico no válido'),
 });
 
 

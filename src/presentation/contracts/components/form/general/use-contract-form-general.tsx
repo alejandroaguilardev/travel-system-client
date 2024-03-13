@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { NewUser, User } from '../../../../../modules/users/domain/user';
 import { userService } from '../../../../../modules/users/infrastructure/user.service';
-import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { useClientDialogContext } from '../../../../client/components/search-client/client-dialog-context';
 import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 
@@ -15,12 +15,14 @@ export const useContractFormGeneral = () => {
     const clientDefault: string = getValues("client");
     const adviserDefault: string = getValues("adviser");
 
-    const startDate = fDate(watch("startDate"), 'yyyy-MM-dd');
+    const startDate: Date = fDayjs(watch("startDate"));
+
     const { client: clientContext, handleClient: handleClientContext } = useClientDialogContext();
     const { user } = useAuthContext();
 
     useEffect(() => {
         if (clientDefault) {
+            console.log({ clientDefault });
             userService.searchById<User>(clientDefault)
                 .then(response => setClient(response))
                 .catch(() => setClient(null));

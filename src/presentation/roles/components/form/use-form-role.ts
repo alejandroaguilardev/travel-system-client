@@ -17,7 +17,7 @@ type Props = {
 export const useFormRole = ({ role, callback }: Props) => {
 
     const { reload } = useRouter();
-    const { showNotification } = useMessage();
+    const { showNotification, showSuccess } = useMessage();
 
     const onSubmit: SubmitHandler<NewRole> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
@@ -30,6 +30,13 @@ export const useFormRole = ({ role, callback }: Props) => {
             nativeEvent.submitter?.value === "reload"
                 ? reload()
                 : callback();
+
+            showSuccess({ newTitle: response.message })
+            nativeEvent.submitter?.value === "reload"
+                ? setTimeout(() => reload(), 1500)
+                : callback();
+
+
         } catch (error) {
             errorsShowNotification(error, showNotification)
         }

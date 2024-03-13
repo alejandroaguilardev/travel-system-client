@@ -1,7 +1,8 @@
 import { Paper, Stack, Typography } from '@mui/material';
 import { RHFTextField, ErrorMessage } from '../../../../../components/hook-form';
-import { useContractFormGeneral } from './use-contract-form-general';
 import { SearchClient } from '../../../../client/components/search-client/search-client';
+import { useContractFormGeneral } from './use-contract-form-general';
+import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 
 export const ContractFormGeneral = () => {
     const { client, adviser, startDate, handleClient, handleAdvisor } = useContractFormGeneral();
@@ -21,18 +22,14 @@ export const ContractFormGeneral = () => {
                         label="Número de contrato (*)"
                         variant="outlined"
                         inputAdornment
-                        placeholder='C21002'
+                        placeholder='Acreditado-N° aún sin expediente'
                     />
                 </Stack>
                 <Stack spacing={1} marginBottom={1}>
-                    <RHFTextField
-                        name='startDate'
-                        type='date'
+                    <RHFDate
+                        name="startDate"
                         value={startDate}
-                        fullWidth
                         label="Fecha de contrato (*)"
-                        variant="outlined"
-                        inputAdornment
                     />
                     <ErrorMessage name="startDate" />
                 </Stack>

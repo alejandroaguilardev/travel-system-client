@@ -11,7 +11,7 @@ import { PhoneNumber } from '../../../../../components/phone-number/phone-number
 import Iconify from '../../../../../components/iconify';
 
 export const UserFormGeneral = () => {
-    const { roles, phone, isUser, handleRoles, handlePhone } = useUserFormGeneral()
+    const { roles, phone, phoneError, isUser, handleRoles, handlePhone } = useUserFormGeneral();
 
     return (
         <Stack spacing={1} marginBottom={2}>
@@ -93,6 +93,7 @@ export const UserFormGeneral = () => {
                             </InputAdornment>
                         )
                     }}
+                    errorMessage={phoneError}
                 />
                 <RHFTextField
                     name='profile.gender'

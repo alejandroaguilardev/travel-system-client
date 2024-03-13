@@ -33,7 +33,7 @@ export function AutocompleteServer<T>({
     multiple = false,
     defaultValue = multiple ? [] : null,
     sizeComponent,
-    noOptionsText = "no hay elementos en la búsqueda",
+    noOptionsText = "No hay elementos en la búsqueda",
     getOptionLabel,
     formatOptions,
     callback,
