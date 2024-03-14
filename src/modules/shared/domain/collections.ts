@@ -5,6 +5,7 @@ export const COLLECTIONS = {
     contracts: 'contracts',
     cages: 'cages',
     pets: 'pets',
+    folders: 'folders',
 } as const;
 
 export type Collections = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];

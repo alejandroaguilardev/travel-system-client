@@ -49,6 +49,12 @@ export const paths = {
       view: (id: string) => `${ROOTS.DASHBOARD}/mascotas/${id}/visualizar`,
       edit: (id: string) => `${ROOTS.DASHBOARD}/mascotas/${id}/editar`,
     },
+    folders: {
+      root: `${ROOTS.DASHBOARD}/expedientes`,
+      new: `${ROOTS.DASHBOARD}/expedientes/crear`,
+      view: (id: string) => `${ROOTS.DASHBOARD}/expedientes/${id}/visualizar`,
+      edit: (id: string) => `${ROOTS.DASHBOARD}/expedientes/${id}/editar`,
+    },
     users: {
       root: `${ROOTS.DASHBOARD_USER}`,
       new: `${ROOTS.DASHBOARD_USER}/crear`,

@@ -15,6 +15,9 @@ export const endpoints = {
     cages: {
         root: '/cages',
     },
+    folders: {
+        root: '/folders',
+    },
     pets: {
         root: '/pets',
     },

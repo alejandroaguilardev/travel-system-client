@@ -78,6 +78,7 @@ export function useNavData() {
 
 
 
+      hasPermission(user, AuthGroup.FOLDERS, AuthPermission.LIST) && administration.push({ title: 'Expedientes', path: paths.dashboard.folders.root, icon: ICONS.folder })
       hasPermission(user, AuthGroup.CAGES, AuthPermission.LIST) && administration.push({ title: 'Jaulas', path: paths.dashboard.cages.root, icon: ICONS.kanban })
 
 

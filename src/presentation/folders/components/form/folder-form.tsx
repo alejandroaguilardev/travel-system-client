@@ -3,24 +3,24 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormProvider from '../../../../components/hook-form/form-provider';
 import { TabGenericProvider, TabSwitcher } from '../../../../components/tab-generic';
-import { NewCage, Cage } from '../../../../modules/cages/domain/cage';
-import { useFormCage } from "./use-form-cage";
+import { NewFolder, Folder } from '../../../../modules/folders/domain/folder';
+import { useFormFolder } from "./use-form-folder";
 import { tabs } from "./tabs";
 import { ActionsButtonsForm } from '../../../../components/hook-form/actions-buttons-form';
-import { defaultValues, cageSchema } from "./cage-validations";
+import { defaultValues, folderSchema } from "./folder-validations";
 
 type Props = {
-    cage?: Cage;
+    folder?: Folder;
     callback: () => void
 }
 
-export const CageForm: FC<Props> = ({ cage, callback }) => {
+export const FolderForm: FC<Props> = ({ folder, callback }) => {
     const methods = useForm({
-        resolver: yupResolver<NewCage>(cageSchema),
-        defaultValues: cage ?? defaultValues,
+        resolver: yupResolver<NewFolder>(folderSchema),
+        defaultValues: folder ?? defaultValues,
     });
 
-    const { onSubmit } = useFormCage({ cage, callback });
+    const { onSubmit } = useFormFolder({ folder, callback });
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
@@ -31,8 +31,8 @@ export const CageForm: FC<Props> = ({ cage, callback }) => {
             </TabGenericProvider>
 
             <ActionsButtonsForm
-                name="jaula"
-                edit={!!cage}
+                name="expediente"
+                edit={!!folder}
             />
 
         </FormProvider >

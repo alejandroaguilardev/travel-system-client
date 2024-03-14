@@ -34,6 +34,10 @@ const PetsPage = lazy(() => import('../../pages/admin/pet'));
 const PetsNewPage = lazy(() => import('../../pages/admin/pet/crear'));
 const PetsIdPage = lazy(() => import('../../pages/admin/pet/[id]/index'));
 
+const FoldersPage = lazy(() => import('../../pages/admin/folders'));
+const FoldersNewPage = lazy(() => import('../../pages/admin/folders/new'));
+const FoldersIdPage = lazy(() => import('../../pages/admin/folders/[id]/index'));
+
 export const dashboardRoutes = [
   {
     path: 'dashboard',
@@ -72,6 +76,14 @@ export const dashboardRoutes = [
           { element: <PetsPage />, index: true },
           { path: 'crear', element: <PetsNewPage /> },
           { path: ':id/:action', element: <PetsIdPage /> },
+        ],
+      },
+      {
+        path: 'expedientes',
+        children: [
+          { element: <FoldersPage />, index: true },
+          { path: 'crear', element: <FoldersNewPage /> },
+          { path: ':id/:action', element: <FoldersIdPage /> },
         ],
       },
       {
