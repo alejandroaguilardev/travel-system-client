@@ -14,7 +14,7 @@ const Header = () => {
         <>
             <Box mb={1} display={{ xs: "block", md: "flex" }} justifyContent="space-between" alignItems="center">
                 <ListItemText
-                    primary={`Nombre: ${capitalize(contractDetail?.pet.name)} `}
+                    primary={`Nombre: ${capitalize(contractDetail?.pet?.name || "Mascota")} `}
                     secondary={`N° de contrato: ${contract?.number}`}
 
                     primaryTypographyProps={{

@@ -1,8 +1,10 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
+import { fireEvent, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { renderCustom } from "../shared/renderCustom";
 import { ContractForm } from "../../../src/presentation/contracts/components/form/contract-form";
 import { contractCreateMother } from '../../modules/contracts/domain/contract.mother';
 import RHFTextField from '../../../src/components/hook-form/rhf-text-field';
+import { fDate } from "../../../src/modules/shared/infrastructure/helpers/format-time";
 
 jest.mock('../../../src/modules/contracts/infrastructure/contract.service');
 
@@ -22,33 +24,28 @@ describe("ContractForm", () => {
     const callback = jest.fn();
 
     it("renders_contract_form_correctly", () => {
-        render(
-            <MemoryRouter>
-                <ContractForm callback={callback} />
-            </MemoryRouter>
+        renderCustom(
+            <ContractForm callback={callback} />
         );
 
-        const numberField = screen.getByLabelText('Número de contrato (*)');
         const startDateField = screen.getByLabelText('Fecha de contrato (*)');
 
-        expect(numberField).toBeInTheDocument();
         expect(startDateField).toBeInTheDocument();
 
     });
 
     it("allows_input_changes_in_contract_form", () => {
-        render(
-            <MemoryRouter>
-                <ContractForm callback={callback} />
-            </MemoryRouter>
+        renderCustom(
+            <ContractForm callback={callback} />
         );
-        const data = contractCreateMother();
+        const { startDate } = contractCreateMother();
 
-        const numberField = screen.getByLabelText('Número de contrato (*)') as HTMLInputElement;
+        const startDateField = screen.getByLabelText('Fecha de contrato (*)') as HTMLInputElement;
 
-        fireEvent.change(numberField, { target: { value: data.number } });
+        userEvent.click(startDateField);
+        userEvent.type(startDateField, fDate(startDate));
 
-        expect(numberField.value).toBe(data.number);
+        expect(startDateField.value).toBe(fDate(startDate, 'DD/MM/YYYY'));
     });
 
 

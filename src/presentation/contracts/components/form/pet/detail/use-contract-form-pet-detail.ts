@@ -13,6 +13,11 @@ export const useContractFormPetDetail = ({ field }: Props) => {
     const typeTraveling = watch(`${field}travel.typeTraveling`);
     const cage = watch(`${field}cage.hasServiceIncluded`);
 
+
+    const handleCountry = (value: string) => setValue(`${field}travel.destination.countryDestination`, value);
+    const country = watch(`${field}travel.destination.countryDestination`) || null;
+
+
     useEffect(() => {
         if (travel && typeTraveling === "accompanied") {
             setValue(`${field}travel.typeTraveling`, "charge");
@@ -42,5 +47,7 @@ export const useContractFormPetDetail = ({ field }: Props) => {
     return {
         cage,
         travel,
+        country,
+        handleCountry,
     }
 }

@@ -26,4 +26,13 @@ export const contractService: ContractService = {
         const { data } = await axiosInstance.post(`${endpoints.contracts.root}/${contractId}/finish`);
         return data;
     },
+
+    updateFolder: async (contractId: string, folder: string, number: string): Promise<ResponseSuccess> => {
+        const { data } = await axiosInstance.patch(`${endpoints.contracts.root}/${contractId}/folder`, {
+            folder,
+            number
+        });
+        return data;
+    }
+
 } 

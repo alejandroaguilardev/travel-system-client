@@ -8,6 +8,11 @@ import { CustomFormEvent } from '../../../../components/hook-form/types';
 import { errorsShowNotification } from '../../../../modules/shared/infrastructure/helpers/errors-show-notification';
 import { useMessage } from '../../../../hooks/use-message';
 import { contractUpdater } from '../../../../modules/contracts/application/update/contract-updater';
+import { ContractProps } from "../../pdf/contract-pdf";
+import { userService } from "src/modules/users/infrastructure/user.service";
+import { User } from "src/modules/users/domain/user";
+import { useImpContractContext } from "../../../../components/imp-pdf/imp-contract/imp-contract-context";
+import { TypeofImp } from "../../../../components/imp-pdf/imp-contract/type-contract";
 
 type Props = {
     contract?: NewContract;
@@ -18,16 +23,19 @@ export const useFormContract = ({ callback, contract }: Props) => {
 
     const { reload } = useRouter();
     const { showNotification, showSuccess } = useMessage();
+    const { handleTypeImpExecute } = useImpContractContext<ContractProps>();
 
     const onSubmit: SubmitHandler<NewContract> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
-            const response = contract
+            const { message, contract: updateContract } = contract
                 ? await contractUpdater(contractService, uuid)(data?.id!, data)
                 : await contractCreator(contractService, uuid)(data)
 
 
-            showSuccess({ newTitle: response.message })
+
+            handleTypeImpExecute(updateContract?.id ?? "", TypeofImp.IMP)
+            showSuccess({ newTitle: message });
             nativeEvent.submitter?.value === "reload"
                 ? setTimeout(() => reload(), 1500)
                 : callback();
@@ -35,6 +43,8 @@ export const useFormContract = ({ callback, contract }: Props) => {
             errorsShowNotification(error, showNotification)
         }
     };
+
+
 
     return {
         onSubmit,

@@ -7,15 +7,14 @@ import { ContractDetail } from '../../../../modules/contracts/domain/contract-de
 type Props = {
     children: ReactNode;
     detail: ContractDetail;
-    index: number
 }
 
-export const AccordionPet: FC<Props> = ({ children, detail, index }) => {
+export const AccordionPet: FC<Props> = ({ children, detail }) => {
     return (
-        <Accordion defaultExpanded>
+        <Accordion defaultExpanded >
             <AccordionSummary expandIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}>
                 <Typography variant="subtitle1">
-                    {capitalize(detail.pet.name)}  ({capitalize(detail.pet.type)})
+                    {capitalize(detail?.pet?.name ?? "Mascota")}  ({capitalize(detail?.pet?.type)})
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>

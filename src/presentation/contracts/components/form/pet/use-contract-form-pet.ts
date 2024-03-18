@@ -2,101 +2,46 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import uuid from '../../../../../modules/shared/infrastructure/adapter/uuid';
 import { ContractDetail, NewContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
-import { DocumentationCertificate } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation-certificate';
 import { Pet } from '../../../../../modules/pets/domain/pet';
-import { useMessage } from '../../../../../hooks/use-message';
 import { usePetDialogContext } from '../../../../pets/components/search/pet-dialog-context';
+import { detailInit } from '../contract-validations';
 
-const certificate: DocumentationCertificate = {
-    hasServiceIncluded: false,
-    isApplied: false,
-    expectedDate: new Date(),
-    executionDate: null,
-    resultDate: null,
-    user: ""
-}
-
-const detailInit: NewContractDetail = {
-    id: "",
-    cage: {
-        chosen: {
-            dimensionsCage: "",
-            modelCage: "",
-            typeCage: "",
-        },
-        hasServiceIncluded: false,
-        status: "pending",
-        recommendation: {
-            dimensionsCage: "",
-            modelCage: "",
-            typeCage: ""
-        }
-    },
-    pet: {} as Pet,
-    travel: {
-        hasServiceIncluded: false,
-        hasServiceAccompanied: false,
-        typeTraveling: "accompanied",
-    },
-    documentation: {
-        status: 'none',
-        vaccinationCertificate: { ...certificate },
-        healthCertificate: { ...certificate },
-        chipCertificate: { ...certificate },
-        senasaDocuments: { ...certificate },
-        rabiesSeroLogicalTest: { ...certificate },
-        importLicense: { ...certificate },
-        emotionalSupportCertificate: { ...certificate },
-        chipReview: { ...certificate }
-    },
-}
 
 export const useContractFormPet = () => {
-    const { showNotification } = useMessage();
     const { getValues, setValue, watch } = useFormContext();
     const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
     const details: NewContractDetail[] = watch("details");
-    const { pet: petContext, handlePet: handlePetContext } = usePetDialogContext();
+    const { pet: petContext, handleIndex, index: indexContext } = usePetDialogContext();
 
     const clientId = watch("client");
 
-    const handleNewPet = (pet: Pet) => {
-        setSelectedPet(pet);
+    const handleNewPet = (index: number, pet?: Pet | null) => {
+        details[index].pet = pet ?? undefined;
+        setSelectedPet(pet ?? null)
+        handleIndex(index);
+        setValue("details", details)
     }
 
     useEffect(() => {
         if (petContext) {
             setSelectedPet(petContext);
+            handleNewPet(indexContext, petContext);
         }
 
-    }, [petContext])
+    }, [petContext, indexContext])
 
-    const addPet = (pet: Pet | null) => {
-        if (!pet) {
-            showNotification("Debe seleccionar una mascota", { variant: "error" })
-            return;
-        }
+    const addPet = () => {
 
         const details: ContractDetail[] = getValues("details") || [];
-
-        if (details.find(detail => detail.pet.id === pet.id)) {
-            return;
-        }
-        handlePetContext(pet);
 
         setValue("details", [
             ...details,
             {
                 ...detailInit,
-                pet,
+                pet: undefined,
                 id: uuid.generate(),
                 cage: {
                     ...detailInit.cage,
-                    recommendation: {
-                        dimensionsCage: pet?.cageRecommendation?.dimensionsCage ?? "",
-                        modelCage: pet?.cageRecommendation?.modelCage ?? "",
-                        typeCage: pet?.cageRecommendation?.typeCage ?? ""
-                    }
                 },
             }
         ]);

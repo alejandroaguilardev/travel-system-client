@@ -38,6 +38,10 @@ export const contractToNewContract = (contract: Contract): NewContract => {
         startDate: contract.startDate,
         details,
         adviser: contract.adviser,
+        price: contract.price,
+        customerPayments: contract?.customerPayments ?? [],
+        payInInstallments: contract?.payInInstallments ?? [],
+        folder: contract?.folder ?? "",
     }
 }
 

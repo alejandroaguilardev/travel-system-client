@@ -21,6 +21,10 @@ export const paths = {
     root: ROOTS.DASHBOARD,
     contracts: {
       root: `${ROOTS.DASHBOARD}/contratos`,
+      assignPet: `${ROOTS.DASHBOARD}/contratos/seleccionar-mascota`,
+      number: `${ROOTS.DASHBOARD}/contratos/asignar-numero`,
+      topico: `${ROOTS.DASHBOARD}/contratos/topico`,
+      history: `${ROOTS.DASHBOARD}/contratos/historial`,
       new: `${ROOTS.DASHBOARD}/contratos/crear`,
       view: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/visualizar`,
       edit: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/editar`,

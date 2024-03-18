@@ -45,7 +45,6 @@ const hasPermission = (user: User | null, group: AuthGroup, permission: AuthPerm
   return hasRolePermission(roles, group, permission);
 }
 
-
 export function useNavData() {
   const { user } = useAuthContext();
 
@@ -55,9 +54,31 @@ export function useNavData() {
     () => {
       const menu = [];
       const options = [];
+
       hasPermission(user, AuthGroup.CLIENT, AuthPermission.LIST) && options.push({ title: 'Clientes', path: paths.dashboard.clients.root, icon: ICONS.user });
 
-      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) && options.push({ title: 'Contratos', path: paths.dashboard.contracts.root, icon: ICONS.file })
+      const contracts = [];
+
+      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
+        contracts.push({ title: 'En curso', path: paths.dashboard.contracts.root })
+
+
+
+      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
+        contracts.push({ title: 'Asignar número de folio', path: paths.dashboard.contracts.number })
+
+      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
+        contracts.push({ title: 'Historial', path: paths.dashboard.contracts.history })
+
+      if (contracts.length > 0) {
+        options.push({
+          title: 'Contratos',
+          path: paths.dashboard.contracts.root,
+          icon: ICONS.file,
+          children: contracts,
+        });
+      }
+
 
       hasPermission(user, AuthGroup.PETS, AuthPermission.LIST) && options.push({ title: 'Mascotas', path: paths.dashboard.pets.root, icon: ICONS.pet });
 

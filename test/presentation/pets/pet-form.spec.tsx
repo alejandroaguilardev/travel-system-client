@@ -6,6 +6,7 @@ import * as hooks from "../../../src/presentation/pets/components/form/use-form-
 import RHFTextField from '../../../src/components/hook-form/rhf-text-field';
 import { fDate, fDayjs } from '../../../src/modules/shared/infrastructure/helpers/format-time';
 import userEvent from "@testing-library/user-event";
+import { renderCustom } from "../shared/renderCustom";
 
 jest.mock('../../../src/modules/pets/infrastructure/pets.service');
 jest.mock('../../../src/modules/users/infrastructure/user.service');
@@ -26,10 +27,8 @@ describe("PetForm", () => {
     const callback = jest.fn();
 
     it("renders_pet_form_correctly", () => {
-        render(
-            <MemoryRouter>
-                <PetForm callback={callback} />
-            </MemoryRouter>
+        renderCustom(
+            <PetForm callback={callback} />
         );
 
         const name = screen.getByLabelText('Nombre (*)');
@@ -53,10 +52,8 @@ describe("PetForm", () => {
     });
 
     it("allows_input_changes_in_pet_form", async () => {
-        render(
-            <MemoryRouter>
-                <PetForm callback={callback} />
-            </MemoryRouter>
+        renderCustom(
+            <PetForm callback={callback} />
         );
         const data = petCreateMother();
 

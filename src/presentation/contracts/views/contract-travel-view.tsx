@@ -33,8 +33,8 @@ export default function ContractTravelView({ id }: Props) {
                         { name: `${contract?.number}` },
                     ]}
                 />
-                {contract.details.map((detail, index) => (
-                    <AccordionPet detail={detail} index={index} key={detail.id}>
+                {contract.details.map((detail) => (
+                    <AccordionPet detail={detail} key={detail.id}>
                         <TravelForm
                             onCancel={redirectData}
                             callback={() => false}

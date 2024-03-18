@@ -34,8 +34,8 @@ export default function ContractCageView({ id }: Props) {
                         { name: `${contract?.number}` },
                     ]}
                 />
-                {contract.details.map((detail, index) => (
-                    <AccordionPet detail={detail} index={index} key={detail.id}>
+                {contract.details.map((detail) => (
+                    <AccordionPet detail={detail} key={detail.id}>
                         <CageForm
                             noShowButton={false}
                             onCancel={redirectData}

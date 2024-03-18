@@ -21,7 +21,7 @@ describe("ContractCreator", () => {
         contractServiceMock.save.mockResolvedValueOnce(response);
         await contractCreator(contractServiceMock, uuid)(dataForm)
 
-        expect(contractServiceMock.save).toHaveBeenCalledWith(contractCreatorFormat(dataForm))
+        expect(contractServiceMock.save).toHaveBeenCalledWith(contractCreatorFormat(dataForm, uuid))
     })
 
     it("should_failed_contract_create", async () => {

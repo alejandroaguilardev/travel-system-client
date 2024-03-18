@@ -62,10 +62,10 @@ const AlertModal: React.FC<MaterialAlertProps> = ({
                 justifyContent: "center"
             }}>
                 <Button onClick={() => {
-                    // if (callback) {
-                    //     callback();
-                    //     return;
-                    // }
+                    if (callback) {
+                        callback();
+                        return;
+                    }
                     onClose();
                 }}
                     color="primary"

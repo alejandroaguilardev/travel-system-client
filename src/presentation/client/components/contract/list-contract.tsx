@@ -31,7 +31,7 @@ export const ListContract: FC<Props> = ({ contracts = [] }) => {
                                             primaryTypographyProps={{
                                                 typography: 'subtitle1',
                                             }}
-                                            secondary={`${detail.pet.name} - ${fDate(_.startDate)}`}
+                                            secondary={`${detail?.pet?.name || "Mascota"} - ${fDate(_.startDate)}`}
                                             secondaryTypographyProps={{
                                                 component: 'span',
                                                 typography: 'caption',

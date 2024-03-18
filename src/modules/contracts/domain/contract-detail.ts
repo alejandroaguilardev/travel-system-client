@@ -10,7 +10,7 @@ export interface ContractDetail {
     cage: Cage;
     travel: Travel;
     guideNumber?: string;
-    pet: Pet;
+    pet?: Pet;
     user?: string;
 }
 
@@ -22,9 +22,9 @@ export interface NewContractDetail extends Omit<ContractDetail, "id" | "guideNum
         hasServiceAccompanied: boolean;
         typeTraveling: TypeTraveling;
     }
-    pet: Pet;
+    pet?: Pet;
 
 }
 export interface NewPostContractDetail extends Omit<NewContractDetail, "pet"> {
-    pet: string;
+    pet?: string;
 }

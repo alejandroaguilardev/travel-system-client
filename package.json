@@ -25,6 +25,7 @@
     "@mui/lab": "5.0.0-alpha.161",
     "@mui/material": "^5.15.10",
     "@mui/x-date-pickers": "^6.19.6",
+    "@react-pdf/renderer": "^3.4.0",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
     "framer-motion": "^10.18.0",

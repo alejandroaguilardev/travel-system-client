@@ -109,7 +109,7 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                         my: 3,
                     }} key={`${detail.id}`}>
                     <Typography variant="subtitle1" gutterBottom >
-                        {detail.pet.name}
+                        {detail?.pet?.name}
                     </Typography>
                     <Divider sx={{ marginY: theme.spacing(2) }} />
                     <Typography variant="subtitle1" gutterBottom >

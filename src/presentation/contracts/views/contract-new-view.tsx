@@ -21,6 +21,7 @@ export default function ContractNewView() {
                 ]}
             />
             <ContractForm callback={redirectData} />
+
         </Container>
     );
 }

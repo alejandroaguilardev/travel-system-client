@@ -27,11 +27,13 @@ const getOptionLabel = (option: Pet) => {
 type Props = {
     adopterId: string;
     pet: Pet | null;
+    index: number;
     handlePet: (user: Pet) => void;
+
 }
 
-export const SearchPet = ({ adopterId, pet, handlePet }: Props) => {
-    const { onTrue } = usePetDialogContext();
+export const SearchPet = ({ adopterId, index, pet, handlePet }: Props) => {
+    const { onTrue, handleIndex } = usePetDialogContext();
 
     return (
         <>
@@ -44,14 +46,17 @@ export const SearchPet = ({ adopterId, pet, handlePet }: Props) => {
                 callback={(value) => handlePet(value as Pet)}
                 getOptionLabel={getOptionLabel}
                 textField={{
-                    label: "Buscar y/o ingresar primera mascota ",
+                    label: "Buscar y/o ingresar  mascota ",
                     placeholder: "Nombre o chip de la mascota...",
                 }}
                 noOptionsText={
                     <Box width="100%" >
                         <PermissionGuard group={AuthGroup.PETS} permission={AuthPermission.CREATE}>
                             <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la mascota  que está buscando. ¿Desea crear una mascota ahora? </Typography>
-                            <Button variant="outlined" fullWidth onClick={onTrue} sx={{
+                            <Button variant="outlined" fullWidth onClick={() => {
+                                onTrue();
+                                handleIndex(index);
+                            }} sx={{
                                 fontWeight: "bold",
                                 opacity: 1
                             }}>

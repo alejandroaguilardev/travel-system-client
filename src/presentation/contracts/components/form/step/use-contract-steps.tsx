@@ -6,7 +6,7 @@ import { ContractFormPet } from "../pet/contract-form-pet";
 import { StepType } from '../../../../../components/stepper/types';
 import { NewContract } from '../../../../../modules/contracts/domain/contract';
 import { useMessage } from '../../../../../hooks/use-message';
-import { ContractFormDetail } from '../detail/contract-form-detail';
+import { ContractFormPrices } from '../prices/contract-form-prices';
 
 
 export const useContractSteps = () => {
@@ -21,10 +21,6 @@ export const useContractSteps = () => {
             handleNext: (setActiveStep) => {
                 const values = getValues();
 
-                if (!values.number) {
-                    showNotification('Ingrese el número de contrato', { variant: "error" });
-                    return;
-                }
                 if (!values.startDate) {
                     showNotification('Seleccione una fecha de inicio para el contrato', { variant: "error" });
                     return;
@@ -41,7 +37,7 @@ export const useContractSteps = () => {
             }
         },
         {
-            value: "Seleccionar mascotas",
+            value: "Detalles del contrato",
             component: <ContractFormPet />,
             icon: <Iconify icon="eva:settings-2-outline" width={24} />,
             handleNext: async (setActiveStep) => {
@@ -56,8 +52,8 @@ export const useContractSteps = () => {
             }
         },
         {
-            value: "Detalles del contrato",
-            component: <ContractFormDetail />,
+            value: "Especificación de Precio",
+            component: <ContractFormPrices />,
             icon: <Iconify icon="eva:monitor-outline" width={24} />,
         },
 

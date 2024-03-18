@@ -7,5 +7,4 @@ interface FilterProperty {
 
 export const folderGlobalFilterProperties: FilterProperty[] = [
     { field: "name", value: "string" },
-    { field: "quantity", value: "string" },
 ];

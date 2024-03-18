@@ -21,6 +21,8 @@ const UserIdPage = lazy(() => import('../../pages/admin/user/[id]/index'));
 const ContractPage = lazy(() => import('../../pages/admin/contract/index'));
 const ContractNewPage = lazy(() => import('../../pages/admin/contract/crear'));
 const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'));
+const ContractHistory = lazy(() => import('../../pages/admin/contract/historial/index'));
+const ContractAssignNumber = lazy(() => import('../../pages/admin/contract/asignar-numero/index'));
 
 const CagePage = lazy(() => import('../../pages/admin/cage/index'));
 const CageNewPage = lazy(() => import('../../pages/admin/cage/crear'));
@@ -59,6 +61,8 @@ export const dashboardRoutes = [
         children: [
           { element: <ContractPage />, index: true },
           { path: 'crear', element: <ContractNewPage /> },
+          { path: 'historial', element: <ContractHistory /> },
+          { path: 'asignar-numero', element: <ContractAssignNumber /> },
           { path: ':id/:action', element: <ContractIdPage /> },
         ],
       },

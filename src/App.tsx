@@ -10,33 +10,48 @@ import { MotionLazy } from './components/animate/motion-lazy';
 import { SettingsProvider, SettingsDrawer } from './components/settings';
 import { AuthProvider, AuthConsumer } from './presentation/auth/context';
 import { AlertModalProvider } from './components/alert-modal/alert-modal-context';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { ImpContractProvider } from './components/imp-pdf/imp-contract/imp-contract-context';
+import { ImpContractConsumer } from './components/imp-pdf/imp-contract/imp-contract-consumer';
+import ContractPdf from './presentation/contracts/pdf/contract-pdf';
 
 export default function App() {
   useScrollToTop();
 
   return (
-    <AuthProvider>
-      <SettingsProvider
-        defaultSettings={{
-          themeMode: 'light',
-          themeLayout: 'vertical',
-          themeColorPresets: 'default',
-        }}
-      >
-        <ThemeProvider>
-          <MotionLazy>
-            <SettingsDrawer />
-            <ProgressBar />
-            <AuthConsumer>
-              <SnackbarProvider>
-                <AlertModalProvider>
-                  <Router />
-                </AlertModalProvider>
-              </SnackbarProvider>
-            </AuthConsumer>
-          </MotionLazy>
-        </ThemeProvider>
-      </SettingsProvider>
-    </AuthProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+      <AuthProvider>
+        <SettingsProvider
+          defaultSettings={{
+            themeMode: 'light',
+            themeLayout: 'vertical',
+            themeColorPresets: 'default',
+          }}
+        >
+          <ThemeProvider>
+            <MotionLazy>
+              <SettingsDrawer />
+              <ProgressBar />
+              <AuthConsumer>
+                <SnackbarProvider>
+                  <ImpContractProvider>
+                    <AlertModalProvider>
+                      <Router />
+                    </AlertModalProvider>
+                    <ImpContractConsumer
+                      document={({ contract }) => (
+                        <ContractPdf contract={contract} />
+                      )}
+                    />
+                  </ImpContractProvider>
+                </SnackbarProvider>
+              </AuthConsumer>
+            </MotionLazy>
+          </ThemeProvider>
+        </SettingsProvider>
+      </AuthProvider>
+    </LocalizationProvider>
   );
 }
