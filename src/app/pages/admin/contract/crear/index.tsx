@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import ContractNewView from '../../../../../presentation/contracts/views/contract-new-view';
+import ContractNewView from '../../../../../presentation/contracts/views/crud/contract-new-view';
 import { RoutePermissionGuard } from '../../../../routes/guard/route-permission.guard';
 import { useAuthContext } from '../../../../../presentation/auth/hooks/use-auth-context';
 import { AuthGroup, AuthPermission } from '../../../../../modules/auth/domain/auth-permission';

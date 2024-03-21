@@ -1,115 +1,33 @@
 import { useMemo } from 'react';
-import { paths } from '../../app/routes/paths';
-import SvgColor from '../../components/svg-color';
 import { useAuthContext } from '../../presentation/auth/hooks/use-auth-context';
-import { hasRolePermission } from '../../modules/roles/domain/role';
-import { AuthGroup, AuthPermission } from '../../modules/auth/domain/auth-permission';
-import { User } from '../../modules/users/domain/user';
+import { itemsContracts } from './menu/items-contracts';
+import { itemsOptions } from './menu/items-pet-travel';
+import { itemsAdministration } from './menu/items-administrator';
 
-
-const icon = (name: string) => (
-  <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
-);
-
-const ICONS = {
-  job: icon('ic_job'),
-  blog: icon('ic_blog'),
-  chat: icon('ic_chat'),
-  mail: icon('ic_mail'),
-  user: icon('ic_user'),
-  file: icon('ic_file'),
-  lock: icon('ic_lock'),
-  tour: icon('ic_tour'),
-  order: icon('ic_order'),
-  label: icon('ic_label'),
-  blank: icon('ic_blank'),
-  kanban: icon('ic_kanban'),
-  folder: icon('ic_folder'),
-  banking: icon('ic_banking'),
-  booking: icon('ic_booking'),
-  invoice: icon('ic_invoice'),
-  product: icon('ic_product'),
-  calendar: icon('ic_calendar'),
-  disabled: icon('ic_disabled'),
-  external: icon('ic_external'),
-  menuItem: icon('ic_menu_item'),
-  ecommerce: icon('ic_ecommerce'),
-  analytics: icon('ic_analytics'),
-  dashboard: icon('ic_dashboard'),
-  pet: icon('ic_pet'),
-};
-
-const hasPermission = (user: User | null, group: AuthGroup, permission: AuthPermission): boolean => {
-  const roles = user?.roles ?? [];
-  if (user?.auth?.admin) return true;
-  return hasRolePermission(roles, group, permission);
-}
 
 export function useNavData() {
   const { user } = useAuthContext();
 
-
-
   const data = useMemo(
     () => {
       const menu = [];
-      const options = [];
+      const contracts = itemsContracts(user);
+      const options = itemsOptions(user);
+      const administration = itemsAdministration(user);
 
-      hasPermission(user, AuthGroup.CLIENT, AuthPermission.LIST) && options.push({ title: 'Clientes', path: paths.dashboard.clients.root, icon: ICONS.user });
-
-      const contracts = [];
-
-      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
-        contracts.push({ title: 'En curso', path: paths.dashboard.contracts.root })
-
-
-
-      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
-        contracts.push({ title: 'Asignar número de folio', path: paths.dashboard.contracts.number })
-
-      hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
-        contracts.push({ title: 'Historial', path: paths.dashboard.contracts.history })
 
       if (contracts.length > 0) {
-        options.push({
-          title: 'Contratos',
-          path: paths.dashboard.contracts.root,
-          icon: ICONS.file,
-          children: contracts,
-        });
+        menu.push({
+          subheader: 'Contratos Activos',
+          items: contracts,
+        })
       }
-
-
-      hasPermission(user, AuthGroup.PETS, AuthPermission.LIST) && options.push({ title: 'Mascotas', path: paths.dashboard.pets.root, icon: ICONS.pet });
-
 
       if (options.length > 0) {
         menu.push({
           subheader: 'Gestión Pet travel',
           items: options,
         })
-      }
-
-      const administration = [];
-      const users = [];
-
-      hasPermission(user, AuthGroup.USERS, AuthPermission.LIST) && users.push({ title: 'Usuarios', path: paths.dashboard.users.root });
-      hasPermission(user, AuthGroup.ROLES, AuthPermission.LIST) && users.push({ title: 'Roles', path: paths.dashboard.roles.root });
-      hasPermission(user, AuthGroup.PERMISSIONS, AuthPermission.LIST) && users.push({ title: 'Permisos', path: paths.dashboard.permissions.root });
-
-
-
-      hasPermission(user, AuthGroup.FOLDERS, AuthPermission.LIST) && administration.push({ title: 'Expedientes', path: paths.dashboard.folders.root, icon: ICONS.folder })
-      hasPermission(user, AuthGroup.CAGES, AuthPermission.LIST) && administration.push({ title: 'Jaulas', path: paths.dashboard.cages.root, icon: ICONS.kanban })
-
-
-      if (users.length > 0) {
-        administration.push({
-          title: 'Usuarios y permisos',
-          path: paths.dashboard.users.root,
-          icon: ICONS.user,
-          children: users,
-        });
       }
 
       if (administration.length > 0) {
@@ -121,8 +39,6 @@ export function useNavData() {
 
 
       return menu;
-
-
     },
     [user]
   );

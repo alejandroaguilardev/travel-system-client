@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { Accordion, AccordionDetails, AccordionSummary, IconButton, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 import Iconify from '../../../../components/iconify';
 import { capitalize } from '../../../../modules/shared/domain/helpers/capitalize';
 import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
@@ -7,14 +7,21 @@ import { ContractDetail } from '../../../../modules/contracts/domain/contract-de
 type Props = {
     children: ReactNode;
     detail: ContractDetail;
+    index: number;
 }
 
-export const AccordionPet: FC<Props> = ({ children, detail }) => {
+export const AccordionPet: FC<Props> = ({ children, detail, index }) => {
+    const number = index + 1;
     return (
         <Accordion defaultExpanded >
             <AccordionSummary expandIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}>
                 <Typography variant="subtitle1">
-                    {capitalize(detail?.pet?.name ?? "Mascota")}  ({capitalize(detail?.pet?.type)})
+                    {detail?.pet?.name ?
+                        <>
+                            {capitalize(detail?.pet?.name ?? "Mascota")}  ({capitalize(detail?.pet?.type)})
+                        </>
+                        : "Mascota N°" + number
+                    }
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>

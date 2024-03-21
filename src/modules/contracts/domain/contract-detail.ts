@@ -4,6 +4,11 @@ import { Travel, TypeTraveling } from "./contract-services/travel/contract-trave
 import { Pet } from '../../pets/domain/pet';
 
 
+export interface ContractPetUpdater {
+    id: string;
+    pet: string,
+}
+
 export interface ContractDetail {
     id: string;
     documentation: Documentation;

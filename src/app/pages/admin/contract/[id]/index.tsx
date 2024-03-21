@@ -1,23 +1,19 @@
 import { Helmet } from 'react-helmet-async';
-import ContractIdView from '../../../../../presentation/contracts/views/contract-id-view';
-import ContractEditView from '../../../../../presentation/contracts/views/contract-edit-view';
+import ContractIdView from '../../../../../presentation/contracts/views/crud/contract-id-view';
+import ContractEditView from '../../../../../presentation/contracts/views/crud/contract-edit-view';
 import NotFoundView from '../../../../../presentation/error/500-view';
 import { useParams } from '../../../../routes/hooks/use-params';
-import ContractDocumentationView from '../../../../../presentation/contracts/views/contract-documentation-view';
-import ContractCageView from '../../../../../presentation/contracts/views/contract-cage-view';
-import ContractTravelView from '../../../../../presentation/contracts/views/contract-travel-view';
+import ContractDocumentationView from '../../../../../presentation/contracts/views/documentation/contract-documentation-update-view';
 import { RoutePermissionGuard } from '../../../../routes/guard/route-permission.guard';
 import { useAuthContext } from '../../../../../presentation/auth/hooks/use-auth-context';
 import { AuthGroup, AuthPermission } from '../../../../../modules/auth/domain/auth-permission';
-import ContractClientView from '../../../../../presentation/contracts/views/contract-client-view';
-import ContractPetView from '../../../../../presentation/contracts/views/contract-pet-view';
+import ContractClientView from '../../../../../presentation/contracts/views/client/contract-client-view';
+import ContractPetView from '../../../../../presentation/contracts/views/history/contract-pet-view';
 
 enum RoutesActions {
     VIEW = "visualizar",
     EDIT = "editar",
     DOCUMENTATION = "documentacion",
-    CAGE = "jaula",
-    TRAVEL = "viaje",
     CLIENT = "cliente",
     PET = "mascota",
 }
@@ -28,7 +24,7 @@ export default function ContractIdPage() {
     const { id } = params;
     const action = params.action as RoutesActions;
 
-    if (!id || !action || ![RoutesActions.EDIT, RoutesActions.VIEW, RoutesActions.DOCUMENTATION, RoutesActions.CAGE, RoutesActions.TRAVEL, RoutesActions.CLIENT, RoutesActions.PET].includes(action)) {
+    if (!id || !action || ![RoutesActions.EDIT, RoutesActions.VIEW, RoutesActions.DOCUMENTATION, RoutesActions.PET].includes(action)) {
         return <NotFoundView />;
     }
 
@@ -51,18 +47,6 @@ export default function ContractIdPage() {
             {action === RoutesActions.DOCUMENTATION &&
                 <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION}>
                     <ContractDocumentationView id={id} />
-                </RoutePermissionGuard>
-            }
-
-            {action === RoutesActions.CAGE &&
-                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.CAGE}>
-                    <ContractCageView id={id} />
-                </RoutePermissionGuard>
-            }
-
-            {action === RoutesActions.TRAVEL &&
-                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.TRAVEL}>
-                    <ContractTravelView id={id} />
                 </RoutePermissionGuard>
             }
 

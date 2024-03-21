@@ -2,8 +2,9 @@ const ROOTS = {
   AUTH: '/auth',
   DASHBOARD: '/dashboard',
   DASHBOARD_USER: '/dashboard/usuarios',
+  DASHBOARD_CONTRACT: '/dashboard/contratos',
+  DASHBOARD_DOCUMENTATION: '/dashboard/fase-documentacion',
 };
-
 
 export const paths = {
   root: '/',
@@ -20,21 +21,41 @@ export const paths = {
   dashboard: {
     root: ROOTS.DASHBOARD,
     contracts: {
-      root: `${ROOTS.DASHBOARD}/contratos`,
-      assignPet: `${ROOTS.DASHBOARD}/contratos/seleccionar-mascota`,
-      number: `${ROOTS.DASHBOARD}/contratos/asignar-numero`,
-      topico: `${ROOTS.DASHBOARD}/contratos/topico`,
-      history: `${ROOTS.DASHBOARD}/contratos/historial`,
-      new: `${ROOTS.DASHBOARD}/contratos/crear`,
-      view: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/visualizar`,
-      edit: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/editar`,
-      documentation: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/documentacion`,
-      cage: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/jaula`,
-      travel: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/viaje`,
-      client: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/cliente`,
-      pet: (id: string) => `${ROOTS.DASHBOARD}/contratos/${id}/mascota`,
-
+      root: `${ROOTS.DASHBOARD_CONTRACT}`,
+      assignPet: `${ROOTS.DASHBOARD_CONTRACT}/seleccionar-mascota`,
+      number: `${ROOTS.DASHBOARD_CONTRACT}/asignar-numero`,
+      view: (id: string) => `${ROOTS.DASHBOARD_CONTRACT}/${id}/visualizar`,
+      edit: (id: string) => `${ROOTS.DASHBOARD_CONTRACT}/${id}/editar`,
+      client: (id: string) => `${ROOTS.DASHBOARD_CONTRACT}/${id}/cliente`,
+      pet: (id: string) => `${ROOTS.DASHBOARD_CONTRACT}/${id}/mascota`,
+      new: `${ROOTS.DASHBOARD_CONTRACT}/crear`,
     },
+    faseDocumentation: {
+      root: ROOTS.DASHBOARD_DOCUMENTATION,
+      documentation: {
+        list: `${ROOTS.DASHBOARD_DOCUMENTATION}/documentacion`,
+        update: (id: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/documentacion/${id}`,
+      },
+      topico: {
+        list: `${ROOTS.DASHBOARD_DOCUMENTATION}/topico`,
+        update: (id: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/topico/${id}`,
+      },
+      senasa: {
+        list: `${ROOTS.DASHBOARD_DOCUMENTATION}/inspeccion-senasa`,
+        update: (id: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/inspeccion-senasa/${id}`,
+      },
+    },
+    contractCage: {
+      list: `${ROOTS.DASHBOARD}/contratos-jaulas`,
+      update: (id: string) => `${ROOTS.DASHBOARD_CONTRACT}/contratos-jaulas/${id}`,
+    },
+    contractTravel: {
+      list: `${ROOTS.DASHBOARD}/contratos-reservas`,
+      update: (id: string) => `${ROOTS.DASHBOARD_CONTRACT}/contratos-reservas/${id}`,
+    },
+    contractHistory: `${ROOTS.DASHBOARD}/contratos-historial`,
+    contractFinish: `${ROOTS.DASHBOARD}/contratos-finalizar`,
+
     clients: {
       root: `${ROOTS.DASHBOARD}/clientes`,
       new: `${ROOTS.DASHBOARD}/clientes/crear`,

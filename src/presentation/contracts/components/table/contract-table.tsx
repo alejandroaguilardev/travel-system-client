@@ -11,12 +11,14 @@ import { contractGlobalFilterProperties } from './contract-global-filter-propert
 import { IconButton } from '@mui/material';
 import { IconWrapper } from 'src/components/icon-wrapper';
 import { useImpContractContext } from 'src/components/imp-pdf/imp-contract/imp-contract-context';
-import { TypeofImp } from 'src/components/imp-pdf/imp-contract/type-contract';
+import { TypeofImp } from '../../../../components/imp-pdf/imp-contract/type-contract';
+import { tableUtils } from '../../../../components/material-table/helpers/filter-columns';
 
 type Props = {
     options?: {
         columnQueryFilters?: MRT_ColumnFiltersState | undefined;
         sortingQueryFilters?: MRT_SortingState | undefined;
+        filteredColumns?: (keyof Contract)[];
         renderRowActionMenuItems?: (row: Contract) => ReactNode[];
         renderRowActions?: (row: Contract) => ReactNode;
     }
@@ -24,8 +26,9 @@ type Props = {
 
 export const ContractTable: FC<Props> = ({ options }) => {
     const { handleTypeImpExecute } = useImpContractContext();
-    const { renderRowActionMenuItems, renderRowActions, columnQueryFilters, sortingQueryFilters } = options ?? {};
-    const columns = useMemo<MRT_ColumnDef<Contract>[]>(
+    const { renderRowActionMenuItems, renderRowActions, columnQueryFilters, sortingQueryFilters, filteredColumns = [] } = options ?? {};
+
+    const allColumns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
                 header: 'IMP',
@@ -85,6 +88,11 @@ export const ContractTable: FC<Props> = ({ options }) => {
         ],
         [],
     );
+
+    const columns: MRT_ColumnDef<Contract>[] = useMemo(() => tableUtils.getOrderedColumns(allColumns, filteredColumns), [filteredColumns, allColumns]);
+
+    const selectProperties = useMemo(() => tableUtils.getSelectProperties(allColumns), [allColumns]);
+
 
 
     return (

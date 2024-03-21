@@ -4,6 +4,7 @@ import DashboardLayout from '../../../layouts/dashboard/layout';
 import LoadingScreen from '../../../components/loading-screen/loading-screen';
 import { AuthGuard } from '../../../presentation/auth/guard';
 import UserSystemGuard from '../../../presentation/auth/guard/user-system-guard';
+import { NotFoundView } from '../../../presentation/error';
 
 const DashboardPage = lazy(() => import('../../pages/admin/index'));
 
@@ -18,11 +19,26 @@ const RoleIdPage = lazy(() => import('../../pages/admin/role/[id]/index'));
 const UserPage = lazy(() => import('../../pages/admin/user'));
 const UserNewPage = lazy(() => import('../../pages/admin/user/crear'));
 const UserIdPage = lazy(() => import('../../pages/admin/user/[id]/index'));
+
 const ContractPage = lazy(() => import('../../pages/admin/contract/index'));
 const ContractNewPage = lazy(() => import('../../pages/admin/contract/crear'));
-const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'));
 const ContractHistory = lazy(() => import('../../pages/admin/contract/historial/index'));
+
 const ContractAssignNumber = lazy(() => import('../../pages/admin/contract/asignar-numero/index'));
+const ContractAssignPetPage = lazy(() => import('../../pages/admin/contract/assign-pet/index'));
+const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'));
+
+const ContractSENASAPage = lazy(() => import('../../pages/admin/contract/senasa/index'));
+const ContractDocumentationPage = lazy(() => import('../../pages/admin/contract/documentation/index'));
+const ContractDocumentationUpdatePage = lazy(() => import('../../pages/admin/contract/documentation/[id]/index'));
+const ContractTopicoPage = lazy(() => import('../../pages/admin/contract/topico/index'));
+const ContractTopicoUpdatePage = lazy(() => import('../../pages/admin/contract/topico/index'));
+
+const ContractCage = lazy(() => import('../../pages/admin/contract/cage/index'));
+const ContractUpdateCage = lazy(() => import('../../pages/admin/contract/cage/[id]/index'));
+const ContractTravel = lazy(() => import('../../pages/admin/contract/travel/index'));
+const ContractUpdateTravel = lazy(() => import('../../pages/admin/contract/travel/[id]/index'));
+const ContractFinish = lazy(() => import('../../pages/admin/contract/finish/index'));
 
 const CagePage = lazy(() => import('../../pages/admin/cage/index'));
 const CageNewPage = lazy(() => import('../../pages/admin/cage/crear'));
@@ -61,11 +77,45 @@ export const dashboardRoutes = [
         children: [
           { element: <ContractPage />, index: true },
           { path: 'crear', element: <ContractNewPage /> },
-          { path: 'historial', element: <ContractHistory /> },
           { path: 'asignar-numero', element: <ContractAssignNumber /> },
+          { path: 'seleccionar-mascota', element: <ContractAssignPetPage /> },
           { path: ':id/:action', element: <ContractIdPage /> },
         ],
       },
+      {
+        path: 'fase-documentacion',
+        children: [
+          { element: <NotFoundView />, index: true },
+          { path: 'topico', element: <ContractTopicoPage /> },
+          { path: 'documentacion', element: <ContractDocumentationPage /> },
+          { path: 'inspeccion-senasa', element: <ContractSENASAPage /> },
+          { path: 'topico/:id', element: <ContractTopicoUpdatePage /> },
+          { path: 'documentacion/:id', element: <ContractDocumentationUpdatePage /> },
+        ],
+      },
+      {
+        path: 'contratos-jaulas',
+        children: [
+          { element: <ContractCage /> },
+          { path: ':id', element: <ContractUpdateCage /> },
+        ],
+      },
+      {
+        path: 'contratos-reservas',
+        children: [
+          { element: <ContractTravel /> },
+          { path: ':id', element: <ContractUpdateTravel /> },
+        ],
+      },
+      {
+        path: 'contratos-finalizar',
+        children: [
+          { element: <ContractFinish /> },
+        ],
+      },
+      { path: 'contratos-historial', element: <ContractHistory /> },
+
+
       {
         path: 'clientes',
         children: [

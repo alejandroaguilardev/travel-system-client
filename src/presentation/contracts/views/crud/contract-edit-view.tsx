@@ -1,11 +1,11 @@
 import { Container } from '@mui/material';
-import { paths } from '../../../app/routes/paths';
-import SearchIdNotFound from '../../../app/routes/guard/search-id-not-found';
-import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
-import { useSearchByIdContract } from '../hooks/use-search-by-id-contract';
-import { ContractForm } from '../components/form/contract-form';
-import { useRouter } from '../../../app/routes/hooks/use-router';
-import { contractToNewContract } from '../../../modules/contracts/domain/contract-to-new-contract';
+import { paths } from '../../../../app/routes/paths';
+import SearchIdNotFound from '../../../../app/routes/guard/search-id-not-found';
+import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
+import { useSearchByIdContract } from '../../hooks/use-search-by-id-contract';
+import { ContractForm } from '../../components/form/contract-form';
+import { useRouter } from '../../../../app/routes/hooks/use-router';
+import { contractToNewContract } from '../../../../modules/contracts/domain/contract-to-new-contract';
 
 type Props = {
     id: string;

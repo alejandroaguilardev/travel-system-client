@@ -25,8 +25,8 @@ export const ActionsButtonsForm: FC<Props> = ({ edit, name, notReload, onCancel,
 
     return (
         <Grid container>
-            <Grid item md={fullWidth ? 12 : 4} />
-            <Grid item md={fullWidth ? 12 : 8}>
+            <Grid item xs={12} md={fullWidth ? 12 : 4} />
+            <Grid item xs={12} md={fullWidth ? 12 : 8}>
                 <Box display="flex" gap={1} justifyContent="end">
                     {!notCancel &&
                         <Button variant="outlined" disabled={isSubmitting} fullWidth onClick={handleCancelClick} >

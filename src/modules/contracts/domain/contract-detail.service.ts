@@ -1,5 +1,5 @@
 import { Contract } from './contract';
-import { ContractDetail } from './contract-detail';
+import { ContractDetail, ContractPetUpdater } from './contract-detail';
 import { Criteria } from '../../shared/domain/criteria/criteria';
 import { ResponseSearch } from '../../shared/domain/response/response-search';
 import { Documentation } from './contract-services/documentation/documentation';
@@ -8,6 +8,7 @@ import { PartialTravel } from './contract-services/travel/contract-travel';
 import { TravelPetPerCharge } from './contract-services/travel/travel-pet-per-charge';
 import { TravelAccompaniedPet } from './contract-services/travel/travel-accompanied-pet';
 import { TravelDestination } from './contract-services/travel/travel-destination';
+import { ResponseSuccess } from '../../shared/domain/response/response-success';
 
 export type ContractDetailUpdateResponse = {
     contract: Contract,
@@ -27,4 +28,5 @@ export interface ContractDetailService {
         destination: TravelDestination,
         petPerCharge: TravelPetPerCharge
     ): Promise<ContractDetailUpdateResponse>;
+    updatePet(contractId: string, details: ContractPetUpdater[]): Promise<ResponseSuccess>
 }

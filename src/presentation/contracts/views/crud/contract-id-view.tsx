@@ -1,9 +1,9 @@
 import { Container, Skeleton } from '@mui/material';
-import { paths } from '../../../app/routes/paths';
-import SearchIdNotFound from '../../../app/routes/guard/search-id-not-found';
-import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
-import { useSearchByIdContract } from '../hooks/use-search-by-id-contract';
-import ContractDetail from '../components/details/contract-detail';
+import { paths } from '../../../../app/routes/paths';
+import SearchIdNotFound from '../../../../app/routes/guard/search-id-not-found';
+import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
+import { useSearchByIdContract } from '../../hooks/use-search-by-id-contract';
+import ContractDetail from '../../components/details/contract-detail';
 
 type Props = {
     id: string;

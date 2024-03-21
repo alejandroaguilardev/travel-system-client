@@ -1,7 +1,7 @@
 import axiosInstance from '../../shared/infrastructure/http/axios.host';
 import { endpoints } from '../../shared/domain/endpoint';
 import { ContractDetailService, ContractDetailUpdateResponse } from '../domain/contract-detail.service';
-import { ContractDetail } from '../domain/contract-detail';
+import { ContractDetail, ContractPetUpdater } from '../domain/contract-detail';
 import { Criteria, criteriaToQueryString } from '../../shared/domain/criteria/criteria';
 import { ResponseSearch } from '../../shared/domain/response/response-search';
 import { Documentation } from '../domain/contract-services/documentation/documentation';
@@ -48,4 +48,10 @@ export const contractDetailService: ContractDetailService = {
         });
         return data;
     },
+    updatePet: async (contractId: string, details: ContractPetUpdater[]): Promise<ResponseSuccess> => {
+        const { data } = await axiosInstance.patch(`${endpoints.contracts.detail}/${contractId}/pet`, {
+            details
+        });
+        return data;
+    }
 } 

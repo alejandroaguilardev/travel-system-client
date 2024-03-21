@@ -59,7 +59,7 @@ export const ContractRenderRowActionsMenuItems = ({ onSelected, deleteItem, row 
                 item={{
                     name: "Documentation",
                     icon: "eyeBold",
-                    href: paths.dashboard.contracts.documentation(row.id)
+                    href: paths.dashboard.faseDocumentation.documentation.update(row.id)
                 }}
             />
         </PermissionGuard>,
@@ -68,7 +68,7 @@ export const ContractRenderRowActionsMenuItems = ({ onSelected, deleteItem, row 
                 item={{
                     name: "Requisitos de Jaula",
                     icon: "eyeBold",
-                    href: paths.dashboard.contracts.cage(row.id)
+                    href: paths.dashboard.contractCage.update(row.id)
                 }}
                 key="cage"
             />
@@ -78,7 +78,7 @@ export const ContractRenderRowActionsMenuItems = ({ onSelected, deleteItem, row 
                 item={{
                     name: "Requisitos de Viaje",
                     icon: "eyeBold",
-                    href: paths.dashboard.contracts.travel(row.id)
+                    href: paths.dashboard.contractTravel.update(row.id)
                 }}
             />
         </PermissionGuard>,

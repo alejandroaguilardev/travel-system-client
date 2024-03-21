@@ -1,36 +1,29 @@
 import { Button, Container } from '@mui/material';
-import CustomBreadcrumbs from '../../../components/custom-breadcrumbs/custom-breadcrumbs';
-import { paths } from '../../../app/routes/paths';
-import { RouterLink } from '../../../app/routes/components';
-import { useSelectedValue, useBoolean } from '../../../hooks';
-import { Contract } from '../../../modules/contracts/domain/contract';
-import { ContractTable } from '../components/table/contract-table';
-import { DialogDelete } from '../../../components/delete-item/delete-dialog-button';
-import { useDeleteContract } from '../hooks/use-delete-contract';
-import { ContractRenderRowActionsMenuItems } from '../components/table/contract-render-row-actions-menu-items';
-import { PermissionGuard } from '../../permission/components/guard/permission-guard';
-import { AuthGroup, AuthPermission } from '../../../modules/auth/domain/auth-permission';
-import { useSearchByIdUser } from '../../users/hooks/use-search-by-id-user';
+import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
+import { paths } from '../../../../app/routes/paths';
+import { RouterLink } from '../../../../app/routes/components';
+import { useSelectedValue, useBoolean } from '../../../../hooks';
+import { Contract } from '../../../../modules/contracts/domain/contract';
+import { ContractTable } from '../../components/table/contract-table';
+import { DialogDelete } from '../../../../components/delete-item/delete-dialog-button';
+import { useDeleteContract } from '../../hooks/use-delete-contract';
+import { ContractRenderRowActionsMenuItems } from '../../components/table/contract-render-row-actions-menu-items';
+import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
+import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
 
-type Props = {
-    id: string
-}
-
-export default function ContractClientView({ id }: Props) {
+export default function ContractHistoryView() {
     const { selected, handleSelected } = useSelectedValue<Contract>();
     const deleteItem = useBoolean();
-    const { handleDelete, isLoading } = useDeleteContract();
-
-    const { user } = useSearchByIdUser(id);
+    const { handleDelete, isLoading } = useDeleteContract()
 
     return (
         <Container maxWidth='xl'>
             <CustomBreadcrumbs
-                heading={`Contratos de ${user?.profile.name ?? ""} ${user?.profile.lastName ?? ""} `}
+                heading="Historial de Contratos"
                 links={[
                     { name: 'Contratos', href: paths.dashboard.contracts.root },
                     {
-                        name: 'Listado de contratos de clientes',
+                        name: 'Listado',
                     }
                 ]}
                 action={
@@ -62,6 +55,7 @@ export default function ContractClientView({ id }: Props) {
                     onCancel={deleteItem.onFalse}
                 />
             }
+
         </Container>
     );
 }

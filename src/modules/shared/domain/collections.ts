@@ -3,6 +3,7 @@ export const COLLECTIONS = {
     permissions: 'permissions',
     users: 'users',
     contracts: 'contracts',
+    contractDetail: 'contract-detail',
     cages: 'cages',
     pets: 'pets',
     folders: 'folders',

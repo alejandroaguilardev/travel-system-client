@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import IconWrapper from '../../../../components/icon-wrapper/icon-wrapper';
 import { useBoolean } from '../../../../hooks/use-boolean';
 import { Dialog, DialogContent } from '@mui/material';
-import ContractIdView from '../../views/contract-id-view';
+import ContractIdView from '../../views/crud/contract-id-view';
 
 type Props = {
     options?: {
