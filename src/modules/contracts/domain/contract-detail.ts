@@ -2,6 +2,7 @@ import { Cage } from "./contract-services/cage/cage";
 import { Documentation } from "./contract-services/documentation/documentation";
 import { Travel, TypeTraveling } from "./contract-services/travel/contract-travel";
 import { Pet } from '../../pets/domain/pet';
+import { ContractTopico } from "./contract-services/topico/contract-topico";
 
 
 export interface ContractPetUpdater {
@@ -11,6 +12,7 @@ export interface ContractPetUpdater {
 
 export interface ContractDetail {
     id: string;
+    topico: ContractTopico;
     documentation: Documentation;
     cage: Cage;
     travel: Travel;

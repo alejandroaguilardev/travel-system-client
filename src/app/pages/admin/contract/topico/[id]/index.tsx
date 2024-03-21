@@ -21,7 +21,7 @@ export default function ContractTopicoPage() {
             <Helmet>
                 <title>Contrato Topico</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.CREATE}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.TOPICO}>
                 <ContractTopicoUpdateView id={id} />
             </RoutePermissionGuard>
         </>

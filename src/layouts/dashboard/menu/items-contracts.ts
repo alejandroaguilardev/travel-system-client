@@ -22,13 +22,13 @@ const itemsContractRegister = (user: User | null): ItemSubMenu[] => {
 
 const itemsDocumentation = (user: User | null): ItemSubMenu[] => {
     const documentation: ItemSubMenu[] = [];
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.TOPICO) &&
         documentation.push({ title: 'Topico', path: paths.dashboard.faseDocumentation.topico.list });
 
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
         documentation.push({ title: 'Documentación', path: paths.dashboard.faseDocumentation.documentation.list });
 
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
         documentation.push({ title: 'Inspección SENASA', path: paths.dashboard.faseDocumentation.senasa.list });
     return documentation;
 }
@@ -59,20 +59,20 @@ export const itemsContracts = (user: User | null): ItemMenu[] => {
     }
 
 
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CAGE) &&
         contracts.push({
             title: 'Fase Jaula',
             path: paths.dashboard.contractCage.list,
             icon: ICONS_MENU.kanban
         });
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.TRAVEL) &&
         contracts.push({
             title: 'Fase Reserva',
             path: paths.dashboard.contractTravel.list,
             icon: ICONS_MENU.calendar
         });
 
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.FINISH) &&
         contracts.push({
             title: 'Contratos por Finalizar',
             path: paths.dashboard.contractFinish,

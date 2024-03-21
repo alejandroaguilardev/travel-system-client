@@ -19,6 +19,7 @@ export enum AuthPermission {
 
     FINISH = 'finalizar',
     DOCUMENTATION = 'documentación',
+    TOPICO = 'topico',
     CAGE = 'jaula',
     TRAVEL = 'viaje',
 }

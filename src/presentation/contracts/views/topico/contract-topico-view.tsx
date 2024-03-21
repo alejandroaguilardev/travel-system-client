@@ -37,7 +37,7 @@ export default function ContractTopicoView() {
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
                     renderRowActions: (row) => <Button
                         component={RouterLink}
-                        href={paths.dashboard.contractCage.update(row.id)} variant='contained' fullWidth
+                        href={paths.dashboard.faseDocumentation.topico.update(row.id)} variant='contained' fullWidth
                     >
                         Gestionar
                     </Button>

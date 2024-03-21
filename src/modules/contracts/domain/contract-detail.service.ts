@@ -9,6 +9,7 @@ import { TravelPetPerCharge } from './contract-services/travel/travel-pet-per-ch
 import { TravelAccompaniedPet } from './contract-services/travel/travel-accompanied-pet';
 import { TravelDestination } from './contract-services/travel/travel-destination';
 import { ResponseSuccess } from '../../shared/domain/response/response-success';
+import { ContractTopico } from './contract-services/topico/contract-topico';
 
 export type ContractDetailUpdateResponse = {
     contract: Contract,
@@ -18,6 +19,7 @@ export type ContractDetailUpdateResponse = {
 export interface ContractDetailService {
     search(criteria: Criteria): Promise<ResponseSearch<ContractDetail[]>>;
     searchById(contractId: string, contractDetailId: string): Promise<ContractDetail>;
+    updateTopico(contractId: string, detailId: string, body: ContractTopico): Promise<ContractDetailUpdateResponse>;
     updateDocumentation(contractId: string, detailId: string, body: Documentation): Promise<ContractDetailUpdateResponse>;
     updateCage(contractId: string, detailId: string, body: Cage): Promise<ContractDetailUpdateResponse>;
     updateTravel(contractId: string, detailId: string, body: PartialTravel): Promise<ContractDetailUpdateResponse>;
@@ -28,5 +30,5 @@ export interface ContractDetailService {
         destination: TravelDestination,
         petPerCharge: TravelPetPerCharge
     ): Promise<ContractDetailUpdateResponse>;
-    updatePet(contractId: string, details: ContractPetUpdater[]): Promise<ResponseSuccess>
+    updatePet(contractId: string, details: ContractPetUpdater[]): Promise<ResponseSuccess>;
 }
