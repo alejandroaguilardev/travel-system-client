@@ -1,6 +1,7 @@
 import { Status } from "../../shared/domain/status";
 import { PetGender } from "./pet-gender";
 import { CageChosen } from '../../contracts/domain/contract-services/cage/cage-chosen';
+import { MeasurementsAndWeight } from "./pet-measurements-and-weight";
 
 export interface Pet {
     id: string;
@@ -19,10 +20,13 @@ export interface Pet {
     adopter: string;
     user?: string;
     cageRecommendation?: CageChosen;
+    measurementsAndWeight?: MeasurementsAndWeight;
 }
 
-export interface NewPet extends Omit<Pet, 'id' | 'chip' | 'chipDate' | 'status' | 'user'> {
+export interface NewPet extends Omit<Pet, 'id' | 'chip' | 'chipDate' | 'status' | 'user' | "cageRecommendation" | "measurementsAndWeight"> {
     id?: string;
     chip?: string;
     chipDate?: Date | null;
 };
+
+export interface TopicoMeasurementsAndWeight extends Omit<NewPet, "id" | "name" | "birthDate" | "image" | "country" | "chip" | "chipDate" | "adopter"> { }

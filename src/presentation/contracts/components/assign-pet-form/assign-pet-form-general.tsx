@@ -19,7 +19,7 @@ export const AssignPetFormGeneral = () => {
                             </Typography>
                             <SearchPet
                                 adopterId={clientId}
-                                pet={selectedPet}
+                                pet={selectedPet[index]}
                                 handlePet={(pet) => handleNewPet(index, pet)}
                                 index={index}
                             />

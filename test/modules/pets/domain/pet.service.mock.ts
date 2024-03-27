@@ -3,5 +3,7 @@ export const petServiceMock = {
     remove: jest.fn(),
     search: jest.fn(),
     searchById: jest.fn(),
-    update: jest.fn()
+    update: jest.fn(),
+    updateChip: jest.fn(),
+    updateMeasurementsAndWeight: jest.fn()
 }

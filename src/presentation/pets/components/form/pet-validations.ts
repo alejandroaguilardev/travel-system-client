@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import { NewPet } from '../../../../modules/pets/domain/pet';
-import { CAGE_TYPE } from '../../../../modules/cages/domain/cage-type';
 
 const defaultValues: NewPet = {
     id: "",
@@ -16,20 +15,11 @@ const defaultValues: NewPet = {
     type: "Perro",
     sterilized: "No",
     adopter: "",
-    cageRecommendation: {
-        dimensionsCage: "",
-        modelCage: "",
-        typeCage: ""
-    }
 };
 
 const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape({
     id: Yup.string(),
     name: Yup.string()
-        .required("El tipo es requerido")
-        .min(1, "El tipo debe tener al menos un carácter")
-        .max(45, "El tipo debe tener como máximo 45 caracteres"),
-    race: Yup.string()
         .required("El tipo es requerido")
         .min(1, "El tipo debe tener al menos un carácter")
         .max(45, "El tipo debe tener como máximo 45 caracteres"),
@@ -55,17 +45,16 @@ const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape({
         .required("El tipo es requerido")
         .min(1, "El tipo debe tener al menos un carácter")
         .max(50, "El tipo debe tener como máximo 255 caracteres"),
+    race: Yup.string()
+        .required("El tipo es requerido")
+        .min(1, "El tipo debe tener al menos un carácter")
+        .max(45, "El tipo debe tener como máximo 45 caracteres"),
     sterilized: Yup.string()
         .required("El tipo es requerido")
         .min(1, "El tipo debe tener al menos un carácter")
         .max(3, "El tipo debe tener como máximo 255 caracteres"),
     adopter: Yup.string().required("El adopter es requerido"),
     user: Yup.string(),
-    cageRecommendation: Yup.object().shape({
-        modelCage: Yup.string(),
-        dimensionsCage: Yup.string(),
-        typeCage: Yup.string().oneOf(['', ...CAGE_TYPE] as const),
-    })
 })
 
 export { defaultValues, petSchema };

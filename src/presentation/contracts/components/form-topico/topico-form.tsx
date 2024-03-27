@@ -1,45 +1,106 @@
-import { FC } from "react"
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button } from "@mui/material";
-import FormProvider from '../../../../components/hook-form/form-provider';
-import { ContractTopico } from "../../../../modules/contracts/domain/contract-services/topico/contract-topico";
-import { ContractDetailUpdateResponse } from "../../../../modules/contracts/domain/contract-detail.service";
-import { useFormTopico } from "./user-topico-form";
-import { TopicoFormGeneral } from "./general/topico-form-general";
-import { topicoSchema } from "./topico-validation";
+import { FC, useMemo } from "react";
+import { Alert } from "@mui/material";
+import { TabGenericProvider, TabSwitcher } from "../../../../components/tab-generic";
+import { MeasurementsAndWeightForm } from "./measurements-and-weight/measurements-and-weight-form";
+import { ChipForm } from "./chip/chip-form";
+import { VaccinationForm } from "./vaccination/vaccination-form";
+import { ClientDialogProvider } from '../../../client/components/search-client/client-dialog-context';
+import { ClientDialogForm } from '../../../client/components/search-client/client-dialog-form';
+import { useTopicoContext } from "../../context/topico-context";
+import { RabiesVaccinationForm } from "./rabies-vaccination/rabies-vaccination-form";
+import { RabiesReVaccinationForm } from "./rabies-revaccination/rabies-revaccination-form";
+import { ChipReviewForm } from "./chip-review/chip-review-form";
+import { TakingSampleSerologicalTestContractForm } from "./taking-sample-serological-test/taking-sample-form";
+
+
+export const TOPICO_TABS = {
+    measurementsAndWeightForm: "medidas",
+    chip: "microchip",
+    vaccination: "vaccination",
+    rabiesVaccination: "rabiesVaccination",
+    rabiesReVaccination: "rabiesReVaccination",
+    chipReview: "chipReview",
+    takingSampleSerologicalTest: "takingSampleSerologicalTest",
+}
+
 
 type Props = {
-    role?: "user"
+    action: string;
     contractId: string;
-    detailId: string;
-    topico: ContractTopico;
-    callback: (response?: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const TopicoForm: FC<Props> = ({ topico, callback, contractId, detailId, onCancel }) => {
-    const methods = useForm({
-        resolver: yupResolver<ContractTopico>(topicoSchema),
-        defaultValues: topico,
-    });
+export const TopicoForm: FC<Props> = ({ action, contractId, onCancel }) => {
+    const { handleChangeTopico, detail } = useTopicoContext();
 
-    const { onSubmit } = useFormTopico({ contractId, detailId, callback });
+    const tabs = useMemo(() => [
+        {
+            label: "Medidas y Peso",
+            value: TOPICO_TABS.measurementsAndWeightForm,
+            component: <MeasurementsAndWeightForm contractId={contractId} detail={detail}
+                callback={() => false} onCancel={onCancel} />
+        },
+        {
+            label: "Microchip",
+            value: TOPICO_TABS.chip,
+            component: <ChipForm contractId={contractId} detail={detail}
+                callback={({ contractDetail }) => handleChangeTopico(contractDetail)} onCancel={onCancel} />
+        },
+        {
+            label: vaccinationLabel(detail.pet?.type),
+            value: TOPICO_TABS.vaccination,
+            component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
+                callback={({ contractDetail }) => handleChangeTopico(contractDetail)} onCancel={onCancel} />
+        },
+        {
+            label: "Vacuna de Rabia",
+            value: TOPICO_TABS.rabiesVaccination,
+            component: <RabiesVaccinationForm contractId={contractId} detail={detail}
+                callback={({ contractDetail }) => handleChangeTopico(contractDetail)} onCancel={onCancel} />
+        },
+        {
+            label: "Revacunación de Rabia ",
+            value: TOPICO_TABS.rabiesReVaccination,
+            component: <RabiesReVaccinationForm contractId={contractId} detail={detail}
+                callback={({ contractDetail }) => handleChangeTopico(contractDetail)} onCancel={onCancel} />
+        },
+        {
+            label: "Revisión de Microchip",
+            value: TOPICO_TABS.chipReview,
+            component: <ChipReviewForm contractId={contractId} detail={detail}
+                callback={({ contractDetail }) => handleChangeTopico(contractDetail)} onCancel={onCancel} />
+        },
+        {
+            label: "Toma de muestra",
+            value: TOPICO_TABS.takingSampleSerologicalTest,
+            component: <TakingSampleSerologicalTestContractForm contractId={contractId} detail={detail}
+                callback={({ contractDetail }) => handleChangeTopico(contractDetail)} onCancel={onCancel} />
+        },
+    ], [detail, handleChangeTopico, contractId, onCancel, detail.pet?.type])
+
 
     return (
-        <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-
-            <TopicoFormGeneral topico={topico} />
-
-            <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                    Cancelar
-                </Button>
-                <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                    Actualizar
-                </Button>
-
-            </Box>
-        </FormProvider >
+        <ClientDialogProvider>  {
+            detail.pet?.id ?
+                <TabGenericProvider defaultValue={action}>
+                    <TabSwitcher
+                        tabs={tabs}
+                    />
+                </TabGenericProvider>
+                : <Alert variant='outlined' severity="error" sx={{ width: "100%" }}>
+                    No se ha registrado la mascota en el sistema
+                </Alert>
+        }
+            <ClientDialogForm />
+        </ClientDialogProvider>
     )
+}
+
+
+const vaccinationLabel = (type?: string) => {
+
+    if (!type) return "Vacuna";
+    return type?.toLowerCase() === "perro" ? "Vacuna Quintuple" : "Vacuna triple";
+
+
 }

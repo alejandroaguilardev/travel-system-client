@@ -1,10 +1,8 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
+import { fireEvent, screen } from "@testing-library/react";
 import { PetForm } from "../../../src/presentation/pets/components/form/pet-form";
 import { petCreateMother } from '../../modules/pets/domain/pet.mother';
-import * as hooks from "../../../src/presentation/pets/components/form/use-form-pet";
 import RHFTextField from '../../../src/components/hook-form/rhf-text-field';
-import { fDate, fDayjs } from '../../../src/modules/shared/infrastructure/helpers/format-time';
+import { fDate } from '../../../src/modules/shared/infrastructure/helpers/format-time';
 import userEvent from "@testing-library/user-event";
 import { renderCustom } from "../shared/renderCustom";
 

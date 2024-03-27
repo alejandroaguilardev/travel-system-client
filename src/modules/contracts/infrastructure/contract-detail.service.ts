@@ -11,6 +11,7 @@ import { ResponseSuccess } from 'src/modules/shared/domain/response/response-suc
 import { TravelPetPerCharge } from '../domain/contract-services/travel/travel-pet-per-charge';
 import { TravelAccompaniedPet } from '../domain/contract-services/travel/travel-accompanied-pet';
 import { TravelDestination } from '../domain/contract-services/travel/travel-destination';
+import { ContractTopico } from '../domain/contract-services/topico/contract-topico';
 
 
 export const contractDetailService: ContractDetailService = {
@@ -52,6 +53,10 @@ export const contractDetailService: ContractDetailService = {
         const { data } = await axiosInstance.patch(`${endpoints.contracts.detail}/${contractId}/pet`, {
             details
         });
+        return data;
+    },
+    updateTopico: async (contractId: string, detailId: string, action: string, body: Partial<ContractTopico>): Promise<ContractDetailUpdateResponse> => {
+        const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/topico/${action}`, body)
         return data;
     }
 } 

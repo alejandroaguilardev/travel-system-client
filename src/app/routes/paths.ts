@@ -38,7 +38,7 @@ export const paths = {
       },
       topico: {
         list: `${ROOTS.DASHBOARD_DOCUMENTATION}/topico`,
-        update: (id: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/topico/${id}`,
+        management: (id: string, action: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/topico/${id}/${action}/gestion`,
       },
       senasa: {
         list: `${ROOTS.DASHBOARD_DOCUMENTATION}/inspeccion-senasa`,

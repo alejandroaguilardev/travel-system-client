@@ -7,16 +7,17 @@ import { NotFoundView } from '../../../error';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
 import { TopicoForm } from '../../components/form-topico/topico-form';
+import { TopicoProvider } from '../../context/topico-context';
 
 type Props = {
     id: string;
+    action?: string;
 }
 
-export default function ContractTopicoUpdateView({ id }: Props) {
+export default function ContractTopicoManagementView({ id, action = "medidas" }: Props) {
     const router = useRouter();
 
     const { contract, error, isLoading } = useSearchByIdContract(id);
-    const redirectData = () => router.push(paths.dashboard.contracts.root);
 
     if (isLoading) return null
     if (!contract) return <NotFoundView />
@@ -28,19 +29,19 @@ export default function ContractTopicoUpdateView({ id }: Props) {
                     heading={`Requisitos de Topico: ${contract?.number} `}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
-                        { name: 'Contratos', href: paths.dashboard.contracts.root },
+                        { name: 'Topico', href: paths.dashboard.faseDocumentation.topico.list },
                         { name: `${contract?.number}` },
                     ]}
                 />
                 {contract.details.map((detail, index) => (
                     <AccordionPet detail={detail} key={detail.id} index={index}>
-                        <TopicoForm
-                            onCancel={redirectData}
-                            callback={() => false}
-                            contractId={id}
-                            detailId={detail.id}
-                            topico={detail.topico}
-                        />
+                        <TopicoProvider defaultValue={detail}>
+                            <TopicoForm
+                                action={action}
+                                onCancel={() => router.back()}
+                                contractId={id}
+                            />
+                        </TopicoProvider>
                     </AccordionPet>
                 ))}
             </Container>

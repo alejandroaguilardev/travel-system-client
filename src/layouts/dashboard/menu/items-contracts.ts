@@ -27,9 +27,10 @@ const itemsDocumentation = (user: User | null): ItemSubMenu[] => {
 
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
         documentation.push({ title: 'Documentación', path: paths.dashboard.faseDocumentation.documentation.list });
-
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
         documentation.push({ title: 'Inspección SENASA', path: paths.dashboard.faseDocumentation.senasa.list });
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
+        documentation.push({ title: 'Contratos por finalizar', path: paths.dashboard.faseDocumentation.senasa.list });
     return documentation;
 }
 
@@ -70,13 +71,6 @@ export const itemsContracts = (user: User | null): ItemMenu[] => {
             title: 'Fase Reserva',
             path: paths.dashboard.contractTravel.list,
             icon: ICONS_MENU.calendar
-        });
-
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.FINISH) &&
-        contracts.push({
-            title: 'Contratos por Finalizar',
-            path: paths.dashboard.contractFinish,
-            icon: ICONS_MENU.lock
         });
 
 

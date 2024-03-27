@@ -12,10 +12,10 @@ export interface ContractPetUpdater {
 
 export interface ContractDetail {
     id: string;
-    topico: ContractTopico;
     documentation: Documentation;
     cage: Cage;
     travel: Travel;
+    topico?: ContractTopico;
     guideNumber?: string;
     pet?: Pet;
     user?: string;

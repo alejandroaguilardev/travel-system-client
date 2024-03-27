@@ -7,6 +7,7 @@ import { dateMother } from '../../shared/domain/date.mother';
 import { NewContractDetail } from '../../../../src/modules/contracts/domain/contract-detail';
 import { petCreateMother } from '../../pets/domain/pet.mother';
 import { Pet } from '../../../../src/modules/pets/domain/pet';
+import { topicoMother } from './topico.mother';
 
 export const contractDetailCreateMother = (details?: NewContractDetail[]): NewContractDetail[] => {
     const detail: NewContractDetail = {
@@ -81,7 +82,6 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             hasServiceIncluded: faker.datatype.boolean(),
             typeTraveling: typeTravelingCreateMother(),
             hasServiceAccompanied: faker.datatype.boolean()
-
         },
     };
 

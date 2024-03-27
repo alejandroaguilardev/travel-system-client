@@ -26,7 +26,7 @@ export default function ContractEditView({ id }: Props) {
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Contratos', href: paths.dashboard.contracts.root },
-                        { name: `${contract?.number}` },
+                        { name: `${contract?.client?.profile?.name} ${contract?.client?.profile?.lastName ?? ""}` },
                     ]}
                 />
                 <ContractForm

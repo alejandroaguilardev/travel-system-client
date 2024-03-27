@@ -32,7 +32,7 @@ const ContractSENASAPage = lazy(() => import('../../pages/admin/contract/senasa/
 const ContractDocumentationPage = lazy(() => import('../../pages/admin/contract/documentation/index'));
 const ContractDocumentationUpdatePage = lazy(() => import('../../pages/admin/contract/documentation/[id]/index'));
 const ContractTopicoPage = lazy(() => import('../../pages/admin/contract/topico/index'));
-const ContractTopicoUpdatePage = lazy(() => import('../../pages/admin/contract/topico/[id]/index'));
+const ContractTopicoManagementPage = lazy(() => import('../../pages/admin/contract/topico/management/index'));
 
 const ContractCage = lazy(() => import('../../pages/admin/contract/cage/index'));
 const ContractUpdateCage = lazy(() => import('../../pages/admin/contract/cage/[id]/index'));
@@ -87,9 +87,9 @@ export const dashboardRoutes = [
         children: [
           { element: <NotFoundView />, index: true },
           { path: 'topico', element: <ContractTopicoPage /> },
+          { path: 'topico/:id/:action/gestion', element: <ContractTopicoManagementPage /> },
           { path: 'documentacion', element: <ContractDocumentationPage /> },
           { path: 'inspeccion-senasa', element: <ContractSENASAPage /> },
-          { path: 'topico/:id', element: <ContractTopicoUpdatePage /> },
           { path: 'documentacion/:id', element: <ContractDocumentationUpdatePage /> },
         ],
       },

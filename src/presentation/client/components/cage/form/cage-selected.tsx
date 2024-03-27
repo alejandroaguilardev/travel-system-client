@@ -1,7 +1,6 @@
 import { FC } from "react";
-import { MenuItem, InputAdornment } from '@mui/material';
+import { InputAdornment, Stack } from '@mui/material';
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
-import { CAGE_TYPE } from '../../../../../modules/cages/domain/cage-type';
 import Iconify from '../../../../../components/iconify';
 
 type Props = {
@@ -12,7 +11,7 @@ type Props = {
 export const CageSelected: FC<Props> = ({ readonly, keyField }) => {
 
     return (
-        <>
+        <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }} flexGrow={1} sx={{ minWidth: 0 }}>
             <RHFTextField
                 name={`${keyField}.typeCage`}
                 label="Tipo de jaula"
@@ -56,6 +55,6 @@ export const CageSelected: FC<Props> = ({ readonly, keyField }) => {
                 style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
 
-        </>
+        </Stack>
     )
 }

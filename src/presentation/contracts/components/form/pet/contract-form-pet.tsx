@@ -35,7 +35,7 @@ export const ContractFormPet = () => {
                             <Box mb={2}>
                                 <SearchPet
                                     adopterId={clientId}
-                                    pet={selectedPet}
+                                    pet={selectedPet[index]}
                                     handlePet={(pet) => handleNewPet(index, pet)}
                                     index={index}
                                 />

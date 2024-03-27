@@ -5,7 +5,6 @@ import { userService } from '../../../../../modules/users/infrastructure/user.se
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { useClientDialogContext } from '../../../../client/components/search-client/client-dialog-context';
 import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
-import { Folder } from '../../../../../modules/folders/domain/folder';
 
 export const useContractFormGeneral = () => {
     const { setValue, getValues, watch } = useFormContext();
@@ -47,7 +46,7 @@ export const useContractFormGeneral = () => {
     }, [clientContext])
 
     useEffect(() => {
-        if (user) {
+        if (user && !adviserDefault) {
             setAdvisor(user)
             setValue("adviser", user?.id ?? "");
         }
