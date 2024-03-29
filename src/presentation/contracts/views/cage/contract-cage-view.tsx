@@ -3,8 +3,6 @@ import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-
 import { paths } from '../../../../app/routes/paths';
 import { RouterLink } from '../../../../app/routes/components';
 import { ContractTable } from '../../components/table/contract-table';
-import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
-import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
 import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
 
 export default function ContractCageView() {
@@ -19,17 +17,6 @@ export default function ContractCageView() {
                         name: 'Listado',
                     }
                 ]}
-                action={
-                    <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.CREATE}>
-                        <Button
-                            component={RouterLink}
-                            href={paths.dashboard.contracts.new}
-                            variant="contained"
-                        >
-                            Nuevo Contrato
-                        </Button>
-                    </PermissionGuard>
-                }
             />
             <ContractTable
                 options={{

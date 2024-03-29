@@ -6,6 +6,7 @@ import { useAuthContext } from '../../../../../../presentation/auth/hooks/use-au
 import { AuthGroup, AuthPermission } from '../../../../../../modules/auth/domain/auth-permission';
 import ContractTopicoManagementView from '../../../../../../presentation/contracts/views/topico/contract-topico-management-view';
 
+
 export default function ContractTopicoManagementPage() {
     const { user } = useAuthContext();
 

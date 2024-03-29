@@ -7,7 +7,6 @@ import { Contract } from '../../../../modules/contracts/domain/contract';
 import { ContractTable } from '../../components/table/contract-table';
 import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
 import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
-import { AssignNumberForm } from '../../components/assign-number-form/assign-number-form';
 import { useState } from 'react';
 import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
 import { FinishContract } from '../../components/finish/finish-contract';

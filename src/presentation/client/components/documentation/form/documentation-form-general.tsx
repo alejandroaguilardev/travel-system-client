@@ -53,7 +53,6 @@ export const DocumentationFormGeneral: FC<Props> = ({ documentation, role }) => 
                             }}
                             edit
                         />
-
                     ))}
                 </>
             }

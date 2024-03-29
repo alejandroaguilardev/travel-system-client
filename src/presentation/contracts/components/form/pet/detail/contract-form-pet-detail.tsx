@@ -2,9 +2,7 @@ import { Divider, Stack, Typography } from '@mui/material';
 import { RHFSwitch } from '../../../../../../components/hook-form';
 import { AutocompleteSelectorClient } from '../../../../../../components/autocomplete/client/autocomplete-selector-client';
 import { countries } from '../../../../../../modules/shared/domain/helpers/countries';
-import { ContractFormCage } from '../../cage/contract-form-cage';
 import { CertificateSwitch } from './certificate-switch';
-import { CageSelected } from '../../../../../client/components/cage/form/cage-selected';
 import { useContractFormPetDetail } from './use-contract-form-pet-detail';
 
 type Props = {
@@ -12,7 +10,7 @@ type Props = {
 }
 
 export const ContractFormPetDetail = ({ field }: Props) => {
-    const { travel, cage, country, handleCountry } = useContractFormPetDetail({ field });
+    const { travel, country, handleCountry } = useContractFormPetDetail({ field });
 
     return (
         <Stack spacing={1} marginBottom={2}>
@@ -44,22 +42,7 @@ export const ContractFormPetDetail = ({ field }: Props) => {
                 }
                 <Divider />
             </Stack>
-            <Stack spacing={1} marginBottom={1}>
 
-                <Typography>VENTA DE JAULA:</Typography>
-                <RHFSwitch
-                    name={`${field}cage.hasServiceIncluded`}
-                    label="Incluye Jaula Pet travel"
-                />
-                {cage &&
-                    <>
-                        <Typography fontWeight="bold">Selección de Jaula</Typography>
-                        <ContractFormCage keyValue={`${field}cage.chosen`} />
-                        <CageSelected readonly keyField={`${field}cage.chosen`} />
-                    </>
-                }
-                <Divider />
-            </Stack>
             <Stack spacing={1} marginBottom={1}>
 
                 <Typography>DOCUMENTACIÓN PARA EL VIAJE:</Typography>

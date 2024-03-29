@@ -1,10 +1,8 @@
+import { useFormContext } from "react-hook-form";
 import { CSSProperties, FC, useEffect } from "react";
 import { Box, Stack } from "@mui/material"
 import RHFSwitch from '../../../../../../components/hook-form/rhf-switch';
-import { useFormContext } from "react-hook-form";
-import RHFTextField from '../../../../../../components/hook-form/rhf-text-field';
-import { fDate, fDayjs } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
-import IconWrapper from '../../../../../../components/icon-wrapper/icon-wrapper';
+import { fDayjs } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
 import { useAuthContext } from '../../../../../auth/hooks/use-auth-context';
 import { RHFDate } from "../../../../../../components/hook-form/rhf-date";
 
@@ -13,9 +11,10 @@ type Props = {
     label: string;
     edit?: boolean;
     style?: CSSProperties;
+    noExecutionDate?: boolean;
 }
 
-export const CertificateSwitch: FC<Props> = ({ name, label, edit, style = {} }) => {
+export const CertificateSwitch: FC<Props> = ({ name, label, edit, noExecutionDate = false, style = {} }) => {
     const { watch, setValue } = useFormContext();
     const { user } = useAuthContext();
     const hasServiceIncluded = watch(`${name}.hasServiceIncluded`);
@@ -64,17 +63,18 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, style = {} }) 
                             cursor: "not-allowed"
                         } : {}}
                     />
-                    <RHFDate
-                        name={`${name}.executionDate`}
-                        value={fDayjs(executionDate)}
-                        label="Fecha de Ejecución (*)"
-                        sx={edit ? {
-                            opacity: 0.4,
-                            pointerEvents: "not-allowed",
-                            cursor: "not-allowed"
-                        } : {}}
-                    />
-
+                    {
+                        noExecutionDate && <RHFDate
+                            name={`${name}.executionDate`}
+                            value={fDayjs(executionDate)}
+                            label="Fecha de Ejecución (*)"
+                            sx={edit ? {
+                                opacity: 0.4,
+                                pointerEvents: "not-allowed",
+                                cursor: "not-allowed"
+                            } : {}}
+                        />
+                    }
 
                     {name === "rabiesSeroLogicalTest" ?
                         <RHFDate

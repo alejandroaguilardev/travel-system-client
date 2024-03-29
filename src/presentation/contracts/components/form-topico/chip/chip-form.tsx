@@ -19,6 +19,7 @@ type Props = {
 
 export const ChipForm: FC<Props> = ({ detail, callback, contractId, onCancel }) => {
     const chip = detail?.topico?.chip;
+    const chipDefault = detail?.pet?.chip || defaultChip.description;
 
     const methods = useForm({
         resolver: yupResolver<ChipContract>(chipObjectSchema),
@@ -26,7 +27,7 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, onCancel }) 
             hasIncluded: chip?.hasIncluded || defaultChip.hasIncluded,
             executed: chip?.executed || defaultChip.executed,
             date: chip?.date || defaultChip.date,
-            description: chip?.description || defaultChip.description,
+            description: chip?.description || chipDefault,
             observation: chip?.observation || defaultChip.observation,
             user: chip?.user || defaultChip.user
         }

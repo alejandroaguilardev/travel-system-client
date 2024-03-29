@@ -73,6 +73,28 @@ export const dashboardRoutes = [
     children: [
       { element: <DashboardPage />, index: true },
       {
+        path: 'contratos-jaulas',
+        children: [
+          { element: <ContractCage />, index: true },
+          { path: ':id', element: <ContractUpdateCage /> },
+        ],
+      },
+      {
+        path: 'contratos-reservas',
+        children: [
+          { element: <ContractTravel />, index: true },
+          { path: ':id', element: <ContractUpdateTravel /> },
+        ],
+      },
+      {
+        path: 'contratos-finalizar',
+        children: [
+          { element: <ContractFinish /> },
+        ],
+      },
+      { path: 'contratos-historial', element: <ContractHistory /> },
+
+      {
         path: 'contratos',
         children: [
           { element: <ContractPage />, index: true },
@@ -93,27 +115,6 @@ export const dashboardRoutes = [
           { path: 'documentacion/:id', element: <ContractDocumentationUpdatePage /> },
         ],
       },
-      {
-        path: 'contratos-jaulas',
-        children: [
-          { element: <ContractCage /> },
-          { path: ':id', element: <ContractUpdateCage /> },
-        ],
-      },
-      {
-        path: 'contratos-reservas',
-        children: [
-          { element: <ContractTravel /> },
-          { path: ':id', element: <ContractUpdateTravel /> },
-        ],
-      },
-      {
-        path: 'contratos-finalizar',
-        children: [
-          { element: <ContractFinish /> },
-        ],
-      },
-      { path: 'contratos-historial', element: <ContractHistory /> },
 
 
       {

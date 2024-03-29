@@ -1,14 +1,14 @@
-import { Button, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { paths } from '../../../../app/routes/paths';
-import { RouterLink } from '../../../../app/routes/components';
 import { ContractTable } from '../../components/table/contract-table';
-import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
-import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
 import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
 import { RenderRowActionMenuItem } from 'src/components/material-table/render-row-action-menu-item';
+import { useColumnsTopico } from '../../components/table/columns/use-columns-topico';
+import { TOPICO_TABS } from '../../components/form-topico/topico-form';
 
 export default function ContractTopicoView() {
+    const columns = useColumnsTopico();
 
     return (
         <Container maxWidth='xl'>
@@ -20,70 +20,60 @@ export default function ContractTopicoView() {
                         name: 'Listado',
                     }
                 ]}
-                action={
-                    <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.CREATE}>
-                        <Button
-                            component={RouterLink}
-                            href={paths.dashboard.contracts.new}
-                            variant="contained"
-                        >
-                            Nuevo Contrato
-                        </Button>
-                    </PermissionGuard>
-                }
             />
             <ContractTable
                 options={{
                     columnQueryFilters: [...CONTRACT_STATUS_IN_COURSE],
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
+                    columns,
                     renderRowActionMenuItems: (row) => [
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Medidas y Peso",
                                 icon: "number",
-                                href: paths.dashboard.faseDocumentation.topico.management(row.id, "medidas")
+                                href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.measurementsAndWeightForm)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Microchip",
                                 icon: "number",
-                                href: paths.dashboard.faseDocumentation.topico.management(row.id, "medidas")
+                                href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.chip)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Vacunación",
                                 icon: "number",
-                                href: paths.dashboard.faseDocumentation.topico.management(row.id, "medidas")
+                                href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.vaccination)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Vacuna de Rabia",
                                 icon: "number",
-                                href: paths.dashboard.faseDocumentation.topico.management(row.id, "medidas")
+                                href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.rabiesVaccination)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Revacuna de Rabia",
                                 icon: "number",
-                                href: paths.dashboard.faseDocumentation.topico.management(row.id, "medidas")
+                                href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.rabiesReVaccination)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Revisión de microchip",
                                 icon: "number",
-                                href: paths.dashboard.faseDocumentation.topico.management(row.id, "medidas")
+                                href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.chipReview)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Toma de muestra",
                                 icon: "number",
-                                href: paths.dashboard.faseDocumentation.topico.management(row.id, "medidas")
+                                href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.takingSampleSerologicalTest)
                             }}
                         />,
                     ]

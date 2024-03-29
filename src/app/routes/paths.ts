@@ -47,11 +47,11 @@ export const paths = {
     },
     contractCage: {
       list: `${ROOTS.DASHBOARD}/contratos-jaulas`,
-      update: (id: string) => `${ROOTS.DASHBOARD_CONTRACT}/contratos-jaulas/${id}`,
+      update: (id: string) => `${ROOTS.DASHBOARD}/contratos-jaulas/${id}`,
     },
     contractTravel: {
       list: `${ROOTS.DASHBOARD}/contratos-reservas`,
-      update: (id: string) => `${ROOTS.DASHBOARD_CONTRACT}/contratos-reservas/${id}`,
+      update: (id: string) => `${ROOTS.DASHBOARD}/contratos-reservas/${id}`,
     },
     contractHistory: `${ROOTS.DASHBOARD}/contratos-historial`,
     contractFinish: `${ROOTS.DASHBOARD}/contratos-finalizar`,

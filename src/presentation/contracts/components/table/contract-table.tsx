@@ -16,6 +16,7 @@ import { tableUtils } from '../../../../components/material-table/helpers/filter
 
 type Props = {
     options?: {
+        columns?: MRT_ColumnDef<Contract>[];
         columnQueryFilters?: MRT_ColumnFiltersState | undefined;
         sortingQueryFilters?: MRT_SortingState | undefined;
         filteredColumns?: (keyof Contract)[];
@@ -26,9 +27,9 @@ type Props = {
 
 export const ContractTable: FC<Props> = ({ options }) => {
     const { handleTypeImpExecute } = useImpContractContext();
-    const { renderRowActionMenuItems, renderRowActions, columnQueryFilters, sortingQueryFilters, filteredColumns = [] } = options ?? {};
+    const { columns, renderRowActionMenuItems, renderRowActions, columnQueryFilters, sortingQueryFilters, filteredColumns = [] } = options ?? {};
 
-    const allColumns = useMemo<MRT_ColumnDef<Contract>[]>(
+    const columnsDefault = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
                 header: 'IMP',
@@ -89,11 +90,6 @@ export const ContractTable: FC<Props> = ({ options }) => {
         [],
     );
 
-    const columns: MRT_ColumnDef<Contract>[] = useMemo(() => tableUtils.getOrderedColumns(allColumns, filteredColumns), [filteredColumns, allColumns]);
-
-    const selectProperties = useMemo(() => tableUtils.getSelectProperties(allColumns), [allColumns]);
-
-
 
     return (
         <TablePagination<Contract>
@@ -101,7 +97,7 @@ export const ContractTable: FC<Props> = ({ options }) => {
             collection={COLLECTIONS.contracts}
             columnQueryFilters={columnQueryFilters}
             sortingQueryFilters={sortingQueryFilters}
-            columns={columns}
+            columns={columns ?? columnsDefault}
             globalFilterProperties={contractGlobalFilterProperties}
             renderRowActionMenuItems={renderRowActionMenuItems ? ({ row }) =>
                 renderRowActionMenuItems(row.original)

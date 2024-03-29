@@ -10,7 +10,6 @@ export default function ContractCageIdPage() {
     const { user } = useAuthContext();
     const params = useParams();
     const { id } = params;
-
     if (!id) {
         return <NotFoundView />;
     }

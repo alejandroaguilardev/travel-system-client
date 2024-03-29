@@ -6,7 +6,7 @@ import { useSearchByIdContract } from '../../hooks/use-search-by-id-contract';
 import { NotFoundView } from '../../../error';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
-import { TopicoForm } from '../../components/form-topico/topico-form';
+import { TOPICO_TABS, TopicoForm } from '../../components/form-topico/topico-form';
 import { TopicoProvider } from '../../context/topico-context';
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
     action?: string;
 }
 
-export default function ContractTopicoManagementView({ id, action = "medidas" }: Props) {
+export default function ContractTopicoManagementView({ id, action = TOPICO_TABS.measurementsAndWeightForm }: Props) {
     const router = useRouter();
 
     const { contract, error, isLoading } = useSearchByIdContract(id);
