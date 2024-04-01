@@ -43,6 +43,7 @@ export const SelectedContract: FC<Props> = ({ contract, contractDetail }) => {
                     contractId={contract.id}
                     detailId={contractDetail.id}
                     finish={statusError(contract.status, contract.endDate)}
+                    pet={contractDetail?.pet}
                 />
                 <CardTravel
                     travel={contractDetail.travel}

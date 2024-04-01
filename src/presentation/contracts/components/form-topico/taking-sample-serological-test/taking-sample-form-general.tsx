@@ -20,7 +20,7 @@ export const TakingSampleSerologicalTestContractFormGeneral = () => {
                     <RHFDate
                         name="date"
                         value={date}
-                        label="Fecha de revisión de microchip"
+                        label="Fecha de toma de muestra"
                     />
                 </Stack>
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>

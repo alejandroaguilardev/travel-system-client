@@ -1,4 +1,4 @@
-import { Card, Stack, Avatar, Divider, ListItemText, Box, Button, Alert } from '@mui/material';
+import { Card, Stack, Avatar, Divider, ListItemText, Box, Button, Alert, Typography } from '@mui/material';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { Cage } from '../../../../modules/contracts/domain/contract-services/cage/cage';
 import { useBoolean } from '../../../../hooks/use-boolean';
@@ -7,16 +7,18 @@ import { statusColor } from '../../../contracts/components/table/status-color';
 import { DialogContract } from '../dialog/dialog-contract';
 import { CageForm } from './form/cage-form';
 import { useContractStore } from '../../../../state/contract/contract-store';
-import { CageChosen } from '../../../../modules/contracts/domain/contract-services/cage/cage-chosen';
+import { CagePetFound } from './cage-pet-found';
+import { Pet } from '../../../../modules/pets/domain/pet';
 
 type Props = {
     cage: Cage;
     contractId: string;
     detailId: string;
     finish: boolean;
+    pet?: Pet;
 };
 
-export default function CardCage({ cage, contractId, detailId, finish }: Props) {
+export default function CardCage({ pet, cage, contractId, detailId, finish }: Props) {
     const dialog = useBoolean();
     const { onSelected, onSelectedDetail } = useContractStore();
 
@@ -89,38 +91,24 @@ export default function CardCage({ cage, contractId, detailId, finish }: Props) 
                     open={dialog.value}
                     onClose={dialog.onFalse}
                 >
-                    <CageForm
-                        onCancel={dialog.onFalse}
-                        contractId={contractId}
-                        cage={cageSelected(cage)}
-                        hasServiceIncluded={cage.hasServiceIncluded}
-                        isRecommendation={!!cage.recommendation?.modelCage && !cage.hasServiceIncluded}
-                        noShowButton={finish}
-                        detailId={detailId}
-                        callback={(response) => {
-                            onSelected(response?.contract ?? null);
-                            onSelectedDetail(response?.contractDetail ?? null);
-                            dialog.onFalse();
-                        }}
-                    />
-
-                </DialogContract>
+                    <CagePetFound pet={pet}>
+                        <CageForm
+                            cageRecommendation={pet?.cageRecommendation}
+                            onCancel={dialog.onFalse}
+                            contractId={contractId}
+                            cage={cage}
+                            noShowButton={finish}
+                            detailId={detailId}
+                            callback={(response) => {
+                                onSelected(response?.contract ?? null);
+                                onSelectedDetail(response?.contractDetail ?? null);
+                                dialog.onFalse();
+                            }}
+                        />
+                    </CagePetFound>
+                </DialogContract >
             }
 
         </>
     );
-}
-
-
-const cageSelected = (cage: Cage): Cage => {
-    let {chosen} = cage;
-
-    if (!chosen?.modelCage && !cage.hasServiceIncluded) {
-        chosen = cage?.recommendation ?? cage.chosen;
-    }
-
-    return {
-        ...cage,
-        chosen
-    }
 }

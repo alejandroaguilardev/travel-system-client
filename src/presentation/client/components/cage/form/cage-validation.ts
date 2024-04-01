@@ -12,10 +12,10 @@ export const cageSchema: Yup.ObjectSchema<Cage> = Yup.object().shape({
         typeCage: Yup.string().oneOf(['', ...CAGE_TYPE] as const).required("Debe indicar el tipo de jaula"),
         user: Yup.string()
     }),
-    recommendation: Yup.object().shape({
-        modelCage: Yup.string().required("Debe indicar el modelo de la jaula"),
-        dimensionsCage: Yup.string().required("Debe indicar las dimensiones de una jaula"),
-        typeCage: Yup.string().oneOf(['', ...CAGE_TYPE] as const).required("Debe indicar el tipo de jaula"),
-        user: Yup.string()
-    }),
+    confirmation: Yup.boolean().test(
+        'is-true',
+        'La confirmación es obligatoria',
+        value => value === true
+    ),
+    petTravelAcquisition: Yup.boolean()
 });

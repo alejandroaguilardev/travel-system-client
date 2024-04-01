@@ -6,8 +6,12 @@ import { ContractTable } from '../../components/table/contract-table';
 import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
 import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
 import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
+import { useColumnsDocumentation } from '../../components/table/columns/use-columns-documentation';
+import { RenderRowActionMenuItem } from '../../../../components/material-table/render-row-action-menu-item';
+import { DOCUMENTATION_KEYS } from '../../../../modules/contracts/domain/contract-services/documentation/documentation';
 
 export default function ContractDocumentationView() {
+    const columns = useColumnsDocumentation();
 
     return (
         <Container maxWidth='xl'>
@@ -35,12 +39,58 @@ export default function ContractDocumentationView() {
                 options={{
                     columnQueryFilters: [...CONTRACT_STATUS_IN_COURSE],
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
-                    renderRowActions: (row) => <Button
-                        component={RouterLink}
-                        href={paths.dashboard.contractCage.update(row.id)} variant='contained' fullWidth
-                    >
-                        Gestionar
-                    </Button>
+                    columns,
+                    renderRowActionMenuItems: (row) => [
+                        <RenderRowActionMenuItem
+                            item={{
+                                name: "Certificado de microchip",
+                                icon: "infoFill",
+                                href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.chipCertificate)
+                            }}
+                        />,
+                        <RenderRowActionMenuItem
+                            item={{
+                                name: "Certificado de vacuna",
+                                icon: "infoFill",
+                                href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.vaccinationCertificate)
+                            }}
+                        />,
+                        <RenderRowActionMenuItem
+                            item={{
+                                name: "Test serológico de rabia",
+                                icon: "infoFill",
+                                href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.rabiesSeroLogicalTest)
+                            }}
+                        />,
+                        <RenderRowActionMenuItem
+                            item={{
+                                name: "Permiso de importación",
+                                icon: "infoFill",
+                                href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.importLicense)
+                            }}
+                        />,
+                        <RenderRowActionMenuItem
+                            item={{
+                                name: "Certificado de Salud",
+                                icon: "infoFill",
+                                href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.healthCertificate)
+                            }}
+                        />,
+                        <RenderRowActionMenuItem
+                            item={{
+                                name: "Documentos de SENASA",
+                                icon: "infoFill",
+                                href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.senasaDocuments)
+                            }}
+                        />,
+                        <RenderRowActionMenuItem
+                            item={{
+                                name: "Certificado de soporte emocional",
+                                icon: "infoFill",
+                                href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.emotionalSupportCertificate)
+                            }}
+                        />,
+                    ]
                 }}
             />
         </Container>

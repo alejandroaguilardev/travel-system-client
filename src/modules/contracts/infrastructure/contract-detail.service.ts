@@ -12,6 +12,7 @@ import { TravelPetPerCharge } from '../domain/contract-services/travel/travel-pe
 import { TravelAccompaniedPet } from '../domain/contract-services/travel/travel-accompanied-pet';
 import { TravelDestination } from '../domain/contract-services/travel/travel-destination';
 import { ContractTopico } from '../domain/contract-services/topico/contract-topico';
+import { DocumentationCertificate } from '../domain/contract-services/documentation/documentation-certificate';
 
 
 export const contractDetailService: ContractDetailService = {
@@ -25,7 +26,11 @@ export const contractDetailService: ContractDetailService = {
     },
 
     updateDocumentation: async (contractId: string, detailId: string, body: Documentation): Promise<ContractDetailUpdateResponse> => {
-        const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/documentation`, body);
+        const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/cer`, body);
+        return data;
+    },
+    updateCertificate: async (contractId: string, detailId: string, action: string, body: Partial<Documentation>): Promise<ContractDetailUpdateResponse> => {
+        const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/certificate/${action}`, body)
         return data;
     },
     updateCage: async (contractId: string, detailId: string, body: Cage): Promise<ContractDetailUpdateResponse> => {

@@ -34,14 +34,6 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
             resultDate: documentation.chipCertificate.resultDate,
             user: documentation.chipCertificate?.user
         },
-        chipReview: {
-            hasServiceIncluded: documentation.chipReview.hasServiceIncluded,
-            isApplied: documentation.chipReview.isApplied,
-            expectedDate: documentation.chipReview.expectedDate,
-            executionDate: documentation.chipReview.executionDate,
-            resultDate: documentation.chipReview.resultDate,
-            user: documentation.chipReview?.user
-        },
         senasaDocuments: {
             hasServiceIncluded: documentation.senasaDocuments.hasServiceIncluded,
             isApplied: documentation.senasaDocuments.isApplied,

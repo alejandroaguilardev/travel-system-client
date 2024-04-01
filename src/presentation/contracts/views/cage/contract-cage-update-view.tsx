@@ -7,6 +7,7 @@ import { CageForm } from '../../../client/components/cage/form/cage-form';
 import { NotFoundView } from '../../../error';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
+import { CagePetFound } from '../../../../presentation/client/components/cage/cage-pet-found';
 
 type Props = {
     id: string;
@@ -36,16 +37,17 @@ export default function ContractCageUpdateView({ id }: Props) {
                 />
                 {contract.details.map((detail, index) => (
                     <AccordionPet detail={detail} key={detail.id} index={index}>
-                        <CageForm
-                            noShowButton={false}
-                            onCancel={redirectData}
-                            callback={() => false}
-                            contractId={id}
-                            detailId={detail.id}
-                            cage={detail.cage}
-                            hasServiceIncluded={detail.cage.hasServiceIncluded}
-                            user
-                        />
+                        <CagePetFound pet={detail?.pet}>
+                            <CageForm
+                                noShowButton={false}
+                                onCancel={redirectData}
+                                callback={() => false}
+                                contractId={id}
+                                detailId={detail.id}
+                                cage={detail.cage}
+                                cageRecommendation={detail?.pet?.cageRecommendation}
+                            />
+                        </CagePetFound>
                     </AccordionPet>
                 ))}
             </Container>

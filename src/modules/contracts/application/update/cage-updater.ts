@@ -16,7 +16,8 @@ export const cageUpdater = (contractService: ContractDetailService, uuid: UuidSe
             dimensionsCage: cage.chosen.dimensionsCage,
             typeCage: cage.chosen.typeCage,
         },
-        recommendation: cage.recommendation,
+        confirmation: cage?.confirmation ?? false,
+        petTravelAcquisition: cage?.petTravelAcquisition ?? false,
     }
 
     const response = await contractService.updateCage(contractId, detailId, updatedCage);

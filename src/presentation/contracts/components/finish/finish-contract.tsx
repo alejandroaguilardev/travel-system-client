@@ -27,7 +27,7 @@ export const FinishContract = ({ open, contract, callback, onCancel, onClose, se
             <DialogActions sx={{ m: 1, display: "flex", justifyContent: "center" }}>
                 <Button variant='outlined' color="error"
                     onClick={() => onCancel ? onCancel() : onClose()}>Cancelar</Button>
-                <Button variant='contained' color="primary" onClick={handleFinishClick} autoFocus>Acepter</Button>
+                <Button variant='contained' color="primary" onClick={handleFinishClick} autoFocus>Aceptar</Button>
             </DialogActions>
         </Dialog>
     )

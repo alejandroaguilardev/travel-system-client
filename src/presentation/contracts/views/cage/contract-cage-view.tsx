@@ -25,7 +25,7 @@ export default function ContractCageView() {
                     renderRowActions: (row) => <Button
                         component={RouterLink}
                         href={paths.dashboard.contractCage.update(row.id)} variant='contained' fullWidth >
-                        Gestionar
+                        Sel.
                     </Button>
                 }}
             />

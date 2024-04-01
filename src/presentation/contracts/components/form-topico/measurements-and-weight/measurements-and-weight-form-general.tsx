@@ -31,7 +31,7 @@ export const MeasurementsAndWeightFormGeneral = () => {
             </Stack>
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">Selección de Jaula</Typography>
+                <Typography fontWeight="bold">Recomendación de Jaula</Typography>
                 <ContractFormCage keyValue="cageRecommendation" />
                 <CageSelected readonly keyField="cageRecommendation" />
 

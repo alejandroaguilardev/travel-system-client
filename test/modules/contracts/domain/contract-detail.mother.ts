@@ -7,7 +7,6 @@ import { dateMother } from '../../shared/domain/date.mother';
 import { NewContractDetail } from '../../../../src/modules/contracts/domain/contract-detail';
 import { petCreateMother } from '../../pets/domain/pet.mother';
 import { Pet } from '../../../../src/modules/pets/domain/pet';
-import { topicoMother } from './topico.mother';
 
 export const contractDetailCreateMother = (details?: NewContractDetail[]): NewContractDetail[] => {
     const detail: NewContractDetail = {
@@ -17,17 +16,11 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             status: contractStatusCreateMother(),
             hasServiceIncluded: faker.datatype.boolean(),
             chosen: chosenCreateMother(),
-            recommendation: chosenCreateMother()
+            confirmation: faker.datatype.boolean(),
+            petTravelAcquisition: faker.datatype.boolean(),
         },
         documentation: {
             chipCertificate: {
-                hasServiceIncluded: faker.datatype.boolean(),
-                isApplied: faker.datatype.boolean(),
-                expectedDate: dateMother.recent(),
-                executionDate: null,
-                resultDate: null,
-            },
-            chipReview: {
                 hasServiceIncluded: faker.datatype.boolean(),
                 isApplied: faker.datatype.boolean(),
                 expectedDate: dateMother.recent(),

@@ -30,7 +30,7 @@ const itemsDocumentation = (user: User | null): ItemSubMenu[] => {
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
         documentation.push({ title: 'Inspección SENASA', path: paths.dashboard.faseDocumentation.senasa.list });
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
-        documentation.push({ title: 'Contratos por finalizar', path: paths.dashboard.faseDocumentation.senasa.list });
+        documentation.push({ title: 'Contratos por finalizar', path: paths.dashboard.faseDocumentation.contract });
     return documentation;
 }
 

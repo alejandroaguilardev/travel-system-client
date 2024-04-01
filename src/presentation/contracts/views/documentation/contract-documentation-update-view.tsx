@@ -3,16 +3,20 @@ import { paths } from '../../../../app/routes/paths';
 import SearchIdNotFound from '../../../../app/routes/guard/search-id-not-found';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { useSearchByIdContract } from '../../hooks/use-search-by-id-contract';
-import { DocumentationForm } from '../../../client/components/documentation/form/documentation-form';
 import { NotFoundView } from '../../../error';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
+import { DocumentationContractForm } from '../../components/form-documentation/documentation-form';
+import { DetailInfoProvider } from '../../context/contract-detail-context';
+import { DOCUMENTATION_KEYS } from '../../../../modules/contracts/domain/contract-services/documentation/documentation';
 
 type Props = {
     id: string;
+    action?: string;
+
 }
 
-export default function ContractDocumentationUpdateView({ id }: Props) {
+export default function ContractDocumentationUpdateView({ id, action = DOCUMENTATION_KEYS.chipCertificate }: Props) {
     const router = useRouter();
 
     const { contract, error, isLoading } = useSearchByIdContract(id);
@@ -34,15 +38,13 @@ export default function ContractDocumentationUpdateView({ id }: Props) {
                 />
                 {contract.details.map((detail, index) => (
                     <AccordionPet detail={detail} key={detail.id} index={index}>
-                        <DocumentationForm
-                            noShowButton={false}
-                            role='user'
-                            onCancel={redirectData}
-                            callback={() => false}
-                            contractId={id}
-                            detailId={detail.id}
-                            documentation={detail.documentation}
-                        />
+                        <DetailInfoProvider defaultValue={detail}>
+                            <DocumentationContractForm
+                                action={action}
+                                onCancel={() => router.back()}
+                                contractId={id}
+                            />
+                        </DetailInfoProvider>
                     </AccordionPet>
                 ))}
             </Container>

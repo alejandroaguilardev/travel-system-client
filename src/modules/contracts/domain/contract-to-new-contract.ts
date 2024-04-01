@@ -13,11 +13,6 @@ export const contractToNewContract = (contract: Contract): NewContract => {
             id: _.id,
             cage: {
                 ..._.cage,
-                recommendation: {
-                    dimensionsCage: _.cage.recommendation?.dimensionsCage,
-                    modelCage: _.cage.recommendation?.modelCage,
-                    typeCage: _.cage.recommendation?.typeCage,
-                }
             },
             travel: {
                 hasServiceIncluded: _.travel.hasServiceIncluded,

@@ -34,7 +34,7 @@ export const paths = {
       root: ROOTS.DASHBOARD_DOCUMENTATION,
       documentation: {
         list: `${ROOTS.DASHBOARD_DOCUMENTATION}/documentacion`,
-        update: (id: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/documentacion/${id}`,
+        management: (id: string, action: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/documentacion/${id}/${action}/gestion`,
       },
       topico: {
         list: `${ROOTS.DASHBOARD_DOCUMENTATION}/topico`,
@@ -44,6 +44,7 @@ export const paths = {
         list: `${ROOTS.DASHBOARD_DOCUMENTATION}/inspeccion-senasa`,
         update: (id: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/inspeccion-senasa/${id}`,
       },
+      contract: `${ROOTS.DASHBOARD_DOCUMENTATION}/contratos`,
     },
     contractCage: {
       list: `${ROOTS.DASHBOARD}/contratos-jaulas`,
@@ -54,7 +55,6 @@ export const paths = {
       update: (id: string) => `${ROOTS.DASHBOARD}/contratos-reservas/${id}`,
     },
     contractHistory: `${ROOTS.DASHBOARD}/contratos-historial`,
-    contractFinish: `${ROOTS.DASHBOARD}/contratos-finalizar`,
 
     clients: {
       root: `${ROOTS.DASHBOARD}/clientes`,

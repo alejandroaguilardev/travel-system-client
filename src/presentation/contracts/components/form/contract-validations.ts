@@ -22,11 +22,9 @@ const detailInit: NewContractDetail = {
         },
         hasServiceIncluded: false,
         status: "pending",
-        recommendation: {
-            dimensionsCage: "",
-            modelCage: "",
-            typeCage: ""
-        }
+        confirmation: false,
+        petTravelAcquisition: false,
+
     },
     pet: undefined,
     travel: {
@@ -43,7 +41,6 @@ const detailInit: NewContractDetail = {
         rabiesSeroLogicalTest: { ...certificate },
         importLicense: { ...certificate },
         emotionalSupportCertificate: { ...certificate },
-        chipReview: { ...certificate }
     },
 }
 

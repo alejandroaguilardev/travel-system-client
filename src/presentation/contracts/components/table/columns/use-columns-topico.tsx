@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import Label from '../../../../../components/label';
 import { Contract } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { statusColor } from '../status-color';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { TOPICO_KEYS } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 
@@ -51,7 +50,7 @@ export const useColumnsTopico = () => {
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
-                    { text: "Pendiente", value: false }
+                    { text: "Todos", value: false }
                 ],
                 minSize: 170,
             },
@@ -62,7 +61,7 @@ export const useColumnsTopico = () => {
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
-                    { text: "Pendiente", value: false }
+                    { text: "Todos", value: false }
                 ],
                 minSize: 170,
             },
@@ -73,7 +72,7 @@ export const useColumnsTopico = () => {
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
-                    { text: "Pendiente", value: false }
+                    { text: "Todos", value: false }
                 ],
                 minSize: 170,
             },
@@ -84,7 +83,7 @@ export const useColumnsTopico = () => {
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
-                    { text: "Pendiente", value: false }
+                    { text: "Todos", value: false }
                 ],
                 minSize: 170,
             },
@@ -95,7 +94,7 @@ export const useColumnsTopico = () => {
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
-                    { text: "Pendiente", value: false }
+                    { text: "Todos", value: false }
                 ],
                 minSize: 170,
             },
@@ -106,7 +105,7 @@ export const useColumnsTopico = () => {
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
-                    { text: "Pendiente", value: false }
+                    { text: "Todos", value: false }
                 ],
                 minSize: 170,
             },

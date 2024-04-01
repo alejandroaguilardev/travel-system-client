@@ -37,7 +37,7 @@ export default function ContractCageView() {
                     renderRowActions: (row) => <Button
                         component={RouterLink}
                         href={paths.dashboard.contractTravel.update(row.id)} variant='contained' fullWidth >
-                        Gestionar
+                        Gestión
                     </Button>
                 }}
             />

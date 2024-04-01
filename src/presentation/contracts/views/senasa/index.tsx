@@ -9,6 +9,8 @@ import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-st
 
 export default function ContractSENASAView() {
 
+    return <>En construcción</>
+
     return (
         <Container maxWidth='xl'>
             <CustomBreadcrumbs

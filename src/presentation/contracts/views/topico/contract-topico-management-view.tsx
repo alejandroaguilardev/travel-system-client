@@ -7,7 +7,7 @@ import { NotFoundView } from '../../../error';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
 import { TOPICO_TABS, TopicoForm } from '../../components/form-topico/topico-form';
-import { TopicoProvider } from '../../context/topico-context';
+import { DetailInfoProvider } from '../../context/contract-detail-context';
 
 type Props = {
     id: string;
@@ -35,13 +35,13 @@ export default function ContractTopicoManagementView({ id, action = TOPICO_TABS.
                 />
                 {contract.details.map((detail, index) => (
                     <AccordionPet detail={detail} key={detail.id} index={index}>
-                        <TopicoProvider defaultValue={detail}>
+                        <DetailInfoProvider defaultValue={detail}>
                             <TopicoForm
                                 action={action}
                                 onCancel={() => router.back()}
                                 contractId={id}
                             />
-                        </TopicoProvider>
+                        </DetailInfoProvider>
                     </AccordionPet>
                 ))}
             </Container>

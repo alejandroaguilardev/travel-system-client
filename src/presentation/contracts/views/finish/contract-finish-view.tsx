@@ -1,4 +1,4 @@
-import { Button, Container, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Button, Container, MenuItem } from '@mui/material';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { paths } from '../../../../app/routes/paths';
 import { RouterLink } from '../../../../app/routes/components';
@@ -10,9 +10,12 @@ import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-
 import { useState } from 'react';
 import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
 import { FinishContract } from '../../components/finish/finish-contract';
+import { IconWrapper } from 'src/components/icon-wrapper';
+import { CancelContract } from '../../components/finish/cancel-contract';
 
 export default function ContractFinishView() {
     const { selected, handleSelected } = useSelectedValue<Contract>();
+    const [cancel, setCancel] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
 
     const callback = () => {
@@ -47,14 +50,38 @@ export default function ContractFinishView() {
                         ...CONTRACT_STATUS_IN_COURSE,
                     ],
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
-                    renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => handleSelected(row)}>
-                        Finalizar
-                    </Button>
+                    renderRowActionMenuItems: (row) => [
+                        <MenuItem onClick={() => {
+                            handleSelected(row);
+                            setCancel(false);
+                        }}>
+                            <IconWrapper icon="infoFill" mr={2} />
+                            Finalizar
+                        </MenuItem >,
+                        <MenuItem onClick={() => {
+                            handleSelected(row);
+                            setCancel(true);
+                        }}>
+                            <IconWrapper icon="infoFill" mr={2} />
+                            Cancelar
+                        </MenuItem >,
+                    ]
                 }}
             />}
 
-            {selected &&
+            {selected && !cancel &&
                 <FinishContract
+                    open={!!selected}
+                    onClose={() => handleSelected(null)}
+                    setLoading={setIsLoading}
+                    contract={selected}
+                    callback={callback}
+                    onCancel={() => handleSelected(null)}
+                />
+            }
+
+            {selected && cancel &&
+                <CancelContract
                     open={!!selected}
                     onClose={() => handleSelected(null)}
                     setLoading={setIsLoading}

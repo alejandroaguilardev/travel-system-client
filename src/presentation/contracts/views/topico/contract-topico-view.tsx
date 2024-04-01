@@ -37,42 +37,42 @@ export default function ContractTopicoView() {
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Microchip",
-                                icon: "number",
+                                icon: "infoFill",
                                 href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.chip)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Vacunación",
-                                icon: "number",
+                                icon: "infoFill",
                                 href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.vaccination)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Vacuna de Rabia",
-                                icon: "number",
+                                icon: "infoFill",
                                 href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.rabiesVaccination)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Revacuna de Rabia",
-                                icon: "number",
+                                icon: "infoFill",
                                 href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.rabiesReVaccination)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Revisión de microchip",
-                                icon: "number",
+                                icon: "infoFill",
                                 href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.chipReview)
                             }}
                         />,
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Toma de muestra",
-                                icon: "number",
+                                icon: "infoFill",
                                 href: paths.dashboard.faseDocumentation.topico.management(row.id, TOPICO_TABS.takingSampleSerologicalTest)
                             }}
                         />,

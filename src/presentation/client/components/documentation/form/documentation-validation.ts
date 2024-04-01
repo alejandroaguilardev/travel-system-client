@@ -28,14 +28,6 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
         resultDate: Yup.date().required('Campo requerido').nullable(),
         user: Yup.string(),
     }),
-    chipReview: Yup.object().shape({
-        hasServiceIncluded: Yup.boolean().required('Campo requerido'),
-        isApplied: Yup.boolean().required('Campo requerido'),
-        expectedDate: Yup.date().required('La fecha esperada es requerida'),
-        executionDate: Yup.date().required('Campo requerido').nullable(),
-        resultDate: Yup.date().required('Campo requerido').nullable(),
-        user: Yup.string(),
-    }),
     senasaDocuments: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         isApplied: Yup.boolean().required('Campo requerido'),

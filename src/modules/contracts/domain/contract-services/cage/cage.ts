@@ -5,5 +5,6 @@ export interface Cage {
   status: ContractStatus;
   hasServiceIncluded: boolean;
   chosen: CageChosen;
-  recommendation?: CageChosen;
+  confirmation?: boolean;
+  petTravelAcquisition?: boolean;
 }

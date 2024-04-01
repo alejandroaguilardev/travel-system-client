@@ -30,7 +30,7 @@ const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'
 
 const ContractSENASAPage = lazy(() => import('../../pages/admin/contract/senasa/index'));
 const ContractDocumentationPage = lazy(() => import('../../pages/admin/contract/documentation/index'));
-const ContractDocumentationUpdatePage = lazy(() => import('../../pages/admin/contract/documentation/[id]/index'));
+const ContractDocumentationUpdatePage = lazy(() => import('../../pages/admin/contract/documentation/management/index'));
 const ContractTopicoPage = lazy(() => import('../../pages/admin/contract/topico/index'));
 const ContractTopicoManagementPage = lazy(() => import('../../pages/admin/contract/topico/management/index'));
 
@@ -86,12 +86,6 @@ export const dashboardRoutes = [
           { path: ':id', element: <ContractUpdateTravel /> },
         ],
       },
-      {
-        path: 'contratos-finalizar',
-        children: [
-          { element: <ContractFinish /> },
-        ],
-      },
       { path: 'contratos-historial', element: <ContractHistory /> },
 
       {
@@ -111,8 +105,9 @@ export const dashboardRoutes = [
           { path: 'topico', element: <ContractTopicoPage /> },
           { path: 'topico/:id/:action/gestion', element: <ContractTopicoManagementPage /> },
           { path: 'documentacion', element: <ContractDocumentationPage /> },
+          { path: 'documentacion/:id/:action/gestion', element: <ContractDocumentationUpdatePage /> },
           { path: 'inspeccion-senasa', element: <ContractSENASAPage /> },
-          { path: 'documentacion/:id', element: <ContractDocumentationUpdatePage /> },
+          { path: 'contratos', element: <ContractFinish /> },
         ],
       },
 

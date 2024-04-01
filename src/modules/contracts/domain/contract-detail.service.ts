@@ -19,8 +19,9 @@ export type ContractDetailUpdateResponse = {
 export interface ContractDetailService {
     search(criteria: Criteria): Promise<ResponseSearch<ContractDetail[]>>;
     searchById(contractId: string, contractDetailId: string): Promise<ContractDetail>;
-    updateTopico(contractId: string, detailId: string, action: string, body: Partial<ContractTopico>): Promise<ContractDetailUpdateResponse>;
     updateDocumentation(contractId: string, detailId: string, body: Documentation): Promise<ContractDetailUpdateResponse>;
+    updateCertificate(contractId: string, detailId: string, action: string, body: Partial<Documentation>): Promise<ContractDetailUpdateResponse>;
+    updateTopico(contractId: string, detailId: string, action: string, body: Partial<ContractTopico>): Promise<ContractDetailUpdateResponse>;
     updateCage(contractId: string, detailId: string, body: Cage): Promise<ContractDetailUpdateResponse>;
     updateTravel(contractId: string, detailId: string, body: PartialTravel): Promise<ContractDetailUpdateResponse>;
     updateAccompaniedPet(

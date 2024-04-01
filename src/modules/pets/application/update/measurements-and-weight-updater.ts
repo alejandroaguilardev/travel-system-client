@@ -10,6 +10,19 @@ export const measurementsAndWeightUpdater = (petService: PetService, uuid: UuidS
         throw new ErrorInvalidadArgument("el identificador no es válido");
     }
 
-    const response = await petService.updateMeasurementsAndWeight(petId, body);
+    const bodyUpdate: TopicoMeasurementsAndWeight = {
+        color: body.color,
+        gender: body.gender,
+        race: body.race,
+        sterilized: body.sterilized,
+        type: body.type,
+        cageRecommendation: {
+            dimensionsCage: body.cageRecommendation?.dimensionsCage,
+            modelCage: body.cageRecommendation?.modelCage,
+            typeCage: body.cageRecommendation?.typeCage,
+        }
+    }
+
+    const response = await petService.updateMeasurementsAndWeight(petId, bodyUpdate);
     return response;
 }

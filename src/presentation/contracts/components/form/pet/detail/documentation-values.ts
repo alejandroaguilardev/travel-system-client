@@ -17,10 +17,6 @@ export const documentationSwitches: DocumentationSwitches[] = [
         label: 'Test serológico de rabia'
     },
     {
-        name: 'chipReview',
-        label: 'Revisión de lectura de chip'
-    },
-    {
         name: 'importLicense',
         label: 'Permiso de importación'
     },

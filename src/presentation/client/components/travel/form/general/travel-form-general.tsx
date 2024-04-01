@@ -25,7 +25,7 @@ export const TravelFormGeneral: FC<Props> = ({ user, hasServiceIncluded }) => {
                 </Alert>
                 :
                 <Alert variant='outlined' severity="info" sx={{ width: "100%" }}>
-                    Su contrato no incluye la responsabilidad de Pet Travel con respecto a la reserva y posibles problemas de viaje.
+                    Recuerda que el contrato no incluye la reserva con la aerolínea, encantado de apoyarte.
                 </Alert>
             }
 
