@@ -37,26 +37,29 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
 
     return (
         <>
-            <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
+            {detail.topico?.rabiesReVaccination.executed ?
+                < FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
 
-                {!takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la toma de muestra</Alert>}
+                    {!takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la toma de muestra</Alert>}
 
-                {takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                    {takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
 
-                {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
+                    {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
-                <TakingSampleSerologicalTestContractFormGeneral />
+                    <TakingSampleSerologicalTestContractFormGeneral />
 
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {takingSampleSerologicalTest?.executed ? "Actualizar Vacuna de Rabia" : "Guardar Vacuna de Rabia"}
-                    </Button>
+                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            {takingSampleSerologicalTest?.executed ? "Actualizar Vacuna de Rabia" : "Guardar Vacuna de Rabia"}
+                        </Button>
 
-                </Box>
-            </FormProvider >
+                    </Box>
+                </FormProvider >
+                : <Alert severity="error">Aùn no se ha guardado la revacunación de rabia en el sistema</Alert>
+            }
 
         </>
     )

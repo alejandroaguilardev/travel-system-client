@@ -27,7 +27,7 @@ const MicrochipCertificatePdf = ({ contract, detail }: Props) => {
     return (
         <Document>
             <Page size='A4' style={styles.page}  >
-                <View style={{ ...styles.container, lineHeight: 1.8 }}>
+                <View style={{ ...styles.container, lineHeight: 1.5 }}>
                     <Image
                         src={logoBase64}
                         style={{
@@ -44,7 +44,7 @@ const MicrochipCertificatePdf = ({ contract, detail }: Props) => {
                     <SpacePdf marginBottom={10} />
                     <View style={{ ...styles.gridRow, justifyContent: "flex-start" }}>
                         <Text>Fecha:</Text>
-                        <Text style={{ borderBottom: "1px solid #000", width: 50 }}> {fDate(detail?.pet?.chipDate, "DD/MM/YYYY")} </Text>
+                        <Text style={{ borderBottom: "1px solid #000", width: 80, textAlign: "center" }}> {fDate(detail?.pet?.chipDate, "DD/MM/YYYY")} </Text>
                     </View>
                     <SpacePdf marginBottom={10} />
                     <View style={{ ...styles.gridRow, justifyContent: "flex-start" }}>

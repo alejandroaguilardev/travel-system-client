@@ -36,27 +36,29 @@ export const RabiesReVaccinationForm: FC<Props> = ({ detail, callback, contractI
 
     return (
         <>
-            <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
+            {detail?.topico?.rabiesVaccination?.executed ?
+                <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
 
-                {!rabiesReVaccination?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la revacuna de rabia</Alert>}
+                    {!rabiesReVaccination?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la revacuna de rabia</Alert>}
 
-                {rabiesReVaccination?.executed && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                    {rabiesReVaccination?.executed && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
 
-                {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
+                    {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
-                <RabiesReVaccinationFormGeneral />
+                    <RabiesReVaccinationFormGeneral />
 
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {rabiesReVaccination?.executed ? "Actualizar Vacuna de Rabia" : "Guardar Vacuna de Rabia"}
-                    </Button>
+                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            {rabiesReVaccination?.executed ? "Actualizar Vacuna de Rabia" : "Guardar Vacuna de Rabia"}
+                        </Button>
 
-                </Box>
-            </FormProvider >
-
+                    </Box>
+                </FormProvider >
+                : <Alert severity="error">Aùn no se ha guardado la vacuna de rabia en el sistema</Alert>
+            }
         </>
     )
 }

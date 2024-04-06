@@ -1,22 +1,22 @@
 import { Button, Container, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { MRT_ColumnFiltersState } from 'material-react-table';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { paths } from '../../../../app/routes/paths';
-import { useColumnsSenasa } from '../../components/table/columns/use-columns-senasa';
+import { useColumnsRabies } from '../../components/table/columns/use-columns-rabies';
 import { ContractTable } from '../../components/table/contract-table';
 import { useSelectedValue } from '../../../../hooks/use-selected-value';
 import { Contract } from '../../../../modules/contracts/domain/contract';
-import { SenasaDocumentsForm } from '../../components/form-documentation/senasa/senasa-documents';
+import { RabiesTestSerologicalForm } from '../../components/form-documentation/rabies/rabies-sero-logical-test';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { DetailInfoProvider, DetailInfoContext } from '../../context/contract-detail-context';
 import { useState } from 'react';
-import { MRT_ColumnFiltersState } from 'material-react-table';
 
 type Props = {
     columnQueryFilters?: MRT_ColumnFiltersState;
 }
 
-export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
-    const columns = useColumnsSenasa();
+export default function ContractTestRabiesView({ columnQueryFilters = [] }: Props) {
+    const columns = useColumnsRabies();
     const { selected, handleSelected } = useSelectedValue<Contract>();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -27,9 +27,9 @@ export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
     return (
         <Container maxWidth='xl'>
             <CustomBreadcrumbs
-                heading="Inspección SENASA"
+                heading="Test serológico de rabia"
                 links={[
-                    { name: 'SENASA', href: paths.dashboard.contracts.root },
+                    { name: 'Test serológico de rabia', href: paths.dashboard.contracts.root },
                     {
                         name: 'Listado',
                     }
@@ -42,7 +42,7 @@ export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
                     columnQueryFilters: [
                         ...columnQueryFilters,
                         {
-                            id: "details.documentation.senasaDocuments.hasServiceIncluded",
+                            id: "details.documentation.rabiesSeroLogicalTest.hasServiceIncluded",
                             value: true
                         }
                     ],
@@ -62,7 +62,7 @@ export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
                                 {({ contract }) => <>
                                     {contract.details?.map((detail, index) => (
                                         <AccordionPet detail={detail} key={detail.id} index={index}>
-                                            <SenasaDocumentsForm
+                                            <RabiesTestSerologicalForm
                                                 contractId={selected.id}
                                                 detail={detail}
                                                 callback={callback}

@@ -8,7 +8,7 @@ import { ServiceSearch } from '../../shared/domain/services/service-search';
 
 export interface ContractService extends ServiceHost<NewPostContract> {
     update(id: string, body: Partial<NewPostContract>): Promise<ResponseSuccess>;
-    searchClientById(clientId: string): Promise<Contract[]>;
+    searchClientById(): Promise<Contract[]>;
     searchClient: ServiceSearch;
     finish(contractId: string): Promise<ResponseSuccess>;
     cancel(contractId: string): Promise<ResponseSuccess>;

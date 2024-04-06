@@ -26,6 +26,7 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
         resolver: yupResolver<DocumentationCertificate>(certificateSchema),
         defaultValues: {
             hasServiceIncluded: healthCertificate?.hasServiceIncluded ?? defaultValues.hasServiceIncluded,
+            isRequired: healthCertificate?.isRequired ?? defaultValues.isRequired,
             isApplied: healthCertificate?.isApplied ?? defaultValues.isApplied,
             expectedDate: healthCertificate?.expectedDate ?? defaultValues.expectedDate,
             resultDate: healthCertificate?.resultDate ?? defaultValues.resultDate,
@@ -38,6 +39,7 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
+            <Typography fontWeight="bold">Certificado de salud</Typography>
             {!healthCertificate?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
 
             {healthCertificate?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
@@ -45,18 +47,18 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
             {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">Certificado de salud</Typography>
                 <CertificateFormGeneral label="¿Certificado realizado?" />
+                {healthCertificate?.hasServiceIncluded &&
+                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            {healthCertificate?.isApplied ? "Actualizar Certificado de salud" : "Guardar Certificado de salud"}
+                        </Button>
 
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {healthCertificate?.isApplied ? "Actualizar Certificado de salud" : "Guardar Certificado de salud"}
-                    </Button>
-
-                </Box>
+                    </Box>
+                }
             </Stack>
         </FormProvider>
     );

@@ -36,6 +36,12 @@ export const petUpdaterFormat = (pet: Pet): Pet => {
             dimensionsCage: pet.cageRecommendation?.dimensionsCage,
             modelCage: pet.cageRecommendation?.modelCage,
             typeCage: pet.cageRecommendation?.typeCage,
+        },
+        measurementsAndWeight: {
+            height: pet.measurementsAndWeight?.height,
+            length: pet.measurementsAndWeight?.length,
+            weight: pet.measurementsAndWeight?.weight,
+            width: pet.measurementsAndWeight?.width,
         }
     }
 

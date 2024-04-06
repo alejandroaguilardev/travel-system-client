@@ -36,8 +36,8 @@ type Props = {
 export const TopicoForm: FC<Props> = ({ action, contractId, detail, onCancel }) => {
     const { contract, handleChangeContractInfo } = useDetailInfoContext();
 
-    const tabs = useMemo(() => [
-        {
+    const tabs = useMemo(() => {
+        const addTabs = [{
             label: "Medidas y Peso",
             value: TOPICO_TABS.measurementsAndWeightForm,
             component: <MeasurementsAndWeightForm contractId={contractId} detail={detail}
@@ -53,44 +53,57 @@ export const TopicoForm: FC<Props> = ({ action, contractId, detail, onCancel }) 
                         )
                     })
                 }} onCancel={onCancel} />
-        },
-        {
-            label: "Microchip",
-            value: TOPICO_TABS.chip,
-            component: <ChipForm contractId={contractId} detail={detail}
-                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-        },
-        {
-            label: vaccinationLabel(detail.pet?.type),
-            value: TOPICO_TABS.vaccination,
-            component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
-                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-        },
-        {
-            label: "Vacuna de Rabia",
-            value: TOPICO_TABS.rabiesVaccination,
-            component: <RabiesVaccinationForm contractId={contractId} detail={detail}
-                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-        },
-        {
-            label: "Revacunación de Rabia ",
-            value: TOPICO_TABS.rabiesReVaccination,
-            component: <RabiesReVaccinationForm contractId={contractId} detail={detail}
-                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-        },
-        {
-            label: "Revisión de Microchip",
-            value: TOPICO_TABS.chipReview,
-            component: <ChipReviewForm contractId={contractId} detail={detail}
-                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-        },
-        {
-            label: "Toma de muestra",
-            value: TOPICO_TABS.takingSampleSerologicalTest,
-            component: <TakingSampleSerologicalTestContractForm contractId={contractId} detail={detail}
-                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-        },
-    ], [contract, detail])
+        }];
+        if (detail.documentation.chipCertificate.hasServiceIncluded) {
+            addTabs.push({
+                label: "Microchip",
+                value: TOPICO_TABS.chip,
+                component: <ChipForm contractId={contractId} detail={detail}
+                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+            })
+        }
+        if (detail.documentation.vaccinationCertificate.hasServiceIncluded) {
+            addTabs.push({
+                label: vaccinationLabel(detail.pet?.type),
+                value: TOPICO_TABS.vaccination,
+                component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
+                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+            })
+        }
+        if (detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded) {
+            addTabs.push({
+                label: "Vacuna de Rabia",
+                value: TOPICO_TABS.rabiesVaccination,
+                component: <RabiesVaccinationForm contractId={contractId} detail={detail}
+                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+            })
+            addTabs.push({
+                label: "Revacunación de Rabia ",
+                value: TOPICO_TABS.rabiesReVaccination,
+                component: <RabiesReVaccinationForm contractId={contractId} detail={detail}
+                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+            })
+        }
+
+        if (detail.documentation.chipCertificate.hasServiceIncluded) {
+            addTabs.push({
+                label: "Revisión de Microchip",
+                value: TOPICO_TABS.chipReview,
+                component: <ChipReviewForm contractId={contractId} detail={detail}
+                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+            })
+        }
+
+        if (detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded) {
+            addTabs.push({
+                label: "Toma de muestra",
+                value: TOPICO_TABS.takingSampleSerologicalTest,
+                component: <TakingSampleSerologicalTestContractForm contractId={contractId} detail={detail}
+                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+            })
+        }
+        return addTabs;
+    }, [contract, detail])
 
     return (
         <ClientDialogProvider>  {

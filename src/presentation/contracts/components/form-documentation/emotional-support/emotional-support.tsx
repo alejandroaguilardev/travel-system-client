@@ -26,6 +26,7 @@ export const EmotionalSupportCertificateForm: FC<Props> = ({ detail, callback, c
         resolver: yupResolver<DocumentationCertificate>(certificateSchema),
         defaultValues: {
             hasServiceIncluded: emotionalSupportCertificate?.hasServiceIncluded ?? defaultValues.hasServiceIncluded,
+            isRequired: emotionalSupportCertificate?.isRequired ?? defaultValues.isRequired,
             isApplied: emotionalSupportCertificate?.isApplied ?? defaultValues.isApplied,
             expectedDate: emotionalSupportCertificate?.expectedDate ?? defaultValues.expectedDate,
             resultDate: emotionalSupportCertificate?.resultDate ?? defaultValues.resultDate,
@@ -38,6 +39,7 @@ export const EmotionalSupportCertificateForm: FC<Props> = ({ detail, callback, c
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
+            <Typography fontWeight="bold">Certificado de Soporte Emocional</Typography>
             {!emotionalSupportCertificate?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
 
             {emotionalSupportCertificate?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
@@ -45,18 +47,17 @@ export const EmotionalSupportCertificateForm: FC<Props> = ({ detail, callback, c
             {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">Certificado de Soporte Emocional</Typography>
                 <CertificateFormGeneral label="¿Certificado realizado?" />
-
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {emotionalSupportCertificate?.isApplied ? "Actualizar MicroemotionalSupportCertificate" : "Guardar MicroemotionalSupportCertificate"}
-                    </Button>
-
-                </Box>
+                {emotionalSupportCertificate?.hasServiceIncluded &&
+                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            {emotionalSupportCertificate?.isApplied ? "Actualizar MicroemotionalSupportCertificate" : "Guardar MicroemotionalSupportCertificate"}
+                        </Button>
+                    </Box>
+                }
             </Stack>
         </FormProvider>
     );

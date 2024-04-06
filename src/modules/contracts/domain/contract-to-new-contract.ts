@@ -11,16 +11,13 @@ export const contractToNewContract = (contract: Contract): NewContract => {
     if (contract?.details && contract?.details.length > 0 && contract?.details[0]?.id) {
         details = contract?.details.map(_ => ({
             id: _.id,
-            cage: {
-                ..._.cage,
-            },
-            travel: {
-                hasServiceIncluded: _.travel.hasServiceIncluded,
-                hasServiceAccompanied: _.travel.hasServiceAccompanied,
-                typeTraveling: _.travel.typeTraveling,
-            },
+            cage: _.cage,
+            travel: _.travel,
             pet: _.pet,
             documentation: _.documentation,
+            topico: _.topico,
+            guideNumber: _.guideNumber,
+            user: _.user
         }));
     }
 

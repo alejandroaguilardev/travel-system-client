@@ -26,7 +26,7 @@ export const contractDetailService: ContractDetailService = {
     },
 
     updateDocumentation: async (contractId: string, detailId: string, body: Documentation): Promise<ContractDetailUpdateResponse> => {
-        const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/cer`, body);
+        const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/documentation`, body);
         return data;
     },
     updateCertificate: async (contractId: string, detailId: string, action: string, body: Partial<Documentation>): Promise<ContractDetailUpdateResponse> => {

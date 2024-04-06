@@ -28,6 +28,8 @@ const itemsDocumentation = (user: User | null): ItemSubMenu[] => {
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
         documentation.push({ title: 'Documentación', path: paths.dashboard.faseDocumentation.documentation.list });
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
+        documentation.push({ title: 'Test serológico de rabia', path: paths.dashboard.faseDocumentation.testRabies.list });
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
         documentation.push({ title: 'Inspección SENASA', path: paths.dashboard.faseDocumentation.senasa.list });
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
         documentation.push({ title: 'Contratos por finalizar', path: paths.dashboard.faseDocumentation.contract });

@@ -12,17 +12,37 @@ type Props = {
     contractId: string;
     contractDetailId: string;
     travel?: Travel;
-    notButton?: boolean;
+    notButton: boolean;
     callback: (response?: ContractDetailUpdateResponse) => void;
 }
 
-export const AccompaniedForm: FC<Props> = ({ contractId, notButton = false, contractDetailId, travel, callback }) => {
+export const AccompaniedForm: FC<Props> = ({ contractId, notButton, contractDetailId, travel, callback }) => {
     const methods = useForm({
         resolver: yupResolver<TravelAccompaniedSchema>(travelAccompaniedSchema),
         defaultValues: {
-            accompaniedPet: travel?.accompaniedPet ?? defaultValues.accompaniedPet,
-            destination: travel?.destination ?? defaultValues.destination,
-            petPerCharge: travel?.petPerCharge ?? defaultValues.petPerCharge,
+            accompaniedPet: {
+                name: travel?.accompaniedPet?.name || defaultValues.accompaniedPet.name,
+                document: travel?.accompaniedPet?.document || defaultValues.accompaniedPet.document,
+                documentNumber: travel?.accompaniedPet?.documentNumber || defaultValues.accompaniedPet.documentNumber,
+                phone: travel?.accompaniedPet?.phone || defaultValues.accompaniedPet.phone,
+                email: travel?.accompaniedPet?.email || defaultValues.accompaniedPet.email,
+                direction: travel?.accompaniedPet?.direction || defaultValues.accompaniedPet.direction,
+                district: travel?.accompaniedPet?.district || defaultValues.accompaniedPet.district,
+                province: travel?.accompaniedPet?.province || defaultValues.accompaniedPet.province,
+                department: travel?.accompaniedPet?.department || defaultValues.accompaniedPet.department,
+            },
+            destination: {
+                countryDestination: travel?.destination?.countryDestination || defaultValues.destination.countryDestination,
+                cityDestination: travel?.destination?.cityDestination || defaultValues.destination.cityDestination,
+                directionDestination: travel?.destination?.directionDestination || defaultValues.destination.directionDestination,
+            },
+            petPerCharge: {
+                name: travel?.petPerCharge?.name || defaultValues.petPerCharge.name,
+                document: travel?.petPerCharge?.document || defaultValues.petPerCharge.document,
+                documentNumber: travel?.petPerCharge?.documentNumber || defaultValues.petPerCharge.documentNumber,
+                phone: travel?.petPerCharge?.phone || defaultValues.petPerCharge.phone,
+                email: travel?.petPerCharge?.email || defaultValues.petPerCharge.email,
+            }
         },
         disabled: notButton
     });
@@ -31,7 +51,7 @@ export const AccompaniedForm: FC<Props> = ({ contractId, notButton = false, cont
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-            <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={notButton} />
+            <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={notButton} status={travel?.status ?? "pending"} />
         </FormProvider >
     )
 }

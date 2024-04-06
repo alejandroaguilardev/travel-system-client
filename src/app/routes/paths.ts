@@ -44,6 +44,10 @@ export const paths = {
         list: `${ROOTS.DASHBOARD_DOCUMENTATION}/inspeccion-senasa`,
         update: (id: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/inspeccion-senasa/${id}`,
       },
+      testRabies: {
+        list: `${ROOTS.DASHBOARD_DOCUMENTATION}/test-serologico-rabia`,
+        update: (id: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/test-serologico-rabia/${id}`,
+      },
       contract: `${ROOTS.DASHBOARD_DOCUMENTATION}/contratos`,
     },
     contractCage: {
@@ -55,6 +59,8 @@ export const paths = {
       update: (id: string) => `${ROOTS.DASHBOARD}/contratos-reservas/${id}`,
     },
     contractHistory: `${ROOTS.DASHBOARD}/contratos-historial`,
+    senasaHistory: `${ROOTS.DASHBOARD}/historial-senasa`,
+    takingSampleHistory: `${ROOTS.DASHBOARD}/historial-test-serologico-rabia`,
 
     clients: {
       root: `${ROOTS.DASHBOARD}/clientes`,

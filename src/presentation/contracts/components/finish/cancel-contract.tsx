@@ -12,8 +12,8 @@ type Props = {
     onCancel: () => void;
 }
 
-export const CancelContract = ({ open, contract, callback, onCancel, onClose, }: Props) => {
-    const { handleCancelClick } = useCancel({ contract, callback });
+export const CancelContract = ({ open, contract, setLoading, callback, onCancel, onClose, }: Props) => {
+    const { handleCancelClick } = useCancel({ contract, callback, setLoading });
 
 
     return (

@@ -13,7 +13,7 @@ type Props = {
 }
 
 export const FinishContract = ({ open, contract, callback, onCancel, onClose, setLoading, }: Props) => {
-    const { handleFinishClick } = useFinish({ contract, callback });
+    const { handleFinishClick } = useFinish({ contract, callback, setLoading });
 
 
     return (

@@ -16,14 +16,16 @@ type Props = {
     action: string,
     status: ContractStatus,
     callback: (response: ContractDetailUpdateResponse) => void;
+    setIsLoading?: (isLoading: boolean) => void;
 }
 
-export const useFormCertificate = ({ contractId, detailId, action, status, callback }: Props) => {
+export const useFormCertificate = ({ contractId, detailId, action, status, callback, setIsLoading }: Props) => {
     const { showNotification } = useMessage();
     const [isExecuted, setIsExecuted] = useState(false);
     const { user } = useAuthContext()
 
     const onSubmit: SubmitHandler<DocumentationCertificate> = async (data) => {
+        if (setIsLoading) setIsLoading(true);
         try {
             const response = await certificateUpdater(contractDetailService, uuid)(contractId, detailId, action, data, status, user?.id ?? "")
             showNotification("Actualizado correctamente ");
@@ -31,6 +33,8 @@ export const useFormCertificate = ({ contractId, detailId, action, status, callb
             callback(response);
         } catch (error) {
             errorsShowNotification(error, showNotification)
+        } finally {
+            if (setIsLoading) setIsLoading(false);
         }
     };
 

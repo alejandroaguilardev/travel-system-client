@@ -1,12 +1,13 @@
 import { Stack } from '@mui/material';
 import { useFormContext } from "react-hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
+import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 
 
 export const SENASAFormGeneral = () => {
     const { watch } = useFormContext();
 
-    const executionDate = watch("executionDate") ?? null;
+    const executionDate = fDayjs(watch("executionDate") ?? null);
 
     return (
         <>

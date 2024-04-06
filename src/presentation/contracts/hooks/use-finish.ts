@@ -7,10 +7,11 @@ import { Contract } from '../../../modules/contracts/domain/contract';
 
 type Props = {
     contract: Contract | null;
-    callback?: VoidFunction
+    callback?: VoidFunction;
+    setLoading?: (isLoading: boolean) => void;
 }
 
-export const useFinish = ({ contract, callback }: Props) => {
+export const useFinish = ({ contract, callback, setLoading }: Props) => {
     const { showNotification } = useMessage();
 
     const handleFinishClick = async () => {
@@ -18,6 +19,7 @@ export const useFinish = ({ contract, callback }: Props) => {
             showNotification("No hay contrato seleccionado");
             return;
         }
+        if (setLoading) setLoading(true);
 
         try {
             const response = await contractFinish(contractService, uuid)(contract.id)
@@ -25,6 +27,8 @@ export const useFinish = ({ contract, callback }: Props) => {
             if (callback) callback();
         } catch (error) {
             errorsShowNotification(error, showNotification)
+        } finally {
+            if (setLoading) setLoading(false);
         }
 
     };

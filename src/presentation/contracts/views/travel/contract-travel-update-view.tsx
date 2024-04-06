@@ -42,7 +42,6 @@ export default function ContractTravelView({ id }: Props) {
                             detailId={detail.id}
                             travel={detail.travel}
                             hasServiceIncluded={detail.travel.hasServiceIncluded}
-                            user
                         />
                     </AccordionPet>
                 ))}

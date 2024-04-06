@@ -5,10 +5,8 @@ import { TabGenericProvider } from '../../../../components/tab-generic/context/t
 import { TabSwitcher } from '../../../../components/tab-generic/tab-switcher';
 import { useDetailInfoContext } from "../../context/contract-detail-context";
 import { VaccinationCertificateForm } from "./vaccination/vaccination-certificate";
-import { RabiesTestSerologicalForm } from "./rabies/rabies-sero-logical-test";
 import { ImportLicenseCertificateForm } from "./import-license/import-license";
 import { HealthCertificateForm } from "./health-certificate/health-certificate";
-import { SenasaDocumentsForm } from "./senasa/senasa-documents";
 import { EmotionalSupportCertificateForm } from "./emotional-support/emotional-support";
 import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
 

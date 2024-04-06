@@ -10,8 +10,8 @@ import { ResponseSearch } from '../../shared/domain/response/response-search';
 
 export const contractService: ContractService = {
     ...servicesHost<NewPostContract>(axiosInstance, endpoints.contracts.root),
-    searchClientById: async (clientId): Promise<Contract[]> => {
-        const { data } = await axiosInstance.get<Contract[]>(`${endpoints.contracts.client}/${clientId}`);
+    searchClientById: async (): Promise<Contract[]> => {
+        const { data } = await axiosInstance.get<Contract[]>(`${endpoints.contracts.client}/pending`);
         return data;
     },
     searchClient: async <NewPostContract>(criteria: Criteria): Promise<ResponseSearch<NewPostContract>> => {

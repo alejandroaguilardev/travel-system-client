@@ -8,9 +8,10 @@ import { Contract } from '../../../modules/contracts/domain/contract';
 type Props = {
     contract: Contract | null;
     callback?: VoidFunction
+    setLoading: (isLoading: boolean) => void;
 }
 
-export const useCancel = ({ contract, callback }: Props) => {
+export const useCancel = ({ contract, callback, setLoading }: Props) => {
     const { showNotification } = useMessage();
 
     const handleCancelClick = async () => {
@@ -18,6 +19,7 @@ export const useCancel = ({ contract, callback }: Props) => {
             showNotification("No hay contrato seleccionado");
             return;
         }
+        setLoading(true)
 
         try {
             const response = await contractCancel(contractService, uuid)(contract.id)
@@ -25,6 +27,8 @@ export const useCancel = ({ contract, callback }: Props) => {
             if (callback) callback();
         } catch (error) {
             errorsShowNotification(error, showNotification)
+        } finally {
+            setLoading(false)
         }
 
     };

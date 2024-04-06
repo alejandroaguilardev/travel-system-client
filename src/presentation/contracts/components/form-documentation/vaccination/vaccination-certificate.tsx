@@ -26,6 +26,7 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, callback, contra
         resolver: yupResolver<DocumentationCertificate>(certificateSchema),
         defaultValues: {
             hasServiceIncluded: vaccinationCertificate?.hasServiceIncluded ?? defaultValues.hasServiceIncluded,
+            isRequired: vaccinationCertificate?.isRequired ?? defaultValues.isRequired,
             isApplied: vaccinationCertificate?.isApplied ?? defaultValues.isApplied,
             expectedDate: vaccinationCertificate?.expectedDate ?? defaultValues.expectedDate,
             resultDate: vaccinationCertificate?.resultDate ?? defaultValues.resultDate,
@@ -41,6 +42,7 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, callback, contra
             {
                 detail.topico?.vaccination.executed ?
                     <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
+                        <Typography fontWeight="bold">Certificado de Vacuna</Typography>
                         {!vaccinationCertificate?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
 
                         {vaccinationCertificate?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
@@ -48,18 +50,21 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, callback, contra
                         {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
                         <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                            <Typography fontWeight="bold">Certificado de Vacuna</Typography>
                             <CertificateFormGeneral label="Impresión de certificado realizado" />
 
-                            <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                                <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                                    Cancelar
-                                </Button>
-                                <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                                    {vaccinationCertificate?.isApplied ? "Actualizar Certificado de Vacuna<" : "Guardar Certificado de Vacuna<"}
-                                </Button>
+                            {
+                                vaccinationCertificate?.hasServiceIncluded &&
+                                <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                                        Cancelar
+                                    </Button>
+                                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                                        {vaccinationCertificate?.isApplied ? "Actualizar Certificado de Vacuna" : "Guardar Certificado de Vacuna<"}
+                                    </Button>
 
-                            </Box>
+                                </Box>
+                            }
+
                         </Stack>
                     </FormProvider>
 

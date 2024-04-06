@@ -10,7 +10,7 @@ export const SENASAFormResult = () => {
     const { watch, setValue } = useFormContext();
 
     const isApplied = watch("isApplied");
-    const resultDate = watch("resultDate") ?? null;
+    const resultDate = fDayjs(watch("resultDate") ?? null);
 
     useEffect(() => {
         if (isApplied && !resultDate) {

@@ -49,7 +49,6 @@ export const SelectedContract: FC<Props> = ({ contract, contractDetail }) => {
                     travel={contractDetail.travel}
                     contractId={contract.id}
                     detailId={contractDetail.id}
-                    finish={statusError(contract.status, contract.endDate)}
                 />
             </Box>
             {contract?.status === "completed" &&

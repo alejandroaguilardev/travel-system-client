@@ -17,13 +17,11 @@ type Props = {
     detailId: string;
     travel: Travel;
     hasServiceIncluded: boolean;
-    noShowButton?: boolean;
     callback: (response?: ContractDetailUpdateResponse) => void
     onCancel: () => void;
-    user?: boolean;
 }
 
-export const TravelForm: FC<Props> = ({ travel, detailId, noShowButton = false, callback, onCancel, user, hasServiceIncluded, contractId }) => {
+export const TravelForm: FC<Props> = ({ travel, detailId, callback, onCancel, hasServiceIncluded, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<PartialTravel>(travelSchema),
         defaultValues: travel,
@@ -36,7 +34,7 @@ export const TravelForm: FC<Props> = ({ travel, detailId, noShowButton = false, 
             value: "Reserva",
             component: <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
                 <TravelFormGeneral hasServiceIncluded={hasServiceIncluded} />
-                {(!noShowButton || user) &&
+                {(travel.status !== "completed") &&
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                             Cancelar
@@ -54,8 +52,8 @@ export const TravelForm: FC<Props> = ({ travel, detailId, noShowButton = false, 
                 travel={travel}
                 contractId={contractId}
                 contractDetailId={detailId}
-                callback={() => false}
-                notButton
+                callback={callback}
+                notButton={travel.status === "completed"}
             />
         },
     ]

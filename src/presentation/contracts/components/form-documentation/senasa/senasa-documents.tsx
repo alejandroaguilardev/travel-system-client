@@ -13,17 +13,23 @@ import { SENASAFormGeneral } from "./senasa-general";
 import { TabGenericProvider } from '../../../../../components/tab-generic/context/tab-generic-provider';
 import { TabSwitcher } from '../../../../../components/tab-generic/tab-switcher';
 import { SENASAFormResult } from "./senasa-result";
+import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
+import { ContractStatus } from '../../../../../modules/contracts/domain/contract-status';
 
 type Props = {
     contractId: string;
+    status: ContractStatus;
     detail: ContractDetail;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
+    setIsLoading: (isLoading: boolean) => void;
 }
 
-export const SenasaDocumentsForm: FC<Props> = ({ detail, callback, contractId, onCancel }) => {
-
+export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback, status, contractId, onCancel }) => {
+    const { user } = useAuthContext();
     const senasaDocuments = detail?.documentation?.senasaDocuments;
+    const isAdmin = user?.auth?.admin;
+    const isEdit = !(status === "completed" || status === "canceled");
 
     const methods = useForm({
         resolver: yupResolver<DocumentationCertificate>(certificateSchema),
@@ -32,24 +38,30 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, callback, contractId, o
             isRequired: senasaDocuments?.isRequired ?? defaultValues.isRequired,
             isApplied: senasaDocuments?.isApplied ?? defaultValues.isApplied,
             expectedDate: senasaDocuments?.expectedDate ?? defaultValues.expectedDate,
+            executionDate: senasaDocuments?.executionDate ?? defaultValues.executionDate,
             resultDate: senasaDocuments?.resultDate ?? defaultValues.resultDate,
             user: senasaDocuments?.user ?? defaultValues.user
         }
     });
 
-    const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.senasaDocuments, status: detail.documentation.status });
+    const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.senasaDocuments, status: detail.documentation.status, setIsLoading });
 
 
     if (!detail.documentation.senasaDocuments.hasServiceIncluded) return <Alert severity="info">En el contrato no incluye la realización del proceso de inspección senasa</Alert>
     if (!detail.pet) return <Alert severity="error">No se ha registrado la mascota en el sistema</Alert>
-    // if (!detail.travel.airlineReservation.departureDate) return <Alert severity="error">Aùn no se ha Asignado fecha de viaje</Alert>
+    if (!detail.travel.airlineReservation.departureDate) return <Alert severity="error">Aùn no se ha Asignado fecha de viaje</Alert>
+    if (!detail.travel.destination.countryDestination) return <Alert severity="error">No se indico el país de viaje</Alert>
 
     return (
 
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-            {!senasaDocuments?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
+            {
+                isEdit && <>
+                    {!senasaDocuments?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
 
-            {senasaDocuments?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                    {senasaDocuments?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                </>
+            }
 
             {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
@@ -60,16 +72,21 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, callback, contractId, o
                     />
                 </TabGenericProvider>
 
+                {!isAdmin && !isEdit && <Alert severity="info" >Solo el administrador puedo editar un contrato ya finalizado</Alert>}
 
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {senasaDocuments?.isApplied ? "Actualizar " : "Guardar"}
-                    </Button>
+                {(isAdmin || isEdit) &&
+                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            {senasaDocuments?.isApplied ? "Actualizar " : "Guardar"}
+                        </Button>
 
-                </Box>
+                    </Box>
+
+                }
+
             </Stack>
         </FormProvider>
     );

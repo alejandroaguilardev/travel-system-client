@@ -29,6 +29,7 @@ const ContractAssignPetPage = lazy(() => import('../../pages/admin/contract/assi
 const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'));
 
 const ContractSENASAPage = lazy(() => import('../../pages/admin/contract/senasa/index'));
+const ContractTestRabiesPage = lazy(() => import('../../pages/admin/contract/test-serologico-rabies/index'));
 const ContractDocumentationPage = lazy(() => import('../../pages/admin/contract/documentation/index'));
 const ContractDocumentationUpdatePage = lazy(() => import('../../pages/admin/contract/documentation/management/index'));
 const ContractTopicoPage = lazy(() => import('../../pages/admin/contract/topico/index'));
@@ -39,6 +40,9 @@ const ContractUpdateCage = lazy(() => import('../../pages/admin/contract/cage/[i
 const ContractTravel = lazy(() => import('../../pages/admin/contract/travel/index'));
 const ContractUpdateTravel = lazy(() => import('../../pages/admin/contract/travel/[id]/index'));
 const ContractFinish = lazy(() => import('../../pages/admin/contract/finish/index'));
+
+const SENASAHistory = lazy(() => import('../../pages/admin/contract/senasa/history'));
+const TestRabiesHistory = lazy(() => import('../../pages/admin/contract/test-serologico-rabies/history'));
 
 const CagePage = lazy(() => import('../../pages/admin/cage/index'));
 const CageNewPage = lazy(() => import('../../pages/admin/cage/crear'));
@@ -87,6 +91,8 @@ export const dashboardRoutes = [
         ],
       },
       { path: 'contratos-historial', element: <ContractHistory /> },
+      { path: 'historial-senasa', element: <SENASAHistory /> },
+      { path: 'historial-test-serologico-rabia', element: <TestRabiesHistory /> },
 
       {
         path: 'contratos',
@@ -107,6 +113,7 @@ export const dashboardRoutes = [
           { path: 'documentacion', element: <ContractDocumentationPage /> },
           { path: 'documentacion/:id/:action/gestion', element: <ContractDocumentationUpdatePage /> },
           { path: 'inspeccion-senasa', element: <ContractSENASAPage /> },
+          { path: 'test-serologico-rabia', element: <ContractTestRabiesPage /> },
           { path: 'contratos', element: <ContractFinish /> },
         ],
       },

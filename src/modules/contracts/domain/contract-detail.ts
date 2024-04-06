@@ -1,6 +1,6 @@
 import { Cage } from "./contract-services/cage/cage";
 import { Documentation } from "./contract-services/documentation/documentation";
-import { Travel, TypeTraveling } from "./contract-services/travel/contract-travel";
+import { Travel } from "./contract-services/travel/contract-travel";
 import { Pet } from '../../pets/domain/pet';
 import { ContractTopico } from "./contract-services/topico/contract-topico";
 
@@ -21,16 +21,8 @@ export interface ContractDetail {
     user?: string;
 }
 
-export interface NewContractDetail extends Omit<ContractDetail, "id" | "guideNumber" | "guideNumber" | "travel" | "cage" | "pet"> {
+export interface NewContractDetail extends Omit<ContractDetail, "id"> {
     id?: string;
-    cage?: Cage;
-    travel: {
-        hasServiceIncluded: boolean,
-        hasServiceAccompanied: boolean;
-        typeTraveling: TypeTraveling;
-    }
-    pet?: Pet;
-
 }
 export interface NewPostContractDetail extends Omit<NewContractDetail, "pet"> {
     pet?: string;

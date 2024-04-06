@@ -54,12 +54,7 @@ export const ContractClientTable: FC<Props> = ({ options }) => {
             {
                 header: 'Fecha de Inicio',
                 accessorKey: 'startDate',
-                accessorFn: (row) => fDate(row.startDate, 'dd/MM/yyyy HH:mm:ss'),
-                minSize: 200
-            },
-            {
-                header: 'Número',
-                accessorKey: 'number',
+                accessorFn: (row) => row.endDate ? fDate(row.endDate, 'DD/MM/YYYY HH:mm:ss') : "--",
                 minSize: 200
             },
             {
@@ -71,6 +66,20 @@ export const ContractClientTable: FC<Props> = ({ options }) => {
                 },
                 accessorFn: (row) => row.status,
                 minSize: 200
+            },
+            {
+                header: 'Nombre de la Mascota',
+                accessorKey: 'details.documentation.chipCertificate.isApplied',
+                Cell: ({ cell }) => {
+                    const pets = cell.row.original.details.map(_ => _.pet?.name);
+                    return pets.join(", ")
+                },
+                minSize: 200,
+            },
+            {
+                header: 'Asesor',
+                accessorKey: 'adviser.profile.name',
+                minSize: 200,
             },
             {
                 header: 'Fecha de Finalización',

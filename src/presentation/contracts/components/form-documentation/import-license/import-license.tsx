@@ -26,6 +26,7 @@ export const ImportLicenseCertificateForm: FC<Props> = ({ detail, callback, cont
         resolver: yupResolver<DocumentationCertificate>(certificateSchema),
         defaultValues: {
             hasServiceIncluded: importLicense?.hasServiceIncluded ?? defaultValues.hasServiceIncluded,
+            isRequired: importLicense?.isRequired ?? defaultValues.isRequired,
             isApplied: importLicense?.isApplied ?? defaultValues.isApplied,
             expectedDate: importLicense?.expectedDate ?? defaultValues.expectedDate,
             resultDate: importLicense?.resultDate ?? defaultValues.resultDate,
@@ -38,6 +39,7 @@ export const ImportLicenseCertificateForm: FC<Props> = ({ detail, callback, cont
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
+            <Typography fontWeight="bold">Permiso de Importación</Typography>
             {!importLicense?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
 
             {importLicense?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
@@ -45,18 +47,18 @@ export const ImportLicenseCertificateForm: FC<Props> = ({ detail, callback, cont
             {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">Permiso de Importación</Typography>
                 <CertificateFormGeneral label="¿Permiso realizado?" />
+                {importLicense?.hasServiceIncluded &&
 
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {importLicense?.isApplied ? "Actualizar Permiso de Importación" : "Guardar Permiso de Importación"}
-                    </Button>
-
-                </Box>
+                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            {importLicense?.isApplied ? "Actualizar Permiso de Importación" : "Guardar Permiso de Importación"}
+                        </Button>
+                    </Box>
+                }
             </Stack>
         </FormProvider>
     );

@@ -10,7 +10,13 @@ const certificate: DocumentationCertificate = {
     expectedDate: new Date(),
     executionDate: null,
     resultDate: null,
-    user: ""
+}
+
+const topicoValues = {
+    executed: false,
+    date: undefined,
+    description: "",
+    observation: "",
 }
 
 const detailInit: NewContractDetail = {
@@ -29,9 +35,41 @@ const detailInit: NewContractDetail = {
     },
     pet: undefined,
     travel: {
+        status: "pending",
         hasServiceIncluded: false,
         hasServiceAccompanied: false,
         typeTraveling: "accompanied",
+        airlineReservation: {
+            code: "",
+            flightNumber: "",
+            departureAirport: "",
+            destinationAirport: "",
+            departureDate: null,
+            arrivalDate: null,
+        },
+        petPerCharge: {
+            name: "",
+            document: "",
+            documentNumber: "",
+            phone: "",
+            email: "",
+        },
+        accompaniedPet: {
+            name: "",
+            document: "",
+            documentNumber: "",
+            phone: "",
+            email: "",
+            direction: "",
+            district: "",
+            province: "",
+            department: "",
+        },
+        destination: {
+            countryDestination: "",
+            cityDestination: "",
+            directionDestination: "",
+        },
     },
     documentation: {
         status: 'none',
@@ -43,6 +81,8 @@ const detailInit: NewContractDetail = {
         importLicense: { ...certificate },
         emotionalSupportCertificate: { ...certificate, isRequired: false },
     },
+
+    guideNumber: '',
 }
 
 const defaultValues: NewContract = {
@@ -56,7 +96,6 @@ const defaultValues: NewContract = {
     price: 0,
     customerPayments: [],
     payInInstallments: [],
-    user: ""
 
 };
 

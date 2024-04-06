@@ -12,10 +12,9 @@ type Props = {
     travel: Travel;
     contractId: string;
     detailId: string;
-    finish: boolean;
 };
 
-export default function CardTravel({ travel, contractId, detailId, finish }: Props) {
+export default function CardTravel({ travel, contractId, detailId }: Props) {
     const dialog = useBoolean();
     const { onSelected, onSelectedDetail } = useContractStore();
 
@@ -93,7 +92,6 @@ export default function CardTravel({ travel, contractId, detailId, finish }: Pro
                         travel={travel}
                         hasServiceIncluded={travel.hasServiceIncluded}
                         detailId={detailId}
-                        noShowButton={finish}
                         callback={(response) => {
                             onSelected(response?.contract ?? null);
                             onSelectedDetail(response?.contractDetail ?? null);

@@ -3,6 +3,7 @@ import { Alert, Stack, Typography } from "@mui/material";
 import RHFTextField from '../../../../../../components/hook-form/rhf-text-field';
 import IconWrapper from '../../../../../../components/icon-wrapper/icon-wrapper';
 import { useTravelGeneralForm } from "./use-travel-general-form";
+import { RHFDate } from '../../../../../../components/hook-form/rhf-date';
 
 type Props = {
     hasServiceIncluded: boolean;
@@ -64,29 +65,17 @@ export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
                 style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
             <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
-                <RHFTextField
+                <RHFDate
                     name="airlineReservation.departureDate"
-                    type="date"
                     label="Fecha de salida (*)"
                     value={departureDate}
-                    InputProps={{
-                        startAdornment: <IconWrapper icon="date" />,
-                        readOnly: edit
-
-                    }}
-                    style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                    sx={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                 />
-                <RHFTextField
+                <RHFDate
                     name="airlineReservation.arrivalDate"
-                    type="date"
                     value={arrivalDate}
                     label="Fecha de llegada (*)"
-                    InputProps={{
-                        startAdornment: <IconWrapper icon="date" />,
-                        readOnly: edit,
-
-                    }}
-                    style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                    sx={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                 />
             </Stack>
 

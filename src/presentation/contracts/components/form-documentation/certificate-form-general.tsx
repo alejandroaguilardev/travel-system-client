@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Stack, TextField, FormControlLabel, Switch } from '@mui/material';
+import { Stack, TextField, FormControlLabel, Switch, Alert } from '@mui/material';
 import { useFormContext } from "react-hook-form";
 import { fDate, fDayjs } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import RHFSwitch from '../../../../components/hook-form/rhf-switch';
@@ -14,7 +14,6 @@ export const CertificateFormGeneral = ({ label }: Props) => {
 
     const hasServiceIncluded = watch("hasServiceIncluded");
     const isApplied = watch("isApplied");
-    const expectedDate = watch("expectedDate");
     const executionDate = watch("executionDate") ?? null;
 
     useEffect(() => {
@@ -27,26 +26,12 @@ export const CertificateFormGeneral = ({ label }: Props) => {
         }
     }, [isApplied, executionDate]);
 
+    if (!hasServiceIncluded) return <Alert sx={{ mt: 1 }} severity="warning">El servicio no está incluido en este contrato</Alert>
+
     return (
         <>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2} mt={2}>
-                <FormControlLabel
-                    label="Incluido en el servicio"
-                    control={<Switch
-                        checked={hasServiceIncluded}
-                        disabled
-                    />}
-                    style={{
-                        width: "100%",
-                    }}
-                />
-                <TextField
-                    value={fDate(expectedDate, "DD/MM/YYYY")}
-                    label="Fecha prevista"
-                    fullWidth
-                />
-            </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2} my={2}>
                 <RHFSwitch
                     name="isApplied"
                     label={label}
@@ -55,11 +40,14 @@ export const CertificateFormGeneral = ({ label }: Props) => {
                     }}
 
                 />
-                <RHFDate
-                    name="executionDate"
-                    value={executionDate}
-                    label="Fecha de ejecución"
-                />
+                {
+                    isApplied &&
+                    <RHFDate
+                        name="executionDate"
+                        value={executionDate}
+                        label="Fecha de ejecución"
+                    />
+                }
             </Stack>
 
         </>

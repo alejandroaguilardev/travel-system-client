@@ -66,7 +66,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
         },
         emotionalSupportCertificate: {
             hasServiceIncluded: documentation.emotionalSupportCertificate.hasServiceIncluded,
-            isRequired: documentation.vaccinationCertificate.isRequired,
+            isRequired: documentation.emotionalSupportCertificate.isRequired,
             isApplied: documentation.emotionalSupportCertificate.isApplied,
             expectedDate: documentation.emotionalSupportCertificate.expectedDate,
             executionDate: documentation.emotionalSupportCertificate.executionDate,

@@ -79,9 +79,41 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             status: contractStatusCreateMother(),
         },
         travel: {
+            status: "pending",
             hasServiceIncluded: faker.datatype.boolean(),
             typeTraveling: typeTravelingCreateMother(),
-            hasServiceAccompanied: faker.datatype.boolean()
+            hasServiceAccompanied: faker.datatype.boolean(),
+            airlineReservation: {
+                code: "",
+                flightNumber: "",
+                departureAirport: "",
+                destinationAirport: "",
+                departureDate: null,
+                arrivalDate: null,
+            },
+            petPerCharge: {
+                name: "",
+                document: "",
+                documentNumber: "",
+                phone: "",
+                email: "",
+            },
+            accompaniedPet: {
+                name: "",
+                document: "",
+                documentNumber: "",
+                phone: "",
+                email: "",
+                direction: "",
+                district: "",
+                province: "",
+                department: "",
+            },
+            destination: {
+                countryDestination: "",
+                cityDestination: "",
+                directionDestination: "",
+            },
         },
     };
 
