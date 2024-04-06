@@ -11,6 +11,8 @@ import { RabiesVaccinationForm } from "./rabies-vaccination/rabies-vaccination-f
 import { RabiesReVaccinationForm } from "./rabies-revaccination/rabies-revaccination-form";
 import { ChipReviewForm } from "./chip-review/chip-review-form";
 import { TakingSampleSerologicalTestContractForm } from "./taking-sample-serological-test/taking-sample-form";
+import { Pet } from '../../../../modules/pets/domain/pet';
+import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
 
 
 export const TOPICO_TABS = {
@@ -25,59 +27,70 @@ export const TOPICO_TABS = {
 
 
 type Props = {
+    detail: ContractDetail;
     action: string;
     contractId: string;
     onCancel: () => void;
 }
 
-export const TopicoForm: FC<Props> = ({ action, contractId, onCancel }) => {
-    const { handleChangeDetailInfo, detail } = useDetailInfoContext();
+export const TopicoForm: FC<Props> = ({ action, contractId, detail, onCancel }) => {
+    const { contract, handleChangeContractInfo } = useDetailInfoContext();
 
     const tabs = useMemo(() => [
         {
             label: "Medidas y Peso",
             value: TOPICO_TABS.measurementsAndWeightForm,
             component: <MeasurementsAndWeightForm contractId={contractId} detail={detail}
-                callback={() => false} onCancel={onCancel} />
+                callback={(pet: Pet) => {
+                    handleChangeContractInfo({
+                        ...contract,
+                        details: contract.details.map((_) => {
+                            if (_.id === detail.id) {
+                                return { ...detail, pet }
+                            }
+                            return _;
+                        }
+                        )
+                    })
+                }} onCancel={onCancel} />
         },
         {
             label: "Microchip",
             value: TOPICO_TABS.chip,
             component: <ChipForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
             label: vaccinationLabel(detail.pet?.type),
             value: TOPICO_TABS.vaccination,
             component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
             label: "Vacuna de Rabia",
             value: TOPICO_TABS.rabiesVaccination,
             component: <RabiesVaccinationForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
             label: "Revacunación de Rabia ",
             value: TOPICO_TABS.rabiesReVaccination,
             component: <RabiesReVaccinationForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
             label: "Revisión de Microchip",
             value: TOPICO_TABS.chipReview,
             component: <ChipReviewForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
             label: "Toma de muestra",
             value: TOPICO_TABS.takingSampleSerologicalTest,
             component: <TakingSampleSerologicalTestContractForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
-    ], [detail, handleChangeDetailInfo, contractId, onCancel, detail.pet?.type])
-
+    ], [contract, detail])
 
     return (
         <ClientDialogProvider>  {

@@ -35,7 +35,7 @@ export const TravelForm: FC<Props> = ({ travel, detailId, noShowButton = false, 
         {
             value: "Reserva",
             component: <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-                <TravelFormGeneral hasServiceIncluded={hasServiceIncluded} user={user} />
+                <TravelFormGeneral hasServiceIncluded={hasServiceIncluded} />
                 {(!noShowButton || user) &&
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

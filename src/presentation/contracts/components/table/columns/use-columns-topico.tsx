@@ -125,7 +125,6 @@ export const useColumnsTopico = () => {
                 accessorKey: 'number',
                 minSize: 170,
             },
-
         ],
         [],
     );

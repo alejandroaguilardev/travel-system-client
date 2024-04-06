@@ -13,19 +13,21 @@ export interface Contract {
     startDate: Date;
     endDate: Date | null;
     details: ContractDetail[];
-    adviser: string;
+    adviser: User;
     price: number;
     payInInstallments?: PayInInstallment[];
     customerPayments?: CustomerPayment[];
     user: string;
 }
 
-export interface NewContract extends Omit<Contract, "id" | "endDate" | "client" | "guideNumber" | "status" | "details" | "user" | "folder" | "number"> {
+export interface NewContract extends Omit<Contract, "id" | "endDate" | "client" | "guideNumber" | "status" | "details" | "user" | "folder" | "number" | "adviser"> {
     id?: string;
     client: string;
     details: NewContractDetail[];
     folder?: string;
     number?: string;
+    user?: string;
+    adviser: string;
 }
 export interface NewPostContract extends Omit<NewContract, "details"> {
     details: NewPostContractDetail[]

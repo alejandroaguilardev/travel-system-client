@@ -36,27 +36,33 @@ export const ChipReviewForm: FC<Props> = ({ detail, callback, contractId, onCanc
 
     return (
         <>
-            <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-                {!chipReview?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la revisión del microchip</Alert>}
+            {
+                detail.topico?.chip.executed ?
+                    <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
+                        {!chipReview?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la revisión del microchip</Alert>}
 
-                {chipReview?.executed && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                        {chipReview?.executed && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
 
-                {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
+                        {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
 
+                        <ChipReviewFormGeneral />
 
-                <ChipReviewFormGeneral />
+                        <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                            <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                                Cancelar
+                            </Button>
+                            <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                                {chipReview?.executed ? "Actualizar Vacuna de Rabia" : "Guardar Vacuna de Rabia"}
+                            </Button>
 
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {chipReview?.executed ? "Actualizar Vacuna de Rabia" : "Guardar Vacuna de Rabia"}
-                    </Button>
+                        </Box>
+                    </FormProvider >
 
-                </Box>
-            </FormProvider >
+                    : <Alert severity="error">Aùn no se ha guardado el microchip de la mascota</Alert>
+            }
+
+
 
         </>
     )

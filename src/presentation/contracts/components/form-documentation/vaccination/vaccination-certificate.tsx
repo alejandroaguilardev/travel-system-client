@@ -37,27 +37,36 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, callback, contra
 
 
     return (
-        <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-            {!vaccinationCertificate?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
+        <>
+            {
+                detail.topico?.vaccination.executed ?
+                    <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
+                        {!vaccinationCertificate?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
 
-            {vaccinationCertificate?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                        {vaccinationCertificate?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
 
-            {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
+                        {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
-            <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">Certificado de Vacuna</Typography>
-                <CertificateFormGeneral />
+                        <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
+                            <Typography fontWeight="bold">Certificado de Vacuna</Typography>
+                            <CertificateFormGeneral label="Impresión de certificado realizado" />
 
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {vaccinationCertificate?.isApplied ? "Actualizar Certificado de Vacuna<" : "Guardar Certificado de Vacuna<"}
-                    </Button>
+                            <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                                <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                                    Cancelar
+                                </Button>
+                                <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                                    {vaccinationCertificate?.isApplied ? "Actualizar Certificado de Vacuna<" : "Guardar Certificado de Vacuna<"}
+                                </Button>
 
-                </Box>
-            </Stack>
-        </FormProvider>
+                            </Box>
+                        </Stack>
+                    </FormProvider>
+
+                    : <Alert severity="error">Aùn no se ha guardado la información  relacionada a la vacuna</Alert>
+            }
+
+        </>
+
     );
 };

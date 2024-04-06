@@ -7,7 +7,7 @@ import { ContractDetail } from '../../../../../modules/contracts/domain/contract
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 
 
-const detailsTopicoStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTATION_KEYS): JSX.Element => {
+const detailsStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTATION_KEYS): JSX.Element => {
     let pending = details?.length ?? 0;
     let completed = 0;
     details.forEach(_ => {
@@ -17,7 +17,7 @@ const detailsTopicoStatus = (details: ContractDetail[], value: keyof typeof DOCU
     pending -= completed;
     return <>
         {pending > 0 &&
-            <Label color="error">{pending > 1 ? pending : ""} Todos</Label>
+            <Label color="error">{pending > 1 ? pending : ""} Pendiente</Label>
         }
         {completed > 0 &&
             <Label color="success">{pending > 1 ? pending : ""}Completado</Label>
@@ -46,7 +46,7 @@ export const useColumnsDocumentation = () => {
             {
                 header: 'C. Microchip',
                 accessorKey: 'details.documentation.chipCertificate.isApplied',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "chipCertificate"),
+                Cell: ({ cell }) => detailsStatus(cell.row.original.details, "chipCertificate"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -57,7 +57,7 @@ export const useColumnsDocumentation = () => {
             {
                 header: 'C. Vacunación',
                 accessorKey: 'details.documentation.vaccinationCertificate.isApplied',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "vaccinationCertificate"),
+                Cell: ({ cell }) => detailsStatus(cell.row.original.details, "vaccinationCertificate"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -69,7 +69,7 @@ export const useColumnsDocumentation = () => {
             {
                 header: 'Permiso de importación',
                 accessorKey: 'details.documentation.importLicense.executed',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "importLicense"),
+                Cell: ({ cell }) => detailsStatus(cell.row.original.details, "importLicense"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -80,7 +80,7 @@ export const useColumnsDocumentation = () => {
             {
                 header: 'Cert. de salud',
                 accessorKey: 'details.documentation.healthCertificate.executed',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "healthCertificate"),
+                Cell: ({ cell }) => detailsStatus(cell.row.original.details, "healthCertificate"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -91,7 +91,7 @@ export const useColumnsDocumentation = () => {
             {
                 header: 'Cert. de soporte emocional',
                 accessorKey: 'details.documentation.emotionalSupportCertificate.executed',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "emotionalSupportCertificate"),
+                Cell: ({ cell }) => detailsStatus(cell.row.original.details, "emotionalSupportCertificate"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },

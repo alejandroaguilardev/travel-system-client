@@ -46,7 +46,7 @@ export const ImportLicenseCertificateForm: FC<Props> = ({ detail, callback, cont
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <Typography fontWeight="bold">Permiso de Importación</Typography>
-                <CertificateFormGeneral />
+                <CertificateFormGeneral label="¿Permiso realizado?" />
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

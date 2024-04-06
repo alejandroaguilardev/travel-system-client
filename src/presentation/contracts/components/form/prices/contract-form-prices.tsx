@@ -1,9 +1,10 @@
-import { FormControlLabel, FormLabel, InputAdornment, Paper, Stack, Switch, TextField, Typography } from '@mui/material';
+import { FormControlLabel, InputAdornment, Paper, Stack, Switch, TextField, Typography } from '@mui/material';
 import { RHFTextField } from '../../../../../components/hook-form';
 import { useContractFormPrices } from './use-contract-form-prices';
 import { Counter } from '../../../../../components/counter/counter';
 import { DatePicker } from '@mui/x-date-pickers';
 import { IconWrapper } from '../../../../../components/icon-wrapper';
+import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 
 export const ContractFormPrices = () => {
     const { priceTotal, counter, payInInstallments, isPayInstallments, handleIsPayInstallments, handleCounter, handleCuotaChange, handlePercentageChange } = useContractFormPrices();
@@ -57,7 +58,7 @@ export const ContractFormPrices = () => {
                                                             width: "100%"
                                                         }}
                                                         format='DD/MM/YYYY'
-                                                        value={pay.date}
+                                                        value={fDayjs(pay.date)}
                                                     />
                                                     <TextField
                                                         label="Cuota Porcentaje (*)"

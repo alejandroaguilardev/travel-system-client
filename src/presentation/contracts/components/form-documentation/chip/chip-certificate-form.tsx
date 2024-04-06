@@ -1,63 +1,49 @@
-import { FC } from "react";
-import { useForm } from 'react-hook-form';
-import { Alert, Stack, Typography, Box, Button } from '@mui/material';
-
+import { FC, useState } from "react";
+import { Alert, FormControlLabel, Stack, Switch, } from '@mui/material';
 import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/domain/contract-detail.service';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
-import { yupResolver } from "@hookform/resolvers/yup";
-import { DocumentationCertificate } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation-certificate';
-import { certificateSchema, defaultValues } from "../certificate-validation";
-import { useFormCertificate } from "../use-form-certificate";
-import FormProvider from "../../../../../components/hook-form/form-provider";
-import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
-import { CertificateFormGeneral } from "../certificate-form-general";
+import { PdfViewer } from '../../../../../components/imp-pdf/pdf-viewer';
+import MicrochipCertificatePdf from '../../../pdf/certificates/microchip-certificate-pdf';
+import { Contract } from '../../../../../modules/contracts/domain/contract';
 
 type Props = {
     contractId: string;
     detail: ContractDetail;
+    contract: Contract;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const ChipCertificateForm: FC<Props> = ({ detail, callback, contractId, onCancel }) => {
-    const chip = detail?.documentation?.chipCertificate;
+export const ChipCertificateForm: FC<Props> = ({ contract, detail, callback, contractId, onCancel }) => {
+    const [first, setFirst] = useState(false);
 
-    const methods = useForm({
-        resolver: yupResolver<DocumentationCertificate>(certificateSchema),
-        defaultValues: {
-            hasServiceIncluded: chip?.hasServiceIncluded ?? defaultValues.hasServiceIncluded,
-            isApplied: chip?.isApplied ?? defaultValues.isApplied,
-            expectedDate: chip?.expectedDate ?? defaultValues.expectedDate,
-            resultDate: chip?.resultDate ?? defaultValues.resultDate,
-            user: chip?.user ?? defaultValues.user
-        }
-    });
-
-    const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.chipCertificate, status: detail.documentation.status });
 
 
     return (
-        <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-            {!chip?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
+        <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
+            {
+                detail.pet?.chip ?
+                    <>
+                        {
+                            !detail.documentation.chipCertificate.hasServiceIncluded &&
+                            <FormControlLabel
+                                control={<Switch onChange={() => setFirst(!first)} />}
+                                label="¿Es necesario rehacer el certificado?"
+                                style={{
+                                    width: "100%"
+                                }}
+                            />
+                        }
+                        {
+                            detail.documentation.chipCertificate.hasServiceIncluded || first &&
+                            < PdfViewer height={500} >
+                                <MicrochipCertificatePdf detail={detail} contract={contract} />
+                            </PdfViewer>
+                        }
+                    </>
 
-            {chip?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
-
-            {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
-
-            <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">Certificado de Microchip</Typography>
-                <CertificateFormGeneral />
-
-                <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                        Cancelar
-                    </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {chip?.isApplied ? "Actualizar Microchip" : "Guardar Microchip"}
-                    </Button>
-
-                </Box>
-            </Stack>
-        </FormProvider>
+                    : <Alert severity="error">Aùn no se ha guardado el número del microchip que esta  relacionada al certificado</Alert>
+            }
+        </Stack >
     );
 };

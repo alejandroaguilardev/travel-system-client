@@ -5,7 +5,11 @@ import { fDate, fDayjs } from '../../../../modules/shared/infrastructure/helpers
 import RHFSwitch from '../../../../components/hook-form/rhf-switch';
 import { RHFDate } from '../../../../components/hook-form/rhf-date';
 
-export const CertificateFormGeneral = () => {
+type Props = {
+    label: string
+}
+
+export const CertificateFormGeneral = ({ label }: Props) => {
     const { watch, setValue } = useFormContext();
 
     const hasServiceIncluded = watch("hasServiceIncluded");
@@ -25,8 +29,7 @@ export const CertificateFormGeneral = () => {
 
     return (
         <>
-
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2} mt={2}>
                 <FormControlLabel
                     label="Incluido en el servicio"
                     control={<Switch
@@ -39,14 +42,14 @@ export const CertificateFormGeneral = () => {
                 />
                 <TextField
                     value={fDate(expectedDate, "DD/MM/YYYY")}
-                    label="Fecha prevista de instalación de microchip"
+                    label="Fecha prevista"
                     fullWidth
                 />
             </Stack>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                 <RHFSwitch
                     name="isApplied"
-                    label={hasServiceIncluded ? "Certificado ejecutado" : "¿Es necesario rehacer el certificado?"}
+                    label={label}
                     style={{
                         width: "100%"
                     }}

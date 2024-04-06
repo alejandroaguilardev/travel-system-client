@@ -1,13 +1,12 @@
 
 
 import { Document, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
-import { pdfStyles } from '../../../theme/pdf';
-import { Contract } from '../../../modules/contracts/domain/contract';
-import { fCurrency } from '../../../modules/shared/domain/helpers/format-number';
-import { fDateTimeLong } from '../../../modules/shared/infrastructure/helpers/format-time';
-import { logoBase64 } from '../../../components/logo/logo-base64';
-import { signatureChristianBase64 } from './signature-christian';
-import { destination, numberPets, priceToPay } from './contract-pdf-utils';
+import { pdfStyles } from '../../../../theme/pdf';
+import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers/format-time';
+import { Contract } from '../../../../modules/contracts/domain/contract';
+import { fCurrency } from '../../../../modules/shared/domain/helpers/format-number';
+import { logoBase64 } from '../../../../components/logo/logo-base64';
+import { destination, numberPets, priceToPay } from '../contract-pdf-utils';
 
 const styles = StyleSheet.create({ ...pdfStyles });
 
@@ -166,13 +165,7 @@ const ContractPdf = ({ contract }: Props) => {
 
 
                     <SpacePdf marginBottom={20} />
-                    <Image
-                        src={signatureChristianBase64}
-                        style={{
-                            maxHeight: 100,
-                            maxWidth: 100
-                        }}
-                    />
+
                     <View style={{ ...styles.gridRow }}>
                         <View style={{ width: "50%" }}>
                             <Text style={{ textAlign: "left" }}>Conforme</Text>
@@ -213,3 +206,12 @@ const ContractPdf = ({ contract }: Props) => {
     )
 }
 export default ContractPdf
+
+// Documentación en Curso. (Descargar los documentos) en un botones
+// certificado de chip(preguntar ¿Es necesario rehacerlo si o no ?)
+// certificado de vacuna(preguntar ¿Es necesario rehacerlo si o no ?)
+// certificado de Test serologico de rabia. (Este no se descarga)
+// certifica de Salud
+// Permiso de Importación. (Este no se descarga)
+// Documentación de SENASA. (Este no se descarga)
+// certificado de soporte Emocional. (Este no se descarga)

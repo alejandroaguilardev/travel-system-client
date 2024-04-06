@@ -7,6 +7,7 @@ export const certificateSchema: Yup.ObjectSchema<DocumentationCertificate> = Yup
     expectedDate: Yup.date().required('La fecha esperada es requerida'),
     executionDate: Yup.date().required('Campo requerido').nullable(),
     resultDate: Yup.date().required('Campo requerido').nullable(),
+    isRequired: Yup.boolean().required('Campo requerido'),
     user: Yup.string(),
 });
 
@@ -17,5 +18,6 @@ export const defaultValues: DocumentationCertificate = {
     expectedDate: null,
     executionDate: null,
     resultDate: null,
+    isRequired: false,
     user: "",
 }

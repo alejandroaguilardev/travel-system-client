@@ -12,7 +12,6 @@ import { IconButton } from '@mui/material';
 import { IconWrapper } from 'src/components/icon-wrapper';
 import { useImpContractContext } from 'src/components/imp-pdf/imp-contract/imp-contract-context';
 import { TypeofImp } from '../../../../components/imp-pdf/imp-contract/type-contract';
-import { tableUtils } from '../../../../components/material-table/helpers/filter-columns';
 
 type Props = {
     options?: {

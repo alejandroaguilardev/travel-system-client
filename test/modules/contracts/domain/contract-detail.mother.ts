@@ -23,6 +23,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             chipCertificate: {
                 hasServiceIncluded: faker.datatype.boolean(),
                 isApplied: faker.datatype.boolean(),
+                isRequired: faker.datatype.boolean(),
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
@@ -30,6 +31,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             emotionalSupportCertificate: {
                 hasServiceIncluded: faker.datatype.boolean(),
                 isApplied: faker.datatype.boolean(),
+                isRequired: faker.datatype.boolean(),
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
@@ -37,6 +39,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             healthCertificate: {
                 hasServiceIncluded: faker.datatype.boolean(),
                 isApplied: faker.datatype.boolean(),
+                isRequired: faker.datatype.boolean(),
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
@@ -44,6 +47,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             importLicense: {
                 hasServiceIncluded: faker.datatype.boolean(),
                 isApplied: faker.datatype.boolean(),
+                isRequired: faker.datatype.boolean(),
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
@@ -51,6 +55,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             rabiesSeroLogicalTest: {
                 hasServiceIncluded: faker.datatype.boolean(),
                 isApplied: faker.datatype.boolean(),
+                isRequired: faker.datatype.boolean(),
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
@@ -58,6 +63,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             senasaDocuments: {
                 hasServiceIncluded: faker.datatype.boolean(),
                 isApplied: faker.datatype.boolean(),
+                isRequired: faker.datatype.boolean(),
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
@@ -65,6 +71,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             vaccinationCertificate: {
                 hasServiceIncluded: faker.datatype.boolean(),
                 isApplied: faker.datatype.boolean(),
+                isRequired: faker.datatype.boolean(),
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,

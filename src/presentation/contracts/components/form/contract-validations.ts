@@ -5,6 +5,7 @@ import { NewContractDetail } from '../../../../modules/contracts/domain/contract
 
 const certificate: DocumentationCertificate = {
     hasServiceIncluded: false,
+    isRequired: true,
     isApplied: false,
     expectedDate: new Date(),
     executionDate: null,
@@ -40,7 +41,7 @@ const detailInit: NewContractDetail = {
         senasaDocuments: { ...certificate },
         rabiesSeroLogicalTest: { ...certificate },
         importLicense: { ...certificate },
-        emotionalSupportCertificate: { ...certificate },
+        emotionalSupportCertificate: { ...certificate, isRequired: false },
     },
 }
 
@@ -55,6 +56,7 @@ const defaultValues: NewContract = {
     price: 0,
     customerPayments: [],
     payInInstallments: [],
+    user: ""
 
 };
 
@@ -66,6 +68,7 @@ const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
     startDate: Yup.date().required('La fecha de inicio es requerida'),
     details: Yup.array().required('Los detalles del contrato son requeridos'),
     adviser: Yup.string().required('Debe indicar el asesor del cliente'),
+    user: Yup.string(),
     customerPayments: Yup.array(),
     payInInstallments: Yup.array(),
     price: Yup.number().required('Se debe especificar el precio del contrato').min(1, "El precio debe ser mayor a 0"),

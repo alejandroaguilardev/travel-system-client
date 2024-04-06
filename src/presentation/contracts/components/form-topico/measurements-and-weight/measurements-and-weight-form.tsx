@@ -1,23 +1,22 @@
-import { FC, useState } from "react"
+import { FC } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Box, Button } from "@mui/material";
 import FormProvider from '../../../../../components/hook-form/form-provider';
-import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { ContractDetail } from "../../../../../modules/contracts/domain/contract-detail";
 import { useMeasurementsAndWeightForm } from "./use-measurements-and-weight-form";
 import { MeasurementsAndWeightFormGeneral } from "./measurements-and-weight-form-general";
 import { MeasurementsAndWeightFormSchema, measurementsAndWeightFormObjectSchema } from "./measurements-and-weight-validation";
+import { Pet } from '../../../../../modules/pets/domain/pet';
 
 type Props = {
     contractId: string;
     detail: ContractDetail;
-    callback: (response?: ContractDetailUpdateResponse) => void;
+    callback: (response: Pet) => void;
     onCancel: () => void;
 }
 
 export const MeasurementsAndWeightForm: FC<Props> = ({ detail, callback, onCancel }) => {
-
     const methods = useForm({
         resolver: yupResolver<MeasurementsAndWeightFormSchema>(measurementsAndWeightFormObjectSchema),
         defaultValues: {
@@ -45,10 +44,11 @@ export const MeasurementsAndWeightForm: FC<Props> = ({ detail, callback, onCance
     return (
         <>
             <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-                {isExecuted ?
-                    <Alert severity="success">Guardado correctamente los cambios</Alert>
-                    :
-                    <Alert severity="error">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                {!detail?.pet?.chip && !isExecuted && <Alert severity="error">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+
+                {detail?.pet?.chip && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+
+                {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
                 <MeasurementsAndWeightFormGeneral />
 

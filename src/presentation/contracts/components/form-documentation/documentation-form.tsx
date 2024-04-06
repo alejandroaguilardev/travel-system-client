@@ -10,61 +10,51 @@ import { ImportLicenseCertificateForm } from "./import-license/import-license";
 import { HealthCertificateForm } from "./health-certificate/health-certificate";
 import { SenasaDocumentsForm } from "./senasa/senasa-documents";
 import { EmotionalSupportCertificateForm } from "./emotional-support/emotional-support";
+import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
 
 
 type Props = {
     action: string;
     contractId: string;
+    detail: ContractDetail;
     onCancel: () => void;
 }
 
-export const DocumentationContractForm: FC<Props> = ({ action, contractId, onCancel }) => {
-    const { handleChangeDetailInfo, detail } = useDetailInfoContext();
+export const DocumentationContractForm: FC<Props> = ({ action, contractId, detail, onCancel }) => {
+    const { handleChangeContractInfo, contract } = useDetailInfoContext();
 
     const tabs = useMemo(() => [
         {
             label: "Certificado de Microchip",
             value: DOCUMENTATION_KEYS.chipCertificate,
-            component: <ChipCertificateForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+            component: <ChipCertificateForm contractId={contractId} detail={detail} contract={contract}
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
             label: "Certificado de Vacuna",
             value: DOCUMENTATION_KEYS.vaccinationCertificate,
             component: <VaccinationCertificateForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
-        },
-        {
-            label: "Test serológico de rabia",
-            value: DOCUMENTATION_KEYS.rabiesSeroLogicalTest,
-            component: <RabiesTestSerologicalForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
             label: "Permiso de importación",
             value: DOCUMENTATION_KEYS.importLicense,
             component: <ImportLicenseCertificateForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
             label: "Certificado de salud",
             value: DOCUMENTATION_KEYS.healthCertificate,
             component: <HealthCertificateForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
-        },
-        {
-            label: "Documentos de SENASA",
-            value: DOCUMENTATION_KEYS.senasaDocuments,
-            component: <SenasaDocumentsForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
             label: "Certificado de soporte emocional",
             value: DOCUMENTATION_KEYS.emotionalSupportCertificate,
             component: <EmotionalSupportCertificateForm contractId={contractId} detail={detail}
-                callback={({ contractDetail }) => handleChangeDetailInfo(contractDetail)} onCancel={onCancel} />
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
-    ], [detail, handleChangeDetailInfo, contractId, onCancel, detail.pet?.type])
+    ], [detail, contract, handleChangeContractInfo, contractId, onCancel, detail.pet?.type])
 
 
     return (

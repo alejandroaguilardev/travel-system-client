@@ -8,6 +8,7 @@ import { contractDetailService } from '../../../../modules/contracts/infrastruct
 import { certificateUpdater } from '../../../../modules/contracts/application/update/certificate-updater';
 import { useState } from "react";
 import { ContractStatus } from '../../../../modules/contracts/domain/contract-status';
+import { useAuthContext } from '../../../auth/hooks/use-auth-context';
 
 type Props = {
     contractId: string;
@@ -20,10 +21,11 @@ type Props = {
 export const useFormCertificate = ({ contractId, detailId, action, status, callback }: Props) => {
     const { showNotification } = useMessage();
     const [isExecuted, setIsExecuted] = useState(false);
+    const { user } = useAuthContext()
 
     const onSubmit: SubmitHandler<DocumentationCertificate> = async (data) => {
         try {
-            const response = await certificateUpdater(contractDetailService, uuid)(contractId, detailId, action, data, status)
+            const response = await certificateUpdater(contractDetailService, uuid)(contractId, detailId, action, data, status, user?.id ?? "")
             showNotification("Actualizado correctamente ");
             setIsExecuted(true);
             callback(response);

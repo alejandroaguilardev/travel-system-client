@@ -43,6 +43,7 @@ export interface ChipReviewContract {
 
 export interface TakingSampleSerologicalTestContract {
     executed?: boolean;
+    typeSample?: string;
     date?: Date;
     description?: string;
     observation?: string;

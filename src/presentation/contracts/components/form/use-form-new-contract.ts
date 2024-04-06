@@ -9,8 +9,6 @@ import { errorsShowNotification } from '../../../../modules/shared/infrastructur
 import { useMessage } from '../../../../hooks/use-message';
 import { contractUpdater } from '../../../../modules/contracts/application/update/contract-updater';
 import { ContractProps } from "../../pdf/contract-pdf";
-import { userService } from "src/modules/users/infrastructure/user.service";
-import { User } from "src/modules/users/domain/user";
 import { useImpContractContext } from "../../../../components/imp-pdf/imp-contract/imp-contract-context";
 import { TypeofImp } from "../../../../components/imp-pdf/imp-contract/type-contract";
 

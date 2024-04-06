@@ -47,6 +47,9 @@ export default function ContractAssignPetView() {
                     columnQueryFilters: [{
                         id: "details.pet",
                         value: "",
+                    }, {
+                        id: "status",
+                        value: "pending",
                     }],
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
                     renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => handleSelected(row)}>

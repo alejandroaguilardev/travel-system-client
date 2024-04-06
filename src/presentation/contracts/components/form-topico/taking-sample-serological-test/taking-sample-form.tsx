@@ -25,6 +25,7 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
         defaultValues: {
             executed: takingSampleSerologicalTest?.executed || defaultTakingSampleSerologicalTestContract.executed,
             date: takingSampleSerologicalTest?.date || defaultTakingSampleSerologicalTestContract.date,
+            typeSample: takingSampleSerologicalTest?.typeSample || defaultTakingSampleSerologicalTestContract.typeSample,
             description: takingSampleSerologicalTest?.description || defaultTakingSampleSerologicalTestContract.description,
             observation: takingSampleSerologicalTest?.observation || defaultTakingSampleSerologicalTestContract.observation,
             user: takingSampleSerologicalTest?.user || defaultTakingSampleSerologicalTestContract.user

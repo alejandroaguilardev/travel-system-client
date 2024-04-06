@@ -7,7 +7,7 @@ import { NotFoundView } from '../../../error';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
 import { TOPICO_TABS, TopicoForm } from '../../components/form-topico/topico-form';
-import { DetailInfoProvider } from '../../context/contract-detail-context';
+import { DetailInfoContext, DetailInfoProvider } from '../../context/contract-detail-context';
 
 type Props = {
     id: string;
@@ -17,33 +17,40 @@ type Props = {
 export default function ContractTopicoManagementView({ id, action = TOPICO_TABS.measurementsAndWeightForm }: Props) {
     const router = useRouter();
 
-    const { contract, error, isLoading } = useSearchByIdContract(id);
+    const { contract: contractSearch, error, isLoading } = useSearchByIdContract(id);
 
     if (isLoading) return null
-    if (!contract) return <NotFoundView />
+    if (!contractSearch) return <NotFoundView />
     return (
-        <SearchIdNotFound isLoading={isLoading} data={!!contract} error={error}>
+        <SearchIdNotFound isLoading={isLoading} data={!!contractSearch} error={error}>
             <Container maxWidth='xl'>
                 <CustomBreadcrumbs
                     sx={{ display: "inline" }}
-                    heading={`Requisitos de Topico: ${contract?.number} `}
+                    heading={`Requisitos de Topico: ${contractSearch?.number} `}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Topico', href: paths.dashboard.faseDocumentation.topico.list },
-                        { name: `${contract?.number}` },
+                        { name: `${contractSearch?.number}` },
                     ]}
                 />
-                {contract.details.map((detail, index) => (
-                    <AccordionPet detail={detail} key={detail.id} index={index}>
-                        <DetailInfoProvider defaultValue={detail}>
-                            <TopicoForm
-                                action={action}
-                                onCancel={() => router.back()}
-                                contractId={id}
-                            />
-                        </DetailInfoProvider>
-                    </AccordionPet>
-                ))}
+                <DetailInfoProvider defaultContract={contractSearch}>
+                    <DetailInfoContext.Consumer>
+                        {({ contract }) => <>
+                            {contract.details?.map((detail, index) => (
+                                <AccordionPet detail={detail} key={detail.id} index={index}>
+
+                                    <TopicoForm
+                                        detail={detail}
+                                        action={action}
+                                        onCancel={() => router.back()}
+                                        contractId={id}
+                                    />
+                                </AccordionPet>
+                            ))}
+                        </>
+                        }
+                    </DetailInfoContext.Consumer>
+                </DetailInfoProvider>
             </Container>
         </SearchIdNotFound>
     );

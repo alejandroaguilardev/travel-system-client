@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { Stack, Typography } from "@mui/material";
+import { MenuItem, Stack, Typography } from "@mui/material";
 import { RHFTextField } from "../../../../../components/hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
@@ -12,8 +12,7 @@ export const TakingSampleSerologicalTestContractFormGeneral = () => {
 
     return (
         <>
-            <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">Revisión de Microchip</Typography>
+            <Stack flexWrap="wrap" spacing={1} my={3}>
 
 
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
@@ -25,10 +24,23 @@ export const TakingSampleSerologicalTestContractFormGeneral = () => {
                 </Stack>
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                     <RHFTextField
+                        name="typeSample"
+                        label="Tipo de Muestra"
+                        select
+                    >
+
+                        <MenuItem value="PR">Muestra PR</MenuItem>
+                        <MenuItem value="AYU">Muestra AYU</MenuItem>
+                    </RHFTextField>
+                </Stack>
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                    <RHFTextField
                         name="observation"
                         label="Observaciones"
                     />
                 </Stack>
+
+
                 <TopicoSearchUser />
 
             </Stack>

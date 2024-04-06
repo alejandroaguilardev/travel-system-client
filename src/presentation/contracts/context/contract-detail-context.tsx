@@ -1,26 +1,27 @@
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
-import { ContractDetail } from '../../../modules/contracts/domain/contract-detail';
+import { Contract } from '../../../modules/contracts/domain/contract';
 
-export interface TabContextProps {
-    detail: ContractDetail;
-    handleChangeDetailInfo: (newValue: ContractDetail) => void;
+export interface DetailInfoContextProps {
+    contract: Contract;
+    handleChangeContractInfo: (newValue: Contract) => void;
 }
 
-export const DetailInfoContext = createContext<TabContextProps | undefined>(undefined);
+export const DetailInfoContext = createContext<DetailInfoContextProps>({} as DetailInfoContextProps);
 
 
 
-export const DetailInfoProvider = ({ defaultValue, children }: { defaultValue: ContractDetail, children: React.ReactNode }) => {
-    const [detail, setCurrentTab] = useState<ContractDetail>(defaultValue);
+export const DetailInfoProvider = ({ children, defaultContract }: { defaultContract: Contract, children: React.ReactNode }) => {
+    const [contract, setContract] = useState<Contract>(defaultContract);
 
-    const handleChangeDetailInfo = useCallback((newValue: ContractDetail) => {
-        setCurrentTab(newValue);
+
+    const handleChangeContractInfo = useCallback((newValue: Contract) => {
+        setContract(newValue);
     }, []);
 
-    const memo: TabContextProps = useMemo(() => ({
-        handleChangeDetailInfo,
-        detail
-    }), [detail, handleChangeDetailInfo])
+    const memo: DetailInfoContextProps = useMemo(() => ({
+        contract,
+        handleChangeContractInfo,
+    }), [contract, handleChangeContractInfo])
 
 
 
@@ -33,8 +34,8 @@ export const DetailInfoProvider = ({ defaultValue, children }: { defaultValue: C
 
 export const useDetailInfoContext = () => {
     const context = useContext(DetailInfoContext);
-    if (!context?.detail) {
-        throw new Error('useTabContext must be used within a TabProvider');
+    if (!context?.contract) {
+        throw new Error('useDetailInfoContext must be used within a DetailInfoProvider');
     }
     return context;
 };

@@ -16,12 +16,10 @@ export const useTravelGeneralForm = () => {
   const departureDate = fDate(watch("airlineReservation.departureDate"), 'yyyy-MM-dd');
   const arrivalDate = fDate(watch("airlineReservation.arrivalDate"), 'yyyy-MM-dd');
 
-  const editPermit = (readonly: boolean, user?: boolean): boolean => {
+  const editPermit = (readonly: boolean): boolean => {
     if (readonly) {
-      if (user) return false;
       return readonly;
     }
-    if (user) return true;
 
     return false;
   }

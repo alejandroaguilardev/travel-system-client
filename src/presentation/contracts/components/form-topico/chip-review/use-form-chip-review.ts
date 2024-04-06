@@ -22,7 +22,7 @@ export const useFormChipReview = ({ contractId, detailId, callback }: Props) => 
             const response = await contractChipReviewUpdater(contractDetailService)(contractId, detailId, data)
             showNotification("Actualizado correctamente ");
             setsExecuted(true);
-            callback(response);
+            setTimeout(() => callback(response), 100)
         } catch (error) {
             errorsShowNotification(error, showNotification)
         }

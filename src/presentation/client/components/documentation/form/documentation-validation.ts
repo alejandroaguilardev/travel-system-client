@@ -7,6 +7,7 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
     vaccinationCertificate: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         isApplied: Yup.boolean().required('Campo requerido'),
+        isRequired: Yup.boolean().required('Campo requerido'),
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
@@ -15,6 +16,7 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
     healthCertificate: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         isApplied: Yup.boolean().required('Campo requerido'),
+        isRequired: Yup.boolean().required('Campo requerido'),
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
@@ -23,6 +25,7 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
     chipCertificate: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         isApplied: Yup.boolean().required('Campo requerido'),
+        isRequired: Yup.boolean().required('Campo requerido'),
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
@@ -31,6 +34,7 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
     senasaDocuments: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         isApplied: Yup.boolean().required('Campo requerido'),
+        isRequired: Yup.boolean().required('Campo requerido'),
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
@@ -39,6 +43,7 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
     rabiesSeroLogicalTest: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         isApplied: Yup.boolean().required('Campo requerido'),
+        isRequired: Yup.boolean().required('Campo requerido'),
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
@@ -47,6 +52,7 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
     importLicense: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         isApplied: Yup.boolean().required('Campo requerido'),
+        isRequired: Yup.boolean().required('Campo requerido'),
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
@@ -55,6 +61,7 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
     emotionalSupportCertificate: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         isApplied: Yup.boolean().required('Campo requerido'),
+        isRequired: Yup.boolean().required('Campo requerido'),
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),

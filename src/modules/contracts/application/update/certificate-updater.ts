@@ -4,7 +4,7 @@ import { ContractDetailService, ContractDetailUpdateResponse } from '../../domai
 import { DocumentationCertificate } from '../../domain/contract-services/documentation/documentation-certificate';
 import { ContractStatus } from '../../domain/contract-status';
 
-export const certificateUpdater = (contractService: ContractDetailService, uuid: UuidService) => async (contractId: string, detailId: string, action: string, certificate: DocumentationCertificate, status: ContractStatus): Promise<ContractDetailUpdateResponse> => {
+export const certificateUpdater = (contractService: ContractDetailService, uuid: UuidService) => async (contractId: string, detailId: string, action: string, certificate: DocumentationCertificate, status: ContractStatus, userId: string): Promise<ContractDetailUpdateResponse> => {
     if (!uuid.validate(contractId)) {
         throw new ErrorInvalidadArgument("el identificador no es válido");
     }
@@ -15,7 +15,8 @@ export const certificateUpdater = (contractService: ContractDetailService, uuid:
         expectedDate: certificate.expectedDate,
         executionDate: certificate.executionDate,
         resultDate: certificate.resultDate,
-        user: certificate?.user
+        isRequired: certificate.isRequired,
+        user: userId
     }
 
     const response = await contractService.updateCertificate(contractId, detailId, action, {

@@ -1,5 +1,6 @@
 export interface DocumentationCertificate {
     hasServiceIncluded: boolean;
+    isRequired: boolean;
     isApplied: boolean;
     expectedDate: Date | null;
     executionDate: Date | null;

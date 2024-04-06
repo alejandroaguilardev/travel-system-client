@@ -55,13 +55,7 @@ export default function ContractDocumentationView() {
                                 href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.vaccinationCertificate)
                             }}
                         />,
-                        <RenderRowActionMenuItem
-                            item={{
-                                name: "Test serológico de rabia",
-                                icon: "infoFill",
-                                href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.rabiesSeroLogicalTest)
-                            }}
-                        />,
+
                         <RenderRowActionMenuItem
                             item={{
                                 name: "Permiso de importación",
@@ -74,13 +68,6 @@ export default function ContractDocumentationView() {
                                 name: "Certificado de Salud",
                                 icon: "infoFill",
                                 href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.healthCertificate)
-                            }}
-                        />,
-                        <RenderRowActionMenuItem
-                            item={{
-                                name: "Documentos de SENASA",
-                                icon: "infoFill",
-                                href: paths.dashboard.faseDocumentation.documentation.management(row.id, DOCUMENTATION_KEYS.senasaDocuments)
                             }}
                         />,
                         <RenderRowActionMenuItem

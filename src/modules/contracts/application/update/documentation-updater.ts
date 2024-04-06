@@ -12,6 +12,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
         status: documentation.status,
         vaccinationCertificate: {
             hasServiceIncluded: documentation.vaccinationCertificate.hasServiceIncluded,
+            isRequired: documentation.vaccinationCertificate.isRequired,
             isApplied: documentation.vaccinationCertificate.isApplied,
             expectedDate: documentation.vaccinationCertificate.expectedDate,
             executionDate: documentation.vaccinationCertificate.executionDate,
@@ -20,6 +21,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
         },
         healthCertificate: {
             hasServiceIncluded: documentation.healthCertificate.hasServiceIncluded,
+            isRequired: documentation.vaccinationCertificate.isRequired,
             isApplied: documentation.healthCertificate.isApplied,
             expectedDate: documentation.healthCertificate.expectedDate,
             executionDate: documentation.healthCertificate.executionDate,
@@ -28,6 +30,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
         },
         chipCertificate: {
             hasServiceIncluded: documentation.chipCertificate.hasServiceIncluded,
+            isRequired: documentation.vaccinationCertificate.isRequired,
             isApplied: documentation.chipCertificate.isApplied,
             expectedDate: documentation.chipCertificate.expectedDate,
             executionDate: documentation.chipCertificate.executionDate,
@@ -36,6 +39,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
         },
         senasaDocuments: {
             hasServiceIncluded: documentation.senasaDocuments.hasServiceIncluded,
+            isRequired: documentation.vaccinationCertificate.isRequired,
             isApplied: documentation.senasaDocuments.isApplied,
             expectedDate: documentation.senasaDocuments.expectedDate,
             executionDate: documentation.senasaDocuments.executionDate,
@@ -44,6 +48,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
         },
         rabiesSeroLogicalTest: {
             hasServiceIncluded: documentation.rabiesSeroLogicalTest.hasServiceIncluded,
+            isRequired: documentation.vaccinationCertificate.isRequired,
             isApplied: documentation.rabiesSeroLogicalTest.isApplied,
             expectedDate: documentation.rabiesSeroLogicalTest.expectedDate,
             executionDate: documentation.rabiesSeroLogicalTest.executionDate,
@@ -52,6 +57,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
         },
         importLicense: {
             hasServiceIncluded: documentation.importLicense.hasServiceIncluded,
+            isRequired: documentation.vaccinationCertificate.isRequired,
             isApplied: documentation.importLicense.isApplied,
             expectedDate: documentation.importLicense.expectedDate,
             executionDate: documentation.importLicense.executionDate,
@@ -60,6 +66,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
         },
         emotionalSupportCertificate: {
             hasServiceIncluded: documentation.emotionalSupportCertificate.hasServiceIncluded,
+            isRequired: documentation.vaccinationCertificate.isRequired,
             isApplied: documentation.emotionalSupportCertificate.isApplied,
             expectedDate: documentation.emotionalSupportCertificate.expectedDate,
             executionDate: documentation.emotionalSupportCertificate.executionDate,

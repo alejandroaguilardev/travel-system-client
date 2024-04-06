@@ -6,12 +6,11 @@ import { useTravelGeneralForm } from "../general/use-travel-general-form";
 
 type Props = {
     hasServiceIncluded: boolean;
-    user?: boolean;
 }
 
-export const TravelFormGeneral: FC<Props> = ({ user, hasServiceIncluded }) => {
+export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
     const { editPermit } = useTravelGeneralForm();
-    const edit = editPermit(hasServiceIncluded, user)
+    const edit = editPermit(hasServiceIncluded)
 
     return (
         <>

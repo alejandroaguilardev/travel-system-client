@@ -11,12 +11,12 @@ const payInInstallmentInit: PayInInstallment = {
 
 export const useContractFormPrices = () => {
     const { setValue, watch } = useFormContext();
-    const [isPayInstallments, setIsPayInstallments] = useState(false);
+    const payInInstallments: PayInInstallment[] = watch("payInInstallments") ?? [];
+    const [isPayInstallments, setIsPayInstallments] = useState(payInInstallments.length > 1);
 
     const priceTotal = watch("price");
-    const payInInstallments: PayInInstallment[] = watch("payInInstallments") ?? [];
 
-    const [counter, setCounter] = useState(1);
+    const [counter, setCounter] = useState(payInInstallments.length);
 
     const handleIsPayInstallments = () => {
         const value = !isPayInstallments;

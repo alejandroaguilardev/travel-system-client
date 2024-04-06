@@ -6,6 +6,7 @@ export const defaultTakingSampleSerologicalTestContract: TakingSampleSerological
     date: new Date(),
     description: '',
     observation: '',
+    typeSample: 'PR',
     user: '',
 };
 
@@ -14,5 +15,6 @@ export const takingSampleContractObjectSchema: Yup.ObjectSchema<TakingSampleSero
     date: Yup.date(),
     description: Yup.string(),
     observation: Yup.string(),
+    typeSample: Yup.string(),
     user: Yup.string(),
 });

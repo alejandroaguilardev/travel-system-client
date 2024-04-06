@@ -45,8 +45,8 @@ export const EmotionalSupportCertificateForm: FC<Props> = ({ detail, callback, c
             {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">Certificado de MicroemotionalSupportCertificate</Typography>
-                <CertificateFormGeneral />
+                <Typography fontWeight="bold">Certificado de Soporte Emocional</Typography>
+                <CertificateFormGeneral label="¿Certificado realizado?" />
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

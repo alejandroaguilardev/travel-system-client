@@ -46,7 +46,7 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <Typography fontWeight="bold">Certificado de salud</Typography>
-                <CertificateFormGeneral />
+                <CertificateFormGeneral label="¿Certificado realizado?" />
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

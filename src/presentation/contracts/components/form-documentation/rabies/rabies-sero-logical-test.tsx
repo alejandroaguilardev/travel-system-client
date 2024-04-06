@@ -46,7 +46,7 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, contrac
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <Typography fontWeight="bold">Test serológico de rabia</Typography>
-                <CertificateFormGeneral />
+                {/* <CertificateFormGeneral label=""/> */}
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

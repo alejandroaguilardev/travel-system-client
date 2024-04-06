@@ -49,37 +49,38 @@ export const ContractFormPetDetail = ({ field }: Props) => {
 
                 <Stack direction={{ xs: "column", md: "row" }} flexWrap="wrap" spacing={1} marginBottom={1}>
                     <CertificateSwitch
-                        label='Certificado de chip'
+                        label='Certificado de chip (*)'
                         name={`${field}documentation.chipCertificate`}
                     />
                     <CertificateSwitch
-                        label='Certificado de vacuna'
+                        label='Certificado de vacuna (*)'
                         name={`${field}documentation.vaccinationCertificate`}
                     />
 
                     <CertificateSwitch
-                        label='Test serológico de rabia'
+                        label='Test serológico de rabia (*)'
                         name={`${field}documentation.rabiesSeroLogicalTest`}
+                    />
+
+                    <CertificateSwitch
+                        label='Certificado de salud (*)'
+                        name={`${field}documentation.healthCertificate`}
                     />
 
                     <CertificateSwitch
                         label='Permiso de importación'
                         name={`${field}documentation.importLicense`}
-
-                    />
-
-                    <CertificateSwitch
-                        label='Certificado de salud'
-                        name={`${field}documentation.healthCertificate`}
+                        canOptional
                     />
 
                     <CertificateSwitch
                         label='Documentos de SENASA'
                         name={`${field}documentation.senasaDocuments`}
+                        canOptional
                     />
 
                     <CertificateSwitch
-                        label='Certificado de soporte emocional'
+                        label='Certificado de soporte emocional (opcional)'
                         name={`${field}documentation.emotionalSupportCertificate`}
                     />
 

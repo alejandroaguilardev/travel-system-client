@@ -9,10 +9,12 @@ import { chipObjectSchema, defaultChip } from "./chip-validation";
 import { ChipContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { ChipFormGeneral } from "./chip-form-general";
 import { useFormChip } from "./use-form-chip";
+import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 
 type Props = {
     contractId: string;
     detail: ContractDetail;
+
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
@@ -33,7 +35,7 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, onCancel }) 
         }
     });
 
-    const { onSubmit, isExecuted } = useFormChip({ contractId, detailId: detail.id, petId: detail.pet?.id ?? "", callback });
+    const { onSubmit, isExecuted } = useFormChip({ contractId, detail, petId: detail.pet?.id ?? "", callback, action: DOCUMENTATION_KEYS.chipCertificate });
 
 
     return (
