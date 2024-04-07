@@ -5,11 +5,11 @@ import CardDocumentation from "../documentation/card-documentation";
 import Header from "../header/header";
 import CardCage from "../cage/card-cage";
 import CardTravel from "../travel/card-travel";
-import { useFinish } from '../../../contracts/hooks/use-finish';
 import { useContractStore } from '../../../../state/contract/contract-store';
 import { IconWrapper } from "../../../../components/icon-wrapper";
 import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
 import { statusError } from '../../../../modules/contracts/domain/contract-status';
+import { useFinishClient } from '../../../contracts/hooks/use-finish-client';
 
 type Props = {
     contract: Contract;
@@ -18,7 +18,7 @@ type Props = {
 
 export const SelectedContract: FC<Props> = ({ contract, contractDetail }) => {
     const { onSelected } = useContractStore();
-    const { handleFinishClick } = useFinish({ contract, callback: () => onSelected(null) });
+    const { handleFinishClick } = useFinishClient({ contract, callback: () => onSelected(null) });
 
     return (
         <>

@@ -10,7 +10,14 @@ export const contractCreator = (contractService: ContractService, uuid: UuidServ
     securePayInInstallments(contract?.payInInstallments ?? []);
 
     const newContract: NewPostContract = contractCreatorFormat(contract, uuid);
+    const newContractWithCustomerPayment: NewPostContract = contractWithCustomerPayment(contract, newContract);
 
+    const response = await contractService.save(newContractWithCustomerPayment);
+    return { message: response.message, contract: newContractWithCustomerPayment };
+}
+
+
+export const contractWithCustomerPayment = (contract: NewContract, newContract: NewPostContract): NewPostContract => {
     const customerPayments: CustomerPayment[] = [];
     if (contract?.payInInstallments && contract.payInInstallments.length > 0) {
         customerPayments.push({
@@ -20,11 +27,8 @@ export const contractCreator = (contractService: ContractService, uuid: UuidServ
         })
     }
     newContract.customerPayments = customerPayments;
-
-    const response = await contractService.save(newContract);
-    return { message: response.message, contract: newContract };
+    return newContract;
 }
-
 
 export const contractCreatorFormat = (contract: NewContract, uuid: UuidService): NewPostContract => {
     return {

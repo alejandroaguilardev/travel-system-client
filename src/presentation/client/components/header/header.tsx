@@ -41,7 +41,7 @@ const Header = () => {
                     primary={
                         contractDetail?.travel?.typeTraveling === "charge" ?
                             <>
-                                Número de guía: {contractDetail?.guideNumber || "-- --"}
+                                Número de guía: {contractDetail?.travel?.guideNumber || "-- --"}
                             </>
                             : ""}
                     primaryTypographyProps={{

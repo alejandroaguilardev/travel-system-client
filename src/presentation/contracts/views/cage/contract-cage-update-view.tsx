@@ -18,7 +18,7 @@ export default function ContractCageUpdateView({ id }: Props) {
     const router = useRouter();
 
     const { contract, error, isLoading } = useSearchByIdContract(id);
-    const redirectData = () => router.push(paths.dashboard.contracts.root);
+    const redirectData = () => router.push(paths.dashboard.contractCage.list);
 
     if (isLoading) return null
     if (!contract) return <NotFoundView />
@@ -31,7 +31,7 @@ export default function ContractCageUpdateView({ id }: Props) {
                     heading={`Requisitos de Jaula: ${contract?.client.profile.name} ${contract.client.profile.lastName}`}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
-                        { name: 'Contratos', href: paths.dashboard.contracts.root },
+                        { name: 'Contratos', href: paths.dashboard.contractCage.list },
                         { name: `${contract?.client.profile.name} ${contract.client.profile.lastName}` },
                     ]}
                 />
@@ -46,6 +46,7 @@ export default function ContractCageUpdateView({ id }: Props) {
                                 detailId={detail.id}
                                 cage={detail.cage}
                                 cageRecommendation={detail?.pet?.cageRecommendation}
+                                user
                             />
                         </CagePetFound>
                     </AccordionPet>

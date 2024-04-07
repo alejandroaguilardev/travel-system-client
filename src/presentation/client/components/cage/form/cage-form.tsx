@@ -18,10 +18,11 @@ type Props = {
     cageRecommendation?: CageChosen;
     noShowButton: boolean;
     onCancel: () => void;
-    callback: (response?: ContractDetailUpdateResponse) => void
+    callback: (response?: ContractDetailUpdateResponse) => void;
+    user?: boolean;
 }
 
-export const CageForm: FC<Props> = ({ cageRecommendation, cage, onCancel, callback, noShowButton, detailId, contractId }) => {
+export const CageForm: FC<Props> = ({ cageRecommendation, cage, onCancel, callback, user = false, noShowButton, detailId, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<Cage>(cageSchema),
         defaultValues: {
@@ -48,7 +49,7 @@ export const CageForm: FC<Props> = ({ cageRecommendation, cage, onCancel, callba
 
             </Typography>
 
-            <CageFormGeneral />
+            <CageFormGeneral user={user} />
 
             <Alert icon={false} variant='standard' severity="error" sx={{ width: "100%", p: 0, mb: 1 }}>
                 <RHFCheckbox

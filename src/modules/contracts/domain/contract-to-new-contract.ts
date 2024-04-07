@@ -16,7 +16,6 @@ export const contractToNewContract = (contract: Contract): NewContract => {
             pet: _.pet,
             documentation: _.documentation,
             topico: _.topico,
-            guideNumber: _.guideNumber,
             user: _.user
         }));
     }

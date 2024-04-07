@@ -70,6 +70,7 @@ const detailInit: NewContractDetail = {
             cityDestination: "",
             directionDestination: "",
         },
+        guideNumber: '',
     },
     documentation: {
         status: 'none',
@@ -82,7 +83,6 @@ const detailInit: NewContractDetail = {
         emotionalSupportCertificate: { ...certificate, isRequired: false },
     },
 
-    guideNumber: '',
 }
 
 const defaultValues: NewContract = {

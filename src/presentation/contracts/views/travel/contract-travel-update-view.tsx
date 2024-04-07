@@ -16,7 +16,7 @@ export default function ContractTravelView({ id }: Props) {
     const router = useRouter();
 
     const { contract, error, isLoading } = useSearchByIdContract(id);
-    const redirectData = () => router.push(paths.dashboard.contracts.root);
+    const redirectData = () => router.push(paths.dashboard.contractTravel.list);
 
     if (isLoading) return null
     if (!contract) return <NotFoundView />
@@ -29,7 +29,7 @@ export default function ContractTravelView({ id }: Props) {
                     heading={`Requisitos de Viaje: ${contract?.client.profile.name} ${contract.client.profile.lastName}`}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
-                        { name: 'Contratos', href: paths.dashboard.contracts.root },
+                        { name: 'Contratos reserva', href: paths.dashboard.contractTravel.list },
                         { name: `${contract?.client.profile.name} ${contract.client.profile.lastName}` },
                     ]}
                 />
@@ -42,6 +42,7 @@ export default function ContractTravelView({ id }: Props) {
                             detailId={detail.id}
                             travel={detail.travel}
                             hasServiceIncluded={detail.travel.hasServiceIncluded}
+                            user
                         />
                     </AccordionPet>
                 ))}

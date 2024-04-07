@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { NewContract } from '../../../../src/modules/contracts/domain/contract';
 import { uuidCreateMother } from '../../shared/domain/uuid.mother';
 import { contractDetailCreateMother } from './contract-detail.mother';

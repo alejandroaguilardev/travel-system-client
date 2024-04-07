@@ -58,6 +58,7 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
                         contractId={contractId}
                         contractDetailId={contractDetailId}
                         callback={() => setIsUpdate(true)}
+                        notButton={contractDetail?.travel?.status === "completed"}
                     />
                 </>
             }

@@ -33,7 +33,7 @@ export default function CardDocumentation({ documentation, finish, contractId, d
                         <Stack>
                             <ListItemText
                                 sx={{ mb: 1 }}
-                                primary="Requisitos de Documentación" primaryTypographyProps={{
+                                primary="Confirma la documentación de tu mascota" primaryTypographyProps={{
                                     typography: 'subtitle1',
                                 }}
                                 secondary="Asegúrese de tener todos los documentos necesarios."
@@ -83,7 +83,7 @@ export default function CardDocumentation({ documentation, finish, contractId, d
             {
                 dialog.value &&
                 <DialogContract
-                    title='Requisitos de la documentación'
+                    title='Confirma la documentación de tu mascota'
                     open={dialog.value}
                     onClose={dialog.onFalse}
                 >

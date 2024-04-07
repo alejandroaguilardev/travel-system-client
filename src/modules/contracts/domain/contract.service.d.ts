@@ -11,6 +11,7 @@ export interface ContractService extends ServiceHost<NewPostContract> {
     searchClientById(): Promise<Contract[]>;
     searchClient: ServiceSearch;
     finish(contractId: string): Promise<ResponseSuccess>;
+    finishClient(contractId: string): Promise<ResponseSuccess>;
     cancel(contractId: string): Promise<ResponseSuccess>;
     updateFolder(contractId: string, folder: string, number: string): Promise<ResponseSuccess>
 }

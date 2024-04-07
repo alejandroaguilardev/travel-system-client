@@ -26,6 +26,10 @@ export const contractService: ContractService = {
         const { data } = await axiosInstance.post(`${endpoints.contracts.root}/${contractId}/finish`);
         return data;
     },
+    finishClient: async (contractId: string): Promise<ResponseSuccess> => {
+        const { data } = await axiosInstance.post(`${endpoints.contracts.root}/${contractId}/finish/client`);
+        return data;
+    },
     cancel: async (contractId: string): Promise<ResponseSuccess> => {
         const { data } = await axiosInstance.post(`${endpoints.contracts.root}/${contractId}/cancel`);
         return data;

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Dialog, DialogContent, DialogTitle, DialogProps, IconButton } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, DialogProps, IconButton, Divider } from '@mui/material';
 
 interface Props extends DialogProps {
     title: string;
@@ -22,6 +22,7 @@ export const DialogContract: FC<Props> = ({ open, onClose, title, children, ...r
             </IconButton>
         </DialogTitle>
         <DialogContent>
+            <Divider sx={{ mb: 1 }} />
             {children}
         </DialogContent>
     </Dialog>

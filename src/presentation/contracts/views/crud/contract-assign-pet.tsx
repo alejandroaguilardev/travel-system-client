@@ -45,8 +45,8 @@ export default function ContractAssignPetView() {
             {!isLoading && <ContractTable
                 options={{
                     columnQueryFilters: [{
-                        id: "details.pet",
-                        value: "",
+                        id: "details.pet.id",
+                        value: undefined,
                     }, {
                         id: "status",
                         value: "pending",

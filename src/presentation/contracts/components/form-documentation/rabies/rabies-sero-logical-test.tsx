@@ -64,7 +64,7 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <Typography fontWeight="bold">Test serológico de rabia</Typography>
-                <CertificateFormGeneral label="¿Permiso realizado?" />
+                <CertificateFormGeneral label="Resultado Recibido?" />
 
 
                 {!isAdmin && !isEdit && <Alert severity="info" >Solo el administrador puedo editar un contrato ya finalizado</Alert>}

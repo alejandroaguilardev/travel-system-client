@@ -79,6 +79,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             status: contractStatusCreateMother(),
         },
         travel: {
+            guideNumber: '',
             status: "pending",
             hasServiceIncluded: faker.datatype.boolean(),
             typeTraveling: typeTravelingCreateMother(),

@@ -16,7 +16,6 @@ export interface ContractDetail {
     cage: Cage;
     travel: Travel;
     topico?: ContractTopico;
-    guideNumber?: string;
     pet?: Pet;
     user?: string;
 }

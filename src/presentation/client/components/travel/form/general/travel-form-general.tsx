@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { Alert, Stack, Typography } from "@mui/material";
+import { Alert, Stack, TextField, Typography } from "@mui/material";
 import RHFTextField from '../../../../../../components/hook-form/rhf-text-field';
-import IconWrapper from '../../../../../../components/icon-wrapper/icon-wrapper';
 import { useTravelGeneralForm } from "./use-travel-general-form";
 import { RHFDate } from '../../../../../../components/hook-form/rhf-date';
+import { DatePicker } from "@mui/x-date-pickers";
 
 type Props = {
     hasServiceIncluded: boolean;
@@ -11,7 +11,7 @@ type Props = {
 
 export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
     const { code, typeTraveling, departureDate, arrivalDate, editPermit } = useTravelGeneralForm();
-    const edit = editPermit(hasServiceIncluded)
+    const readonly = editPermit(hasServiceIncluded)
 
     return (
         <Stack spacing={1} my={1}>
@@ -35,48 +35,59 @@ export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
                     name="airlineReservation.code"
                     label="Código de reserva (*)"
                     InputProps={{
-                        readOnly: edit
+                        readOnly: readonly
                     }}
-                    style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                    style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                 />
                 <RHFTextField
                     name="airlineReservation.flightNumber"
                     label="Número de vuelo (*)"
                     InputProps={{
-                        readOnly: edit
+                        readOnly: readonly
                     }}
-                    style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                    style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                 />
             </Stack>
             <RHFTextField
                 name="airlineReservation.departureAirport"
                 label="Aeropuerto de salida (*)"
                 InputProps={{
-                    readOnly: edit
+                    readOnly: readonly
                 }}
-                style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
             <RHFTextField
                 name="airlineReservation.destinationAirport"
                 label="Aeropuerto de llegada (*)"
                 InputProps={{
-                    readOnly: edit
+                    readOnly: readonly
                 }}
-                style={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
             />
             <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
-                <RHFDate
-                    name="airlineReservation.departureDate"
-                    label="Fecha de salida (*)"
-                    value={departureDate}
-                    sx={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                />
-                <RHFDate
-                    name="airlineReservation.arrivalDate"
-                    value={arrivalDate}
-                    label="Fecha de llegada (*)"
-                    sx={edit ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                />
+                {readonly ?
+                    <>
+                        <DatePicker value={departureDate} label="Fecha de salida (*)" disabled sx={{ width: "100%" }} />
+                        <DatePicker value={arrivalDate} label="Fecha de llegada (*)" disabled sx={{ width: "100%" }} />
+                    </>
+                    :
+                    <>
+                        <RHFDate
+                            name="airlineReservation.departureDate"
+                            label="Fecha de salida (*)"
+                            value={departureDate}
+
+                        />
+                        <RHFDate
+                            name="airlineReservation.arrivalDate"
+                            value={arrivalDate}
+                            label="Fecha de llegada (*)"
+                        />
+
+                    </>
+
+
+                }
             </Stack>
 
             {
@@ -87,9 +98,19 @@ export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
             }
             {
                 typeTraveling === "charge" &&
-                <Alert variant='outlined' severity="info" sx={{ width: "100%" }}>
-                    Viaje por cargo o bodega. Su mascota viajará de manera segura y cómoda.
-                </Alert>
+                <>
+                    <Alert variant='outlined' severity="info" sx={{ width: "100%" }}>
+                        Viaje por cargo o bodega. Su mascota viajará de manera segura y cómoda.
+                    </Alert>
+                    <RHFTextField
+                        name="guideNumber"
+                        label="Número de Guía (*)"
+                        InputProps={{
+                            readOnly: readonly
+                        }}
+                        style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                    />
+                </>
             }
         </Stack >
     );

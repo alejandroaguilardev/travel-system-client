@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { CSSProperties, FC, useEffect } from "react";
-import { Box, Stack, Typography } from "@mui/material"
+import { Box, Stack } from "@mui/material"
 import RHFSwitch from '../../../../../../components/hook-form/rhf-switch';
 import { fDayjs } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
 import { useAuthContext } from '../../../../../auth/hooks/use-auth-context';

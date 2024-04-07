@@ -21,6 +21,7 @@ export const travelUpdater = (contractService: ContractDetailService, uuid: Uuid
             departureDate: travel.airlineReservation.departureDate,
             arrivalDate: travel.airlineReservation.arrivalDate,
         },
+        guideNumber: travel?.guideNumber ?? ""
     }
 
     const response = await contractService.updateTravel(contractId, detailId, travelUpdate);

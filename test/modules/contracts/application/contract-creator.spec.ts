@@ -1,4 +1,4 @@
-import { contractCreator, contractCreatorFormat } from '../../../../src/modules/contracts/application/create/contract-creator';
+import { contractCreator, contractCreatorFormat, contractWithCustomerPayment } from '../../../../src/modules/contracts/application/create/contract-creator';
 import uuid from '../../../../src/modules/shared/infrastructure/adapter/uuid';
 import { MessageCreateMother } from '../../shared/domain/response-message.mother';
 import { contractCreateMother } from "../domain/contract.mother"
@@ -20,8 +20,8 @@ describe("ContractCreator", () => {
         const response = { message: MessageCreateMother() }
         contractServiceMock.save.mockResolvedValueOnce(response);
         await contractCreator(contractServiceMock, uuid)(dataForm)
-
-        expect(contractServiceMock.save).toHaveBeenCalledWith(contractCreatorFormat(dataForm, uuid))
+        const contract = contractWithCustomerPayment(dataForm, contractCreatorFormat(dataForm, uuid))
+        expect(contractServiceMock.save).toHaveBeenCalledWith(contract)
     })
 
     it("should_failed_contract_create", async () => {

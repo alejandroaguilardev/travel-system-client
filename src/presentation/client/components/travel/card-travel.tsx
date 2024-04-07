@@ -32,7 +32,7 @@ export default function CardTravel({ travel, contractId, detailId }: Props) {
                         <Stack>
                             <ListItemText
                                 sx={{ mb: 1 }}
-                                primary="Requisitos de Viaje" primaryTypographyProps={{
+                                primary="Confirma la reserva el viaje de tu mascota" primaryTypographyProps={{
                                     typography: 'subtitle1',
                                 }}
                                 secondary="Asegúrese de tener todos los elementos necesarios para viajar"
@@ -82,7 +82,7 @@ export default function CardTravel({ travel, contractId, detailId }: Props) {
             </Card>
             {dialog.value &&
                 <DialogContract
-                    title='Requisitos de viaje'
+                    title='Confirma la reserva el viaje de tu mascota'
                     open={dialog.value}
                     onClose={dialog.onFalse}
                 >

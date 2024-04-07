@@ -36,7 +36,7 @@ export default function CardCage({ pet, cage, contractId, detailId, finish }: Pr
                         <Stack>
                             <ListItemText
                                 sx={{ mb: 1 }}
-                                primary="Requisito de la Jaula" primaryTypographyProps={{
+                                primary="Confirma la jaula de tu mascota para el viaje" primaryTypographyProps={{
                                     typography: 'subtitle1',
                                 }}
                                 secondary="Asegúrese de tener la jaula correcta, con las dimensiones correcta."
@@ -87,7 +87,7 @@ export default function CardCage({ pet, cage, contractId, detailId, finish }: Pr
 
             {dialog.value &&
                 <DialogContract
-                    title='Requisitos de la jaula'
+                    title='Confirma la jaula de tu mascota para el viaje'
                     open={dialog.value}
                     onClose={dialog.onFalse}
                 >

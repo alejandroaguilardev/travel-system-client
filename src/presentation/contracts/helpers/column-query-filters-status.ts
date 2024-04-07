@@ -1,5 +1,5 @@
 export const CONTRACT_STATUS_IN_COURSE = [
-    { id: "status", value: "pending" },
+    { id: "endDate", value: null },
 ] as const;
 
 

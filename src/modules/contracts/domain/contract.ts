@@ -17,10 +17,11 @@ export interface Contract {
     price: number;
     payInInstallments?: PayInInstallment[];
     customerPayments?: CustomerPayment[];
+    finishClient?: boolean;
     user: string;
 }
 
-export interface NewContract extends Omit<Contract, "id" | "endDate" | "client" | "guideNumber" | "status" | "details" | "user" | "folder" | "number" | "adviser"> {
+export interface NewContract extends Omit<Contract, "id" | "endDate" | "client" | "status" | "details" | "user" | "folder" | "number" | "adviser" | "finishClient"> {
     id?: string;
     client: string;
     details: NewContractDetail[];
