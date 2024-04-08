@@ -16,7 +16,7 @@ type Props = {
 
 export default function CardTravel({ travel, contractId, detailId }: Props) {
     const dialog = useBoolean();
-    const { onSelected, onSelectedDetail } = useContractStore();
+    const { onSelected, onSelectedDetail, contract } = useContractStore();
 
     return (
         <>
@@ -87,6 +87,7 @@ export default function CardTravel({ travel, contractId, detailId }: Props) {
                     onClose={dialog.onFalse}
                 >
                     <TravelForm
+                        adviserNumber={contract?.adviser?.profile?.phone ?? null}
                         onCancel={dialog.onFalse}
                         contractId={contractId}
                         travel={travel}

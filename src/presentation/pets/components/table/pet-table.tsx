@@ -39,6 +39,12 @@ export const PetTable: FC<Props> = ({ onSelected, deleteItem, }) => {
                 minSize: 200
             },
             {
+                header: 'Fecha del chip',
+                accessorKey: 'chip',
+                accessorFn: (row) => fDate(row?.chipDate),
+                minSize: 250
+            },
+            {
                 header: 'Tipo',
                 accessorKey: 'gender',
                 accessorFn: (row) => row?.type,

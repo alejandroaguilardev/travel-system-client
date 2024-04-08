@@ -39,6 +39,7 @@ export default function ContractCageHistoryView({ id }: Props) {
                     <AccordionPet detail={detail} key={detail.id} index={index}>
                         <CagePetFound pet={detail?.pet}>
                             <CageForm
+                                pet={detail.pet!}
                                 noShowButton={false}
                                 onCancel={redirectData}
                                 callback={() => false}

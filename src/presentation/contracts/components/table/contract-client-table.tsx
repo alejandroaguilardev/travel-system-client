@@ -84,7 +84,7 @@ export const ContractClientTable: FC<Props> = ({ options }) => {
             {
                 header: 'Fecha de Finalización',
                 accessorKey: 'endDate',
-                accessorFn: (row) => row.endDate ? fDate(row.endDate, 'dd/MM/yyyy HH:mm:ss') : "--",
+                accessorFn: (row) => row.endDate ? fDate(row.endDate, 'DD/MM/YYYY HH:mm:ss') : "--",
                 minSize: 200
             },
         ],

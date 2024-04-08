@@ -2,6 +2,7 @@ export const pdfStyles = {
     page: {
         backgroundColor: '#ffffff',
         color: "#444",
+        fontFamily: "Roboto",
     },
     container: {
         margin: 30,

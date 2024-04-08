@@ -76,7 +76,6 @@ export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
                             name="airlineReservation.departureDate"
                             label="Fecha de salida (*)"
                             value={departureDate}
-
                         />
                         <RHFDate
                             name="airlineReservation.arrivalDate"

@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import RouterLink from '../../../app/routes/components/router-link';
 import { LoadingScreen } from '../../../components/loading-screen';
 import { NotFoundView } from '../../../presentation/error';
+import { AccompaniedStep } from '../components/accompanied-form/steps/accompanied-steps';
 
 type Props = {
     contractId: string;
@@ -58,8 +59,10 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
                         contractId={contractId}
                         contractDetailId={contractDetailId}
                         callback={() => setIsUpdate(true)}
-                        notButton={contractDetail?.travel?.status === "completed"}
-                    />
+                        notButton={true}
+                    >
+                        <AccompaniedStep hasCharge={contractDetail?.travel?.typeTraveling === "charge"} notButton={true} status={contractDetail?.travel?.status ?? "pending"} />
+                    </AccompaniedForm>
                 </>
             }
         </Container >

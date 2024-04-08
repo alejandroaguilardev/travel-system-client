@@ -1,24 +1,44 @@
-import { Alert, Stack } from "@mui/material";
-import { useFormContext } from 'react-hook-form';
-import { ContractFormCage } from '../../../../contracts/components/form/cage/contract-form-cage';
+import { Alert, Stack, TextField, Typography } from "@mui/material";
 import { CageSelected } from "./cage-selected";
-import { Cage } from '../../../../../modules/contracts/domain/contract-services/cage/cage';
+import { Pet } from '../../../../../modules/pets/domain/pet';
 
 type Props = {
-    user: boolean;
+    pet: Pet;
 }
 
-export const CageFormGeneral = ({ user }: Props) => {
+export const CageFormGeneral = ({ pet }: Props) => {
 
-    const { watch } = useFormContext<Cage>();
 
     return (
         <Stack spacing={1} my={1}>
             <Alert variant='outlined' sx={{ width: "100%" }} severity="info">Recomendamos siempre que la jaula tenga dos comedero y un bebedero</Alert>
-            {
-                user &&
-                <ContractFormCage keyValue="chosen" />
-            }
+
+            <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
+                <Typography fontWeight="bold">Medidas de la Mascota</Typography>
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                    <TextField
+                        label="Alto(cm) *"
+                        value={pet?.measurementsAndWeight?.height}
+                        disabled
+                    />
+                    <TextField
+                        label="Ancho(cm) *"
+                        value={pet?.measurementsAndWeight?.width}
+                        disabled
+                    />
+                    <TextField
+                        label="Largo (cm) *"
+                        value={pet?.measurementsAndWeight?.length}
+                        disabled
+                    />
+                    <TextField
+                        label="Peso (kg) *"
+                        value={pet?.measurementsAndWeight?.weight}
+                        disabled
+                    />
+                </Stack>
+            </Stack>
+            <Typography fontWeight="bold">Jaula Recomendada</Typography>
             <CageSelected readonly={true} keyField="chosen" />
         </Stack >
     );

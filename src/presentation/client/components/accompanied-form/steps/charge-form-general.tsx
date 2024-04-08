@@ -20,7 +20,7 @@ export const ChargeFormGeneral = ({ notButton }: Props) => {
         <>
 
             <Stack spacing={2} mb={5}>
-                <Typography variant="h4">
+                <Typography variant={notButton ? "h6" : "h4"}>
                     Información sobre la persona que recibe la mascota:
                 </Typography>
                 <RHFTextField

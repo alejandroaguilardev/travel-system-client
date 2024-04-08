@@ -4,6 +4,7 @@ import { paths } from '../../../../app/routes/paths';
 import { RouterLink } from '../../../../app/routes/components';
 import { ContractTable } from '../../components/table/contract-table';
 import { useColumnsTravel } from '../../components/table/columns/use-columns-travel';
+import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
 
 export default function ContractCageView() {
     const columns = useColumnsTravel();
@@ -21,7 +22,9 @@ export default function ContractCageView() {
             <ContractTable
                 options={{
                     columns,
-                    columnQueryFilters: [],
+                    columnQueryFilters: [
+                        ...CONTRACT_STATUS_IN_COURSE,
+                    ],
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
                     renderRowActions: (row) => <Button
                         component={RouterLink}

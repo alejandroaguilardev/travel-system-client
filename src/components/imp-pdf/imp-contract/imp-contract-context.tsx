@@ -35,7 +35,6 @@ export function ImpContractProvider({ children }: Props) {
 
   const handleTypeImpExecute = useCallback(async (id: string, type: TypeofImp) => {
     const contract = await contractService.searchById<Contract>(id);
-    console.log(contract)
 
     const client = typeof contract?.client === "string"
       ? await userService.searchById<User>(contract.client)

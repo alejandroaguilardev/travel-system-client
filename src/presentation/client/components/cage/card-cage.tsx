@@ -93,6 +93,7 @@ export default function CardCage({ pet, cage, contractId, detailId, finish }: Pr
                 >
                     <CagePetFound pet={pet}>
                         <CageForm
+                            pet={pet!}
                             cageRecommendation={pet?.cageRecommendation}
                             onCancel={dialog.onFalse}
                             contractId={contractId}

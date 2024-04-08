@@ -13,7 +13,7 @@ type Props = {
 export const AccordionPet: FC<Props> = ({ children, detail, index }) => {
     const number = index + 1;
     return (
-        <Accordion defaultExpanded >
+        <Accordion defaultExpanded sx={{ boxShadow: 1 }}>
             <AccordionSummary expandIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}>
                 <Typography variant="subtitle1">
                     {detail?.pet?.name ?

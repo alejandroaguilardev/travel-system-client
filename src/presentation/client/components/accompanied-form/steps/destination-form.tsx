@@ -17,7 +17,7 @@ export const DestinationFormGeneral = ({ notButton }: Props) => {
         <>
 
             <Stack spacing={2} >
-                <Typography variant="h4">
+                <Typography variant={notButton ? "h6" : "h4"}>
                     Destino de la mascota:
                 </Typography>
 

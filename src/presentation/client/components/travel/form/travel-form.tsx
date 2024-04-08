@@ -11,6 +11,11 @@ import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/d
 import { TabGenericProvider } from '../../../../../components/tab-generic/context/tab-generic-provider';
 import { TabSwitcher } from '../../../../../components/tab-generic/tab-switcher';
 import { AccompaniedForm } from "../../accompanied-form/accompanied-form";
+import { AccompaniedFormGeneral } from "../../accompanied-form/steps/accompanied-form-general";
+import { DestinationFormGeneral } from "../../accompanied-form/steps/destination-form";
+import { ChargeFormGeneral } from '../../accompanied-form/steps/charge-form-general';
+import { AccompaniedStep } from "../../accompanied-form/steps/accompanied-steps";
+import { CommunicateAdviser } from "src/components/communicate-adviser/communicate-adviser";
 
 type Props = {
     contractId: string;
@@ -19,10 +24,11 @@ type Props = {
     hasServiceIncluded: boolean;
     callback: (response?: ContractDetailUpdateResponse) => void
     onCancel: () => void;
+    adviserNumber: string | null;
     user?: boolean;
 }
 
-export const TravelForm: FC<Props> = ({ travel, detailId, user, callback, onCancel, hasServiceIncluded, contractId }) => {
+export const TravelForm: FC<Props> = ({ travel, detailId, user, adviserNumber, callback, onCancel, hasServiceIncluded, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<PartialTravel>(travelSchema),
         defaultValues: travel,
@@ -55,8 +61,23 @@ export const TravelForm: FC<Props> = ({ travel, detailId, user, callback, onCanc
                 contractId={contractId}
                 contractDetailId={detailId}
                 callback={callback}
-                notButton={travel.status === "completed" && !user}
-            />
+                notButton={!user}
+            >
+                {user ?
+                    <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={false} status={travel?.status ?? "pending"} />
+                    :
+                    <>
+                        <CommunicateAdviser number={adviserNumber} />
+                        <AccompaniedFormGeneral notButton />
+                        <DestinationFormGeneral notButton />
+                        {travel?.typeTraveling === "charge" &&
+                            <ChargeFormGeneral notButton />
+                        }
+                    </>
+                }
+
+            </AccompaniedForm>
+
         },
     ]
 

@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import ContractIdView from '../../../../../presentation/contracts/views/crud/contract-id-view';
 import ContractEditView from '../../../../../presentation/contracts/views/crud/contract-edit-view';
-import NotFoundView from '../../../../../presentation/error/500-view';
+import NotFoundView from '../../../../../presentation/error/not-found-view';
 import { useParams } from '../../../../routes/hooks/use-params';
 import ContractDocumentationView from '../../../../../presentation/contracts/views/documentation/contract-documentation-update-view';
 import { RoutePermissionGuard } from '../../../../routes/guard/route-permission.guard';
@@ -24,7 +24,7 @@ export default function ContractIdPage() {
     const { id } = params;
     const action = params.action as RoutesActions;
 
-    if (!id || !action || ![RoutesActions.EDIT, RoutesActions.VIEW, RoutesActions.DOCUMENTATION, RoutesActions.PET].includes(action)) {
+    if (!id || !action || ![RoutesActions.EDIT, RoutesActions.VIEW, RoutesActions.DOCUMENTATION, RoutesActions.PET, RoutesActions.CLIENT].includes(action)) {
         return <NotFoundView />;
     }
 

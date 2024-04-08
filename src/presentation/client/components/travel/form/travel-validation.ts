@@ -24,12 +24,12 @@ export const travelSchema: Yup.ObjectSchema<PartialTravel> = Yup.object().shape(
     hasServiceAccompanied: Yup.boolean(),
     typeTraveling: Yup.string().oneOf(["none" as TypeTraveling, ...TRAVEL_TYPES.map((_) => _.value)]),
     airlineReservation: Yup.object().shape({
-        code: Yup.string(),
-        flightNumber: Yup.string(),
-        departureAirport: Yup.string(),
-        destinationAirport: Yup.string(),
-        departureDate: Yup.date().nullable(),
-        arrivalDate: Yup.date().nullable(),
+        code: Yup.string().required("Indica el código de reserva"),
+        flightNumber: Yup.string().required("Indica el número de vuelo"),
+        departureAirport: Yup.string().required("Indica el aeropuerto de salida"),
+        destinationAirport: Yup.string().required("Indica el aeropuerto de llegada"),
+        departureDate: Yup.date().nullable().required("Indica la fecha de salida"),
+        arrivalDate: Yup.date().nullable().required("Indica la fecha de llegada"),
         user: Yup.string()
     }),
     hasServiceIncluded: Yup.boolean(),

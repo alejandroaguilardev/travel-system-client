@@ -37,7 +37,7 @@ export const AccompaniedFormGeneral = ({ notButton }: Props) => {
     return (
 
         <Stack spacing={2} mb={5}>
-            <Typography variant="h4">
+            <Typography variant={notButton ? "h6" : "h4"}>
                 Información sobre la persona que viaja o envía la mascota por cargo
             </Typography>
             <Divider />

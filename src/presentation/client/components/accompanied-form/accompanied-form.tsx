@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, ReactNode } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormProvider from '../../../../components/hook-form/form-provider';
@@ -14,9 +14,10 @@ type Props = {
     travel?: Travel;
     notButton: boolean;
     callback: (response?: ContractDetailUpdateResponse) => void;
+    children: ReactNode
 }
 
-export const AccompaniedForm: FC<Props> = ({ contractId, notButton, contractDetailId, travel, callback }) => {
+export const AccompaniedForm: FC<Props> = ({ contractId, notButton, contractDetailId, travel, callback, children }) => {
     const methods = useForm({
         resolver: yupResolver<TravelAccompaniedSchema>(travelAccompaniedSchema),
         defaultValues: {
@@ -51,7 +52,7 @@ export const AccompaniedForm: FC<Props> = ({ contractId, notButton, contractDeta
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-            <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={notButton} status={travel?.status ?? "pending"} />
+            {children}
         </FormProvider >
     )
 }
