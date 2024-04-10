@@ -13,8 +13,8 @@ import { numberToWords } from '../../../modules/shared/domain/helpers/formar-num
 Font.register({
     family: 'Roboto',
     fonts: [
-        { src: '../../../../public/fonts/Roboto-Regular.ttf' },
-        { src: '../../../../public/fonts/Roboto-Bold.ttf' }
+        { src: '/fonts/Roboto-Regular.ttf' },
+        { src: '/fonts/Roboto-Bold.ttf' }
     ]
 });
 
@@ -57,7 +57,7 @@ const ContractPdf = ({ contract }: Props) => {
                     <SpacePdf marginBottom={10} />
                     < View>
                         <Text>
-                            Por el presente contrato, el Sr. Christian F. Suarez Nuñez Del Prado, identificado con número DNI 41233194 y representante legal de Pet Travel Perú con número de RUC: 10412331945, encargado de la gestión y documentación para el viaje de mascotas, deja constancia que,
+                            Por el presente contrato, el Sr. Christian F. Suarez Nuñez Del Prado, identificado con número D.N.I 41233194 y representante legal de Pet Travel Perú con número de R.U.C: 10412331945, encargado de la gestión y documentación para el viaje de mascotas, deja constancia que,
                         </Text>
                     </View>
                     <SpacePdf marginBottom={10} />
