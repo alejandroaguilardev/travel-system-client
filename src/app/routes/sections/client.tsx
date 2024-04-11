@@ -9,7 +9,7 @@ const ClientProfile = lazy(() => import('../../pages/client/profile/index'));
 const ClientSecurity = lazy(() => import('../../pages/client/security/index'));
 
 const HistoryPage = lazy(() => import('../../pages/client/history'));
-const TravelPage = lazy(() => import('../../pages/client/travel/[id]/index'));
+const AccompaniedPage = lazy(() => import('../../pages/client/travel/[id]/index'));
 
 export const clientsRoutes = [
     {
@@ -42,7 +42,7 @@ export const clientsRoutes = [
             {
                 path: 'viaje/:contractId/:contractDetailId/:token',
                 children: [
-                    { element: <TravelPage />, index: true },
+                    { element: <AccompaniedPage />, index: true },
                 ],
             },
         ],

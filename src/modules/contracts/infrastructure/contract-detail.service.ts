@@ -12,8 +12,6 @@ import { TravelPetPerCharge } from '../domain/contract-services/travel/travel-pe
 import { TravelAccompaniedPet } from '../domain/contract-services/travel/travel-accompanied-pet';
 import { TravelDestination } from '../domain/contract-services/travel/travel-destination';
 import { ContractTopico } from '../domain/contract-services/topico/contract-topico';
-import { DocumentationCertificate } from '../domain/contract-services/documentation/documentation-certificate';
-
 
 export const contractDetailService: ContractDetailService = {
     search: async (criteria: Criteria): Promise<ResponseSearch<ContractDetail[]>> => {
@@ -63,5 +61,8 @@ export const contractDetailService: ContractDetailService = {
     updateTopico: async (contractId: string, detailId: string, action: string, body: Partial<ContractTopico>): Promise<ContractDetailUpdateResponse> => {
         const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/topico/${action}`, body)
         return data;
+    },
+    updateMeasurementMail: async (contractId: string, detailId: string): Promise<void> => {
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/measurementsAndWeightMail`);
     }
 } 

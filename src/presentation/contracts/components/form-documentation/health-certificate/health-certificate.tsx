@@ -29,6 +29,7 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
             isRequired: healthCertificate?.isRequired ?? defaultValues.isRequired,
             isApplied: healthCertificate?.isApplied ?? defaultValues.isApplied,
             expectedDate: healthCertificate?.expectedDate ?? defaultValues.expectedDate,
+            executionDate: healthCertificate?.executionDate ?? defaultValues.executionDate,
             resultDate: healthCertificate?.resultDate ?? defaultValues.resultDate,
             user: healthCertificate?.user ?? defaultValues.user
         }

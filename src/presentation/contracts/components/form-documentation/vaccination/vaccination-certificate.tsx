@@ -29,6 +29,7 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, callback, contra
             isRequired: vaccinationCertificate?.isRequired ?? defaultValues.isRequired,
             isApplied: vaccinationCertificate?.isApplied ?? defaultValues.isApplied,
             expectedDate: vaccinationCertificate?.expectedDate ?? defaultValues.expectedDate,
+            executionDate: vaccinationCertificate?.executionDate ?? defaultValues.executionDate,
             resultDate: vaccinationCertificate?.resultDate ?? defaultValues.resultDate,
             user: vaccinationCertificate?.user ?? defaultValues.user
         }

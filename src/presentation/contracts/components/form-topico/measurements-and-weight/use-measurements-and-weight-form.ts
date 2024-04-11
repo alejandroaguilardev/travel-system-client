@@ -6,19 +6,24 @@ import uuid from "../../../../../modules/shared/infrastructure/adapter/uuid";
 import { measurementsAndWeightUpdater } from "../../../../../modules/pets/application/update/measurements-and-weight-updater";
 import { Pet, TopicoMeasurementsAndWeight } from "../../../../../modules/pets/domain/pet";
 import { useState } from "react";
+import { contractDetailService } from '../../../../../modules/contracts/infrastructure/contract-detail.service';
 
 type Props = {
     petId: string;
-    callback: (pet: Pet) => void
+    contractId: string;
+    contractDetailId: string;
+    callback: (pet: Pet) => void;
 }
 
-export const useMeasurementsAndWeightForm = ({ petId, callback }: Props) => {
+export const useMeasurementsAndWeightForm = ({ petId, contractId, contractDetailId, callback }: Props) => {
     const { showNotification } = useMessage();
     const [isExecuted, setsExecuted] = useState(false);
 
     const onSubmit: SubmitHandler<TopicoMeasurementsAndWeight> = async (data) => {
         try {
-            const response = await measurementsAndWeightUpdater(petService, uuid)(petId, data)
+            const response = await measurementsAndWeightUpdater(petService, uuid)(petId, data);
+            contractDetailService.updateMeasurementMail(contractId, contractDetailId)
+
             showNotification("Actualizado correctamente ");
             callback(response);
             setsExecuted(true);

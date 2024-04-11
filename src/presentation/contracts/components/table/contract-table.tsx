@@ -12,6 +12,7 @@ import { IconButton } from '@mui/material';
 import { IconWrapper } from 'src/components/icon-wrapper';
 import { useImpContractContext } from 'src/components/imp-pdf/imp-contract/imp-contract-context';
 import { TypeofImp } from '../../../../components/imp-pdf/imp-contract/type-contract';
+import { contractDetailStatus } from './columns/contract-detail-status';
 
 type Props = {
     options?: {
@@ -46,6 +47,39 @@ export const ContractTable: FC<Props> = ({ options }) => {
                 },
                 accessorFn: (row) => row.status,
                 minSize: 170
+            },
+            {
+                header: 'Fase Documentación',
+                accessorKey: 'details.documentation.status',
+                Cell: ({ cell }) => contractDetailStatus(cell.row.original.details, "documentation"),
+                filterVariant: "select",
+                filterSelectOptions: [
+                    { text: "Completado", value: true },
+                    { text: "Todos", value: false }
+                ],
+                minSize: 200,
+            },
+            {
+                header: 'Fase Jaula',
+                accessorKey: 'details.cage.status',
+                Cell: ({ cell }) => contractDetailStatus(cell.row.original.details, "cage"),
+                filterVariant: "select",
+                filterSelectOptions: [
+                    { text: "Completado", value: true },
+                    { text: "Todos", value: false }
+                ],
+                minSize: 200,
+            },
+            {
+                header: 'Fase Reserva',
+                accessorKey: 'details.travel.status',
+                Cell: ({ cell }) => contractDetailStatus(cell.row.original.details, "travel"),
+                filterVariant: "select",
+                filterSelectOptions: [
+                    { text: "Completado", value: true },
+                    { text: "Todos", value: false }
+                ],
+                minSize: 200,
             },
             {
                 header: 'N° Documento',

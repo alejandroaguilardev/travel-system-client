@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { TravelAccompaniedPet } from '../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
 import { TravelDestination } from '../../../../modules/contracts/domain/contract-services/travel/travel-destination';
 import { TravelPetPerCharge } from '../../../../modules/contracts/domain/contract-services/travel/travel-pet-per-charge';
+import { Travel } from '../../../../modules/contracts/domain/contract-services/travel/contract-travel';
 
 export interface TravelAccompaniedSchema {
     petPerCharge: Partial<TravelPetPerCharge>;
@@ -68,3 +69,30 @@ export const travelAccompaniedSchema: Yup.ObjectSchema<TravelAccompaniedSchema> 
     destination: destinationSchema,
     petPerCharge: petPerChargeSchema
 });
+
+
+export const getDefaultValues = (travel?: Travel) => ({
+    accompaniedPet: {
+        name: travel?.accompaniedPet?.name || defaultValues.accompaniedPet.name,
+        document: travel?.accompaniedPet?.document || defaultValues.accompaniedPet.document,
+        documentNumber: travel?.accompaniedPet?.documentNumber || defaultValues.accompaniedPet.documentNumber,
+        phone: travel?.accompaniedPet?.phone || defaultValues.accompaniedPet.phone,
+        email: travel?.accompaniedPet?.email || defaultValues.accompaniedPet.email,
+        direction: travel?.accompaniedPet?.direction || defaultValues.accompaniedPet.direction,
+        district: travel?.accompaniedPet?.district || defaultValues.accompaniedPet.district,
+        province: travel?.accompaniedPet?.province || defaultValues.accompaniedPet.province,
+        department: travel?.accompaniedPet?.department || defaultValues.accompaniedPet.department,
+    },
+    destination: {
+        countryDestination: travel?.destination?.countryDestination || defaultValues.destination.countryDestination,
+        cityDestination: travel?.destination?.cityDestination || defaultValues.destination.cityDestination,
+        directionDestination: travel?.destination?.directionDestination || defaultValues.destination.directionDestination,
+    },
+    petPerCharge: {
+        name: travel?.petPerCharge?.name || defaultValues.petPerCharge.name,
+        document: travel?.petPerCharge?.document || defaultValues.petPerCharge.document,
+        documentNumber: travel?.petPerCharge?.documentNumber || defaultValues.petPerCharge.documentNumber,
+        phone: travel?.petPerCharge?.phone || defaultValues.petPerCharge.phone,
+        email: travel?.petPerCharge?.email || defaultValues.petPerCharge.email,
+    }
+})

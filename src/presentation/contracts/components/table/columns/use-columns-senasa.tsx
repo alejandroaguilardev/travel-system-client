@@ -101,6 +101,15 @@ export const useColumnsSenasa = () => {
                 },
                 minSize: 200
             },
+            {
+                header: 'Fecha de resultado',
+                accessorKey: 'details.documentation.senasaDocuments.resultDate',
+                Cell: ({ cell }) => {
+                    const dates = cell.row.original.details.map(_ => fDate(_.documentation.senasaDocuments.resultDate, 'DD/MM/YYYY'));
+                    return dates.join(", ")
+                },
+                minSize: 200
+            },
 
 
         ],

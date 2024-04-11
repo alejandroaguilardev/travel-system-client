@@ -1,28 +1,9 @@
 import { MRT_ColumnDef } from 'material-react-table'
 import { useMemo } from 'react'
-import Label from '../../../../../components/label';
 import { Contract } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
+import { contractDetailStatus } from './contract-detail-status';
 
-
-const detailsStatus = (details: ContractDetail[]): JSX.Element => {
-    let pending = details?.length ?? 0;
-    let completed = 0;
-    details.forEach(_ => {
-        completed += _.travel?.status === "completed" ? 1 : 0;
-    })
-
-    pending -= completed;
-    return <>
-        {pending > 0 &&
-            <Label color="error">{pending > 1 ? pending : ""} Pendiente</Label>
-        }
-        {completed > 0 &&
-            <Label color="success">{pending > 1 ? pending : ""}Completado</Label>
-        }
-    </>
-}
 
 export const useColumnsTravel = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
@@ -30,7 +11,7 @@ export const useColumnsTravel = () => {
             {
                 header: 'Estado',
                 accessorKey: 'details.travel.status',
-                Cell: ({ cell }) => detailsStatus(cell.row.original.details),
+                Cell: ({ cell }) => contractDetailStatus(cell.row.original.details, "travel"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },

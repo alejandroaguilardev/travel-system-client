@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { CSSProperties, FC, useEffect } from "react";
 import { Alert, Box, Stack, Typography } from "@mui/material"
-import { RHFSwitch, RHFCheckbox } from "src/components/hook-form";
+import { RHFSwitch } from "src/components/hook-form";
 import { useAuthContext } from "src/presentation/auth/hooks";
 
 
@@ -20,21 +20,22 @@ export const DocumentationClientValueForm: FC<Props> = ({ name, label, edit, can
     const hasServiceIncluded = watch(`${name}.hasServiceIncluded`);
     const isApplied = watch(`${name}.isApplied`);
     const executionDate = watch(`${name}.executionDate`);
+    const resultDate = watch(`${name}.resultDate`);
     const isRequired = watch(`${name}.isRequired`);
 
-    useEffect(() => {
-        if (!hasServiceIncluded) {
-            setValue(`${name}.expectedDate`, new Date());
-        }
-    }, [hasServiceIncluded])
 
     useEffect(() => {
         if (!isApplied) {
             setValue(`${name}.executionDate`, null);
+            setValue(`${name}.resultDate`, null);
             setValue(`${name}.user`, "");
         }
         if (isApplied && !executionDate) {
             setValue(`${name}.executionDate`, new Date());
+            setValue(`${name}.user`, user?.id);
+        }
+        if (isApplied && !resultDate) {
+            setValue(`${name}.resultDate`, new Date());
             setValue(`${name}.user`, user?.id);
         }
     }, [isApplied])

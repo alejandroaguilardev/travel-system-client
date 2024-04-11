@@ -32,4 +32,5 @@ export interface ContractDetailService {
         petPerCharge: TravelPetPerCharge
     ): Promise<ContractDetailUpdateResponse>;
     updatePet(contractId: string, details: ContractPetUpdater[]): Promise<ResponseSuccess>;
+    updateMeasurementMail(contractId: string, detailId: string): Promise<void>;
 }

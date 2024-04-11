@@ -16,7 +16,7 @@ type Props = {
     onCancel: () => void;
 }
 
-export const MeasurementsAndWeightForm: FC<Props> = ({ detail, callback, onCancel }) => {
+export const MeasurementsAndWeightForm: FC<Props> = ({ detail, contractId, callback, onCancel }) => {
     const methods = useForm({
         resolver: yupResolver<MeasurementsAndWeightFormSchema>(measurementsAndWeightFormObjectSchema),
         defaultValues: {
@@ -39,7 +39,12 @@ export const MeasurementsAndWeightForm: FC<Props> = ({ detail, callback, onCance
         }
     });
 
-    const { onSubmit, isExecuted } = useMeasurementsAndWeightForm({ petId: detail.pet?.id ?? "", callback });
+    const { onSubmit, isExecuted } = useMeasurementsAndWeightForm({
+        petId: detail.pet?.id ?? "",
+        contractId,
+        contractDetailId: detail.id,
+        callback
+    });
 
     return (
         <>

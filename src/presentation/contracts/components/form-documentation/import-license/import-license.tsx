@@ -29,6 +29,7 @@ export const ImportLicenseCertificateForm: FC<Props> = ({ detail, callback, cont
             isRequired: importLicense?.isRequired ?? defaultValues.isRequired,
             isApplied: importLicense?.isApplied ?? defaultValues.isApplied,
             expectedDate: importLicense?.expectedDate ?? defaultValues.expectedDate,
+            executionDate: importLicense?.executionDate ?? defaultValues.executionDate,
             resultDate: importLicense?.resultDate ?? defaultValues.resultDate,
             user: importLicense?.user ?? defaultValues.user
         }

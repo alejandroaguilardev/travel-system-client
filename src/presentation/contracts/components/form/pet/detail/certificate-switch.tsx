@@ -23,6 +23,7 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, canOptional, n
     const isApplied = watch(`${name}.isApplied`);
     const expectedDate = watch(`${name}.expectedDate`);
     const executionDate = watch(`${name}.executionDate`);
+    const resultDate = watch(`${name}.resultDate`);
 
     useEffect(() => {
         if (!hasServiceIncluded) {
@@ -33,10 +34,15 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, canOptional, n
     useEffect(() => {
         if (!isApplied) {
             setValue(`${name}.executionDate`, null);
+            setValue(`${name}.resultDate`, null);
             setValue(`${name}.user`, "");
         }
         if (isApplied && !executionDate) {
             setValue(`${name}.executionDate`, new Date());
+            setValue(`${name}.user`, user?.id);
+        }
+        if (isApplied && !resultDate) {
+            setValue(`${name}.resultDate`, new Date());
             setValue(`${name}.user`, user?.id);
         }
     }, [isApplied])
@@ -81,8 +87,8 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, canOptional, n
                         />
                         {
                             noExecutionDate && <RHFDate
-                                name={`${name}.executionDate`}
-                                value={fDayjs(executionDate)}
+                                name={`${name}.resultDate`}
+                                value={fDayjs(resultDate)}
                                 label="Fecha de Ejecución (*)"
                                 sx={edit ? {
                                     opacity: 0.4,

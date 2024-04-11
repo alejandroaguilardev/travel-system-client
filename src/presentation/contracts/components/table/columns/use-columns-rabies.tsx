@@ -110,9 +110,9 @@ export const useColumnsRabies = () => {
             },
             {
                 header: 'Fecha del resultado',
-                accessorKey: 'details.documentation.rabiesSeroLogicalTest.executionDate',
+                accessorKey: 'details.documentation.rabiesSeroLogicalTest.resultDate',
                 Cell: ({ cell }) => {
-                    const dates = cell.row.original.details.map(_ => fDate(_.documentation.rabiesSeroLogicalTest.executionDate, 'DD/MM/YYYY'));
+                    const dates = cell.row.original.details.map(_ => fDate(_.documentation.rabiesSeroLogicalTest.resultDate, 'DD/MM/YYYY'));
                     return dates.join(", ")
                 },
                 minSize: 250

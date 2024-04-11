@@ -5,6 +5,14 @@ import { TravelPetPerCharge } from '../../domain/contract-services/travel/travel
 
 export const AccompaniedPetUpdater = (contractService: ContractDetailService) => async (contractId: string, detailId: string, accompaniedPet: TravelAccompaniedPet, destination: TravelDestination, petPerCharge: Partial<TravelPetPerCharge>): Promise<ContractDetailUpdateResponse> => {
 
+    const { updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge } = accompaniedFormat(accompaniedPet, destination, petPerCharge);
+
+    const response = await contractService.updateAccompaniedPet(contractId, detailId, updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge);
+    return response;
+}
+
+
+export const accompaniedFormat = (accompaniedPet: TravelAccompaniedPet, destination: TravelDestination, petPerCharge: Partial<TravelPetPerCharge>) => {
     const updatedAccompaniedPet: TravelAccompaniedPet = {
         name: accompaniedPet.name,
         document: accompaniedPet.document || "",
@@ -31,7 +39,5 @@ export const AccompaniedPetUpdater = (contractService: ContractDetailService) =>
         email: petPerCharge?.email ?? ""
     };
 
-
-    const response = await contractService.updateAccompaniedPet(contractId, detailId, updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge);
-    return response;
+    return { updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge }
 }

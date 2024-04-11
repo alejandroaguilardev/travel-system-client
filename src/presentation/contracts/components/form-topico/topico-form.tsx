@@ -126,7 +126,7 @@ export const TopicoForm: FC<Props> = ({ action, contractId, detail, onCancel }) 
 const vaccinationLabel = (type?: string) => {
 
     if (!type) return "Vacuna";
-    return type?.toLowerCase() === "perro" ? "Vacuna Quintuple" : "Vacuna triple";
+    return type?.toLowerCase() === "perro" ? "Vacuna Quintuple" : "Vacuna triple felina";
 
 
 }

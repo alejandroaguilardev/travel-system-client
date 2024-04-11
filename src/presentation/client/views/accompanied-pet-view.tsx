@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Box, Container, Typography } from '@mui/material';
 import { AccompaniedForm } from '../components/accompanied-form/accompanied-form';
 import { HeadLogin } from '../../auth/components/head-login';
@@ -8,6 +8,14 @@ import RouterLink from '../../../app/routes/components/router-link';
 import { LoadingScreen } from '../../../components/loading-screen';
 import { NotFoundView } from '../../../presentation/error';
 import { AccompaniedStep } from '../components/accompanied-form/steps/accompanied-steps';
+import { useMessage } from '../../../hooks/use-message';
+import { SubmitHandler } from 'react-hook-form';
+import { TravelAccompaniedSchema } from '../components/accompanied-form/accompanied-validation';
+import { accompaniedFormat } from '../../../modules/contracts/application/travel/accompanied-pet';
+import { HOST_API } from '../../../app/config/config-global';
+import { endpoints } from 'src/modules/shared/domain/endpoint';
+import axios from 'axios';
+import { errorsShowNotification } from '../../../modules/shared/infrastructure/helpers/errors-show-notification';
 
 type Props = {
     contractId: string;
@@ -20,8 +28,70 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
 
     const { isLoading, contractDetail } = useSearchByIdContractDetail(contractId, contractDetailId, token);
 
-    if (isLoading) return <LoadingScreen />
-    if (!contractDetail) return <NotFoundView />
+    const { showNotification } = useMessage();
+
+    const onSubmit: SubmitHandler<TravelAccompaniedSchema> = async (dataForm) => {
+        try {
+            const { accompaniedPet, destination, petPerCharge } = dataForm;
+            const { updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge } = accompaniedFormat(accompaniedPet, destination, petPerCharge);
+
+            const axiosInstance = axios.create({ baseURL: HOST_API });
+            await axiosInstance.patch(`${endpoints.contracts.detail}/${contractId}/${contractDetailId}/accompanied`,
+                {
+                    accompaniedPet: updatedAccompaniedPet,
+                    destination: updatedTravelDestination,
+                    petPerCharge: updatedTravelPetPerCharge
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            showNotification("Actualizado con éxito");
+            setIsUpdate(true)
+        } catch (error) {
+            errorsShowNotification(error, showNotification)
+        }
+    };
+
+
+    useEffect(() => {
+        if (contractDetail) {
+            const { accompaniedPet, destination, petPerCharge, typeTraveling } = contractDetail?.travel ?? {};
+            const hasRequiredAccompaniedPetFields = !!accompaniedPet?.name &&
+                !!accompaniedPet?.document &&
+                !!accompaniedPet?.documentNumber &&
+                !!accompaniedPet?.phone &&
+                !!accompaniedPet?.email &&
+                !!accompaniedPet?.department &&
+                !!accompaniedPet?.province &&
+                !!accompaniedPet?.district &&
+                !!accompaniedPet?.direction;
+
+            const hasRequiredDestinationFields = !!destination?.cityDestination &&
+                !!destination?.countryDestination &&
+                !!destination?.directionDestination;
+
+            let hasRequiredPetChargeFields = true;
+            if (typeTraveling === "charge") {
+                hasRequiredPetChargeFields =
+                    !!petPerCharge?.name &&
+                    !!petPerCharge?.document &&
+                    !!petPerCharge?.documentNumber &&
+                    !!petPerCharge?.phone &&
+                    !!petPerCharge?.email;
+
+            }
+            setIsUpdate(hasRequiredAccompaniedPetFields && hasRequiredDestinationFields && hasRequiredPetChargeFields);
+        }
+    }, [contractDetail])
+
+    if (isLoading) return <LoadingScreen />;
+    if (!contractDetail) return <NotFoundView />;
+
+
 
 
     return (
@@ -36,6 +106,7 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
                     flexDirection="column"
                     boxShadow="0 4px 8px rgba(0, 0, 0, 0.1)"
                     bgcolor="white"
+                    p={2}
                 >
                     <Alert severity="success" sx={{ mb: 2 }}>
                         ¡Actualización Exitosa!
@@ -59,9 +130,10 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
                         contractId={contractId}
                         contractDetailId={contractDetailId}
                         callback={() => setIsUpdate(true)}
-                        notButton={true}
+                        notButton={false}
+                        onSubmit={onSubmit}
                     >
-                        <AccompaniedStep hasCharge={contractDetail?.travel?.typeTraveling === "charge"} notButton={true} status={contractDetail?.travel?.status ?? "pending"} />
+                        <AccompaniedStep hasCharge={contractDetail?.travel?.typeTraveling === "charge"} notButton={false} status={contractDetail?.travel?.status ?? "pending"} />
                     </AccompaniedForm>
                 </>
             }

@@ -4,33 +4,16 @@ import Label from '../../../../../components/label';
 import { Contract } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
+import { contractDetailStatus } from './contract-detail-status';
 
-
-const detailsStatus = (details: ContractDetail[]): JSX.Element => {
-    let pending = details?.length ?? 0;
-    let completed = 0;
-    details.forEach(_ => {
-        completed += _.cage?.status === "completed" ? 1 : 0;
-    })
-
-    pending -= completed;
-    return <>
-        {pending > 0 &&
-            <Label color="error">{pending > 1 ? pending : ""} Pendiente</Label>
-        }
-        {completed > 0 &&
-            <Label color="success">{pending > 1 ? pending : ""}Completado</Label>
-        }
-    </>
-}
 
 export const useColumnsCage = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
                 header: 'Estado',
-                accessorKey: 'details.travel.status',
-                Cell: ({ cell }) => detailsStatus(cell.row.original.details),
+                accessorKey: 'details.cage.status',
+                Cell: ({ cell }) => contractDetailStatus(cell.row.original.details, "cage"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },

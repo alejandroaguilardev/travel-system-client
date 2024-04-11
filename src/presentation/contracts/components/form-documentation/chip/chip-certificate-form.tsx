@@ -35,7 +35,7 @@ export const ChipCertificateForm: FC<Props> = ({ contract, detail, callback, con
                             />
                         }
                         {
-                            detail.documentation.chipCertificate.hasServiceIncluded || first &&
+                            (detail.documentation.chipCertificate.hasServiceIncluded || first) &&
                             < PdfViewer height={500} >
                                 <MicrochipCertificatePdf detail={detail} contract={contract} />
                             </PdfViewer>

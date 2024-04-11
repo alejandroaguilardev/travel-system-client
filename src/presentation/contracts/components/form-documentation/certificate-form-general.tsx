@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Stack, TextField, FormControlLabel, Switch, Alert } from '@mui/material';
+import { Stack, Alert } from '@mui/material';
 import { useFormContext } from "react-hook-form";
 import { fDate, fDayjs } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import RHFSwitch from '../../../../components/hook-form/rhf-switch';
@@ -14,17 +14,17 @@ export const CertificateFormGeneral = ({ label }: Props) => {
 
     const hasServiceIncluded = watch("hasServiceIncluded");
     const isApplied = watch("isApplied");
-    const executionDate = watch("executionDate") ?? null;
+    const resultDate = watch("resultDate") ?? null;
 
     useEffect(() => {
-        if (isApplied && !executionDate) {
-            setValue("executionDate", fDayjs(new Date()));
+        if (isApplied && !resultDate) {
+            setValue("resultDate", fDayjs(new Date()));
         }
         if (!isApplied) {
-            setValue("executionDate", null);
+            setValue("resultDate", null);
 
         }
-    }, [isApplied, executionDate]);
+    }, [isApplied, resultDate]);
 
     if (!hasServiceIncluded) return <Alert sx={{ mt: 1 }} severity="warning">El servicio no está incluido en este contrato</Alert>
 
@@ -43,9 +43,9 @@ export const CertificateFormGeneral = ({ label }: Props) => {
                 {
                     isApplied &&
                     <RHFDate
-                        name="executionDate"
-                        value={executionDate}
-                        label="Fecha de ejecución"
+                        name="resultDate"
+                        value={resultDate}
+                        label="Fecha de certificado"
                     />
                 }
             </Stack>

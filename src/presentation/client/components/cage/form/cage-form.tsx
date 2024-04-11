@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Cage } from '../../../../../modules/contracts/domain/contract-services/cage/cage';
 import FormProvider from '../../../../../components/hook-form/form-provider';
-import { Alert, Box, Button, Typography } from '@mui/material';
+import { Alert, Box, Button } from '@mui/material';
 import { useFormCage } from "./use-form-cage";
 import { cageSchema } from "./cage-validation";
 import { CageFormGeneral } from './cage-form-general';

@@ -127,33 +127,33 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                             </TableRow>
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Fecha de Certificado de vacuna:</TableCell>
-                                <TableCell sx={{ width: "50%" }}>{detail.documentation.vaccinationCertificate.executionDate ? fDateTimeLong(detail.documentation.vaccinationCertificate.executionDate) : "--"} </TableCell>
+                                <TableCell sx={{ width: "50%" }}>{detail.documentation.vaccinationCertificate.resultDate ? fDateTimeLong(detail.documentation.vaccinationCertificate.resultDate) : "--"} </TableCell>
                             </TableRow>
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Fecha de Certificado de salud:</TableCell>
-                                <TableCell sx={{ width: "50%" }}>{detail.documentation.healthCertificate.executionDate ? fDateTimeLong(detail.documentation.healthCertificate.executionDate) : "--"} </TableCell>
+                                <TableCell sx={{ width: "50%" }}>{detail.documentation.healthCertificate.resultDate ? fDateTimeLong(detail.documentation.healthCertificate.resultDate) : "--"} </TableCell>
                             </TableRow>
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Fecha de Certificado de chip:</TableCell>
-                                <TableCell sx={{ width: "50%" }}>{detail.documentation.chipCertificate.executionDate ? fDateTimeLong(detail.documentation.chipCertificate.executionDate) : "--"} </TableCell>
+                                <TableCell sx={{ width: "50%" }}>{detail.documentation.chipCertificate.resultDate ? fDateTimeLong(detail.documentation.chipCertificate.resultDate) : "--"} </TableCell>
                             </TableRow>
 
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Fecha de Documentos de SENASA:</TableCell>
-                                <TableCell sx={{ width: "50%" }}>{detail.documentation.senasaDocuments.executionDate ? fDateTimeLong(detail.documentation.senasaDocuments.executionDate) : "--"} </TableCell>
+                                <TableCell sx={{ width: "50%" }}>{detail.documentation.senasaDocuments.resultDate ? fDateTimeLong(detail.documentation.senasaDocuments.resultDate) : "--"} </TableCell>
                             </TableRow>
 
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Fecha de Test serológico de rabia:</TableCell>
-                                <TableCell sx={{ width: "50%" }}>{detail.documentation.rabiesSeroLogicalTest.executionDate ? fDateTimeLong(detail.documentation.rabiesSeroLogicalTest.executionDate) : "--"}</TableCell>
+                                <TableCell sx={{ width: "50%" }}>{detail.documentation.rabiesSeroLogicalTest.resultDate ? fDateTimeLong(detail.documentation.rabiesSeroLogicalTest.resultDate) : "--"}</TableCell>
                             </TableRow>
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Fecha de Permiso de importación:</TableCell>
-                                <TableCell sx={{ width: "50%" }}>{detail.documentation.importLicense.executionDate ? fDateTimeLong(detail.documentation.importLicense.executionDate) : "--"}</TableCell>
+                                <TableCell sx={{ width: "50%" }}>{detail.documentation.importLicense.resultDate ? fDateTimeLong(detail.documentation.importLicense.resultDate) : "--"}</TableCell>
                             </TableRow>
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Fecha de Certificado de soporte emocional:</TableCell>
-                                <TableCell sx={{ width: "50%" }}>{detail.documentation.emotionalSupportCertificate.executionDate ? fDateTimeLong(detail.documentation.emotionalSupportCertificate.executionDate) : "--"}</TableCell>
+                                <TableCell sx={{ width: "50%" }}>{detail.documentation.emotionalSupportCertificate.resultDate ? fDateTimeLong(detail.documentation.emotionalSupportCertificate.resultDate) : "--"}</TableCell>
                             </TableRow>
 
                         </TableBody>

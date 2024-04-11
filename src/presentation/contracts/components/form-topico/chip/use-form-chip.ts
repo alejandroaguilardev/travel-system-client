@@ -35,6 +35,7 @@ export const useFormChip = ({ contractId, detail, petId, action, callback }: Pro
                 ...detail.documentation.chipCertificate,
                 isApplied: true,
                 executionDate: data?.date ?? null,
+                resultDate: data?.date ?? null,
             }
             certificateUpdater(contractDetailService, uuid)(contractId, detail.id, action, certificate, "pending", user?.id ?? "")
 

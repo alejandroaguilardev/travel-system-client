@@ -37,6 +37,7 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
             isApplied: rabiesSeroLogicalTest?.isApplied ?? defaultValues.isApplied,
             isRequired: rabiesSeroLogicalTest?.isRequired ?? defaultValues.isRequired,
             expectedDate: rabiesSeroLogicalTest?.expectedDate ?? defaultValues.expectedDate,
+            executionDate: rabiesSeroLogicalTest?.executionDate ?? defaultValues.executionDate,
             resultDate: rabiesSeroLogicalTest?.resultDate ?? defaultValues.resultDate,
             user: rabiesSeroLogicalTest?.user ?? defaultValues.user
         }
