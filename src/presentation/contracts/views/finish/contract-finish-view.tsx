@@ -51,14 +51,14 @@ export default function ContractFinishView() {
                     ],
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
                     renderRowActionMenuItems: (row) => [
-                        <MenuItem onClick={() => {
+                        <MenuItem key="finish" onClick={() => {
                             handleSelected(row);
                             setCancel(false);
                         }}>
                             <IconWrapper icon="infoFill" mr={2} />
                             Finalizar
                         </MenuItem >,
-                        <MenuItem onClick={() => {
+                        <MenuItem key="cancel" onClick={() => {
                             handleSelected(row);
                             setCancel(true);
                         }}>

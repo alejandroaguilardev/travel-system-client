@@ -96,6 +96,7 @@ const defaultValues: NewContract = {
     price: 0,
     customerPayments: [],
     payInInstallments: [],
+    reasonForCancellation: "",
 
 };
 
@@ -107,6 +108,7 @@ const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
     startDate: Yup.date().required('La fecha de inicio es requerida'),
     details: Yup.array().required('Los detalles del contrato son requeridos'),
     adviser: Yup.string().required('Debe indicar el asesor del cliente'),
+    reasonForCancellation: Yup.string(),
     user: Yup.string(),
     customerPayments: Yup.array(),
     payInInstallments: Yup.array(),

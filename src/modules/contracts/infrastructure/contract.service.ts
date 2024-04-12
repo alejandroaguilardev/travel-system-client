@@ -30,8 +30,10 @@ export const contractService: ContractService = {
         const { data } = await axiosInstance.post(`${endpoints.contracts.root}/${contractId}/finish/client`);
         return data;
     },
-    cancel: async (contractId: string): Promise<ResponseSuccess> => {
-        const { data } = await axiosInstance.post(`${endpoints.contracts.root}/${contractId}/cancel`);
+    cancel: async (contractId: string, reasonForCancellation: string): Promise<ResponseSuccess> => {
+        const { data } = await axiosInstance.post(`${endpoints.contracts.root}/${contractId}/cancel`, {
+            reasonForCancellation
+        });
         return data;
     },
     updateFolder: async (contractId: string, folder: string, number: string): Promise<ResponseSuccess> => {

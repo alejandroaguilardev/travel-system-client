@@ -97,6 +97,18 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                                 </Label>
                             </TableCell>
                         </TableRow>
+                        {contract?.reasonForCancellation && contract.status === "canceled" &&
+                            <TableRow hover>
+                                <TableCell sx={{ width: "50%" }}>
+                                    <Typography variant="subtitle1" gutterBottom>
+                                        Estado:
+                                    </Typography>
+                                </TableCell>
+                                <TableCell sx={{ width: "50%" }}>
+                                    {contract?.reasonForCancellation}
+                                </TableCell>
+                            </TableRow>
+                        }
 
                     </TableBody>
                 </Table>
@@ -228,6 +240,20 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                                     {capitalize(detail.travel.airlineReservation?.destinationAirport)}
                                 </TableCell>
                             </TableRow>
+                            <TableRow hover>
+                                <TableCell sx={{ width: "50%" }}>Datos del acompañante:</TableCell>
+                                <TableCell sx={{ width: "50%" }}>
+                                    Documento: {detail.travel.accompaniedPet?.document}  {detail.travel.accompaniedPet?.documentNumber}
+                                    <Divider />
+                                    Nombre: {detail.travel.accompaniedPet?.name}
+                                    <Divider />
+                                    Correo: {detail.travel.accompaniedPet?.email}
+                                    <Divider />
+                                    teléfono: {detail.travel.accompaniedPet?.phone}
+                                    <Divider />
+                                    Dirección: {detail.travel.accompaniedPet?.direction}
+                                </TableCell>
+                            </TableRow>
                             {detail.travel.typeTraveling == "charge" &&
                                 <>
                                     <TableRow hover>
@@ -238,12 +264,11 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                                             E-mail: {capitalize(detail.travel.petPerCharge?.email)}
                                             <Divider />
                                             Teléfono: {capitalize(detail.travel.petPerCharge?.phone)}
-                                            <Divider />
-
                                         </TableCell>
                                     </TableRow>
                                 </>
                             }
+
                         </TableBody>
                     </Table>
                     <Divider sx={{ marginY: theme.spacing(2) }} />

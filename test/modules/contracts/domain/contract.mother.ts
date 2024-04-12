@@ -6,6 +6,7 @@ import { contractPrice } from './contract-price.mother';
 import { customerPaymentsMother } from './customer-payments.mother';
 import { numberCreateMother } from './number.mother';
 import { payInInstallmentsMother } from './pay-in-installments.mother';
+import { stringCreateMother } from '../../shared/domain/string.mother';
 
 export const contractCreateMother = (contract?: Partial<NewContract>): NewContract => {
 
@@ -20,5 +21,6 @@ export const contractCreateMother = (contract?: Partial<NewContract>): NewContra
         customerPayments: contract?.customerPayments ?? customerPaymentsMother(),
         folder: contract?.folder,
         payInInstallments: contract?.payInInstallments ?? payInInstallmentsMother(),
+        reasonForCancellation: contract?.reasonForCancellation ?? stringCreateMother(),
     };
 }
