@@ -4,7 +4,7 @@ import { ContractDetail, NewContractDetail, NewPostContractDetail } from './cont
 import { CustomerPayment } from './customer-payments';
 import { PayInInstallment } from './payment-summary';
 
-export interface Contract {
+export interface Contract extends ContractPayments {
     id: string;
     folder: string;
     number: string;
@@ -15,8 +15,6 @@ export interface Contract {
     details: ContractDetail[];
     adviser: User;
     price: number;
-    payInInstallments?: PayInInstallment[];
-    customerPayments?: CustomerPayment[];
     finishClient?: boolean;
     reasonForCancellation?: string;
     user: string;
@@ -33,4 +31,8 @@ export interface NewContract extends Omit<Contract, "id" | "endDate" | "client" 
 }
 export interface NewPostContract extends Omit<NewContract, "details"> {
     details: NewPostContractDetail[]
+}
+
+export interface ContractPayments {
+    payInInstallments?: PayInInstallment[];
 }

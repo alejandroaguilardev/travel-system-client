@@ -1,6 +1,6 @@
 import { servicesHost } from '../../shared/infrastructure/services/http.services.host';
 import axiosInstance from '../../shared/infrastructure/http/axios.host';
-import { Contract, NewPostContract } from '../domain/contract';
+import { Contract, ContractPayments, NewPostContract } from '../domain/contract';
 import { ContractService } from '../domain/contract.service';
 import { endpoints } from '../../shared/domain/endpoint';
 import { ResponseSuccess } from '../../shared/domain/response/response-success';
@@ -41,6 +41,10 @@ export const contractService: ContractService = {
             folder,
             number
         });
+        return data;
+    },
+    updatePayment: async (contractId: string, body: ContractPayments): Promise<ResponseSuccess> => {
+        const { data } = await axiosInstance.patch(`${endpoints.contracts.root}/${contractId}/payment`, body);
         return data;
     }
 

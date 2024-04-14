@@ -30,7 +30,6 @@ export const contractToNewContract = (contract: Contract): NewContract => {
         details,
         adviser: contract.adviser.id,
         price: contract.price,
-        customerPayments: contract?.customerPayments ?? [],
         payInInstallments: contract?.payInInstallments ?? [],
         folder: contract?.folder ?? "",
         reasonForCancellation: contract?.reasonForCancellation ?? ""

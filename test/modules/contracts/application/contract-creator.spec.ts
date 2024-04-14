@@ -20,7 +20,7 @@ describe("ContractCreator", () => {
         const response = { message: MessageCreateMother() }
         contractServiceMock.save.mockResolvedValueOnce(response);
         await contractCreator(contractServiceMock, uuid)(dataForm)
-        const contract = contractWithCustomerPayment(dataForm, contractCreatorFormat(dataForm, uuid))
+        const contract = contractWithCustomerPayment(contractCreatorFormat(dataForm, uuid))
         expect(contractServiceMock.save).toHaveBeenCalledWith(contract)
     })
 

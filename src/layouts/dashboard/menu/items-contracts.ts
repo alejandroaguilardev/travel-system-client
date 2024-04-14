@@ -10,13 +10,15 @@ const itemsContractRegister = (user: User | null): ItemSubMenu[] => {
     const contractRegister: ItemSubMenu[] = [];
 
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
-        contractRegister.push({ title: 'Nuevo contrato', path: paths.dashboard.contracts.new })
+        contractRegister.push({ title: 'Nuevo contrato', path: paths.dashboard.contracts.new });
 
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
-        contractRegister.push({ title: 'Seleccionar Mascotas', path: paths.dashboard.contracts.assignPet })
+        contractRegister.push({ title: 'Seleccionar Mascotas', path: paths.dashboard.contracts.assignPet });
 
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
-        contractRegister.push({ title: 'Asignar número de folio', path: paths.dashboard.contracts.number })
+        contractRegister.push({ title: 'Asignar número de folio', path: paths.dashboard.contracts.number });
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
+        contractRegister.push({ title: 'Pagos', path: paths.dashboard.contracts.payList });
     return contractRegister;
 }
 

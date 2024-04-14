@@ -18,7 +18,6 @@ export const contractCreateMother = (contract?: Partial<NewContract>): NewContra
         details: contract?.details ?? contractDetailCreateMother(),
         adviser: contract?.adviser ?? uuidCreateMother(),
         price: contract?.price ?? contractPrice(),
-        customerPayments: contract?.customerPayments ?? customerPaymentsMother(),
         folder: contract?.folder,
         payInInstallments: contract?.payInInstallments ?? payInInstallmentsMother(),
         reasonForCancellation: contract?.reasonForCancellation ?? stringCreateMother(),

@@ -9,7 +9,8 @@ export const contractServiceMock = {
     finish: jest.fn(),
     finishClient: jest.fn(),
     cancel: jest.fn(),
-    updateFolder: jest.fn()
+    updateFolder: jest.fn(),
+    updatePayment: jest.fn(),
 }
 
 export const contractDetailServiceMock = {

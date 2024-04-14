@@ -26,6 +26,7 @@ const ContractHistory = lazy(() => import('../../pages/admin/contract/historial/
 
 const ContractAssignNumber = lazy(() => import('../../pages/admin/contract/asignar-numero/index'));
 const ContractAssignPetPage = lazy(() => import('../../pages/admin/contract/assign-pet/index'));
+const ContractListPaymentPage = lazy(() => import('../../pages/admin/contract/payment/index'));
 const ContractIdPage = lazy(() => import('../../pages/admin/contract/[id]/index'));
 
 const ContractSENASAPage = lazy(() => import('../../pages/admin/contract/senasa/index'));
@@ -101,6 +102,7 @@ export const dashboardRoutes = [
           { path: 'crear', element: <ContractNewPage /> },
           { path: 'asignar-numero', element: <ContractAssignNumber /> },
           { path: 'seleccionar-mascota', element: <ContractAssignPetPage /> },
+          { path: 'pagos', element: <ContractListPaymentPage /> },
           { path: ':id/:action', element: <ContractIdPage /> },
         ],
       },

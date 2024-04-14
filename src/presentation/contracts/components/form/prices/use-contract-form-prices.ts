@@ -7,6 +7,8 @@ const payInInstallmentInit: PayInInstallment = {
     price: 0,
     percentage: 0,
     date: fDayjs(new Date()),
+    customerPayments: [],
+    isPay: false,
 }
 
 export const useContractFormPrices = () => {

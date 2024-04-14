@@ -94,7 +94,6 @@ const defaultValues: NewContract = {
     details: [{ ...detailInit }],
     adviser: '',
     price: 0,
-    customerPayments: [],
     payInInstallments: [],
     reasonForCancellation: "",
 

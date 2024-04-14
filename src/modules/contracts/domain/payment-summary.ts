@@ -1,9 +1,12 @@
 import { ErrorDomain } from "../../shared/domain/errors/error-domain";
+import { CustomerPayment } from "./customer-payments";
 
 export interface PayInInstallment {
     price: number;
     percentage: number;
     date: Date;
+    isPay: boolean;
+    customerPayments?: CustomerPayment[];
 }
 
 

@@ -11,7 +11,7 @@ import { useDeleteContract } from '../hooks/use-delete-contract';
 import { ContractRenderRowActionsMenuItems } from '../components/table/contract-render-row-actions-menu-items';
 import { PermissionGuard } from '../../permission/components/guard/permission-guard';
 import { AuthGroup, AuthPermission } from '../../../modules/auth/domain/auth-permission';
-import { CONTRACT_STATUS } from 'src/modules/contracts/domain/contract-status';
+import { CONTRACT_STATUS } from '../../../modules/contracts/domain/contract-status';
 
 export default function ContractView() {
     const { selected, handleSelected } = useSelectedValue<Contract>();
