@@ -12,6 +12,7 @@ import { PATH_AFTER_LOGIN, PATH_AFTER_LOGIN_CLIENT } from '../../app/config/conf
 import { useAuthContext } from './hooks';
 import { useRouter } from '../../app/routes/hooks/use-router';
 import { manageAccessToken } from '../../modules/auth/infrastructure/session';
+import { executeReCaptcha } from './utils/execute-re-captcha';
 
 
 export default function ResetPasswordView() {
@@ -47,9 +48,10 @@ export default function ResetPasswordView() {
     const onSubmit = handleSubmit(async (data) => {
         if (!verificadPassword(data.password, data.passwordRepeat)) return;
         try {
+            const tokenReCaptcha = await executeReCaptcha();
             manageAccessToken(token ?? null)
             const response = await authService.resetPassword(data.password);
-            const user = await login?.(response.user.email, data.password);
+            const user = await login?.(response.user.email, data.password, tokenReCaptcha);
 
             const access = (user.roles.length > 0 || user?.auth?.admin) ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;
 

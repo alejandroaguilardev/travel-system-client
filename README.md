@@ -33,6 +33,10 @@ This project represents a frontend application built with the following technolo
 - **React Router DOM**: A library for handling navigation in React applications.
 - **Zustand**: A minimalistic state management library for React applications.
 
+- **RECAPTCHA V3** Google reCAPTCHA V3 is a service that helps protect websites from spam and abuse. Unlike previous versions, it relies on risk analysis to determine if a request is from a human or a bot. It provides a risk score for each request, allowing you to make decisions based on this score, such as allowing access, showing a CAPTCHA challenge, or blocking the request. This is useful for protecting forms, user registrations, comments, and other areas from malicious or unwanted activities.
+
+- **@react-pdf/renderer**  is a library that allows you to generate PDF documents using React components. It enables you to create PDFs with a declarative approach, similar to how you build user interfaces with React. This library is useful for generating dynamic PDF documents from React applications, such as invoices, reports, or any other printable content.
+
 
 ## Best Practices and Patterns
 

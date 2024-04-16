@@ -18,8 +18,9 @@ describe('authLogin', () => {
         const userNotPassword = userCreateMother();
         const password = passwordCreatedMother();
         const tokenMother = tokenCreateMother();
+        const tokenCaptchaMother = tokenCreateMother();
         authServiceMock.login.mockResolvedValueOnce({ token: tokenMother, user: userNotPassword });
-        const user = await authLogin(authServiceMock, manageAccessToken)(userNotPassword.email, password);
+        const user = await authLogin(authServiceMock, manageAccessToken)(userNotPassword.email, password, tokenCaptchaMother);
 
         expect(user).toEqual(userNotPassword);
     });
@@ -27,10 +28,11 @@ describe('authLogin', () => {
     it('should_failed_login_credentials', async () => {
         const userNotPassword = userCreateMother();
         const password = passwordCreatedMother();
+        const tokenCaptchaMother = tokenCreateMother();
         const error = { "message": "El email es incorrecto" }
         authServiceMock.login.mockRejectedValueOnce(error);
         try {
-            await authLogin(authServiceMock, manageAccessToken)(userNotPassword.email, password);
+            await authLogin(authServiceMock, manageAccessToken)(userNotPassword.email, password, tokenCaptchaMother);
             fail('should_failed_login_credentials');
         } catch (throwError) {
             expect(throwError.message).toBe(error.message)
