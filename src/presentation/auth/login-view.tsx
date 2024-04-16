@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Link from '@mui/material/Link';
-import { PATH_AFTER_LOGIN, PATH_AFTER_LOGIN_CLIENT } from '../../app/config/config-global';
+import { PATH_AFTER_LOGIN, PATH_AFTER_LOGIN_CLIENT, RE_CAPTCHA_KEY } from '../../app/config/config-global';
 import { useSearchParams } from '../../app/routes/hooks/use-search-params';
 import { useRouter } from '../../app/routes/hooks/use-router';
 import { HeadLogin } from './components/head-login';
@@ -13,6 +13,8 @@ import { LoginSchema, defaultValues } from './utils/login-validation-form';
 import { useAuthContext } from './hooks';
 import { paths } from '../../app/routes/paths';
 import { Box } from '@mui/material';
+import { executeReCaptcha } from './utils/execute-re-captcha';
+
 
 export default function LoginView() {
   const { login } = useAuthContext();
@@ -38,7 +40,8 @@ export default function LoginView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const user = await login?.(data.email, data.password);
+      const tokenReCaptcha = await executeReCaptcha();
+      const user = await login?.(data.email, data.password, tokenReCaptcha);
       const access = (user.roles.length > 0 || user?.auth?.admin) ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;
 
       if (access === PATH_AFTER_LOGIN && returnTo === "/") {

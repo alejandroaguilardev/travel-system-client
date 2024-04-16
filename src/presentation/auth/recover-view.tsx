@@ -12,6 +12,7 @@ import { RecoverForm } from './components/recover-form';
 import { authService } from '../../modules/auth/infrastructure/auth.service';
 import { RecoverSchema } from './utils/recover-validation-form';
 import { useMessage } from '../../hooks/use-message';
+import { executeReCaptcha } from './utils/execute-re-captcha';
 
 export default function RecoverView() {
     const [errorMsg, setErrorMsg] = useState('');
@@ -32,7 +33,8 @@ export default function RecoverView() {
 
     const onSubmit = handleSubmit(async (data) => {
         try {
-            const response = await authService.recover(data.email);
+            const tokenReCaptcha = await executeReCaptcha();
+            const response = await authService.recover(data.email, tokenReCaptcha);
             showNotification(response.message, { variant: "success" });
             setSuccess(response.message);
         } catch (error) {

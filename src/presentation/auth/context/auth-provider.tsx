@@ -48,9 +48,9 @@ export function AuthProvider({ children }: Props) {
     initialize();
   }, [initialize]);
 
-  const login = useCallback(async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string, tokenReCaptcha: string) => {
     try {
-      const user = await authLogin(authService, manageAccessToken)(email, password);
+      const user = await authLogin(authService, manageAccessToken)(email, password, tokenReCaptcha);
       dispatch({
         type: Types.LOGIN,
         payload: {

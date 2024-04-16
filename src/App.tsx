@@ -16,6 +16,15 @@ import { ImpContractProvider } from './components/imp-pdf/imp-contract/imp-contr
 import { ImpContractConsumer } from './components/imp-pdf/imp-contract/imp-contract-consumer';
 import ContractPdf from './presentation/contracts/pdf/contract-pdf';
 
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready(callback: () => void): void;
+      execute(siteKey: string, options: { action: string }): Promise<string>;
+    };
+  }
+}
+
 export default function App() {
   useScrollToTop();
 
