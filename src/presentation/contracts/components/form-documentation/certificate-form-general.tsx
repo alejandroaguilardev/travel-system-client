@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { Stack, Alert } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useFormContext } from "react-hook-form";
-import { fDate, fDayjs } from '../../../../modules/shared/infrastructure/helpers/format-time';
+import { fDayjs } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import RHFSwitch from '../../../../components/hook-form/rhf-switch';
 import { RHFDate } from '../../../../components/hook-form/rhf-date';
 
@@ -12,13 +12,12 @@ type Props = {
 export const CertificateFormGeneral = ({ label }: Props) => {
     const { watch, setValue } = useFormContext();
 
-    const hasServiceIncluded = watch("hasServiceIncluded");
     const isApplied = watch("isApplied");
     const resultDate = watch("resultDate") ?? null;
 
     useEffect(() => {
         if (isApplied && !resultDate) {
-            setValue("resultDate", fDayjs(new Date()));
+            setValue("resultDate", new Date());
         }
         if (!isApplied) {
             setValue("resultDate", null);
@@ -26,7 +25,6 @@ export const CertificateFormGeneral = ({ label }: Props) => {
         }
     }, [isApplied, resultDate]);
 
-    if (!hasServiceIncluded) return <Alert sx={{ mt: 1 }} severity="warning">El servicio no está incluido en este contrato</Alert>
 
     return (
         <>
@@ -44,7 +42,7 @@ export const CertificateFormGeneral = ({ label }: Props) => {
                     isApplied &&
                     <RHFDate
                         name="resultDate"
-                        value={resultDate}
+                        value={fDayjs(resultDate)}
                         label="Fecha de certificado"
                     />
                 }

@@ -8,6 +8,7 @@ import { useMeasurementsAndWeightForm } from "./use-measurements-and-weight-form
 import { MeasurementsAndWeightFormGeneral } from "./measurements-and-weight-form-general";
 import { MeasurementsAndWeightFormSchema, measurementsAndWeightFormObjectSchema } from "./measurements-and-weight-validation";
 import { Pet } from '../../../../../modules/pets/domain/pet';
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
@@ -39,7 +40,7 @@ export const MeasurementsAndWeightForm: FC<Props> = ({ detail, contractId, callb
         }
     });
 
-    const { onSubmit, isExecuted } = useMeasurementsAndWeightForm({
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useMeasurementsAndWeightForm({
         petId: detail.pet?.id ?? "",
         contractId,
         contractDetailId: detail.id,
@@ -56,6 +57,7 @@ export const MeasurementsAndWeightForm: FC<Props> = ({ detail, contractId, callb
                 {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
                 <MeasurementsAndWeightFormGeneral />
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

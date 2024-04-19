@@ -28,7 +28,7 @@ export const itemsOptions = (user: User | null): ItemMenu[] => {
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
         options.push({
             title: 'Historial de contratos',
-            path: paths.dashboard.contractHistory,
+            path: paths.dashboard.contracts.root,
             icon: ICONS_MENU.analytics
         })
     hasPermission(user, AuthGroup.CLIENT, AuthPermission.LIST) && options.push({ title: 'Todos los clientes', path: paths.dashboard.clients.root, icon: ICONS_MENU.user });

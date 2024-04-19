@@ -9,3 +9,4 @@ export { useScrollToTop } from './use-scroll-to-top';
 export { useSelectedValue } from './use-selected-value';
 export { useSwrQueryPagination } from './use-swr-query-pagination';
 export { useDialog } from './use-dialog';
+export { useHasSendEmail } from './use-has-send-email';

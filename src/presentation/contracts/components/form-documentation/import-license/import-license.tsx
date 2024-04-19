@@ -11,6 +11,7 @@ import { useFormCertificate } from "../use-form-certificate";
 import FormProvider from "../../../../../components/hook-form/form-provider";
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { CertificateFormGeneral } from "../certificate-form-general";
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
@@ -35,20 +36,23 @@ export const ImportLicenseCertificateForm: FC<Props> = ({ detail, callback, cont
         }
     });
 
-    const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.importLicense, status: detail.documentation.status });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.importLicense, status: detail.documentation.status });
 
+    if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="warning">El servicio no está incluido en este contrato</Alert>
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-            <Typography fontWeight="bold">Permiso de Importación</Typography>
             {!importLicense?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
 
             {importLicense?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
 
             {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
+            <Typography fontWeight="bold">Permiso de Importación</Typography>
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <CertificateFormGeneral label="¿Permiso realizado?" />
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+
                 {importLicense?.hasServiceIncluded &&
 
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>

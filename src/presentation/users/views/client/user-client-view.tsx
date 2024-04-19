@@ -41,7 +41,7 @@ export default function UserClientView() {
                 <UserTable
                     onSelected={handleSelected}
                     deleteItem={deleteItem.onTrue}
-                    filteredColumns={['profile.name', 'profile.lastName', 'email', 'profile.phone']}
+                    filteredColumns={['profile.document', 'profile.documentNumber', 'profile.name', 'profile.lastName', 'email', 'profile.phone']}
                     path='clients'
                 />
             }

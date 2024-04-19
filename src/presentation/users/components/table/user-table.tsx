@@ -23,6 +23,18 @@ export const UserTable: FC<Props> = ({ onSelected, deleteItem, path, filteredCol
     const allColumns = useMemo<MRT_ColumnDef<User>[]>(
         () => [
             {
+                header: 'Documento',
+                accessorKey: 'profile.document',
+                accessorFn: (row) => row.profile.document,
+                minSize: 200
+            },
+            {
+                header: 'N° Documento',
+                accessorKey: 'profile.documentNumber',
+                accessorFn: (row) => row.profile.documentNumber,
+                minSize: 200
+            },
+            {
                 header: 'Nombre',
                 accessorKey: 'profile.name',
                 accessorFn: (row) => row.profile.name.toUpperCase(),

@@ -24,6 +24,18 @@ export const contractWithCustomerPayment = (contract: NewPostContract): NewPostC
             method: "",
         });
         contract.payInInstallments[0].isPay = true;
+    } else {
+        contract.payInInstallments = [{
+            date: contract.startDate,
+            isPay: true,
+            percentage: 100,
+            price: contract.price,
+            customerPayments: [{
+                date: contract.startDate,
+                price: contract.price,
+                method: "",
+            }]
+        }]
     }
     return contract;
 }

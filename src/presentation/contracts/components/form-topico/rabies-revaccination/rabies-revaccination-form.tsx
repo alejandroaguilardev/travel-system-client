@@ -9,6 +9,7 @@ import { rabiesReVaccinationContractObjectSchema, defaultRabiesReVaccination } f
 import { useFormRabiesReVaccination } from "./use-form-rabies-revaccination";
 import { RabiesReVaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { RabiesReVaccinationFormGeneral } from "./rabies-revaccination-form-general";
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
@@ -31,7 +32,7 @@ export const RabiesReVaccinationForm: FC<Props> = ({ detail, callback, contractI
         }
     });
 
-    const { onSubmit, isExecuted } = useFormRabiesReVaccination({ contractId, detailId: detail.id, callback });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormRabiesReVaccination({ contractId, detailId: detail.id, callback });
 
 
     return (
@@ -46,13 +47,14 @@ export const RabiesReVaccinationForm: FC<Props> = ({ detail, callback, contractI
                     {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
                     <RabiesReVaccinationFormGeneral />
+                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                             Cancelar
                         </Button>
                         <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                            {rabiesReVaccination?.executed ? "Actualizar Vacuna de Rabia" : "Guardar Vacuna de Rabia"}
+                            {rabiesReVaccination?.executed ? "Actualizar Re Vacunación de Rabia" : "Guardar Re Vacunación de Rabia"}
                         </Button>
 
                     </Box>

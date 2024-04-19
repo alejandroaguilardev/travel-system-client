@@ -18,7 +18,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
     return (
         <PaperCustom>
             <Typography variant="h5" gutterBottom>
-                Detalles del usuario
+                Detalles del {user.roles && user.roles.length > 0 ? "usuario" : "cliente"}
             </Typography>
             <Divider sx={{ marginBottom: theme.spacing(2) }} />
 
@@ -57,7 +57,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
                     <TableRow hover component="th" scope="row">
                         <TableCell>
                             <Typography variant="subtitle1" gutterBottom>
-                                Apellidos:
+                                Correo electrónico:
                             </Typography>
                         </TableCell>
                         <TableCell>

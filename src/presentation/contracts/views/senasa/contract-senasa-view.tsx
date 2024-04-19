@@ -1,15 +1,14 @@
-import { Button, Container, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Button, Container, Dialog, DialogContent, DialogTitle, Skeleton } from '@mui/material';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { paths } from '../../../../app/routes/paths';
 import { useColumnsSenasa } from '../../components/table/columns/use-columns-senasa';
 import { ContractTable } from '../../components/table/contract-table';
-import { useSelectedValue } from '../../../../hooks/use-selected-value';
-import { Contract } from '../../../../modules/contracts/domain/contract';
 import { SenasaDocumentsForm } from '../../components/form-documentation/senasa/senasa-documents';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { DetailInfoProvider, DetailInfoContext } from '../../context/contract-detail-context';
 import { useState } from 'react';
 import { MRT_ColumnFiltersState } from 'material-react-table';
+import { useSelectedContract } from '../../hooks/use-selected-contract';
 
 type Props = {
     columnQueryFilters?: MRT_ColumnFiltersState;
@@ -17,11 +16,12 @@ type Props = {
 
 export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
     const columns = useColumnsSenasa();
-    const { selected, handleSelected } = useSelectedValue<Contract>();
-    const [isLoading, setIsLoading] = useState(false);
+    const { selected, handleSelected, isLoading, open, setOpen } = useSelectedContract();
+    const [isLoadingTable, setIsLoadingTable] = useState(false);
 
     const callback = () => {
         handleSelected(null);
+        setOpen(false);
     }
 
     return (
@@ -36,7 +36,7 @@ export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
                 ]}
             />
 
-            {!isLoading && <ContractTable
+            {!isLoadingTable && <ContractTable
                 options={{
                     columns,
                     columnQueryFilters: [
@@ -47,17 +47,23 @@ export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
                         }
                     ],
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
-                    renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => handleSelected(row)}>
+                    renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => {
+                        setOpen(true);
+                        handleSelected(row);
+                    }}>
                         Gestión
                     </Button>
                 }}
             />}
 
-            {selected &&
-                <Dialog open={!!selected} onClose={() => handleSelected(null)} maxWidth="md" fullWidth>
-                    <DialogTitle mx={2} my={0} textAlign="center"> {selected.folder} {selected.number}</DialogTitle>
-                    <DialogContent sx={{ p: 5 }}>
+            <Dialog open={open} onClose={() => { handleSelected(null); setOpen(false) }} maxWidth="md" fullWidth>
+
+
+                <DialogContent sx={{ p: 5 }}>
+                    {!!selected && !isLoading ?
+
                         <DetailInfoProvider defaultContract={selected}>
+                            <DialogTitle mx={2} my={0} textAlign="center"> {selected.folder} {selected.number}</DialogTitle>
                             <DetailInfoContext.Consumer>
                                 {({ contract }) => <>
                                     {contract.details?.map((detail, index) => (
@@ -67,7 +73,7 @@ export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
                                                 detail={detail}
                                                 callback={callback}
                                                 onCancel={() => handleSelected(null)}
-                                                setIsLoading={setIsLoading}
+                                                setIsLoading={setIsLoadingTable}
                                                 status={contract.status}
                                             />
 
@@ -77,10 +83,13 @@ export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
                                 }
                             </DetailInfoContext.Consumer>
                         </DetailInfoProvider>
-
-                    </DialogContent>
-                </Dialog>
-            }
+                        : <>
+                            <Skeleton variant='rectangular' height={60} sx={{ mb: 3 }} />
+                            <Skeleton variant='rectangular' height={320} />
+                        </>
+                    }
+                </DialogContent>
+            </Dialog>
         </Container>
     );
 }

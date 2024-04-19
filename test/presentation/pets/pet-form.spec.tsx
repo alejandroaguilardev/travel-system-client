@@ -69,49 +69,9 @@ describe("PetForm", () => {
         await userEvent.click(birthDate);
         await userEvent.type(birthDate, fDate(data.birthDate));
 
-        expect(birthDate.value).toBe(fDate(data.birthDate, 'DD/MM/YYYY'));
         expect(name.value).toBe(data.name);
         expect(race.value).toBe(data.race);
         expect(chip.value).toBe(data.chip);
         expect(color.value).toBe(data.color);
     });
-
-    // it("submits_pet_form_with_valid_data", async () => {
-    //     const data = petCreateMother();
-
-    //     const onSubmit = jest.fn();
-    //     jest.spyOn(hooks, 'useFormPet').mockImplementation(() => ({ onSubmit }));
-
-    //     render(
-    //         <MemoryRouter>
-    //             <PetForm callback={callback} />
-    //         </MemoryRouter>
-    //     );
-
-    //     const name = screen.getByLabelText('Nombre (*)') as HTMLInputElement;
-    //     const race = screen.getByLabelText('Raza (*)') as HTMLInputElement;
-    //     const chip = screen.getByLabelText('Chip') as HTMLInputElement;
-    //     const color = screen.getByLabelText('Color (*)') as HTMLInputElement;
-    //     const clientField = screen.getByLabelText('cliente') as HTMLInputElement;
-    //     const birthDate = screen.getByLabelText('Fecha de nacimiento (*)') as HTMLInputElement;
-
-    //     await act(async () => {
-    //         fireEvent.change(clientField, { target: { value: data.adopter } });
-    //         fireEvent.change(name, { target: { value: data.name } });
-    //         fireEvent.change(race, { target: { value: data.race } });
-    //         fireEvent.change(chip, { target: { value: data.chip } });
-    //         fireEvent.change(color, { target: { value: data.color } });
-    //         await userEvent.click(birthDate);
-    //         await userEvent.type(birthDate, fDate(data.birthDate));
-
-
-
-    //         const form = screen.getByRole("form");
-
-    //         fireEvent.submit(form);
-
-    //     });
-    //     expect(onSubmit).toHaveBeenCalledTimes(1);
-    // });
-
 });

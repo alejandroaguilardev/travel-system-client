@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
-import { useMessage } from "../../../../../hooks";
+import { useHasSendEmail, useMessage } from "../../../../../hooks";
 import { errorsShowNotification } from "../../../../../modules/shared/infrastructure/helpers/errors-show-notification";
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { contractDetailService } from "../../../../../modules/contracts/infrastructure/contract-detail.service";
@@ -16,11 +16,15 @@ type Props = {
 export const useFormRabiesReVaccination = ({ contractId, detailId, callback }: Props) => {
     const { showNotification } = useMessage();
     const [isExecuted, setsExecuted] = useState(false);
+    const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail();
 
     const onSubmit: SubmitHandler<RabiesReVaccinationContract> = async (data) => {
         try {
             const response = await contractRabiesReVaccinationUpdater(contractDetailService)(contractId, detailId, data)
             showNotification("Actualizado correctamente ");
+            if (hasSendEmail) {
+                contractDetailService.mailDetail(contractId, detailId);
+            }
             setsExecuted(true);
             callback(response);
         } catch (error) {
@@ -31,5 +35,7 @@ export const useFormRabiesReVaccination = ({ contractId, detailId, callback }: P
     return {
         isExecuted,
         onSubmit,
+        hasSendEmail,
+        onChangeHasSendEmail
     }
 }

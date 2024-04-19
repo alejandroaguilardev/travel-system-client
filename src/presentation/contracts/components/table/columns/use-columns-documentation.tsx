@@ -5,6 +5,7 @@ import { Contract } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { contractDetailsPetNames } from './contract-detail-status';
 
 
 const detailsStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTATION_KEYS): JSX.Element => {
@@ -28,6 +29,13 @@ const detailsStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTAT
 export const useColumnsDocumentation = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
+            {
+                header: 'Mascota',
+                accessorKey: 'details.profile.lastName',
+                accessorFn: ({ details }) => contractDetailsPetNames(details),
+                minSize: 170,
+                enableColumnFilter: false,
+            },
             {
                 header: 'N° Documento',
                 accessorKey: 'client.profile.documentNumber',
@@ -63,11 +71,10 @@ export const useColumnsDocumentation = () => {
                     { text: "Completado", value: true },
                     { text: "Todos", value: false }
                 ],
-                minSize: 200,
+                minSize: 210,
             },
-
             {
-                header: 'Permiso de importación',
+                header: 'P. de importación',
                 accessorKey: 'details.documentation.importLicense.executed',
                 Cell: ({ cell }) => detailsStatus(cell.row.original.details, "importLicense"),
                 filterVariant: "select",
@@ -75,7 +82,7 @@ export const useColumnsDocumentation = () => {
                     { text: "Completado", value: true },
                     { text: "Todos", value: false }
                 ],
-                minSize: 250,
+                minSize: 230,
             },
             {
                 header: 'Cert. de salud',
@@ -86,10 +93,10 @@ export const useColumnsDocumentation = () => {
                     { text: "Completado", value: true },
                     { text: "Todos", value: false }
                 ],
-                minSize: 200,
+                minSize: 210,
             },
             {
-                header: 'Cert. de soporte emocional',
+                header: 'Cert. soporte emocional',
                 accessorKey: 'details.documentation.emotionalSupportCertificate.executed',
                 Cell: ({ cell }) => detailsStatus(cell.row.original.details, "emotionalSupportCertificate"),
                 filterVariant: "select",
@@ -103,7 +110,7 @@ export const useColumnsDocumentation = () => {
                 header: 'Fecha de Inicio',
                 accessorKey: 'startDate',
                 accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY HH:mm:ss'),
-                minSize: 200
+                minSize: 210
             },
             {
                 header: 'Folio',

@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material"
+import { Box, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { NewUser, User } from "../../../../modules/users/domain/user";
@@ -15,7 +15,6 @@ export const TopicoSearchUser = () => {
     const [client, setClient] = useState<User | null>(null);
     const clientDefault: string = getValues("user");
 
-
     useEffect(() => {
         if (clientDefault) {
             userService.searchById<User>(clientDefault)
@@ -23,7 +22,6 @@ export const TopicoSearchUser = () => {
                 .catch(() => setClient(null));
         }
     }, [clientDefault]);
-
 
     useEffect(() => {
         if (clientContext) {
@@ -45,8 +43,7 @@ export const TopicoSearchUser = () => {
             setClient(user)
             setValue("user", user?.id ?? "");
         }
-
-    }, [user])
+    }, [user]);
 
     return (
         <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
@@ -55,9 +52,14 @@ export const TopicoSearchUser = () => {
                 handleClient={handleUser}
                 field='user'
                 textField={{
-                    label: "Persona que realiza el procedimiento (*)",
-                    placeholder: "Buscar usuario...",
+                    label: "Veterinario que realiza el procedimiento (*)",
+                    placeholder: "Buscar veterinario...",
                 }}
+                noOptionsText={
+                    <Box width="100%" >
+                        <Typography width="100%" textAlign="center" mb={1}>No hemos encontrado  el veterinario en nuestra base de datos</Typography>
+                    </Box>
+                }
             />
         </Stack>
     )

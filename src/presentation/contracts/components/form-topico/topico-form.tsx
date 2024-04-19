@@ -1,18 +1,18 @@
 import { FC, useMemo } from "react";
 import { Alert } from "@mui/material";
+import { Pet } from '../../../../modules/pets/domain/pet';
+import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
 import { TabGenericProvider, TabSwitcher } from "../../../../components/tab-generic";
 import { MeasurementsAndWeightForm } from "./measurements-and-weight/measurements-and-weight-form";
-import { ChipForm } from "./chip/chip-form";
-import { VaccinationForm } from "./vaccination/vaccination-form";
 import { ClientDialogProvider } from '../../../client/components/search-client/client-dialog-context';
 import { ClientDialogForm } from '../../../client/components/search-client/client-dialog-form';
 import { useDetailInfoContext } from "../../context/contract-detail-context";
+import { ChipForm } from "./chip/chip-form";
+import { VaccinationForm } from "./vaccination/vaccination-form";
 import { RabiesVaccinationForm } from "./rabies-vaccination/rabies-vaccination-form";
 import { RabiesReVaccinationForm } from "./rabies-revaccination/rabies-revaccination-form";
 import { ChipReviewForm } from "./chip-review/chip-review-form";
 import { TakingSampleSerologicalTestContractForm } from "./taking-sample-serological-test/taking-sample-form";
-import { Pet } from '../../../../modules/pets/domain/pet';
-import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
 
 
 export const TOPICO_TABS = {

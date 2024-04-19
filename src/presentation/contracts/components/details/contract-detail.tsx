@@ -83,6 +83,10 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                                 <Typography>{contract.client.profile.document} {contract.client.profile.documentNumber}</Typography>
                                 <Divider />
                                 <Typography>{contract.client.profile.name} {contract.client.profile.lastName}</Typography>
+                                <Divider />
+                                <Typography>E-mail: {contract.client.email} </Typography>
+                                <Divider />
+                                <Typography>Teléfono: {contract.client.profile.phone} </Typography>
                             </TableCell>
                         </TableRow>
                         <TableRow hover>

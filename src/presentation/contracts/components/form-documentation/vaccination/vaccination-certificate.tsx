@@ -11,6 +11,7 @@ import { useFormCertificate } from "../use-form-certificate";
 import FormProvider from "../../../../../components/hook-form/form-provider";
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { CertificateFormGeneral } from "../certificate-form-general";
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
@@ -35,23 +36,26 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, callback, contra
         }
     });
 
-    const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.vaccinationCertificate, status: detail.documentation.status });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.vaccinationCertificate, status: detail.documentation.status });
 
+    if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="warning">El servicio no está incluido en este contrato</Alert>
 
     return (
         <>
             {
                 detail.topico?.vaccination.executed ?
                     <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-                        <Typography fontWeight="bold">Certificado de Vacuna</Typography>
                         {!vaccinationCertificate?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
 
                         {vaccinationCertificate?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
 
                         {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
+
+                        <Typography fontWeight="bold">Certificado de Vacuna</Typography>
                         <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                             <CertificateFormGeneral label="Impresión de certificado realizado" />
+                            <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
                             {
                                 vaccinationCertificate?.hasServiceIncluded &&
@@ -67,6 +71,7 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, callback, contra
                             }
 
                         </Stack>
+
                     </FormProvider>
 
                     : <Alert severity="error">Aùn no se ha guardado la información  relacionada a la vacuna</Alert>

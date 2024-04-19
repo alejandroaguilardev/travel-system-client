@@ -22,7 +22,6 @@ const UserIdPage = lazy(() => import('../../pages/admin/user/[id]/index'));
 
 const ContractPage = lazy(() => import('../../pages/admin/contract/index'));
 const ContractNewPage = lazy(() => import('../../pages/admin/contract/crear'));
-const ContractHistory = lazy(() => import('../../pages/admin/contract/historial/index'));
 
 const ContractAssignNumber = lazy(() => import('../../pages/admin/contract/asignar-numero/index'));
 const ContractAssignPetPage = lazy(() => import('../../pages/admin/contract/assign-pet/index'));
@@ -91,7 +90,6 @@ export const dashboardRoutes = [
           { path: ':id', element: <ContractUpdateTravel /> },
         ],
       },
-      { path: 'contratos-historial', element: <ContractHistory /> },
       { path: 'historial-senasa', element: <SENASAHistory /> },
       { path: 'historial-test-serologico-rabia', element: <TestRabiesHistory /> },
 

@@ -15,7 +15,7 @@ type Props<T> = {
 
 export function RenderRowActionMenuItemButton<T>({ item, onSelected, row }: Props<T>): ReactNode {
     return (
-        <MenuItem onClick={() => onSelected(row)} key={item.name} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <MenuItem onClick={() => onSelected(row)} key={item.name} sx={{ textDecoration: 'none', color: 'inherit', py: 2 }}>
             <IconWrapper icon={item.icon} mr={2} />
             {item.name}
         </MenuItem >

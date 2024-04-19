@@ -62,7 +62,10 @@ export const contractDetailService: ContractDetailService = {
         const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/topico/${action}`, body)
         return data;
     },
-    updateMeasurementMail: async (contractId: string, detailId: string): Promise<void> => {
-        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/measurementsAndWeightMail`);
-    }
-} 
+    mailDetail: async (contractId: string, detailId: string): Promise<void> => {
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailDetail`);
+    },
+    mailTravelDetail: async (contractId: string, detailId: string): Promise<void> => {
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTravelDetail`);
+    },
+}

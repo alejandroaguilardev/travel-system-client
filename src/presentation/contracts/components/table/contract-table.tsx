@@ -12,7 +12,7 @@ import { IconButton } from '@mui/material';
 import { IconWrapper } from 'src/components/icon-wrapper';
 import { useImpContractContext } from 'src/components/imp-pdf/imp-contract/imp-contract-context';
 import { TypeofImp } from '../../../../components/imp-pdf/imp-contract/type-contract';
-import { contractDetailStatus } from './columns/contract-detail-status';
+import { contractDetailStatus, contractDetailsPetNames } from './columns/contract-detail-status';
 
 type Props = {
     options?: {
@@ -80,6 +80,13 @@ export const ContractTable: FC<Props> = ({ options }) => {
                     { text: "Todos", value: false }
                 ],
                 minSize: 200,
+            },
+            {
+                header: 'Mascota',
+                accessorKey: 'details.profile.lastName',
+                accessorFn: ({ details }) => contractDetailsPetNames(details),
+                minSize: 170,
+                enableColumnFilter: false,
             },
             {
                 header: 'N° Documento',

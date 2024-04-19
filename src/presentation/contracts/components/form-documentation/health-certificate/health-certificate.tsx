@@ -11,6 +11,7 @@ import { useFormCertificate } from "../use-form-certificate";
 import FormProvider from "../../../../../components/hook-form/form-provider";
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { CertificateFormGeneral } from "../certificate-form-general";
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
@@ -35,8 +36,9 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
         }
     });
 
-    const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.healthCertificate, status: detail.documentation.status });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.healthCertificate, status: detail.documentation.status });
 
+    if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="warning">El servicio no está incluido en este contrato</Alert>
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
@@ -49,6 +51,9 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <CertificateFormGeneral label="¿Certificado realizado?" />
+
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+
                 {healthCertificate?.hasServiceIncluded &&
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

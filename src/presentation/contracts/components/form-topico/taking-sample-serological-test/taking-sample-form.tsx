@@ -9,6 +9,7 @@ import { takingSampleContractObjectSchema, defaultTakingSampleSerologicalTestCon
 import { useFormTakingSampleSerologicalTestContract } from "./use-form-chip-review";
 import { TakingSampleSerologicalTestContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { TakingSampleSerologicalTestContractFormGeneral } from "./taking-sample-form-general";
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
@@ -32,12 +33,12 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
         }
     });
 
-    const { onSubmit, isExecuted } = useFormTakingSampleSerologicalTestContract({ contractId, detailId: detail.id, callback });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormTakingSampleSerologicalTestContract({ contractId, detailId: detail.id, callback });
 
 
     return (
         <>
-            {detail.topico?.rabiesReVaccination.executed ?
+            {(detail.topico?.rabiesReVaccination.executed && detail.topico?.chipReview?.executed) &&
                 < FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
 
                     {!takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la toma de muestra</Alert>}
@@ -47,19 +48,22 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
                     {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
                     <TakingSampleSerologicalTestContractFormGeneral />
+                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                             Cancelar
                         </Button>
                         <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                            {takingSampleSerologicalTest?.executed ? "Actualizar Vacuna de Rabia" : "Guardar Vacuna de Rabia"}
+                            {takingSampleSerologicalTest?.executed ? "Actualizar Toma de muestra" : "Guardar Toma de muestra"}
                         </Button>
 
                     </Box>
-                </FormProvider >
-                : <Alert severity="error">Aùn no se ha guardado la revacunación de rabia en el sistema</Alert>
-            }
+                </FormProvider >}
+
+            {!detail.topico?.rabiesReVaccination.executed && <Alert severity="error">Aùn no se ha guardado la revacunación de rabia en el sistema</Alert>}
+
+            {!detail.topico?.chipReview.executed && <Alert severity="error">Aùn no se ha realizado la revisión del microchip en el sistema</Alert>}
 
         </>
     )

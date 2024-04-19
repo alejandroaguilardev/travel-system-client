@@ -2,7 +2,7 @@ import { MRT_ColumnDef } from 'material-react-table'
 import { useMemo } from 'react'
 import { Contract } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { contractDetailStatus } from './contract-detail-status';
+import { contractDetailStatus, contractDetailsPetNames } from './contract-detail-status';
 
 
 export const useColumnsTravel = () => {
@@ -26,6 +26,13 @@ export const useColumnsTravel = () => {
                 minSize: 150
             },
             {
+                header: 'Mascota',
+                accessorKey: 'details.profile.lastName',
+                accessorFn: ({ details }) => contractDetailsPetNames(details),
+                minSize: 170,
+                enableColumnFilter: false,
+            },
+            {
                 header: 'Nombre',
                 accessorKey: 'client.profile.name',
                 minSize: 170
@@ -40,6 +47,7 @@ export const useColumnsTravel = () => {
                 accessorKey: 'client.profile.phone',
                 minSize: 170
             },
+
             {
                 header: 'País de destino',
                 accessorKey: 'details.travel.destination.countryDestination',

@@ -1,5 +1,5 @@
 import { SubmitHandler } from "react-hook-form";
-import { useMessage } from "../../../../../hooks";
+import { useHasSendEmail, useMessage } from "../../../../../hooks";
 import { errorsShowNotification } from "../../../../../modules/shared/infrastructure/helpers/errors-show-notification";
 import { petService } from "../../../../../modules/pets/infrastructure/pets.service";
 import uuid from "../../../../../modules/shared/infrastructure/adapter/uuid";
@@ -18,11 +18,14 @@ type Props = {
 export const useMeasurementsAndWeightForm = ({ petId, contractId, contractDetailId, callback }: Props) => {
     const { showNotification } = useMessage();
     const [isExecuted, setsExecuted] = useState(false);
+    const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail();
 
     const onSubmit: SubmitHandler<TopicoMeasurementsAndWeight> = async (data) => {
         try {
             const response = await measurementsAndWeightUpdater(petService, uuid)(petId, data);
-            contractDetailService.updateMeasurementMail(contractId, contractDetailId)
+            if (hasSendEmail) {
+                contractDetailService.mailDetail(contractId, contractDetailId);
+            }
 
             showNotification("Actualizado correctamente ");
             callback(response);
@@ -34,6 +37,8 @@ export const useMeasurementsAndWeightForm = ({ petId, contractId, contractDetail
 
     return {
         isExecuted,
+        hasSendEmail,
+        onChangeHasSendEmail,
         onSubmit,
     }
 }

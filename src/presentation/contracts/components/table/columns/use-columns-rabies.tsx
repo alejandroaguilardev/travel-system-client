@@ -5,6 +5,7 @@ import { Contract } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { contractDetailsPetNames } from './contract-detail-status';
 
 
 const detailsStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTATION_KEYS): JSX.Element => {
@@ -44,6 +45,13 @@ export const useColumnsRabies = () => {
                 accessorKey: 'startDate',
                 accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY'),
                 minSize: 150
+            },
+            {
+                header: 'Mascota',
+                accessorKey: 'details.profile.lastName',
+                accessorFn: ({ details }) => contractDetailsPetNames(details),
+                minSize: 170,
+                enableColumnFilter: false,
             },
             {
                 header: 'Nombre',

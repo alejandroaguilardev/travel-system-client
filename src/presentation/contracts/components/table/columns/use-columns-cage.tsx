@@ -1,10 +1,8 @@
 import { MRT_ColumnDef } from 'material-react-table'
 import { useMemo } from 'react'
-import Label from '../../../../../components/label';
 import { Contract } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
-import { contractDetailStatus } from './contract-detail-status';
+import { contractDetailStatus, contractDetailsPetNames } from './contract-detail-status';
 
 
 export const useColumnsCage = () => {
@@ -20,6 +18,13 @@ export const useColumnsCage = () => {
                     { text: "Todos", value: false }
                 ],
                 minSize: 200,
+            },
+            {
+                header: 'Mascota',
+                accessorKey: 'details.profile.lastName',
+                accessorFn: ({ details }) => contractDetailsPetNames(details),
+                minSize: 170,
+                enableColumnFilter: false,
             },
             {
                 header: 'Fecha',

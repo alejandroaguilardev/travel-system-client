@@ -59,7 +59,6 @@ export const paths = {
       list: `${ROOTS.DASHBOARD}/contratos-reservas`,
       update: (id: string) => `${ROOTS.DASHBOARD}/contratos-reservas/${id}`,
     },
-    contractHistory: `${ROOTS.DASHBOARD}/contratos-historial`,
     senasaHistory: `${ROOTS.DASHBOARD}/historial-senasa`,
     takingSampleHistory: `${ROOTS.DASHBOARD}/historial-test-serologico-rabia`,
 

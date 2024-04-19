@@ -25,6 +25,7 @@ export function AuthProvider({ children }: Props) {
   const initialize = useCallback(async () => {
     try {
       const accessToken = sessionStorage.getItem(LOCAL_STORAGE_KEYS.accessToken);
+      console.log({ accessToken })
       manageAccessToken(accessToken);
       const user = await authVerify(authService, manageAccessToken)(accessToken);
       dispatch({

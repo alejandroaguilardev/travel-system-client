@@ -12,7 +12,7 @@ export const ChipFormGeneral = () => {
 
     return (
         <>
-            <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
+            <Stack flexWrap="wrap" spacing={2} marginBottom={3}>
                 <Typography fontWeight="bold">Implantación de Chip</Typography>
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                     <RHFSwitch
@@ -39,8 +39,10 @@ export const ChipFormGeneral = () => {
                         label="Observaciones"
                     />
                 </Stack>
-                <TopicoSearchUser />
-            </Stack>
+                <Stack spacing={2}>
+                    <TopicoSearchUser />
+                </Stack>
+            </Stack >
         </>
     );
 };

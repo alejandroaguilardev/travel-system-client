@@ -9,6 +9,7 @@ import { vaccinationContractObjectSchema, defaultVaccination } from "./vaccinati
 import { useFormVaccination } from "./use-form-vaccination";
 import { VaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { VaccinationFormGeneral } from "./vaccination-form-general";
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     title: string;
@@ -32,7 +33,7 @@ export const VaccinationForm: FC<Props> = ({ title, detail, callback, contractId
         }
     });
 
-    const { onSubmit, isExecuted } = useFormVaccination({ contractId, detailId: detail.id, callback });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormVaccination({ contractId, detail, callback });
 
 
     return (
@@ -45,6 +46,7 @@ export const VaccinationForm: FC<Props> = ({ title, detail, callback, contractId
                 {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
                 <VaccinationFormGeneral title={title} />
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

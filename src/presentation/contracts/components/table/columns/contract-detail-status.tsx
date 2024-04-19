@@ -18,3 +18,12 @@ export const contractDetailStatus = (details: ContractDetail[], value: "travel" 
         }
     </>
 }
+
+
+export const contractDetailsPetNames = (details: ContractDetail[]): JSX.Element => {
+    const names = details.map(_ => _.pet?.name)
+
+    return <>
+        {names.join(", ")}
+    </>
+}

@@ -1,25 +1,46 @@
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
-import { useMessage } from "../../../../../hooks";
+import { useHasSendEmail, useMessage } from "../../../../../hooks";
 import { errorsShowNotification } from "../../../../../modules/shared/infrastructure/helpers/errors-show-notification";
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { contractDetailService } from "../../../../../modules/contracts/infrastructure/contract-detail.service";
 import { VaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { contractVaccinationUpdater } from "../../../../../modules/contracts/application/topico/vaccunation-updater";
+import { certificateUpdater } from '../../../../../modules/contracts/application/update/certificate-updater';
+import { DocumentationCertificate } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation-certificate';
+import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
+import uuid from 'src/modules/shared/infrastructure/adapter/uuid';
+import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 
 type Props = {
     contractId: string;
-    detailId: string;
+    detail: ContractDetail;
     callback: (response: ContractDetailUpdateResponse) => void;
 }
 
-export const useFormVaccination = ({ contractId, detailId, callback }: Props) => {
+export const useFormVaccination = ({ contractId, detail, callback }: Props) => {
     const { showNotification } = useMessage();
+    const { user } = useAuthContext();
+
     const [isExecuted, setsExecuted] = useState(false);
+    const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail();
 
     const onSubmit: SubmitHandler<VaccinationContract> = async (data) => {
         try {
-            const response = await contractVaccinationUpdater(contractDetailService)(contractId, detailId, data)
+            const response = await contractVaccinationUpdater(contractDetailService)(contractId, detail.id, data);
+            const certificate: DocumentationCertificate = {
+                ...detail.documentation.chipCertificate,
+                isApplied: true,
+                executionDate: data?.date ?? null,
+                resultDate: data?.date ?? null,
+            }
+            await certificateUpdater(contractDetailService, uuid)(contractId, detail.id, DOCUMENTATION_KEYS.vaccinationCertificate, certificate, "pending", user?.id ?? "")
+
+            if (hasSendEmail) {
+                contractDetailService.mailDetail(contractId, detail.id);
+            }
+
             showNotification("Actualizado correctamente ");
             setsExecuted(true);
             callback(response);
@@ -31,5 +52,7 @@ export const useFormVaccination = ({ contractId, detailId, callback }: Props) =>
     return {
         isExecuted,
         onSubmit,
+        hasSendEmail,
+        onChangeHasSendEmail
     }
 }

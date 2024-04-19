@@ -9,12 +9,11 @@ import { chipObjectSchema, defaultChip } from "./chip-validation";
 import { ChipContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { ChipFormGeneral } from "./chip-form-general";
 import { useFormChip } from "./use-form-chip";
-import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
     detail: ContractDetail;
-
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
@@ -35,7 +34,7 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, onCancel }) 
         }
     });
 
-    const { onSubmit, isExecuted } = useFormChip({ contractId, detail, petId: detail.pet?.id ?? "", callback, action: DOCUMENTATION_KEYS.chipCertificate });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormChip({ contractId, detail, petId: detail.pet?.id ?? "", callback, });
 
 
     return (
@@ -51,6 +50,9 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, onCancel }) 
 
 
                 <ChipFormGeneral />
+
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                         Cancelar

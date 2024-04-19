@@ -9,6 +9,7 @@ import { certificateUpdater } from '../../../../modules/contracts/application/up
 import { useState } from "react";
 import { ContractStatus } from '../../../../modules/contracts/domain/contract-status';
 import { useAuthContext } from '../../../auth/hooks/use-auth-context';
+import { useHasSendEmail } from '../../../../hooks/use-has-send-email';
 
 type Props = {
     contractId: string;
@@ -23,12 +24,16 @@ export const useFormCertificate = ({ contractId, detailId, action, status, callb
     const { showNotification } = useMessage();
     const [isExecuted, setIsExecuted] = useState(false);
     const { user } = useAuthContext()
+    const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail();
 
     const onSubmit: SubmitHandler<DocumentationCertificate> = async (data) => {
         if (setIsLoading) setIsLoading(true);
         try {
             const response = await certificateUpdater(contractDetailService, uuid)(contractId, detailId, action, data, status, user?.id ?? "")
             showNotification("Actualizado correctamente ");
+            if (hasSendEmail) {
+                contractDetailService.mailDetail(contractId, detailId);
+            }
             setIsExecuted(true);
             callback(response);
         } catch (error) {
@@ -40,6 +45,8 @@ export const useFormCertificate = ({ contractId, detailId, action, status, callb
 
     return {
         isExecuted,
+        hasSendEmail,
         onSubmit,
+        onChangeHasSendEmail
     }
 }

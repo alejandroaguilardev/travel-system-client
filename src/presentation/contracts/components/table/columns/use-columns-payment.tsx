@@ -6,6 +6,7 @@ import Label from '../../../../../components/label/label';
 import { LabelColor } from '../../../../../components/label/types';
 import { Box } from '@mui/material';
 import { PayInInstallment } from '../../../../../modules/contracts/domain/payment-summary';
+import { contractDetailsPetNames } from './contract-detail-status';
 
 const statusPaymentRender = (contract: Contract): JSX.Element => {
     const { payInInstallments = [] } = contract;
@@ -25,7 +26,7 @@ const statusPaymentRender = (contract: Contract): JSX.Element => {
         }
     </Box>
 }
-export const nextDatePayment = (payInInstallments: PayInInstallment[] = []): JSX.Element => {
+const nextDatePayment = (payInInstallments: PayInInstallment[] = []): JSX.Element => {
     const today = fDayjs(new Date());
     let color: LabelColor = "info";
 
@@ -63,6 +64,13 @@ export const useColumnsPayment = () => {
                 enableColumnFilter: false,
             },
             {
+                header: 'Mascota',
+                accessorKey: 'details.profile.lastName',
+                accessorFn: ({ details }) => contractDetailsPetNames(details),
+                minSize: 170,
+                enableColumnFilter: false,
+            },
+            {
                 header: 'N° Documento',
                 accessorKey: 'client.profile.documentNumber',
                 minSize: 170
@@ -75,6 +83,11 @@ export const useColumnsPayment = () => {
             {
                 header: 'Apellido',
                 accessorKey: 'client.profile.lastName',
+                minSize: 170
+            },
+            {
+                header: 'Teléfono',
+                accessorKey: 'client.profile.phone',
                 minSize: 170
             },
             {

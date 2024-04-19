@@ -5,6 +5,7 @@ import { Contract } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { TOPICO_KEYS } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
+import { contractDetailsPetNames } from './contract-detail-status';
 
 
 const detailsTopicoStatus = (details: ContractDetail[], value: keyof typeof TOPICO_KEYS): JSX.Element => {
@@ -29,6 +30,13 @@ export const useColumnsTopico = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
+                header: 'Mascota',
+                accessorKey: 'details.profile.lastName',
+                accessorFn: ({ details }) => contractDetailsPetNames(details),
+                minSize: 170,
+                enableColumnFilter: false,
+            },
+            {
                 header: 'N° Documento',
                 accessorKey: 'client.profile.documentNumber',
                 minSize: 170
@@ -43,6 +51,7 @@ export const useColumnsTopico = () => {
                 accessorKey: 'client.profile.lastName',
                 minSize: 170
             },
+
             {
                 header: 'Microchip',
                 accessorKey: 'details.topico.chip.executed',
@@ -52,7 +61,7 @@ export const useColumnsTopico = () => {
                     { text: "Completado", value: true },
                     { text: "Todos", value: false }
                 ],
-                minSize: 170,
+                minSize: 200,
             },
             {
                 header: 'Vacuna',
@@ -63,7 +72,7 @@ export const useColumnsTopico = () => {
                     { text: "Completado", value: true },
                     { text: "Todos", value: false }
                 ],
-                minSize: 170,
+                minSize: 200,
             },
             {
                 header: 'Vac. de rabia',
@@ -74,7 +83,7 @@ export const useColumnsTopico = () => {
                     { text: "Completado", value: true },
                     { text: "Todos", value: false }
                 ],
-                minSize: 170,
+                minSize: 200,
             },
             {
                 header: 'ReVac. de Rabia',
@@ -85,7 +94,7 @@ export const useColumnsTopico = () => {
                     { text: "Completado", value: true },
                     { text: "Todos", value: false }
                 ],
-                minSize: 170,
+                minSize: 220,
             },
             {
                 header: 'Rev. Microchip',
@@ -96,7 +105,7 @@ export const useColumnsTopico = () => {
                     { text: "Completado", value: true },
                     { text: "Todos", value: false }
                 ],
-                minSize: 170,
+                minSize: 220,
             },
             {
                 header: 'Toma de muestra',
@@ -107,13 +116,13 @@ export const useColumnsTopico = () => {
                     { text: "Completado", value: true },
                     { text: "Todos", value: false }
                 ],
-                minSize: 170,
+                minSize: 230,
             },
             {
                 header: 'Fecha de Inicio',
                 accessorKey: 'startDate',
                 accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY HH:mm:ss'),
-                minSize: 200
+                minSize: 220
             },
             {
                 header: 'Folio',

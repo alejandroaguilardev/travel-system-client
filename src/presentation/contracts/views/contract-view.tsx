@@ -11,7 +11,6 @@ import { useDeleteContract } from '../hooks/use-delete-contract';
 import { ContractRenderRowActionsMenuItems } from '../components/table/contract-render-row-actions-menu-items';
 import { PermissionGuard } from '../../permission/components/guard/permission-guard';
 import { AuthGroup, AuthPermission } from '../../../modules/auth/domain/auth-permission';
-import { CONTRACT_STATUS } from '../../../modules/contracts/domain/contract-status';
 
 export default function ContractView() {
     const { selected, handleSelected } = useSelectedValue<Contract>();
@@ -21,7 +20,7 @@ export default function ContractView() {
     return (
         <Container maxWidth='xl'>
             <CustomBreadcrumbs
-                heading="Contratos en Curso"
+                heading="Historial de contratos"
                 links={[
                     { name: 'Contratos', href: paths.dashboard.contracts.root },
                     {
@@ -43,10 +42,6 @@ export default function ContractView() {
             {!isLoading &&
                 <ContractTable
                     options={{
-                        columnQueryFilters: [{
-                            id: "status",
-                            value: CONTRACT_STATUS.filter(({ value }) => value === "in-process" || value === "pending").map(_ => _.value)
-                        }],
                         sortingQueryFilters: [{ id: "startDate", desc: true }],
                         renderRowActionMenuItems: (row: Contract) => ContractRenderRowActionsMenuItems({ row, deleteItem: deleteItem.onTrue, onSelected: handleSelected })
                     }}

@@ -9,6 +9,7 @@ import { rabiesVaccinationContractObjectSchema, defaultRabiesVaccination } from 
 import { useFormRabiesVaccination } from "./use-form-rabies-vaccination";
 import { RabiesVaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { RabiesVaccinationFormGeneral } from "./rabies-vaccination-form-general";
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
@@ -32,7 +33,7 @@ export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contractId,
         }
     });
 
-    const { onSubmit, isExecuted } = useFormRabiesVaccination({ contractId, detailId: detail.id, callback });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormRabiesVaccination({ contractId, detailId: detail.id, callback });
 
 
     return (
@@ -47,6 +48,7 @@ export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contractId,
 
 
                 <RabiesVaccinationFormGeneral />
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

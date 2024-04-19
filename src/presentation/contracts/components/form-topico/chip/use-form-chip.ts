@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
-import { useMessage } from "../../../../../hooks";
+import { useHasSendEmail, useMessage } from "../../../../../hooks";
 import { errorsShowNotification } from "../../../../../modules/shared/infrastructure/helpers/errors-show-notification";
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { contractDetailService } from "../../../../../modules/contracts/infrastructure/contract-detail.service";
@@ -12,24 +12,24 @@ import uuid from "src/modules/shared/infrastructure/adapter/uuid";
 import { DocumentationCertificate } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation-certificate';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
+import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 
 type Props = {
     contractId: string;
     detail: ContractDetail;
     petId: string;
-    action: string,
     callback: (response: ContractDetailUpdateResponse) => void
 }
 
-export const useFormChip = ({ contractId, detail, petId, action, callback }: Props) => {
+export const useFormChip = ({ contractId, detail, petId, callback }: Props) => {
     const { showNotification } = useMessage();
     const [isExecuted, setsExecuted] = useState(false);
     const { user } = useAuthContext();
+    const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail();
 
     const onSubmit: SubmitHandler<VaccinationContract> = async (data) => {
         try {
             const response = await contractChipUpdater(contractDetailService, petService)(contractId, detail.id, petId, data);
-
 
             const certificate: DocumentationCertificate = {
                 ...detail.documentation.chipCertificate,
@@ -37,7 +37,11 @@ export const useFormChip = ({ contractId, detail, petId, action, callback }: Pro
                 executionDate: data?.date ?? null,
                 resultDate: data?.date ?? null,
             }
-            certificateUpdater(contractDetailService, uuid)(contractId, detail.id, action, certificate, "pending", user?.id ?? "")
+            await certificateUpdater(contractDetailService, uuid)(contractId, detail.id, DOCUMENTATION_KEYS.chipCertificate, certificate, "pending", user?.id ?? "")
+
+            if (hasSendEmail) {
+                contractDetailService.mailDetail(contractId, detail.id);
+            }
 
             showNotification("Actualizado correctamente ");
             callback(response);
@@ -48,6 +52,8 @@ export const useFormChip = ({ contractId, detail, petId, action, callback }: Pro
     };
 
     return {
+        hasSendEmail,
+        onChangeHasSendEmail,
         onSubmit,
         isExecuted,
     }

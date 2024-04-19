@@ -5,6 +5,11 @@ import { AuthContext } from '../../../src/presentation/auth/context/auth-context
 import { emailCreateMother } from '../../modules/shared/domain/email.mother';
 import { passwordCreatedMother } from '../../modules/users/domain/password.mother';
 
+const token = "mock-recaptcha-token";
+
+jest.mock('../../../src/presentation/auth/utils/execute-re-captcha', () => ({
+    executeReCaptcha: jest.fn(() => Promise.resolve(token))
+}));
 
 describe('LoginView', () => {
     let container: HTMLElement;
@@ -31,6 +36,7 @@ describe('LoginView', () => {
         const button = container.querySelector('button');
         const emailInput = screen.getByLabelText('Correo Electrónico');
         const passwordInput = screen.getByLabelText('Contraseña');
+
         await act(async () => {
             fireEvent.change(emailInput, { target: { value: emailMother } });
             fireEvent.change(passwordInput, { target: { value: passwordMother } });
@@ -39,6 +45,6 @@ describe('LoginView', () => {
             const form = container.querySelector('form');
             fireEvent.submit(form!);
         });
-        expect(mockLogin).toHaveBeenCalledWith(emailMother, passwordMother);
+        expect(mockLogin).toHaveBeenCalledWith(emailMother, passwordMother, token);
     });
 });

@@ -53,7 +53,7 @@ export const ChipReviewForm: FC<Props> = ({ detail, callback, contractId, onCanc
                                 Cancelar
                             </Button>
                             <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                                {chipReview?.executed ? "Actualizar Vacuna de Rabia" : "Guardar Vacuna de Rabia"}
+                                {chipReview?.executed ? "Actualizar Revisión de microchip" : "Guardar Revisión de microchip"}
                             </Button>
 
                         </Box>

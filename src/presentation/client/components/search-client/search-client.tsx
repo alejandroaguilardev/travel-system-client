@@ -8,6 +8,7 @@ import { PermissionGuard } from '../../../permission/components/guard/permission
 import { ErrorMessage } from '../../../../components/hook-form/error-message';
 import { useClientDialogContext } from './client-dialog-context';
 import { Criteria } from '../../../../modules/shared/domain/criteria/criteria';
+import { ReactNode } from 'react';
 
 
 const globalFilterProperties = [
@@ -35,6 +36,7 @@ type Props = Partial<Criteria> & {
     handleClient: (user: User | null) => void;
     textField?: TextFieldProps;
     newPerson?: boolean;
+    noOptionsText?: ReactNode;
 }
 
 export const SearchClient = ({
@@ -46,6 +48,7 @@ export const SearchClient = ({
         placeholder: "Buscar y seleccionar un cliente...",
     },
     newPerson = true,
+    noOptionsText,
     ...rest
 }: Props) => {
     const { onTrue } = useClientDialogContext();
@@ -61,7 +64,7 @@ export const SearchClient = ({
                 callback={(value) => handleClient(value as User | null)}
                 getOptionLabel={getOptionLabel}
                 textField={textField}
-                noOptionsText={
+                noOptionsText={noOptionsText ??
                     <Box width="100%" >
                         <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la persona que está buscando. ¿Desea crear un cliente ahora? </Typography>
                         {newPerson && <PermissionGuard group={AuthGroup.CLIENT} permission={AuthPermission.CREATE}>

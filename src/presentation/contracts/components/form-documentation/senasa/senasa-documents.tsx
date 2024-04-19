@@ -15,6 +15,8 @@ import { TabSwitcher } from '../../../../../components/tab-generic/tab-switcher'
 import { SENASAFormResult } from "./senasa-result";
 import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 import { ContractStatus } from '../../../../../modules/contracts/domain/contract-status';
+import { ErrorSenasaTravelDate } from "./errorsConditions/error-travel-date";
+import { ErrorSenasaCountry } from "./errorsConditions/error-senasa-country";
 
 type Props = {
     contractId: string;
@@ -49,8 +51,8 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
 
     if (!detail.documentation.senasaDocuments.hasServiceIncluded) return <Alert severity="info">En el contrato no incluye la realización del proceso de inspección senasa</Alert>
     if (!detail.pet) return <Alert severity="error">No se ha registrado la mascota en el sistema</Alert>
-    if (!detail.travel.airlineReservation.departureDate) return <Alert severity="error">Aùn no se ha Asignado fecha de viaje</Alert>
-    if (!detail.travel.destination.countryDestination) return <Alert severity="error">No se indico el país de viaje</Alert>
+    if (!detail.travel.airlineReservation.departureDate) return <ErrorSenasaTravelDate contractId={contractId} />
+    if (!detail.travel.destination.countryDestination) return <ErrorSenasaCountry contractId={contractId} />
 
     return (
 
