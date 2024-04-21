@@ -23,9 +23,6 @@ export const useMeasurementsAndWeightForm = ({ petId, contractId, contractDetail
     const onSubmit: SubmitHandler<TopicoMeasurementsAndWeight> = async (data) => {
         try {
             const response = await measurementsAndWeightUpdater(petService, uuid)(petId, data);
-            if (hasSendEmail) {
-                contractDetailService.mailDetail(contractId, contractDetailId);
-            }
 
             showNotification("Actualizado correctamente ");
             callback(response);

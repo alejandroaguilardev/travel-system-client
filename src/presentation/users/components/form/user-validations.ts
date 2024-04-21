@@ -28,6 +28,7 @@ const defaultValues: NewUser = {
         admin: false,
     },
     isAdvisor: false,
+    isDoctor: false,
 };
 const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
     id: Yup.string(),
@@ -69,6 +70,7 @@ const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
         admin: Yup.boolean(),
     }),
     isAdvisor: Yup.boolean(),
+    isDoctor: Yup.boolean(),
 });
 
 export { defaultValues, userSchema };

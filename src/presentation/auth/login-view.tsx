@@ -42,7 +42,7 @@ export default function LoginView() {
     try {
       const tokenReCaptcha = await executeReCaptcha();
 
-      const user = await login?.(data.email, data.password, tokenReCaptcha);
+      const user = await login?.(data.document, data.documentNumber, data.password, tokenReCaptcha);
       const access = (user?.roles?.length > 0 || user?.auth?.admin) ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;
 
       if (access === PATH_AFTER_LOGIN && returnTo === "/") {

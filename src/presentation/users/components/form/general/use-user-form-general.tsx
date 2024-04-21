@@ -9,6 +9,7 @@ export const useUserFormGeneral = () => {
     const { setValue, getValues, watch, formState } = useFormContext<NewUser>();
     const { isUser } = useConditionContext();
     const phone = watch("profile.phone");
+    const isAdmin = watch("auth.admin");
     const phoneError = formState.errors.profile?.phone?.message ?? "";
 
     const [roles, setRoles] = useState<Role[]>([]);
@@ -31,6 +32,7 @@ export const useUserFormGeneral = () => {
     const handlePhone = (value: string) => setValue("profile.phone", value);
 
     return {
+        isAdmin,
         roles,
         isUser,
         phone,

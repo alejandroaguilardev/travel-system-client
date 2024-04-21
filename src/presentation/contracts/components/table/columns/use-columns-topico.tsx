@@ -21,7 +21,7 @@ const detailsTopicoStatus = (details: ContractDetail[], value: keyof typeof TOPI
             <Label color="error">{pending > 1 ? pending : ""} Pendiente</Label>
         }
         {completed > 0 &&
-            <Label color="success">{pending > 1 ? pending : ""}Completado</Label>
+            <Label color="success">{completed > 1 ? completed : ""}Completado</Label>
         }
     </>
 }

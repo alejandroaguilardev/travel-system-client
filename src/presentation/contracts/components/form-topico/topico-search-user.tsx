@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { NewUser, User } from "../../../../modules/users/domain/user";
 import { userService } from "../../../../modules/users/infrastructure/user.service";
-import { useAuthContext } from "../../../../presentation/auth/hooks";
-import { useClientDialogContext } from "../../../../presentation/client/components/search-client/client-dialog-context";
-import { SearchClient } from "../../../../presentation/client/components/search-client/search-client"
+import { useAuthContext } from "../../../auth/hooks";
+import { useClientDialogContext } from "../../../client/components/search-client/client-dialog-context";
+import { SearchClient } from "../../../client/components/search-client/search-client"
 
 export const TopicoSearchUser = () => {
     const { setValue, getValues } = useFormContext();
@@ -48,6 +48,12 @@ export const TopicoSearchUser = () => {
     return (
         <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
             <SearchClient
+                filters={[
+                    {
+                        field: "isDoctor",
+                        value: true
+                    }
+                ]}
                 client={client}
                 handleClient={handleUser}
                 field='user'

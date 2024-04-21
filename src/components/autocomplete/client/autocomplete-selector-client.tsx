@@ -7,11 +7,14 @@ interface Props<T> {
     propertiesFilter: (keyof T)[],
     maxFilter?: number;
     textField?: TextFieldProps;
-    getOptionLabel: (option: T | null) => string;
+    freeText?: boolean;
+    getOptionLabel: (option: T | string | null) => string;
     callback: (value: T | null) => void;
+    renderOption?: (props: React.HTMLAttributes<HTMLLIElement>, option: T) => React.ReactNode;
+
 }
 
-export function AutocompleteSelectorClient<T>({ items, propertiesFilter, defaultValue, maxFilter = 100, textField, getOptionLabel, callback }: Props<T>) {
+export function AutocompleteSelectorClient<T>({ items, propertiesFilter, defaultValue, maxFilter = 100, textField, getOptionLabel, callback, renderOption, freeText = false }: Props<T>) {
     const { options, option, input, handleInput, handleChange } = useAutocompleteClient<T>({
         items: items as T[],
         properties: propertiesFilter,
@@ -22,15 +25,17 @@ export function AutocompleteSelectorClient<T>({ items, propertiesFilter, default
 
     return (
         <Autocomplete
+            freeSolo={freeText}
             options={options}
             fullWidth
             value={option}
-            renderOption={(props, optionRender) => (<ListItem {...props} >
-                {getOptionLabel(optionRender)}
-            </ListItem>)
+            renderOption={(props, optionRender) => renderOption ? renderOption(props, optionRender) : (
+                <ListItem {...props} key={JSON.stringify(optionRender)} >
+                    {getOptionLabel ? getOptionLabel(optionRender) : undefined}
+                </ListItem>)
             }
             getOptionLabel={getOptionLabel}
-            onChange={handleChange}
+            onChange={(e, value: any) => handleChange(value)}
             renderInput={
                 (params) => <TextField {...params} value={input} onChange={handleInput} {...textField} />
             }

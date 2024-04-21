@@ -5,12 +5,11 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Link from '@mui/material/Link';
 import { HeadLogin } from './components/head-login';
 import FormProvider from '../../components/hook-form/form-provider';
-import { defaultValues } from './utils/login-validation-form';
 import { paths } from '../../app/routes/paths';
 import { Alert, Box, Button } from '@mui/material';
 import { RecoverForm } from './components/recover-form';
 import { authService } from '../../modules/auth/infrastructure/auth.service';
-import { RecoverSchema } from './utils/recover-validation-form';
+import { RecoverSchema, defaultValues } from './utils/recover-validation-form';
 import { useMessage } from '../../hooks/use-message';
 import { executeReCaptcha } from './utils/execute-re-captcha';
 

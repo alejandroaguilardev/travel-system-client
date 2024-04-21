@@ -10,9 +10,9 @@ const globalFilterProperties = [
 ];
 
 type Props = Partial<Criteria> & {
-    folder: Folder | null;
+    folder: Folder | string | null;
     field: string;
-    handleFolder: (folder: Folder | null) => void;
+    handleFolder: (folder: Folder | string | null) => void;
     textField?: TextFieldProps;
     newPerson?: boolean;
 }
@@ -31,15 +31,19 @@ export const SearchFolder = ({
 
     return (
         <>
-            <AutocompleteServer<Folder>
+            <AutocompleteServer<Folder | string >
                 {...rest}
                 collection='folders'
                 sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
                 globalFilterProperties={globalFilterProperties}
                 defaultValue={folder}
-                callback={(value) => handleFolder(value as Folder | null)}
-                getOptionLabel={(option) => option.name}
+                callback={(value) => handleFolder(value as Folder | string | null)}
+                getOptionLabel={(option) => {
+                    if (typeof option === "string") return option;
+                    return option.name
+                }}
                 textField={textField}
+                freeText
             />
             <ErrorMessage name={field} />
         </>

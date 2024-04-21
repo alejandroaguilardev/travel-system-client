@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Alert, Box, Button, Divider, IconButton, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Alert, Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { capitalize } from '../../../../../modules/shared/domain/helpers/capitalize';
 import IconWrapper from '../../../../../components/icon-wrapper/icon-wrapper';
 import Iconify from '../../../../../components/iconify';
@@ -15,11 +15,16 @@ export const ContractFormPet = () => {
             {details?.length > 0
                 ? details.map((detail, index) => (
                     <Accordion key={detail.id} defaultExpanded>
-                        <AccordionSummary expandIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}>
+                        <AccordionSummary expandIcon={<Iconify icon="eva:arrow-ios-downward-fill" />} >
                             <Typography variant="subtitle1">
-                                <IconButton color='error' sx={{ mr: 1 }} onClick={() => removePet(detail)}>
-                                    <IconWrapper icon="removeFilled" width={25} />
-                                </IconButton>
+                                <Button
+                                    variant="contained"
+                                    color='error' sx={{ mr: 1 }}
+                                    size='small'
+                                    onClick={() => removePet(detail)}
+                                >
+                                    Eliminar
+                                </Button>
                                 {
                                     detail?.pet?.name ?
                                         <>

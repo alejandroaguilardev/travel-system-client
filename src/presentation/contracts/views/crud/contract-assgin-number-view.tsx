@@ -28,17 +28,6 @@ export default function ContractAssignNumberView() {
                         name: 'Listado',
                     }
                 ]}
-                action={
-                    <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.CREATE}>
-                        <Button
-                            component={RouterLink}
-                            href={paths.dashboard.contracts.new}
-                            variant="contained"
-                        >
-                            Nuevo Contrato
-                        </Button>
-                    </PermissionGuard>
-                }
             />
             {!isLoading && <ContractTable
                 options={{

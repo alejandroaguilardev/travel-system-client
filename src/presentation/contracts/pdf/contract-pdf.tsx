@@ -89,13 +89,13 @@ const ContractPdf = ({ contract }: Props) => {
                                 {
                                     detail.documentation.chipCertificate.hasServiceIncluded &&
                                     <Text>
-                                        • Verificación de implantación de microchip.
+                                        • Implantación de microchip y/o lectura de microchip con certificado
                                     </Text>
                                 }
                                 {
                                     detail.documentation.vaccinationCertificate.hasServiceIncluded &&
                                     <Text>
-                                        • Vacunación de vacuna antirrábica.
+                                        • Vacunación total y/o parcial  y certificación.
                                     </Text>
                                 }
                                 {

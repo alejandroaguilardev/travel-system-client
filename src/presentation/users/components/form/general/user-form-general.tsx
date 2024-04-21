@@ -1,4 +1,4 @@
-import { Divider, InputAdornment, MenuItem, Stack } from '@mui/material';
+import { Alert, Divider, InputAdornment, MenuItem, Stack } from '@mui/material';
 import { Role } from '../../../../../modules/roles/domain/role';
 import { OrderValue } from '../../../../../modules/shared/domain/criteria/sorting';
 import { capitalize } from '../../../../../modules/shared/domain/helpers/capitalize';
@@ -11,7 +11,7 @@ import { PhoneNumber } from '../../../../../components/phone-number/phone-number
 import Iconify from '../../../../../components/iconify';
 
 export const UserFormGeneral = () => {
-    const { roles, phone, phoneError, isUser, handleRoles, handlePhone } = useUserFormGeneral();
+    const { roles, phone, phoneError, isUser, isAdmin, handleRoles, handlePhone } = useUserFormGeneral();
 
     return (
         <Stack spacing={1} marginBottom={2}>
@@ -110,25 +110,42 @@ export const UserFormGeneral = () => {
             {
                 isUser &&
                 <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
-                    <AutocompleteServer<Role>
-                        collection='roles'
-                        sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
-                        globalFilterProperties={[{ field: "name", value: "string" }]}
-                        defaultValue={roles}
-                        callback={handleRoles}
-                        getOptionLabel={(option: Role) => capitalize(option.name)}
-                        textField={{
-                            label: "Seleccionar roles"
-                        }}
-                        multiple
-                    />
-                    <RHFSwitch
-                        name="isAdvisor"
-                        label="¿Este usuario será un asesor?"
-                        sx={{
-                            width: "100%"
-                        }}
-                    />
+                    {isAdmin ?
+                        <Stack width="100%">
+                            <Alert severity='info'>
+                                Este es un usuario administrador tiene todos los permisos
+                            </Alert>
+                        </Stack>
+                        :
+                        <AutocompleteServer<Role>
+                            collection='roles'
+                            sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
+                            globalFilterProperties={[{ field: "name", value: "string" }]}
+                            defaultValue={roles}
+                            callback={handleRoles}
+                            getOptionLabel={(option: Role) => capitalize(option.name)}
+                            textField={{
+                                label: "Seleccionar roles"
+                            }}
+                            multiple
+                        />
+                    }
+                    <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1} width="100%">
+                        <RHFSwitch
+                            name="isAdvisor"
+                            label="¿Este usuario será un asesor?"
+                            sx={{
+                                width: "100%"
+                            }}
+                        />
+                        <RHFSwitch
+                            name="isDoctor"
+                            label="¿Este usuario será un veterinario?"
+                            sx={{
+                                width: "100%"
+                            }}
+                        />
+                    </Stack>
                 </Stack>
             }
         </Stack >

@@ -9,19 +9,39 @@ import { contractDetailsPetNames } from './contract-detail-status';
 
 
 const detailsStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTATION_KEYS): JSX.Element => {
-    let pending = details?.length ?? 0;
+    let hasIncluded = 0;
+    let notIncluded = 0;
+    let optional = 0;
     let completed = 0;
-    details.forEach(_ => {
-        completed += _.documentation?.[value]?.isApplied ? 1 : 0;
-    })
+    for (const _ of details) {
+        if (_.documentation?.[value]?.isApplied) {
+            completed += 1;
+            continue;
+        }
+        if (_.documentation?.[value]?.hasServiceIncluded) {
+            hasIncluded += 1;
+            continue;
+        }
+        if (!_.documentation?.[value]?.hasServiceIncluded) {
+            notIncluded += 1;
+            continue;
+        }
+        optional += 1
 
-    pending -= completed;
+    }
+
     return <>
-        {pending > 0 &&
-            <Label color="error">{pending > 1 ? pending : ""} Pendiente</Label>
+        {hasIncluded > 0 &&
+            <Label color="error">{hasIncluded > 1 ? hasIncluded : ""} Requerido</Label>
+        }
+        {notIncluded > 0 &&
+            <Label color="default">{notIncluded > 1 ? notIncluded : ""} No Incluido</Label>
+        }
+        {optional > 0 &&
+            <Label color="info">{optional > 1 ? optional : ""} Opcional</Label>
         }
         {completed > 0 &&
-            <Label color="success">{pending > 1 ? pending : ""}Completado</Label>
+            <Label color="success">{completed > 1 ? completed : ""}Completado</Label>
         }
     </>
 }

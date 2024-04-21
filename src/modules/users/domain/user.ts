@@ -12,6 +12,7 @@ export interface User {
   status?: Status;
   auth?: UserAuthInterface;
   isAdvisor?: boolean;
+  isDoctor?: boolean;
 }
 
 export interface NewUser extends Omit<User, 'id' | 'roles'> {

@@ -1,8 +1,9 @@
-import { Alert, IconButton, InputAdornment, Stack } from "@mui/material"
+import { FC } from "react";
+import { Alert, IconButton, InputAdornment, MenuItem, Stack } from "@mui/material"
 import { useBoolean } from '../../../hooks/use-boolean';
 import RHFTextField from '../../../components/hook-form/rhf-text-field';
 import Iconify from '../../../components/iconify/iconify';
-import { FC } from "react";
+import { PROFILE_DOCUMENT } from '../../../modules/users/domain/profile/profile-document';
 
 type Props = {
     errorMsg: string;
@@ -14,8 +15,14 @@ export const LoginForm: FC<Props> = ({ errorMsg }) => {
     return (
         <Stack spacing={2.5} >
             {!!errorMsg && <Alert severity="error">{errorMsg}</Alert>}
-
-            <RHFTextField name="email" label="Correo Electrónico" />
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                <RHFTextField name="document" label="Documento" select sx={{ minWidth: "1%" }}>
+                    {PROFILE_DOCUMENT.map(document => (
+                        <MenuItem key={document} value={document}>{document}</MenuItem>
+                    ))}
+                </RHFTextField>
+                <RHFTextField name="documentNumber" label="N° de documento" />
+            </Stack>
 
             <RHFTextField
                 name="password"

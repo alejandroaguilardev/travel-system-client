@@ -47,6 +47,15 @@ export const useContractSteps = () => {
                     showNotification('Debe agregar al menos una mascota', { variant: "error" });
                     return;
                 }
+                let errorStep = false;
+                values.details.forEach(_ => {
+                    if (!_?.travel?.destination?.countryDestination) {
+                        showNotification('Debe indicar el país destino', { variant: "error" });
+                        errorStep = true;
+                    }
+                })
+                if (errorStep) return;
+
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
             }

@@ -4,6 +4,7 @@ import LoginView from '../../../src/presentation/auth/login-view';
 import { AuthContext } from '../../../src/presentation/auth/context/auth-context';
 import { emailCreateMother } from '../../modules/shared/domain/email.mother';
 import { passwordCreatedMother } from '../../modules/users/domain/password.mother';
+import { numberCreateMother } from '../../modules/contracts/domain/number.mother';
 
 const token = "mock-recaptcha-token";
 
@@ -31,20 +32,20 @@ describe('LoginView', () => {
     });
 
     it("render_login_view_fire_event_successfully", async () => {
-        const emailMother = emailCreateMother();
+        const documentNumber = numberCreateMother();
         const passwordMother = passwordCreatedMother();
         const button = container.querySelector('button');
-        const emailInput = screen.getByLabelText('Correo Electrónico');
+        const documentNumberInput = screen.getByLabelText('N° de documento');
         const passwordInput = screen.getByLabelText('Contraseña');
 
         await act(async () => {
-            fireEvent.change(emailInput, { target: { value: emailMother } });
+            fireEvent.change(documentNumberInput, { target: { value: documentNumber } });
             fireEvent.change(passwordInput, { target: { value: passwordMother } });
 
             fireEvent.click(button!);
             const form = container.querySelector('form');
             fireEvent.submit(form!);
         });
-        expect(mockLogin).toHaveBeenCalledWith(emailMother, passwordMother, token);
+        expect(mockLogin).toHaveBeenCalledWith("D.N.I.", documentNumber, passwordMother, token);
     });
 });

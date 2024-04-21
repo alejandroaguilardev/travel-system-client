@@ -46,7 +46,7 @@ export const DocumentationClientValueForm: FC<Props> = ({ name, label, edit, can
                 boxShadow: 4,
                 width: "100%",
             }}
-                severity={isApplied ? "success" : "error"}
+                severity={isApplied ? "success" : isRequired ? "error" : "info"}
                 icon={false}
             >
                 <Box fontWeight="bold" display="flex" alignItems="center" >
@@ -59,7 +59,7 @@ export const DocumentationClientValueForm: FC<Props> = ({ name, label, edit, can
                             marginLeft: 1,
 
                         }}
-                    >{`${isRequired ? "requerido (*)" : ''} `}</Typography>
+                    >{`${isRequired ? "requerido (*)" : 'opcional'} `}</Typography>
                 </Box>
                 {
                     !hasServiceIncluded &&

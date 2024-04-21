@@ -1,4 +1,4 @@
-import { Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
+import { Box, Checkbox, Divider, FormControlLabel, MenuItem, Stack, Typography } from '@mui/material';
 import { CageSelected } from '../../../../client/components/cage/form/cage-selected';
 import { SearchClient } from '../../../../client/components/search-client/search-client';
 import { PET_GENDERS, PetGender } from '../../../../../modules/pets/domain/pet-gender';
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const PetFormGeneral = ({ hasRecommendation = false }: Props) => {
-    const { chip, chipDate, birthDate, client, handleClient } = usePetFormGeneral();
+    const { chip, chipDate, birthDate, client, handleClient, handleChip, hasChip } = usePetFormGeneral();
 
     return (
         <Stack spacing={1} marginBottom={1}>
@@ -21,6 +21,29 @@ export const PetFormGeneral = ({ hasRecommendation = false }: Props) => {
                 handleClient={handleClient}
                 field='adopter'
             />
+            <FormControlLabel
+                control={<Checkbox checked={hasChip} onChange={() => handleChip(!hasChip)} />}
+                label="¿La mascota tiene chip?"
+                sx={{ mb: 1 }}
+            />
+
+            {hasChip &&
+                <>
+                    <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+                        <RHFTextField
+                            name="chip"
+                            label="Chip"
+                        />
+                        {chip ? <RHFDate
+                            name="chipDate"
+                            value={chipDate}
+                            label="Chip Fecha de instalación"
+                        /> : <Box width="100%" />}
+                    </Stack>
+
+                </>
+
+            }
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
                 <RHFTextField
                     name="name"
@@ -49,18 +72,6 @@ export const PetFormGeneral = ({ hasRecommendation = false }: Props) => {
                     name="race"
                     label="Raza (*)"
                 />
-            </Stack>
-
-            <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
-                <RHFTextField
-                    name="chip"
-                    label="Chip"
-                />
-                {chip ? <RHFDate
-                    name="chipDate"
-                    value={chipDate}
-                    label="Chip Fecha de instalación"
-                /> : <Box width="100%" />}
             </Stack>
 
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>

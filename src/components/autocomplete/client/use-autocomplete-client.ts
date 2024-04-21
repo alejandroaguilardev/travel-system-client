@@ -39,7 +39,7 @@ export const useAutocompleteClient = <T>({ items, defaultValue, properties, maxF
         return setOptions(filter);
     };
 
-    const handleChange = (event: React.ChangeEvent<{}>, value: T | null) => {
+    const handleChange = (value: T | null) => {
         setOption(value as T | null);
         if (callback) {
             callback(value as T | null);

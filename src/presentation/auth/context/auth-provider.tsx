@@ -25,7 +25,6 @@ export function AuthProvider({ children }: Props) {
   const initialize = useCallback(async () => {
     try {
       const accessToken = sessionStorage.getItem(LOCAL_STORAGE_KEYS.accessToken);
-      console.log({ accessToken })
       manageAccessToken(accessToken);
       const user = await authVerify(authService, manageAccessToken)(accessToken);
       dispatch({
@@ -49,9 +48,9 @@ export function AuthProvider({ children }: Props) {
     initialize();
   }, [initialize]);
 
-  const login = useCallback(async (email: string, password: string, tokenReCaptcha: string) => {
+  const login = useCallback(async (document: string, documentNumber: string, password: string, tokenReCaptcha: string) => {
     try {
-      const user = await authLogin(authService, manageAccessToken)(email, password, tokenReCaptcha);
+      const user = await authLogin(authService, manageAccessToken)(document, documentNumber, password, tokenReCaptcha);
       dispatch({
         type: Types.LOGIN,
         payload: {

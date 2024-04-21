@@ -23,7 +23,10 @@ export const ContractFormPetDetail = ({ field }: Props) => {
                     }}
                     items={countries}
                     defaultValue={countries.find(_ => _.name_es === country) || null}
-                    getOptionLabel={(d: any) => d.name_es}
+                    getOptionLabel={(d) => {
+                        if (typeof d !== "string") return d?.name_es ?? "";
+                        return "";
+                    }}
                     callback={(value) => {
                         handleCountry(value?.name_es ?? "");
                     }}

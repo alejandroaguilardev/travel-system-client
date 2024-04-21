@@ -16,17 +16,21 @@ export const AssignNumberFormGeneral = () => {
                     field='folder'
                 />
             </Box>
-            {folder?.quantity ?
+            {folder ?
                 <Box width="100%">
                     <AutocompleteSelectorClient<{ number: number }>
                         textField={{
                             label: "Número de contrato"
                         }}
-                        items={Array.from({ length: folder?.quantity }, (_, index) => ({ number: index + 1 }))}
+                        items={Array.from({ length: typeof folder === "string" ? 0 : folder?.quantity ?? 0 }, (_, index) => ({ number: index + 1 }))}
                         defaultValue={{ number }}
-                        getOptionLabel={(d) => d?.number?.toString() ?? ""}
+                        getOptionLabel={(d) => {
+                            if (typeof d !== "string") return d?.number?.toString() ?? "";
+                            return "";
+                        }}
                         callback={(value) => handleNumber(value?.number)}
                         propertiesFilter={["number"]}
+                        freeText
                     />
                     <ErrorMessage name="number" />
                 </Box>

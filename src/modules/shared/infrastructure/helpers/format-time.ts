@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs, { } from 'dayjs';
 import 'dayjs/locale/es';
 
 type InputValue = Date | string | number | null | undefined;
@@ -25,3 +25,4 @@ export function fDateTimeLong(date: InputValue, newFormat?: string): string {
 export function fDayjs(date: InputValue): any {
     return dayjs(date)
 }
+

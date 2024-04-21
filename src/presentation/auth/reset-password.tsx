@@ -51,7 +51,7 @@ export default function ResetPasswordView() {
             const tokenReCaptcha = await executeReCaptcha();
             manageAccessToken(token ?? null)
             const response = await authService.resetPassword(data.password);
-            const user = await login?.(response.user.email, data.password, tokenReCaptcha);
+            const user = await login?.(response.user.profile.document, response.user.profile.documentNumber, data.password, tokenReCaptcha);
 
             const access = (user.roles.length > 0 || user?.auth?.admin) ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;
 

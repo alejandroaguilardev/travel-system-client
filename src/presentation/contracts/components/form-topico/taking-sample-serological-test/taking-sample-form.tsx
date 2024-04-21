@@ -41,9 +41,9 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
             {(detail.topico?.rabiesReVaccination.executed && detail.topico?.chipReview?.executed) &&
                 < FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
 
-                    {!takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la toma de muestra</Alert>}
+                    {!takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha guardado la información relacionada a la toma de muestra</Alert>}
 
-                    {takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                    {takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="info" sx={{ mb: 1 }}>Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
 
                     {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 

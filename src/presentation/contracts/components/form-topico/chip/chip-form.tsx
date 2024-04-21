@@ -44,7 +44,7 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, onCancel }) 
 
                 {!chip?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al microchip</Alert>}
 
-                {chip?.executed && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                {chip?.executed && !isExecuted && <Alert severity="info">Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
 
                 {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 

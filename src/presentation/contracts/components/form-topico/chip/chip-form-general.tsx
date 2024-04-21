@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form";
-import { Stack, Typography } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import { RHFSwitch, RHFTextField } from "../../../../../components/hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { TopicoSearchUser } from "../search-user";
+import { TopicoSearchUser } from "../topico-search-user";
 
 export const ChipFormGeneral = () => {
     const { watch } = useFormContext();
@@ -14,6 +14,10 @@ export const ChipFormGeneral = () => {
         <>
             <Stack flexWrap="wrap" spacing={2} marginBottom={3}>
                 <Typography fontWeight="bold">Implantación de Chip</Typography>
+                <Stack spacing={2}>
+                    <TopicoSearchUser />
+                </Stack>
+                <Divider />
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                     <RHFSwitch
                         name="hasIncluded"
@@ -39,9 +43,7 @@ export const ChipFormGeneral = () => {
                         label="Observaciones"
                     />
                 </Stack>
-                <Stack spacing={2}>
-                    <TopicoSearchUser />
-                </Stack>
+
             </Stack >
         </>
     );

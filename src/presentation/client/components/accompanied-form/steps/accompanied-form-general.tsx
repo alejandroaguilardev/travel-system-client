@@ -109,7 +109,10 @@ export const AccompaniedFormGeneral = ({ notButton }: Props) => {
                             }}
                             items={departments}
                             defaultValue={departments.find(_ => _.id === department) || null}
-                            getOptionLabel={(d) => d?.name ?? ""}
+                            getOptionLabel={(d) => {
+                                if (typeof d !== "string") return d?.name ?? "";
+                                return "";
+                            }}
                             callback={(value: any) => {
                                 handleDepartment(value);
                                 handleProvinces(value.id);
@@ -134,7 +137,10 @@ export const AccompaniedFormGeneral = ({ notButton }: Props) => {
                             }}
                             items={provinces}
                             defaultValue={PROVINCES.find(_ => _.province_id === province) || null}
-                            getOptionLabel={(p) => p?.name ?? ""}
+                            getOptionLabel={(d) => {
+                                if (typeof d !== "string") return d?.name ?? "";
+                                return "";
+                            }}
                             callback={(value: any) => {
                                 handleProvince(value);
                                 handleDistricts(value.province_id);
@@ -158,7 +164,10 @@ export const AccompaniedFormGeneral = ({ notButton }: Props) => {
                             }}
                             items={districts}
                             defaultValue={DISTRICTS.find(_ => _.district_id === district) || null}
-                            getOptionLabel={(d) => d?.name ?? ""}
+                            getOptionLabel={(d) => {
+                                if (typeof d !== "string") return d?.name ?? "";
+                                return "";
+                            }}
                             callback={(value: any) => handleDistrict(value)}
                             propertiesFilter={["name"]}
                         />

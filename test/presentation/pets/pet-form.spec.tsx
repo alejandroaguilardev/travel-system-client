@@ -33,7 +33,6 @@ describe("PetForm", () => {
         const birthDate = screen.getByLabelText('Fecha de nacimiento (*)');
         const type = screen.getByLabelText('Especie (*)');
         const race = screen.getByLabelText('Raza (*)');
-        const chip = screen.getByLabelText('Chip');
         const color = screen.getByLabelText('Color (*)');
         const gender = screen.getByLabelText('Sexo (*)');
         const sterilized = screen.getByLabelText('Esterilizado (*)');
@@ -42,7 +41,6 @@ describe("PetForm", () => {
         expect(birthDate).toBeInTheDocument();
         expect(type).toBeInTheDocument();
         expect(race).toBeInTheDocument();
-        expect(chip).toBeInTheDocument();
         expect(color).toBeInTheDocument();
         expect(gender).toBeInTheDocument();
         expect(sterilized).toBeInTheDocument();
@@ -58,12 +56,10 @@ describe("PetForm", () => {
         const name = screen.getByLabelText('Nombre (*)') as HTMLInputElement;
         const birthDate = screen.getByLabelText('Fecha de nacimiento (*)') as HTMLInputElement;
         const race = screen.getByLabelText('Raza (*)') as HTMLInputElement;
-        const chip = screen.getByLabelText('Chip') as HTMLInputElement;
         const color = screen.getByLabelText('Color (*)') as HTMLInputElement;
 
         fireEvent.change(name, { target: { value: data.name } });
         fireEvent.change(race, { target: { value: data.race } });
-        fireEvent.change(chip, { target: { value: data.chip } });
         fireEvent.change(color, { target: { value: data.color } });
 
         await userEvent.click(birthDate);
@@ -71,7 +67,6 @@ describe("PetForm", () => {
 
         expect(name.value).toBe(data.name);
         expect(race.value).toBe(data.race);
-        expect(chip.value).toBe(data.chip);
         expect(color.value).toBe(data.color);
     });
 });

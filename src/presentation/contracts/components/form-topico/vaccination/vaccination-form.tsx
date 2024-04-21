@@ -41,7 +41,7 @@ export const VaccinationForm: FC<Props> = ({ title, detail, callback, contractId
             <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
                 {!vaccination?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la vacuna</Alert>}
 
-                {vaccination?.executed && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                {vaccination?.executed && !isExecuted && <Alert severity="info">Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
 
                 {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 

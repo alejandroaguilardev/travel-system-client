@@ -11,7 +11,7 @@ export const ErrorSenasaTravelDate = ({ contractId }: Props) => {
         <Stack spacing={2}>
             <Alert severity="error">Aùn no se ha Asignado la fecha de reserva</Alert>
             <Link component={RouterLink} href={paths.dashboard.contractTravel.update(contractId)}>
-                < Button variant="contained" type="button">
+                < Button variant="contained" type="button" fullWidth>
                     Ir a Fase reserva para indicar la fecha del vuelo
                 </Button>
             </Link>

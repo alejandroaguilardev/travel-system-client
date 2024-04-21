@@ -5,8 +5,8 @@ import { AuthService } from '../domain/auth.service';
 import { ResponseSuccess } from '../../shared/domain/response/response-success';
 
 export const authService: AuthService = {
-    login: async (email: string, password: string, tokenReCaptcha: string): Promise<Auth> => {
-        const { data } = await axiosInstance.post<Auth>(endpoints.auth.root, { email, password }, {
+    login: async (document: string, documentNumber: string, password: string, tokenReCaptcha: string): Promise<Auth> => {
+        const { data } = await axiosInstance.post<Auth>(endpoints.auth.root, { document, documentNumber, password }, {
             headers: {
                 "g-recaptcha-response": tokenReCaptcha,
             }
