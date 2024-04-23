@@ -15,7 +15,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ImpContractProvider } from './components/imp-pdf/imp-contract/imp-contract-context';
 import { ImpContractConsumer } from './components/imp-pdf/imp-contract/imp-contract-consumer';
 import ContractPdf from './presentation/contracts/pdf/contract-pdf';
-import VaccinationCertificatePdfEs from './presentation/contracts/pdf/certificates/vaccination-certificate-pdf-es';
 
 declare global {
   interface Window {
@@ -52,7 +51,7 @@ export default function App() {
                     </AlertModalProvider>
                     <ImpContractConsumer
                       document={({ contract }) => (
-                        <VaccinationCertificatePdfEs contract={contract} detail={contract.details[0]} />
+                        <ContractPdf contract={contract} />
                       )}
                     />
                   </ImpContractProvider>
