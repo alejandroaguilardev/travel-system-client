@@ -26,3 +26,27 @@ export function fDayjs(date: InputValue): any {
     return dayjs(date)
 }
 
+export function fDayRest(date: InputValue, year: number, day: number, format = 'DD MMMM YYYY') {
+    return dayjs(date).subtract(year, 'year').subtract(day, 'day').format(format);
+}
+
+export function fDaySum(date: InputValue, cant: number, format = 'DD MMMM YYYY') {
+    return dayjs(date).add(cant, "D").format(format);
+}
+
+export function fDayDiffString(date: InputValue) {
+    const dateNow = dayjs(new Date()).locale("es");
+    const dateFormat = fDate(date, 'M/D/YYYY');
+    const diff = dateNow.diff(dateFormat, 'month');
+    const years = Math.floor(diff / 12);
+    const month = diff % 12;
+    if (years) {
+        if (month > 0) {
+            return `${years} años y ${month} meses`;
+        }
+        return `${years} años`;
+    }
+
+    return `${month} meses`;
+};
+

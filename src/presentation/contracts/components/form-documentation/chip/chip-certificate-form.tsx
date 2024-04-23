@@ -14,7 +14,7 @@ type Props = {
     onCancel: () => void;
 }
 
-export const ChipCertificateForm: FC<Props> = ({ contract, detail, callback, contractId, onCancel }) => {
+export const ChipCertificateForm: FC<Props> = ({ contract, detail }) => {
     const [first, setFirst] = useState(false);
 
 
@@ -26,13 +26,16 @@ export const ChipCertificateForm: FC<Props> = ({ contract, detail, callback, con
                     <>
                         {
                             !detail.documentation.chipCertificate.hasServiceIncluded &&
-                            <FormControlLabel
-                                control={<Switch onChange={() => setFirst(!first)} />}
-                                label="¿Es necesario rehacer el certificado?"
-                                style={{
-                                    width: "100%"
-                                }}
-                            />
+                            <>
+                                <Alert severity="error">El servicio no está incluido en este contrato</Alert>
+                                <FormControlLabel
+                                    control={<Switch onChange={() => setFirst(!first)} />}
+                                    label="¿Es necesario rehacer el certificado?"
+                                    style={{
+                                        width: "100%"
+                                    }}
+                                />
+                            </>
                         }
                         {
                             (detail.documentation.chipCertificate.hasServiceIncluded || first) &&
@@ -42,7 +45,7 @@ export const ChipCertificateForm: FC<Props> = ({ contract, detail, callback, con
                         }
                     </>
 
-                    : <Alert severity="error">Aùn no se ha guardado el número del microchip que esta  relacionada al certificado</Alert>
+                    : <Alert severity="warning">Aùn no se ha guardado el número del microchip que esta  relacionada al certificado</Alert>
             }
         </Stack >
     );

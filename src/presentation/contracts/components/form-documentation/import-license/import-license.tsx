@@ -38,7 +38,7 @@ export const ImportLicenseCertificateForm: FC<Props> = ({ detail, callback, cont
 
     const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.importLicense, status: detail.documentation.status });
 
-    if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="warning">El servicio no está incluido en este contrato</Alert>
+    if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="error">El servicio no está incluido en este contrato</Alert>
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >

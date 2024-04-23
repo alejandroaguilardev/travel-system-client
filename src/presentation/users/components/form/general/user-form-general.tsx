@@ -9,9 +9,26 @@ import { PROFILE_DOCUMENT } from '../../../../../modules/users/domain/profile/pr
 import RHFSwitch from '../../../../../components/hook-form/rhf-switch';
 import { PhoneNumber } from '../../../../../components/phone-number/phone-number';
 import Iconify from '../../../../../components/iconify';
+import { useUbigeo } from '../../../../client/components/accompanied-form/steps/use-ubigeo';
+import { AutocompleteSelectorClient } from '../../../../../components/autocomplete/client/autocomplete-selector-client';
+import PROVINCES from '../../../../../../public/data/province.json'
+import DISTRICTS from '../../../../../../public/data/district.json'
 
 export const UserFormGeneral = () => {
     const { roles, phone, phoneError, isUser, isAdmin, handleRoles, handlePhone } = useUserFormGeneral();
+    const {
+        department,
+        province,
+        district,
+        departments,
+        provinces,
+        districts,
+        handleDepartment,
+        handleProvince,
+        handleProvinces,
+        handleDistrict,
+        handleDistricts
+    } = useUbigeo("profile");
 
     return (
         <Stack spacing={1} marginBottom={2}>
@@ -106,6 +123,63 @@ export const UserFormGeneral = () => {
                     <MenuItem value="male">Hombre</MenuItem>
                     <MenuItem value="female">Mujer</MenuItem>
                 </RHFTextField>
+            </Stack>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                <AutocompleteSelectorClient
+                    textField={{
+                        label: "Departamento (*)"
+                    }}
+                    items={departments}
+                    defaultValue={departments.find(_ => _.id === department) || null}
+                    getOptionLabel={(d) => {
+                        if (typeof d !== "string") return d?.name ?? "";
+                        return "";
+                    }}
+                    callback={(value: any) => {
+                        handleDepartment(value);
+                        handleProvinces(value.id);
+                        handleDistricts();
+                    }}
+                    propertiesFilter={["name"]}
+                />
+
+                <AutocompleteSelectorClient
+                    textField={{
+                        label: "Provincia (*)"
+                    }}
+                    items={provinces}
+                    defaultValue={PROVINCES.find(_ => _.province_id === province) || null}
+                    getOptionLabel={(d) => {
+                        if (typeof d !== "string") return d?.name ?? "";
+                        return "";
+                    }}
+                    callback={(value: any) => {
+                        handleProvince(value);
+                        handleDistricts(value.province_id);
+                    }}
+                    propertiesFilter={["name"]}
+                />
+                <AutocompleteSelectorClient
+                    textField={{
+                        label: "Distrito (*)"
+                    }}
+                    items={districts}
+                    defaultValue={DISTRICTS.find(_ => _.district_id === district) || null}
+                    getOptionLabel={(d) => {
+                        if (typeof d !== "string") return d?.name ?? "";
+                        return "";
+                    }}
+                    callback={(value: any) => handleDistrict(value)}
+                    propertiesFilter={["name"]}
+                />
+            </Stack>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+
+                <RHFTextField
+                    name="profile.direction"
+                    label="Dirección (*)"
+                    inputAdornment
+                />
             </Stack>
             {
                 isUser &&

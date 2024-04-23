@@ -12,15 +12,19 @@ import FormProvider from "../../../../../components/hook-form/form-provider";
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { CertificateFormGeneral } from "../certificate-form-general";
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
+import { PdfViewer } from "src/components/imp-pdf/pdf-viewer";
+import { Contract } from '../../../../../modules/contracts/domain/contract';
+import HealthCertificatePdfEs from '../../../pdf/certificates/health-certificate-pdf-es';
 
 type Props = {
     contractId: string;
+    contract: Contract;
     detail: ContractDetail;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId, onCancel }) => {
+export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId, contract, onCancel }) => {
     const healthCertificate = detail?.documentation?.healthCertificate;
 
     const methods = useForm({
@@ -35,10 +39,11 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
             user: healthCertificate?.user ?? defaultValues.user
         }
     });
+    const isApplied = methods.watch("isApplied")
 
     const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.healthCertificate, status: detail.documentation.status });
 
-    if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="warning">El servicio no está incluido en este contrato</Alert>
+    if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="error">El servicio no está incluido en este contrato</Alert>
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
@@ -53,6 +58,12 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
                 <CertificateFormGeneral label="¿Certificado realizado?" />
 
                 <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+
+                {(isApplied) &&
+                    < PdfViewer height={500} >
+                        <HealthCertificatePdfEs detail={detail} contract={contract} />
+                    </PdfViewer>
+                }
 
                 {healthCertificate?.hasServiceIncluded &&
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>

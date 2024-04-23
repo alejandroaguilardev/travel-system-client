@@ -31,7 +31,7 @@ export const DocumentationContractForm: FC<Props> = ({ action, contractId, detai
         {
             label: "Certificado de Vacuna",
             value: DOCUMENTATION_KEYS.vaccinationCertificate,
-            component: <VaccinationCertificateForm contractId={contractId} detail={detail}
+            component: <VaccinationCertificateForm contract={contract} detail={detail}
                 callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {
@@ -43,7 +43,7 @@ export const DocumentationContractForm: FC<Props> = ({ action, contractId, detai
         {
             label: "Certificado de salud",
             value: DOCUMENTATION_KEYS.healthCertificate,
-            component: <HealthCertificateForm contractId={contractId} detail={detail}
+            component: <HealthCertificateForm contract={contract} contractId={contractId} detail={detail}
                 callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
         },
         {

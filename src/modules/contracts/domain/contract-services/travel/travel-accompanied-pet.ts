@@ -9,3 +9,23 @@ export interface TravelAccompaniedPet {
     province: string;
     department: string;
 };
+
+
+export const travelAccompaniedPetValidate = (values: TravelAccompaniedPet): boolean => {
+    const { name, document, documentNumber, phone, email, direction, district, province, department } = values;
+
+    if (
+        !name ||
+        !document ||
+        !documentNumber ||
+        !phone ||
+        !email ||
+        !direction ||
+        !district ||
+        !province ||
+        !department
+    ) {
+        return false;
+    }
+    return true;
+}
