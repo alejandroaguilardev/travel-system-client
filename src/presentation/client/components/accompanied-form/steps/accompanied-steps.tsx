@@ -2,15 +2,17 @@ import { useAccompaniedSteps } from "./use-accompanied-steps"
 import CustomizedSteppers from '../../../../../components/stepper/customized-stepper';
 import { ActionsButtonsForm } from '../../../../../components/hook-form/actions-buttons-form';
 import { ContractStatus } from '../../../../../modules/contracts/domain/contract-status';
+import { User } from '../../../../../modules/users/domain/user';
 
 type Props = {
     hasCharge: boolean;
     notButton: boolean;
-    status: ContractStatus
+    status: ContractStatus;
+    client?: User;
 }
 
-export const AccompaniedStep = ({ hasCharge, notButton, status }: Props) => {
-    const { steps } = useAccompaniedSteps({ hasCharge, notButton });
+export const AccompaniedStep = ({ hasCharge, notButton, status, client }: Props) => {
+    const { steps } = useAccompaniedSteps({ hasCharge, notButton, client });
 
     return (
         <CustomizedSteppers

@@ -16,6 +16,7 @@ import { DestinationFormGeneral } from "../../accompanied-form/steps/destination
 import { ChargeFormGeneral } from '../../accompanied-form/steps/charge-form-general';
 import { AccompaniedStep } from "../../accompanied-form/steps/accompanied-steps";
 import { CommunicateAdviser } from "src/components/communicate-adviser/communicate-adviser";
+import { User } from '../../../../../modules/users/domain/user';
 
 type Props = {
     contractId: string;
@@ -25,10 +26,12 @@ type Props = {
     callback: (response?: ContractDetailUpdateResponse) => void
     onCancel: () => void;
     adviserNumber: string | null;
-    user?: boolean;
+    client: User;
+    isUser?: boolean;
+
 }
 
-export const TravelForm: FC<Props> = ({ travel, detailId, user, adviserNumber, callback, onCancel, hasServiceIncluded, contractId }) => {
+export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, adviserNumber, callback, onCancel, hasServiceIncluded, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<PartialTravel>(travelSchema),
         defaultValues: travel,
@@ -41,8 +44,8 @@ export const TravelForm: FC<Props> = ({ travel, detailId, user, adviserNumber, c
         {
             value: "Reserva",
             component: <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-                <TravelFormGeneral hasServiceIncluded={!user ?? hasServiceIncluded} />
-                {(edit || user) &&
+                <TravelFormGeneral hasServiceIncluded={!isUser ?? hasServiceIncluded} />
+                {(edit || isUser) &&
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                             Cancelar
@@ -61,10 +64,10 @@ export const TravelForm: FC<Props> = ({ travel, detailId, user, adviserNumber, c
                 contractId={contractId}
                 contractDetailId={detailId}
                 callback={callback}
-                notButton={!user}
+                notButton={!isUser}
             >
-                {user ?
-                    <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={false} status={travel?.status ?? "pending"} />
+                {isUser ?
+                    <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={false} status={travel?.status ?? "pending"} client={client} />
                     :
                     <>
                         <CommunicateAdviser number={adviserNumber} />

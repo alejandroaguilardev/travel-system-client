@@ -37,15 +37,6 @@ export const ContractFormPet = () => {
                         </AccordionSummary>
                         <Divider />
                         <AccordionDetails>
-                            <Box mb={2}>
-                                <SearchPet
-                                    adopterId={clientId}
-                                    pet={selectedPet[index]}
-                                    handlePet={(pet) => handleNewPet(index, pet)}
-                                    index={index}
-                                />
-                            </Box>
-
                             <ContractFormPetDetail field={`details[${index}].`} />
                         </AccordionDetails>
                     </Accordion>

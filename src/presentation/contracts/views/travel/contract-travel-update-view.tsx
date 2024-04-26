@@ -39,11 +39,12 @@ export default function ContractTravelView({ id }: Props) {
                             adviserNumber={contract?.adviser?.profile?.phone ?? null}
                             onCancel={redirectData}
                             callback={() => false}
+                            client={contract.client}
                             contractId={id}
                             detailId={detail.id}
                             travel={detail.travel}
                             hasServiceIncluded={detail.travel.hasServiceIncluded}
-                            user
+                            isUser
                         />
                     </AccordionPet>
                 ))}

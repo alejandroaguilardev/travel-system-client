@@ -8,20 +8,22 @@ import { DestinationFormGeneral } from './destination-form';
 import IconWrapper from '../../../../../components/icon-wrapper/icon-wrapper';
 import { TravelAccompaniedSchema } from '../accompanied-validation';
 import { Box } from '@mui/material';
+import { User } from '../../../../../modules/users/domain/user';
 
 type Props = {
     hasCharge: boolean;
     notButton: boolean;
+    client?: User;
 }
 
-export const useAccompaniedSteps = ({ hasCharge, notButton }: Props) => {
+export const useAccompaniedSteps = ({ hasCharge, notButton, client }: Props) => {
     const { getValues } = useFormContext<TravelAccompaniedSchema>();
     const { showNotification } = useMessage();
 
     const steps: StepType[] = useMemo(() => [
         {
             value: " Salida",
-            component: <AccompaniedFormGeneral notButton={notButton} />,
+            component: <AccompaniedFormGeneral notButton={notButton} client={client} />,
             icon: <IconWrapper icon="departure" width={24} />,
             handleNext: (setActiveStep) => {
                 const { accompaniedPet } = getValues();

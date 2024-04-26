@@ -4,7 +4,7 @@ import { Contract } from '../../../modules/contracts/domain/contract';
 import { userService } from '../../../modules/users/infrastructure/user.service';
 import { User } from '../../../modules/users/domain/user';
 
-export const useSearchByIdContract = (contractId: string) => {
+export const useSearchByIdContract = (contractId: string, token?: string) => {
     const [contract, setContract] = useState<Contract | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);

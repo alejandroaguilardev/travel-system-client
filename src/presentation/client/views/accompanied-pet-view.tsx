@@ -133,7 +133,8 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
                         notButton={false}
                         onSubmit={onSubmit}
                     >
-                        <AccompaniedStep hasCharge={contractDetail?.travel?.typeTraveling === "charge"} notButton={false} status={contractDetail?.travel?.status ?? "pending"} />
+                        <AccompaniedStep hasCharge={contractDetail?.travel?.typeTraveling === "charge"}
+                            notButton={false} status={contractDetail?.travel?.status ?? "pending"} />
                     </AccompaniedForm>
                 </>
             }

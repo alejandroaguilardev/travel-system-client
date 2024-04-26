@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { Divider, Stack, Typography, InputAdornment, MenuItem, TextField } from '@mui/material';
+import { Divider, Stack, Typography, InputAdornment, MenuItem, TextField, Button } from '@mui/material';
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 import { PhoneNumber } from '../../../../../components/phone-number/phone-number';
 import Iconify from '../../../../../components/iconify/iconify';
@@ -9,16 +9,40 @@ import { AutocompleteSelectorClient } from 'src/components/autocomplete/client/a
 import PROVINCES from '../../../../../../public/data/province.json'
 import DISTRICTS from '../../../../../../public/data/district.json'
 import { TravelAccompaniedSchema } from '../accompanied-validation';
+import { User } from '../../../../../modules/users/domain/user';
 
 type Props = {
     notButton: boolean;
+    client?: User;
 }
 
-export const AccompaniedFormGeneral = ({ notButton }: Props) => {
+export const AccompaniedFormGeneral = ({ client, notButton }: Props) => {
     const { setValue, watch, formState } = useFormContext<TravelAccompaniedSchema>();
 
     const handlePhone = (value: string) => setValue("accompaniedPet.phone", value);
     const phone = watch("accompaniedPet.phone");
+
+    const setOwnerInAccompanied = () => {
+        const clientName = `${client?.profile?.name ?? ""} ${client?.profile?.secondName ?? ""} ${client?.profile?.lastName ?? ""} ${client?.profile?.secondLastName ?? ""}`;
+        setValue("accompaniedPet", {
+            name: clientName,
+            document: client?.profile?.document ?? "",
+            documentNumber: client?.profile?.documentNumber ?? "",
+            phone: client?.profile?.phone ?? "",
+            email: client?.email ?? "",
+            direction: client?.profile?.direction ?? "",
+            district: client?.profile?.district ?? "",
+            province: client?.profile?.province ?? "",
+            department: client?.profile?.department ?? "",
+        });
+
+        setTimeout(() => {
+            setValue("accompaniedPet.phone", client?.profile?.phone ?? "");
+            setValue("accompaniedPet.province", client?.profile?.province ?? "");
+            setValue("accompaniedPet.district", client?.profile?.district ?? "");
+        }, 100);
+    }
+
 
     const {
         department,
@@ -40,6 +64,12 @@ export const AccompaniedFormGeneral = ({ notButton }: Props) => {
             <Typography variant={notButton ? "h6" : "h4"}>
                 Información sobre la persona que viaja o envía la mascota por cargo
             </Typography>
+            {
+                !notButton && client &&
+                <Button variant='outlined' type='button' onClick={setOwnerInAccompanied}>
+                    ¿El titular del contrato será el viajero? Cargar datos del titular
+                </Button>
+            }
             <Divider />
             <RHFTextField
                 name="accompaniedPet.name"

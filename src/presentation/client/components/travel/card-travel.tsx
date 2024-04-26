@@ -80,7 +80,7 @@ export default function CardTravel({ travel, contractId, detailId }: Props) {
 
 
             </Card>
-            {dialog.value &&
+            {dialog.value && contract &&
                 <DialogContract
                     title='Confirma la reserva el viaje de tu mascota'
                     open={dialog.value}
@@ -90,6 +90,7 @@ export default function CardTravel({ travel, contractId, detailId }: Props) {
                         adviserNumber={contract?.adviser?.profile?.phone ?? null}
                         onCancel={dialog.onFalse}
                         contractId={contractId}
+                        client={contract.client}
                         travel={travel}
                         hasServiceIncluded={travel.hasServiceIncluded}
                         detailId={detailId}
