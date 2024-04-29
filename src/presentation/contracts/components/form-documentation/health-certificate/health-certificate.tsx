@@ -60,7 +60,7 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
 
                 <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
-                {(healthCertificate?.isApplied && isExecuted) &&
+                {(healthCertificate?.isApplied || isExecuted) &&
                     <LoadingButton
                         onClick={() => downloadCertificate(contract.id, detail.id)}
                         disabled={isLoading}
