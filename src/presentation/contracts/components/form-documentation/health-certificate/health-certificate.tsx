@@ -12,9 +12,9 @@ import FormProvider from "../../../../../components/hook-form/form-provider";
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { CertificateFormGeneral } from "../certificate-form-general";
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
-import { PdfViewer } from "src/components/imp-pdf/pdf-viewer";
 import { Contract } from '../../../../../modules/contracts/domain/contract';
-import HealthCertificatePdfEs from '../../../pdf/certificates/health-certificate-pdf-es';
+import { useDownloadCertificate } from '../../../hooks/use-download-certificate';
+import { LoadingButton } from "@mui/lab";
 
 type Props = {
     contractId: string;
@@ -25,6 +25,7 @@ type Props = {
 }
 
 export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId, contract, onCancel }) => {
+    const { downloadCertificate, isLoading } = useDownloadCertificate();
     const healthCertificate = detail?.documentation?.healthCertificate;
 
     const methods = useForm({
@@ -59,11 +60,18 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
 
                 <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
-                {(isApplied) &&
-                    < PdfViewer height={500} >
-                        <HealthCertificatePdfEs detail={detail} contract={contract} />
-                    </PdfViewer>
+                {(healthCertificate?.isApplied && isExecuted) &&
+                    <LoadingButton
+                        onClick={() => downloadCertificate(contract.id, detail.id)}
+                        disabled={isLoading}
+                        loading={isLoading}
+                        variant='outlined'
+                        fullWidth
+                        sx={{ mb: 1 }}
+                    >  Descargar datos del certificado en excel
+                    </LoadingButton>
                 }
+
 
                 {healthCertificate?.hasServiceIncluded &&
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>

@@ -34,3 +34,21 @@ export interface TopicoMeasurementsAndWeight extends Omit<NewPet, "id" | "name" 
     measurementsAndWeight?: MeasurementsAndWeight;
 
 }
+
+export const isPetValidateDataCompleted = (pet?: Pet): boolean => {
+    if (!pet) {
+        return false;
+    }
+
+    return (
+        !!pet.id &&
+        !!pet.name &&
+        !!pet.race &&
+        !!pet.gender &&
+        !!pet.birthDate &&
+        !!pet.chip &&
+        !!pet.chipDate !== null &&
+        !!pet.color &&
+        !!pet.type
+    );
+}

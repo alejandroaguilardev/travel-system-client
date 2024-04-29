@@ -71,4 +71,19 @@ export const contractDetailService: ContractDetailService = {
     mailTakingSample: async (contractId: string, detailId: string): Promise<void> => {
         await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTakingSample`);
     },
+    downloadSenasaExcel: async (contractId: string, detailId: string): Promise<{ file: string, name: string }> => {
+        const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${contractId}/${detailId}/excel/senasa`, null, {
+            responseType: "blob",
+        });
+        return { file: data, name: headers["name"] };
+
+    },
+    downloadCertificateExcel: async (contractId: string, detailId: string): Promise<{ file: string, name: string }> => {
+        const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${contractId}/${detailId}/excel/certificate`, null, {
+            responseType: "blob"
+        });
+        return { file: data, name: headers["name"] };
+    },
+
+
 }

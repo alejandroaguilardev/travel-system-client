@@ -16,6 +16,9 @@ import { HOST_API } from '../../../app/config/config-global';
 import { endpoints } from 'src/modules/shared/domain/endpoint';
 import axios from 'axios';
 import { errorsShowNotification } from '../../../modules/shared/infrastructure/helpers/errors-show-notification';
+import { travelAccompaniedPetValidate } from '../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
+import { travelDestinationValidate } from '../../../modules/contracts/domain/contract-services/travel/travel-destination';
+import { travelPetPerChargeValidate } from '../../../modules/contracts/domain/contract-services/travel/travel-pet-per-charge';
 
 type Props = {
     contractId: string;
@@ -60,29 +63,12 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
     useEffect(() => {
         if (contractDetail) {
             const { accompaniedPet, destination, petPerCharge, typeTraveling } = contractDetail?.travel ?? {};
-            const hasRequiredAccompaniedPetFields = !!accompaniedPet?.name &&
-                !!accompaniedPet?.document &&
-                !!accompaniedPet?.documentNumber &&
-                !!accompaniedPet?.phone &&
-                !!accompaniedPet?.email &&
-                !!accompaniedPet?.department &&
-                !!accompaniedPet?.province &&
-                !!accompaniedPet?.district &&
-                !!accompaniedPet?.direction;
-
-            const hasRequiredDestinationFields = !!destination?.cityDestination &&
-                !!destination?.countryDestination &&
-                !!destination?.directionDestination;
+            const hasRequiredAccompaniedPetFields = travelAccompaniedPetValidate(accompaniedPet);
+            const hasRequiredDestinationFields = travelDestinationValidate(destination);
 
             let hasRequiredPetChargeFields = true;
             if (typeTraveling === "charge") {
-                hasRequiredPetChargeFields =
-                    !!petPerCharge?.name &&
-                    !!petPerCharge?.document &&
-                    !!petPerCharge?.documentNumber &&
-                    !!petPerCharge?.phone &&
-                    !!petPerCharge?.email;
-
+                hasRequiredPetChargeFields = travelPetPerChargeValidate(petPerCharge)
             }
             setIsUpdate(hasRequiredAccompaniedPetFields && hasRequiredDestinationFields && hasRequiredPetChargeFields);
         }

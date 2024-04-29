@@ -50,9 +50,9 @@ export const MeasurementsAndWeightForm: FC<Props> = ({ detail, contractId, callb
     return (
         <>
             <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-                {!detail?.pet?.measurementsAndWeight?.width && !isExecuted && <Alert severity="error">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                {(!detail?.pet?.measurementsAndWeight?.width && !isExecuted) ? <Alert severity="error">Recuerda actualizar la información, aún no se han guardado los cambios</Alert> : ""}
 
-                {detail?.pet?.measurementsAndWeight?.width && !isExecuted && <Alert severity="info"> Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
+                {(detail?.pet?.measurementsAndWeight?.width && !isExecuted) ? <Alert severity="info"> Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert> : ""}
 
                 {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 

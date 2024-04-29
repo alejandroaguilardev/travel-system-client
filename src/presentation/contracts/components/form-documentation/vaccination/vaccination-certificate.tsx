@@ -1,12 +1,15 @@
 import { FC, useState } from "react";
-import { Alert, FormControlLabel, Stack, Switch, Typography } from '@mui/material';
+import { Alert, FormControlLabel, Stack, Switch, TextField, Typography } from '@mui/material';
 
 import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/domain/contract-detail.service';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
-import { PdfViewer } from '../../../../../components/imp-pdf/pdf-viewer';
-import VaccinationCertificatePdfEs from '../../../pdf/certificates/vaccination-certificate-pdf-es';
 import { Contract } from '../../../../../modules/contracts/domain/contract';
 import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
+import { LoadingButton } from "@mui/lab";
+import Label from '../../../../../components/label/label';
+import { DatePicker } from "@mui/x-date-pickers";
+import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import { useDownloadCertificate } from '../../../hooks/use-download-certificate';
 
 type Props = {
     contract: Contract;
@@ -17,7 +20,10 @@ type Props = {
 
 export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
     const [first, setFirst] = useState(false);
+    const { downloadCertificate, isLoading } = useDownloadCertificate();
+
     const vaccinationCertificate = detail?.documentation?.vaccinationCertificate;
+
 
     if (!travelAccompaniedPetValidate(detail.travel.accompaniedPet)) {
         return detail.travel.typeTraveling === "accompanied"
@@ -48,9 +54,28 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
                         }
                         {
                             (detail.documentation.chipCertificate.hasServiceIncluded || first) &&
-                            < PdfViewer height={500} >
-                                <VaccinationCertificatePdfEs detail={detail} contract={contract} />
-                            </PdfViewer>
+                            <Stack my={2}>
+                                <DatePicker
+                                    label="Fecha de vacunación"
+                                    sx={{
+                                        width: "100%"
+                                    }}
+                                    disabled
+                                    format='DD/MM/YYYY'
+                                    value={fDayjs(detail.topico?.vaccination?.date)}
+
+                                />
+                                <Label color="success" width="100%" my={2}>Completado</Label>
+                                <LoadingButton
+                                    onClick={() => downloadCertificate(contract.id, detail.id)}
+                                    disabled={isLoading}
+                                    loading={isLoading}
+                                    variant='outlined'
+                                    fullWidth
+                                    sx={{ mb: 1 }}
+                                >  Descargar datos del certificado en excel
+                                </LoadingButton>
+                            </Stack>
                         }
                     </Stack>
                     : <Alert severity="warning">Aùn no se ha guardado la información  relacionada a la vacuna</Alert>

@@ -72,7 +72,7 @@ export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
                                                 contractId={selected.id}
                                                 detail={detail}
                                                 callback={callback}
-                                                onCancel={() => handleSelected(null)}
+                                                onCancel={() => { handleSelected(null); setOpen(false) }}
                                                 setIsLoading={setIsLoadingTable}
                                                 status={contract.status}
                                             />

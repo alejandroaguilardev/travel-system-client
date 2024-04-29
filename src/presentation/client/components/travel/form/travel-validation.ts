@@ -9,7 +9,7 @@ export const defaultValues: PartialTravel = {
     airlineReservation: {
         code: '',
         flightNumber: '',
-        departureAirport: '',
+        departureAirport: 'Aeropuerto Internacional Jorge Chávez Lima, Perú',
         destinationAirport: '',
         departureDate: null,
         arrivalDate: null,

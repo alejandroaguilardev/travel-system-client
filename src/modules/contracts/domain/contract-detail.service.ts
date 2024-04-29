@@ -35,4 +35,6 @@ export interface ContractDetailService {
     mailDetail(contractId: string, detailId: string): Promise<void>;
     mailTravelDetail(contractId: string, detailId: string): Promise<void>;
     mailTakingSample(contractId: string, detailId: string): Promise<void>;
+    downloadSenasaExcel(contractId: string, detailId: string): Promise<{ file: string, name: string }>;
+    downloadCertificateExcel(contractId: string, detailId: string): Promise<{ file: string, name: string }>;
 }

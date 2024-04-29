@@ -15,17 +15,17 @@ export const travelAccompaniedPetValidate = (values: TravelAccompaniedPet): bool
     const { name, document, documentNumber, phone, email, direction, district, province, department } = values;
 
     if (
-        !name ||
-        !document ||
-        !documentNumber ||
-        !phone ||
-        !email ||
-        !direction ||
-        !district ||
-        !province ||
-        !department
+        !!name &&
+        !!document &&
+        !!documentNumber &&
+        !!phone &&
+        !!email &&
+        !!department &&
+        !!province &&
+        !!district &&
+        !!direction
     ) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }

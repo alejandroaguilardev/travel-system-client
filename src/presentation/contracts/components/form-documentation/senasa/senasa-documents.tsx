@@ -17,6 +17,9 @@ import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 import { ContractStatus } from '../../../../../modules/contracts/domain/contract-status';
 import { ErrorSenasaTravelDate } from "./errorsConditions/error-travel-date";
 import { ErrorSenasaCountry } from "./errorsConditions/error-senasa-country";
+import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/pet';
+import { travelDestinationValidate } from "src/modules/contracts/domain/contract-services/travel/travel-destination";
+import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
 
 type Props = {
     contractId: string;
@@ -48,11 +51,25 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
 
     const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.senasaDocuments, status: detail.documentation.status, setIsLoading });
 
+    const tabs = [
+        {
+            value: "Presentar en SENASA",
+            component: <SENASAFormGeneral contractId={contractId} contractDetailId={detail.id} />
+        },
+        {
+            value: "Resultado del proceso",
+            component: <SENASAFormResult />
+        },
+    ]
+
 
     if (!detail.documentation.senasaDocuments.hasServiceIncluded) return <Alert severity="info">En el contrato no incluye la realización del proceso de inspección senasa</Alert>
     if (!detail.pet) return <Alert severity="error">No se ha registrado la mascota en el sistema</Alert>
+    if (!isPetValidateDataCompleted(detail?.pet)) return <Alert severity="error">Faltan llenar todos los datos de la mascota</Alert>
     if (!detail.travel.airlineReservation.departureDate) return <ErrorSenasaTravelDate contractId={contractId} />
-    if (!detail.travel.destination.countryDestination) return <ErrorSenasaCountry contractId={contractId} />
+    if (!travelDestinationValidate(detail.travel.destination)) return <Alert severity="error">Faltan llenar todos los datos del destino a donde se dirige la mascota</Alert>
+    if (!travelAccompaniedPetValidate(detail.travel?.accompaniedPet)) return <Alert severity="error">Faltan llenar todos los datos del acompañante de la mascota</Alert>
+
 
     return (
 
@@ -95,13 +112,3 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
 };
 
 
-export const tabs = [
-    {
-        value: "Presentar en SENASA",
-        component: <SENASAFormGeneral />
-    },
-    {
-        value: "Resultado del proceso",
-        component: <SENASAFormResult />
-    },
-]

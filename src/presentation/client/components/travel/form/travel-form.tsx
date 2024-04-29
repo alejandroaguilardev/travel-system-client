@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { Box, Button } from "@mui/material";
 import { useFormTravel } from "./use-form-travel";
-import { travelSchema } from "./travel-validation";
+import { travelSchema, defaultValues } from "./travel-validation";
 import { TravelFormGeneral } from './general/travel-form-general';
 import { PartialTravel, Travel } from '../../../../../modules/contracts/domain/contract-services/travel/contract-travel';
 import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/domain/contract-detail.service';
@@ -34,7 +34,13 @@ type Props = {
 export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, adviserNumber, callback, onCancel, hasServiceIncluded, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<PartialTravel>(travelSchema),
-        defaultValues: travel,
+        defaultValues: {
+            ...travel,
+            airlineReservation: {
+                ...travel.airlineReservation,
+                departureAirport: travel.airlineReservation?.departureAirport || defaultValues.airlineReservation.departureAirport
+            }
+        },
     });
 
     const { onSubmit } = useFormTravel({ contractId, detailId, callback });
