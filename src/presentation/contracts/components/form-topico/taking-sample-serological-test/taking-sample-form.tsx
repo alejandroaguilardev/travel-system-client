@@ -6,7 +6,7 @@ import FormProvider from '../../../../../components/hook-form/form-provider';
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { ContractDetail } from "../../../../../modules/contracts/domain/contract-detail";
 import { takingSampleContractObjectSchema, defaultTakingSampleSerologicalTestContract } from "./taking-sample-validation";
-import { useFormTakingSampleSerologicalTestContract } from "./use-form-chip-review";
+import { useFormTakingSampleSerologicalTestContract } from "./use-form-taking-sample";
 import { TakingSampleSerologicalTestContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { TakingSampleSerologicalTestContractFormGeneral } from "./taking-sample-form-general";
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';

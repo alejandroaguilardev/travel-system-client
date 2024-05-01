@@ -18,3 +18,14 @@ export const vaccinationContractObjectSchema: Yup.ObjectSchema<VaccinationContra
     observation: Yup.string(),
     user: Yup.string(),
 });
+
+
+export const vaccinationType = (type?: string): string => {
+    if (type?.toLowerCase() === "perro") {
+        return "Distemper, Parvovirosis, Leptospirosis, Parainfluenza, Adenovirus"
+    }
+    if (type?.toLowerCase() === "gato") {
+        return "Rinotraqueitis, panleucopenia, calicivirus";
+    }
+    return type ?? "";
+}

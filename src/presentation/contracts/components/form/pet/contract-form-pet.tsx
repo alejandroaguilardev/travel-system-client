@@ -2,16 +2,14 @@ import { Accordion, AccordionDetails, AccordionSummary, Alert, Box, Button, Divi
 import { capitalize } from '../../../../../modules/shared/domain/helpers/capitalize';
 import IconWrapper from '../../../../../components/icon-wrapper/icon-wrapper';
 import Iconify from '../../../../../components/iconify';
-import { SearchPet } from '../../../../pets/components/search/search-pet';
 import { ContractFormPetDetail } from './detail/contract-form-pet-detail';
 import { useContractFormPet } from './use-contract-form-pet';
 
 export const ContractFormPet = () => {
-    const { selectedPet, clientId, details, addPet, removePet, handleNewPet } = useContractFormPet();
+    const { details, addPet, removePet } = useContractFormPet();
 
     return (
         <Stack spacing={1} marginBottom={2} marginTop={2}>
-
             {details?.length > 0
                 ? details.map((detail, index) => (
                     <Accordion key={detail.id} defaultExpanded>

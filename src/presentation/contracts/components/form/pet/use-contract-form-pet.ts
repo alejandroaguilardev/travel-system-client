@@ -9,30 +9,7 @@ import { detailInit } from '../contract-validations';
 
 export const useContractFormPet = () => {
     const { getValues, setValue, watch } = useFormContext();
-    const [selectedPet, setSelectedPet] = useState<(Pet | null)[]>([]);
     const details: NewContractDetail[] = watch("details");
-    const { pet: petContext, handleIndex, index: indexContext } = usePetDialogContext();
-
-    const clientId = watch("client");
-
-    const handleNewPet = (index: number, pet: Pet | null) => {
-        const updatedSelectedPet = selectedPet;
-        updatedSelectedPet[index] = pet;
-        details[index].pet = pet ?? undefined;
-        setSelectedPet(updatedSelectedPet)
-        handleIndex(index);
-        setValue("details", details)
-    }
-
-    useEffect(() => {
-        if (petContext) {
-            const updatedSelectedPet = selectedPet;
-            updatedSelectedPet[indexContext] = petContext;
-            setSelectedPet(updatedSelectedPet)
-            handleNewPet(indexContext, petContext);
-        }
-
-    }, [petContext, indexContext])
 
     const addPet = () => {
 
@@ -57,10 +34,7 @@ export const useContractFormPet = () => {
     }
 
     return {
-        clientId,
-        selectedPet,
         details,
-        handleNewPet,
         addPet,
         removePet,
     }

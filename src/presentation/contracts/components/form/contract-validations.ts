@@ -10,14 +10,10 @@ const certificate: DocumentationCertificate = {
     expectedDate: new Date(),
     executionDate: null,
     resultDate: null,
+    isPrint: false,
+    observation: ""
 }
 
-const topicoValues = {
-    executed: false,
-    date: undefined,
-    description: "",
-    observation: "",
-}
 
 const detailInit: NewContractDetail = {
     id: "",

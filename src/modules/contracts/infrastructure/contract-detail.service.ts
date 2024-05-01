@@ -65,11 +65,14 @@ export const contractDetailService: ContractDetailService = {
     mailDetail: async (contractId: string, detailId: string): Promise<void> => {
         await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailDetail`);
     },
-    mailTravelDetail: async (contractId: string, detailId: string): Promise<void> => {
-        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTravelDetail`);
-    },
     mailTakingSample: async (contractId: string, detailId: string): Promise<void> => {
         await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTakingSample`);
+    },
+    mailTakingSampleExecuted: async (contractId: string, detailId: string): Promise<void> => {
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTakingSampleExecuted`);
+    },
+    mailTravelDetail: async (contractId: string, detailId: string): Promise<void> => {
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTravelDetail`);
     },
     downloadSenasaExcel: async (contractId: string, detailId: string): Promise<{ file: string, name: string }> => {
         const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${contractId}/${detailId}/excel/senasa`, null, {

@@ -5,6 +5,8 @@ export interface DocumentationCertificate {
     expectedDate: Date | null;
     executionDate: Date | null;
     resultDate: Date | null;
+    observation: string;
+    isPrint: boolean;
     user?: string;
 };
 

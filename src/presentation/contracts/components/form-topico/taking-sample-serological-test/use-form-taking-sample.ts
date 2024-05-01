@@ -23,8 +23,8 @@ export const useFormTakingSampleSerologicalTestContract = ({ contractId, detailI
             const response = await contractTakingSampleUpdater(contractDetailService)(contractId, detailId, data)
             showNotification("Actualizado correctamente ");
             if (hasSendEmail) {
-                contractDetailService.mailDetail(contractId, detailId);
                 contractDetailService.mailTravelDetail(contractId, detailId);
+                contractDetailService.mailTakingSampleExecuted(contractId, detailId);
             }
             setsExecuted(true);
             callback(response);

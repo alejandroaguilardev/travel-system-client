@@ -4,6 +4,7 @@ import RHFTextField from '../../../../../../components/hook-form/rhf-text-field'
 import { useTravelGeneralForm } from "./use-travel-general-form";
 import { RHFDate } from '../../../../../../components/hook-form/rhf-date';
 import { DatePicker } from "@mui/x-date-pickers";
+import { fDayjs } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
 
 type Props = {
     hasServiceIncluded: boolean;
@@ -75,11 +76,11 @@ export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
                         <RHFDate
                             name="airlineReservation.departureDate"
                             label="Fecha de salida (*)"
-                            value={departureDate}
+                            value={fDayjs(departureDate)}
                         />
                         <RHFDate
                             name="airlineReservation.arrivalDate"
-                            value={arrivalDate}
+                            value={fDayjs(arrivalDate)}
                             label="Fecha de llegada (*)"
                         />
 

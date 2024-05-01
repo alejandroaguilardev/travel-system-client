@@ -31,7 +31,7 @@ export function fDayRest(date: InputValue, year: number, day: number, format = '
 }
 
 export function fDaySum(date: InputValue, cant: number, format = 'DD MMMM YYYY') {
-    return dayjs(date).add(cant, "D").format(format);
+    return dayjs(date).add(cant, "day").format(format);
 }
 
 export function fDayDiffString(date: InputValue) {

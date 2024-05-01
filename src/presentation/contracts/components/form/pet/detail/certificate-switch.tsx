@@ -24,6 +24,7 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, canOptional, n
     const expectedDate = watch(`${name}.expectedDate`);
     const executionDate = watch(`${name}.executionDate`);
     const resultDate = watch(`${name}.resultDate`);
+    const isRequired = watch(`${name}.isRequired`);
 
     useEffect(() => {
         if (!hasServiceIncluded) {
@@ -62,6 +63,7 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, canOptional, n
                     {canOptional &&
                         <RHFCheckbox
                             name={`${name}.isRequired`}
+                            value={isRequired}
                             label="¿Es Requerido?"
                             sx={{
                                 width: "100%"

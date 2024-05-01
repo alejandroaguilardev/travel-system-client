@@ -18,6 +18,27 @@ const defaultValues: NewPet = {
     adopter: "",
 };
 
+export const chipValidationYup = Yup.string()
+    .test(
+        'is-true',
+        'El chip debe empezar con el dígito 9',
+        value => {
+            console.log({ value })
+            if (value === "") return true;
+            if (value?.substring(0, 1) == "9") return true;
+            return false;
+        }
+    )
+    .test(
+        'is-true',
+        'El microchip debe ser de 15 dígitos',
+        value => {
+            if (value === "") return true;
+            if (value?.length === 15) return true;
+            return false;
+        }
+    );
+
 const generalSchema = {
     id: Yup.string(),
     name: Yup.string()
@@ -29,26 +50,7 @@ const generalSchema = {
         .required("El sexo es requerido"),
     birthDate: Yup.date()
         .required("La fecha de nacimiento es requerido"),
-    chip: Yup.string()
-        .test(
-            'is-true',
-            'El chip debe empezar con el dígito 9',
-            value => {
-                console.log({ value })
-                if (value === "") return true;
-                if (value?.substring(0, 1) == "9") return true;
-                return false;
-            }
-        )
-        .test(
-            'is-true',
-            'El microchip debe ser de 15 dígitos',
-            value => {
-                if (value === "") return true;
-                if (value?.length === 15) return true;
-                return false;
-            }
-        ),
+    chip: chipValidationYup,
     chipDate: Yup.date().nullable(),
     color: Yup.string()
         .required("El color es requerido")

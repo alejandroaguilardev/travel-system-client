@@ -11,6 +11,8 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
+        isPrint: Yup.boolean().required("eliminar"),
+        observation: Yup.string().required("eliminar"),
         user: Yup.string(),
     }),
     healthCertificate: Yup.object().shape({
@@ -20,6 +22,8 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
+        isPrint: Yup.boolean().required("eliminar"),
+        observation: Yup.string().required("eliminar"),
         user: Yup.string(),
     }),
     chipCertificate: Yup.object().shape({
@@ -29,6 +33,8 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
+        isPrint: Yup.boolean().required("eliminar"),
+        observation: Yup.string().required("eliminar"),
         user: Yup.string(),
     }),
     senasaDocuments: Yup.object().shape({
@@ -38,6 +44,8 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
+        isPrint: Yup.boolean().required("eliminar"),
+        observation: Yup.string().required("eliminar"),
         user: Yup.string(),
     }),
     rabiesSeroLogicalTest: Yup.object().shape({
@@ -47,6 +55,8 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
+        isPrint: Yup.boolean().required("eliminar"),
+        observation: Yup.string().required("eliminar"),
         user: Yup.string(),
     }),
     importLicense: Yup.object().shape({
@@ -56,6 +66,8 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
+        isPrint: Yup.boolean().required("eliminar"),
+        observation: Yup.string().required("eliminar"),
         user: Yup.string(),
     }),
     emotionalSupportCertificate: Yup.object().shape({
@@ -65,6 +77,8 @@ export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object()
         expectedDate: Yup.date().required('La fecha esperada es requerida'),
         executionDate: Yup.date().required('Campo requerido').nullable(),
         resultDate: Yup.date().required('Campo requerido').nullable(),
+        isPrint: Yup.boolean().required("eliminar"),
+        observation: Yup.string().required("eliminar"),
         user: Yup.string(),
     }),
 });

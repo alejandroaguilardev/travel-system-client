@@ -39,7 +39,7 @@ export const VaccinationFormGeneral = ({ title }: Props) => {
 
                     <RHFTextField
                         name="description"
-                        label="Tipo de vacuna"
+                        label="Vacuna aplicada"
                     />
                 </Stack>
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>

@@ -16,6 +16,8 @@ export const certificateUpdater = (contractService: ContractDetailService, uuid:
         executionDate: certificate.executionDate,
         resultDate: certificate.resultDate,
         isRequired: certificate.isRequired,
+        isPrint: certificate.isPrint,
+        observation: certificate.observation,
         user: userId
     }
 

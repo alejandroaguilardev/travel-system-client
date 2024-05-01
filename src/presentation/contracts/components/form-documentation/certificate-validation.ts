@@ -8,6 +8,8 @@ export const certificateSchema: Yup.ObjectSchema<DocumentationCertificate> = Yup
     executionDate: Yup.date().required('Campo requerido').nullable(),
     resultDate: Yup.date().required('Campo requerido').nullable(),
     isRequired: Yup.boolean().required('Campo requerido'),
+    isPrint: Yup.boolean().required("eliminar"),
+    observation: Yup.string().required("eliminar"),
     user: Yup.string(),
 });
 
@@ -19,5 +21,7 @@ export const defaultValues: DocumentationCertificate = {
     executionDate: null,
     resultDate: null,
     isRequired: false,
+    isPrint: false,
+    observation: "",
     user: "",
 }

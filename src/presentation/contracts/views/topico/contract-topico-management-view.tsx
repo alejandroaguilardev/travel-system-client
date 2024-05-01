@@ -26,7 +26,7 @@ export default function ContractTopicoManagementView({ id, action = TopicTabs.ad
             <Container maxWidth='xl'>
                 <CustomBreadcrumbs
                     sx={{ display: "inline" }}
-                    heading={`Requisitos de Topico: ${contractSearch?.number} `}
+                    heading={`Requisitos de Topico: ${contractSearch?.client?.profile?.name} `}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Topico', href: paths.dashboard.faseDocumentation.topico.list },

@@ -27,6 +27,8 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
+                isPrint: false,
+                observation: "",
             },
             emotionalSupportCertificate: {
                 hasServiceIncluded: faker.datatype.boolean(),
@@ -35,6 +37,8 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
+                isPrint: false,
+                observation: "",
             },
             healthCertificate: {
                 hasServiceIncluded: faker.datatype.boolean(),
@@ -43,6 +47,8 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
+                isPrint: false,
+                observation: "",
             },
             importLicense: {
                 hasServiceIncluded: faker.datatype.boolean(),
@@ -51,6 +57,8 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
+                isPrint: false,
+                observation: "",
             },
             rabiesSeroLogicalTest: {
                 hasServiceIncluded: faker.datatype.boolean(),
@@ -59,6 +67,8 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
+                isPrint: false,
+                observation: "",
             },
             senasaDocuments: {
                 hasServiceIncluded: faker.datatype.boolean(),
@@ -67,6 +77,8 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
+                isPrint: false,
+                observation: "",
             },
             vaccinationCertificate: {
                 hasServiceIncluded: faker.datatype.boolean(),
@@ -75,6 +87,8 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 expectedDate: dateMother.recent(),
                 executionDate: null,
                 resultDate: null,
+                isPrint: false,
+                observation: "",
             },
             status: contractStatusCreateMother(),
         },
