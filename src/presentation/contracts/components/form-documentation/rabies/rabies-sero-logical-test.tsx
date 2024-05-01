@@ -13,6 +13,10 @@ import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/cont
 import { ContractStatus } from '../../../../../modules/contracts/domain/contract-status';
 import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 import { CertificateFormGeneral } from "../certificate-form-general";
+import { AlertRedirectButton } from '../../../../../components/alert-redirect-button/alert-redirect-button';
+import { PetNotFoundRedirect } from "../../pet-not-found-redirect/pet-not-found-redirect";
+import { paths } from '../../../../../app/routes/paths';
+import { TopicTabs } from "../../form-topico/topico-form";
 
 type Props = {
     contractId: string;
@@ -45,11 +49,13 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
 
     const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.rabiesSeroLogicalTest, status: detail.documentation.status, setIsLoading });
 
-
     if (!detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded) return <Alert severity="info">En el contrato no incluye la realización del proceso de inspección senasa</Alert>
-    if (!detail.pet) return <Alert severity="error">No se ha registrado la mascota en el sistema</Alert>
-    if (!detail.topico?.takingSampleSerologicalTest.executed) return <Alert severity="error">Aún no se ha tomado la muestra ir a Topico</Alert>
 
+    if (!detail.pet) return <PetNotFoundRedirect contractId={contractId} />
+
+    if (!detail.topico?.takingSampleSerologicalTest.executed) {
+        return <AlertRedirectButton alert={{ label: "Aún no se ha tomado la muestra ir a Topico", color: "error" }} button={{ label: "Ir a la toma de muestra", redirect: paths.dashboard.faseDocumentation.topico.management(contractId, TopicTabs.takingSampleSerologicalTest) }} />
+    }
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >

@@ -6,7 +6,7 @@ import { useSearchByIdContract } from '../../hooks/use-search-by-id-contract';
 import { NotFoundView } from '../../../error';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
-import { TOPICO_TABS, TopicoForm } from '../../components/form-topico/topico-form';
+import { TopicTabs, TopicoForm } from '../../components/form-topico/topico-form';
 import { DetailInfoContext, DetailInfoProvider } from '../../context/contract-detail-context';
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
     action?: string;
 }
 
-export default function ContractTopicoManagementView({ id, action = TOPICO_TABS.measurementsAndWeightForm }: Props) {
+export default function ContractTopicoManagementView({ id, action = TopicTabs.admission }: Props) {
     const router = useRouter();
 
     const { contract: contractSearch, error, isLoading } = useSearchByIdContract(id);
@@ -38,12 +38,12 @@ export default function ContractTopicoManagementView({ id, action = TOPICO_TABS.
                         {({ contract }) => <>
                             {contract.details?.map((detail, index) => (
                                 <AccordionPet detail={detail} key={detail.id} index={index}>
-
                                     <TopicoForm
                                         detail={detail}
                                         action={action}
                                         onCancel={() => router.back()}
                                         contractId={id}
+                                        clientId={contract.client.id}
                                     />
                                 </AccordionPet>
                             ))}

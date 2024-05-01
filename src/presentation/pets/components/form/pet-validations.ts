@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
-import { NewPet } from '../../../../modules/pets/domain/pet';
+import { NewPet, PetTopic } from '../../../../modules/pets/domain/pet';
+import { CAGE_TYPE } from '../../../../modules/cages/domain/cage-type';
 
 const defaultValues: NewPet = {
     id: "",
@@ -17,7 +18,7 @@ const defaultValues: NewPet = {
     adopter: "",
 };
 
-const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape({
+const generalSchema = {
     id: Yup.string(),
     name: Yup.string()
         .required("El nombre es requerido")
@@ -77,6 +78,38 @@ const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape({
 
     adopter: Yup.string().required("El adopter es requerido"),
     user: Yup.string(),
+}
+const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape(generalSchema)
+
+export const defaultValuesTopic: PetTopic = {
+    ...defaultValues,
+    measurementsAndWeight: {
+        weight: 0,
+        height: 0,
+        width: 0,
+        length: 0,
+    },
+    cageRecommendation: {
+        modelCage: "",
+        dimensionsCage: "",
+        typeCage: "",
+    }
+}
+
+export const petSchemaTopic: Yup.ObjectSchema<PetTopic> = Yup.object().shape({
+    ...generalSchema,
+    measurementsAndWeight: Yup.object().shape({
+        weight: Yup.number().required("El Peso de la mascota es requerido"),
+        height: Yup.number().required("El alto de la mascota es requerido"),
+        width: Yup.number().required("El ancho de la mascota es requerido"),
+        length: Yup.number().required("El largo de la mascota es requerido"),
+    }).required("El Peso y las medidas de la mascota es requerido"),
+    cageRecommendation: Yup.object().shape({
+        modelCage: Yup.string().required("El modelo de la jaula es requerido"),
+        dimensionsCage: Yup.string().required("La dimensión de la jaula requerido"),
+        typeCage: Yup.string().oneOf(['', ...CAGE_TYPE] as const),
+    }).required("la recomendación de la jaula es requerida"),
 })
+
 
 export { defaultValues, petSchema };

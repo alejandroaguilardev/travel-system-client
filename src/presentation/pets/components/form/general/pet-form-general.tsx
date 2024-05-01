@@ -8,24 +8,24 @@ import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { usePetFormGeneral } from './use-pet-form-general';
 
 type Props = {
-    hasRecommendation?: boolean
+    hasClient?: boolean;
+    hasMeasurementsAndWeight?: boolean;
+    hasRecommendation?: boolean;
+    hasChip?: boolean;
 }
 
-export const PetFormGeneral = ({ hasRecommendation = false }: Props) => {
-    const { chip, chipDate, birthDate, client, handleClient, handleChip, hasChip } = usePetFormGeneral();
+export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = false, hasRecommendation = false, hasChip = false }: Props) => {
+    const { chip, chipDate, birthDate, client, handleClient, handleChip } = usePetFormGeneral();
 
     return (
         <Stack spacing={1} marginBottom={1}>
-            <SearchClient
-                client={client}
-                handleClient={handleClient}
-                field='adopter'
-            />
-            <FormControlLabel
-                control={<Checkbox checked={hasChip} onChange={() => handleChip(!hasChip)} />}
-                label="¿La mascota tiene chip?"
-                sx={{ mb: 1 }}
-            />
+            {hasClient &&
+                <SearchClient
+                    client={client}
+                    handleClient={handleClient}
+                    field='adopter'
+                />
+            }
 
             {hasChip &&
                 <>
@@ -107,6 +107,30 @@ export const PetFormGeneral = ({ hasRecommendation = false }: Props) => {
                 </RHFTextField>
 
             </Stack>
+            {
+                hasMeasurementsAndWeight &&
+                <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
+                    <Typography fontWeight="bold">Medición Antropométrica</Typography>
+                    <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                        <RHFTextField
+                            name="measurementsAndWeight.height"
+                            label="Alto(cm) *"
+                        />
+                        <RHFTextField
+                            name="measurementsAndWeight.width"
+                            label="Ancho(cm) *"
+                        />
+                        <RHFTextField
+                            name="measurementsAndWeight.length"
+                            label="Largo (cm) *"
+                        />
+                        <RHFTextField
+                            name="measurementsAndWeight.weight"
+                            label="Peso (kg) *"
+                        />
+                    </Stack>
+                </Stack>
+            }
             {
                 hasRecommendation &&
                 <>

@@ -7,7 +7,6 @@ import { userService } from '../../../../../modules/users/infrastructure/user.se
 
 export const usePetFormGeneral = () => {
     const { setValue, watch, getValues } = useFormContext();
-    const [hasChip, setHasChip] = useState(false);
     const chip = watch("chip");
     const birthDate: Date = fDayjs(watch("birthDate"));
     const chipDate: Date = fDayjs(watch("chipDate"));
@@ -22,7 +21,6 @@ export const usePetFormGeneral = () => {
     }
 
     const handleChip = (value: boolean) => {
-        setHasChip(value);
         if (!value) {
             setValue("chipDate", null);
             setValue("chip", "");
@@ -44,9 +42,6 @@ export const usePetFormGeneral = () => {
         }
     }, [chip]);
 
-    useEffect(() => {
-        if (chip) setHasChip(true);
-    }, [hasChip])
 
     return {
         chip,
@@ -54,7 +49,6 @@ export const usePetFormGeneral = () => {
         handleClient,
         birthDate,
         chipDate,
-        hasChip,
         handleChip,
     }
 }

@@ -15,6 +15,9 @@ import { SendEmailCheck } from '../../../../../components/send-email-check/send-
 import { Contract } from '../../../../../modules/contracts/domain/contract';
 import { useDownloadCertificate } from '../../../hooks/use-download-certificate';
 import { LoadingButton } from "@mui/lab";
+import { AlertRedirectButton } from '../../../../../components/alert-redirect-button/alert-redirect-button';
+import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
+import { paths } from '../../../../../app/routes/paths';
 
 type Props = {
     contractId: string;
@@ -40,11 +43,16 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
             user: healthCertificate?.user ?? defaultValues.user
         }
     });
-    const isApplied = methods.watch("isApplied")
 
     const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.healthCertificate, status: detail.documentation.status });
 
     if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="error">El servicio no está incluido en este contrato</Alert>
+
+    if (!travelAccompaniedPetValidate(detail.travel.accompaniedPet)) {
+        return detail.travel.typeTraveling === "accompanied"
+            ? <AlertRedirectButton alert={{ label: "Aùn no se ha guardado la información  relacionada a la persona que acompañará a la mascota", color: "warning" }} button={{ label: "Ir a Fase Reserva", redirect: paths.dashboard.contractTravel.update(contract.id) }} />
+            : <AlertRedirectButton alert={{ label: "Aùn no se ha guardado la información de la persona que será titular de los documentos", color: "warning" }} button={{ label: "Ir a Fase Reserva", redirect: paths.dashboard.contractTravel.update(contract.id) }} />
+    }
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >

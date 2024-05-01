@@ -29,9 +29,9 @@ export interface NewPet extends Omit<Pet, 'id' | 'chip' | 'chipDate' | 'status' 
     chipDate?: Date | null;
 };
 
-export interface TopicoMeasurementsAndWeight extends Omit<NewPet, "id" | "name" | "birthDate" | "image" | "country" | "chip" | "chipDate" | "adopter"> {
-    cageRecommendation?: CageChosen;
-    measurementsAndWeight?: MeasurementsAndWeight;
+export interface PetTopic extends NewPet {
+    cageRecommendation: CageChosen;
+    measurementsAndWeight: MeasurementsAndWeight;
 
 }
 

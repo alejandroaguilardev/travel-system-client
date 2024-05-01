@@ -7,7 +7,7 @@ import { ContractForm } from '../../components/form/contract-form';
 
 export default function ContractNewView() {
     const router = useRouter();
-    const redirectData = () => router.push(paths.dashboard.contracts.assignPet);
+    const redirectData = () => router.push(paths.dashboard.contracts.number);
 
     return (
         <Container maxWidth='xl'>

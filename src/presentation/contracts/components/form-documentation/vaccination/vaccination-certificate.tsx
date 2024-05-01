@@ -10,6 +10,9 @@ import Label from '../../../../../components/label/label';
 import { DatePicker } from "@mui/x-date-pickers";
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { useDownloadCertificate } from '../../../hooks/use-download-certificate';
+import { AlertRedirectButton } from '../../../../../components/alert-redirect-button/alert-redirect-button';
+import { paths } from '../../../../../app/routes/paths';
+import { TopicTabs } from "../../form-topico/topico-form";
 
 type Props = {
     contract: Contract;
@@ -27,8 +30,8 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
 
     if (!travelAccompaniedPetValidate(detail.travel.accompaniedPet)) {
         return detail.travel.typeTraveling === "accompanied"
-            ? <Alert severity="warning">Aùn no se ha guardado la información  relacionada a la persona que acompañará a la mascota</Alert>
-            : <Alert severity="warning" > Aùn no se ha guardado la información de la persona que será titular de los documentos</Alert >
+            ? <AlertRedirectButton alert={{ label: "Aùn no se ha guardado la información  relacionada a la persona que acompañará a la mascota", color: "warning" }} button={{ label: "Ir a Fase Reserva", redirect: paths.dashboard.contractTravel.update(contract.id) }} />
+            : <AlertRedirectButton alert={{ label: "Aùn no se ha guardado la información de la persona que será titular de los documentos", color: "warning" }} button={{ label: "Ir a Fase Reserva", redirect: paths.dashboard.contractTravel.update(contract.id) }} />
     }
 
     return (
@@ -78,7 +81,7 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
                             </Stack>
                         }
                     </Stack>
-                    : <Alert severity="warning">Aùn no se ha guardado la información  relacionada a la vacuna</Alert>
+                    : <AlertRedirectButton alert={{ label: "Aùn no se ha guardado la información de la persona que será titular de los documentos", color: "warning" }} button={{ label: "Ir Ir a vacunación de la mascota", redirect: paths.dashboard.faseDocumentation.topico.management(contract.id, TopicTabs.vaccination) }} />
             }
 
         </>

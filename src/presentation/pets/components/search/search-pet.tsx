@@ -5,11 +5,10 @@ import { capitalize } from '../../../../modules/shared/domain/helpers';
 import { Pet } from '../../../../modules/pets/domain/pet';
 import { AuthPermission, AuthGroup } from '../../../../modules/auth/domain/auth-permission';
 import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
-import { ErrorMessage } from '../../../../components/hook-form/error-message';
 import { usePetDialogContext } from './pet-dialog-context';
 
 
-const globalFilterProperties = [
+export const globalFilterProperties = [
     { field: "name", value: "string" },
     { field: "race", value: "string" },
     { field: "chip", value: "string" },
@@ -29,10 +28,10 @@ type Props = {
     pet: Pet | null;
     index: number;
     handlePet: (user: Pet) => void;
-
+    hasCreate?: boolean;
 }
 
-export const SearchPet = ({ adopterId, index, pet, handlePet }: Props) => {
+export const SearchPet = ({ adopterId, index, pet, hasCreate = false, handlePet, }: Props) => {
     const { onTrue, handleIndex } = usePetDialogContext();
 
     return (
@@ -50,24 +49,24 @@ export const SearchPet = ({ adopterId, index, pet, handlePet }: Props) => {
                     placeholder: "Nombre o chip de la mascota...",
                 }}
                 noOptionsText={
-                    <Box width="100%" >
-                        <PermissionGuard group={AuthGroup.PETS} permission={AuthPermission.CREATE}>
-                            <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la mascota  que está buscando. ¿Desea crear una mascota ahora? </Typography>
-                            <Button variant="outlined" fullWidth onClick={() => {
-                                onTrue();
-                                handleIndex(index);
-                            }} sx={{
-                                fontWeight: "bold",
-                                opacity: 1
-                            }}>
-                                Crear nueva mascota
-                            </Button>
-                        </PermissionGuard>
-                    </Box>
+                    hasCreate ?
+                        <Box width="100%" >
+                            <PermissionGuard group={AuthGroup.PETS} permission={AuthPermission.CREATE}>
+                                <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la mascota  que está buscando. ¿Desea crear una mascota ahora? </Typography>
+                                <Button variant="outlined" fullWidth onClick={() => {
+                                    onTrue();
+                                    handleIndex(index);
+                                }} sx={{
+                                    fontWeight: "bold",
+                                    opacity: 1
+                                }}>
+                                    Crear nueva mascota
+                                </Button>
+                            </PermissionGuard>
+                        </Box>
+                        : "No se ha localizado a la mascota  que está buscando. ¿Desea crear una mascota ahora?"
                 }
-
             />
-            <ErrorMessage name="pet" />
         </>
     )
 }

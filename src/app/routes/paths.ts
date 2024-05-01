@@ -1,3 +1,5 @@
+import { TopicTabs } from '../../presentation/contracts/components/form-topico/topico-form';
+
 const ROOTS = {
   AUTH: '/auth',
   DASHBOARD: '/dashboard',
@@ -22,7 +24,6 @@ export const paths = {
     root: ROOTS.DASHBOARD,
     contracts: {
       root: `${ROOTS.DASHBOARD_CONTRACT}`,
-      assignPet: `${ROOTS.DASHBOARD_CONTRACT}/seleccionar-mascota`,
       number: `${ROOTS.DASHBOARD_CONTRACT}/asignar-numero`,
       payList: `${ROOTS.DASHBOARD_CONTRACT}/pagos`,
       view: (id: string) => `${ROOTS.DASHBOARD_CONTRACT}/${id}/visualizar`,
@@ -39,7 +40,7 @@ export const paths = {
       },
       topico: {
         list: `${ROOTS.DASHBOARD_DOCUMENTATION}/topico`,
-        management: (id: string, action: string) => `${ROOTS.DASHBOARD_DOCUMENTATION}/topico/${id}/${action}/gestion`,
+        management: (id: string, action: TopicTabs) => `${ROOTS.DASHBOARD_DOCUMENTATION}/topico/${id}/${action}/gestion`,
       },
       senasa: {
         list: `${ROOTS.DASHBOARD_DOCUMENTATION}/inspeccion-senasa`,
