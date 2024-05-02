@@ -32,6 +32,8 @@ export const EmotionalSupportCertificateForm: FC<Props> = ({ detail, callback, c
             expectedDate: emotionalSupportCertificate?.expectedDate ?? defaultValues.expectedDate,
             executionDate: emotionalSupportCertificate?.executionDate ?? defaultValues.executionDate,
             resultDate: emotionalSupportCertificate?.resultDate ?? defaultValues.resultDate,
+            observation: emotionalSupportCertificate?.observation ?? defaultValues.observation,
+            isPrint: emotionalSupportCertificate?.isPrint ?? defaultValues.isPrint,
             user: emotionalSupportCertificate?.user ?? defaultValues.user
         }
     });

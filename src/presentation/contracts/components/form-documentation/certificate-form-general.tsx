@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { fDayjs } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import RHFSwitch from '../../../../components/hook-form/rhf-switch';
 import { RHFDate } from '../../../../components/hook-form/rhf-date';
+import { RHFTextField } from "../../../../components/hook-form";
 
 type Props = {
     label: string
@@ -27,7 +28,7 @@ export const CertificateFormGeneral = ({ label }: Props) => {
 
 
     return (
-        <>
+        <Stack>
 
             <Stack direction={{ xs: "column", md: "row" }} spacing={2} my={2}>
                 <RHFSwitch
@@ -47,7 +48,11 @@ export const CertificateFormGeneral = ({ label }: Props) => {
                     />
                 }
             </Stack>
+            <RHFTextField
+                name="observation"
+                label="Observaciones"
+            />
 
-        </>
+        </Stack>
     );
 };

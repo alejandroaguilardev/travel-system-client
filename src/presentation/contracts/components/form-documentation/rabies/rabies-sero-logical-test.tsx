@@ -43,6 +43,8 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
             expectedDate: rabiesSeroLogicalTest?.expectedDate ?? defaultValues.expectedDate,
             executionDate: rabiesSeroLogicalTest?.executionDate ?? defaultValues.executionDate,
             resultDate: rabiesSeroLogicalTest?.resultDate ?? defaultValues.resultDate,
+            observation: rabiesSeroLogicalTest?.observation ?? defaultValues.observation,
+            isPrint: rabiesSeroLogicalTest?.isPrint ?? defaultValues.isPrint,
             user: rabiesSeroLogicalTest?.user ?? defaultValues.user
         }
     });
@@ -51,7 +53,7 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
 
     if (!detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded) return <Alert severity="info">En el contrato no incluye la realización del proceso de inspección senasa</Alert>
 
-    if (!detail.pet) return <PetNotFoundRedirect contractId={contractId} />
+    if (!detail.pet) return <PetNotFoundRedirect contractId={contractId} pet={detail?.pet} />
 
     if (!detail.topico?.takingSampleSerologicalTest.executed) {
         return <AlertRedirectButton alert={{ label: "Aún no se ha tomado la muestra ir a Topico", color: "error" }} button={{ label: "Ir a la toma de muestra", redirect: paths.dashboard.faseDocumentation.topico.management(contractId, TopicTabs.takingSampleSerologicalTest) }} />

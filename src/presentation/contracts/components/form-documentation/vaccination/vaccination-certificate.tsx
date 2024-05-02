@@ -13,6 +13,8 @@ import { useDownloadCertificate } from '../../../hooks/use-download-certificate'
 import { AlertRedirectButton } from '../../../../../components/alert-redirect-button/alert-redirect-button';
 import { paths } from '../../../../../app/routes/paths';
 import { TopicTabs } from "../../form-topico/topico-form";
+import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/pet';
+import { PetNotFoundRedirect } from "../../pet-not-found-redirect/pet-not-found-redirect";
 
 type Props = {
     contract: Contract;
@@ -26,6 +28,10 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
     const { downloadCertificate, isLoading } = useDownloadCertificate();
 
     const vaccinationCertificate = detail?.documentation?.vaccinationCertificate;
+
+    if (!isPetValidateDataCompleted(detail.pet) || !detail?.pet) {
+        return <PetNotFoundRedirect contractId={contract.id} pet={detail?.pet} />
+    }
 
 
     if (!travelAccompaniedPetValidate(detail.travel.accompaniedPet)) {

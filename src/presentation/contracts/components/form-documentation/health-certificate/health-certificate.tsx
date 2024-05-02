@@ -18,6 +18,8 @@ import { LoadingButton } from "@mui/lab";
 import { AlertRedirectButton } from '../../../../../components/alert-redirect-button/alert-redirect-button';
 import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
 import { paths } from '../../../../../app/routes/paths';
+import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/pet';
+import { PetNotFoundRedirect } from "../../pet-not-found-redirect/pet-not-found-redirect";
 
 type Props = {
     contractId: string;
@@ -40,6 +42,8 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
             expectedDate: healthCertificate?.expectedDate ?? defaultValues.expectedDate,
             executionDate: healthCertificate?.executionDate ?? defaultValues.executionDate,
             resultDate: healthCertificate?.resultDate ?? defaultValues.resultDate,
+            observation: healthCertificate?.observation ?? defaultValues.observation,
+            isPrint: healthCertificate?.isPrint ?? defaultValues.isPrint,
             user: healthCertificate?.user ?? defaultValues.user
         }
     });
@@ -47,6 +51,11 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
     const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.healthCertificate, status: detail.documentation.status });
 
     if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="error">El servicio no está incluido en este contrato</Alert>
+
+
+    if (!isPetValidateDataCompleted(detail.pet) || !detail?.pet) {
+        return <PetNotFoundRedirect contractId={contract.id} pet={detail?.pet} />
+    }
 
     if (!travelAccompaniedPetValidate(detail.travel.accompaniedPet)) {
         return detail.travel.typeTraveling === "accompanied"
@@ -65,7 +74,6 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <CertificateFormGeneral label="¿Certificado realizado?" />
-
                 <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
                 {(healthCertificate?.isApplied || isExecuted) &&
@@ -82,7 +90,7 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
 
 
                 {healthCertificate?.hasServiceIncluded &&
-                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                    <Box display="flex" gap={1} justifyContent="center" >
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                             Cancelar
                         </Button>

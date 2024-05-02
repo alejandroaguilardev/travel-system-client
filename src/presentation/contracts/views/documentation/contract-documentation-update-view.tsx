@@ -28,7 +28,7 @@ export default function ContractDocumentationUpdateView({ id, action = DOCUMENTA
             <Container maxWidth='xl'>
                 <CustomBreadcrumbs
                     sx={{ display: "inline" }}
-                    heading={`Requisitos de Documentación: ${contractSearch?.number} `}
+                    heading={`Requisitos de Documentación: ${contractSearch?.client?.profile?.name ?? ""} ${contractSearch?.client?.profile?.lastName ?? ""} `}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Contratos', href: paths.dashboard.contracts.root },

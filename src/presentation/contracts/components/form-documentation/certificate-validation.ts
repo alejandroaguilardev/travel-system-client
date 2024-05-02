@@ -8,8 +8,8 @@ export const certificateSchema: Yup.ObjectSchema<DocumentationCertificate> = Yup
     executionDate: Yup.date().required('Campo requerido').nullable(),
     resultDate: Yup.date().required('Campo requerido').nullable(),
     isRequired: Yup.boolean().required('Campo requerido'),
-    isPrint: Yup.boolean().required("eliminar"),
-    observation: Yup.string().required("eliminar"),
+    isPrint: Yup.boolean(),
+    observation: Yup.string(),
     user: Yup.string(),
 });
 

@@ -10,7 +10,7 @@ export interface ProfileInterface {
     secondLastName?: string;
     phone: string;
     gender?: UserGender;
-    birthDate?: Date;
+    birthDate?: Date | null;
     department?: string;
     province?: string;
     district?: string;

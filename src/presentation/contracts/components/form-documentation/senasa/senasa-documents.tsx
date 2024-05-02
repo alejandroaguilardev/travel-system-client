@@ -20,6 +20,7 @@ import { ErrorSenasaCountry } from "./errorsConditions/error-senasa-country";
 import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/pet';
 import { travelDestinationValidate } from "src/modules/contracts/domain/contract-services/travel/travel-destination";
 import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
+import { PetNotFoundRedirect } from '../../pet-not-found-redirect/pet-not-found-redirect';
 
 type Props = {
     contractId: string;
@@ -45,6 +46,8 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
             expectedDate: senasaDocuments?.expectedDate ?? defaultValues.expectedDate,
             executionDate: senasaDocuments?.executionDate ?? defaultValues.executionDate,
             resultDate: senasaDocuments?.resultDate ?? defaultValues.resultDate,
+            observation: senasaDocuments?.observation ?? defaultValues.observation,
+            isPrint: senasaDocuments?.isPrint ?? defaultValues.isPrint,
             user: senasaDocuments?.user ?? defaultValues.user
         }
     });
@@ -64,7 +67,10 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
 
 
     if (!detail.documentation.senasaDocuments.hasServiceIncluded) return <Alert severity="info">En el contrato no incluye la realización del proceso de inspección senasa</Alert>
-    if (!detail.pet) return <Alert severity="error">No se ha registrado la mascota en el sistema</Alert>
+    if (!isPetValidateDataCompleted(detail.pet) || !detail?.pet) {
+        return <PetNotFoundRedirect contractId={contractId} pet={detail?.pet} />
+    }
+
     if (!isPetValidateDataCompleted(detail?.pet)) return <Alert severity="error">Faltan llenar todos los datos de la mascota</Alert>
     if (!detail.travel.airlineReservation.departureDate) return <ErrorSenasaTravelDate contractId={contractId} />
     if (!travelDestinationValidate(detail.travel.destination)) return <Alert severity="error">Faltan llenar todos los datos del destino a donde se dirige la mascota</Alert>

@@ -9,6 +9,7 @@ import { AlertRedirectButton } from '../../../../../components/alert-redirect-bu
 import { paths } from '../../../../../app/routes/paths';
 import { TopicTabs } from "../../form-topico/topico-form";
 import { PetNotFoundRedirect } from "../../pet-not-found-redirect/pet-not-found-redirect";
+import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/pet';
 
 type Props = {
     contractId: string;
@@ -22,8 +23,8 @@ export const ChipCertificateForm: FC<Props> = ({ contract, detail }) => {
     const [first, setFirst] = useState(false);
 
 
-    if (!detail.pet) {
-        return <PetNotFoundRedirect contractId={contract.id} />
+    if (!isPetValidateDataCompleted(detail.pet) || !detail?.pet) {
+        return <PetNotFoundRedirect contractId={contract.id} pet={detail?.pet} />
     }
 
     return (
