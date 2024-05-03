@@ -42,7 +42,7 @@ export const petUpdaterFormat = (pet: Pet): Pet => {
             length: pet.measurementsAndWeight?.length,
             weight: pet.measurementsAndWeight?.weight,
             width: pet.measurementsAndWeight?.width,
-        }
+        },
     }
 
     delete petUpdated.user;

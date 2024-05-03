@@ -29,6 +29,7 @@ const defaultValues: NewUser = {
     },
     isAdvisor: false,
     isDoctor: false,
+    linkWhatsApp: "",
 };
 const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
     id: Yup.string(),
@@ -71,6 +72,7 @@ const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
     }),
     isAdvisor: Yup.boolean(),
     isDoctor: Yup.boolean(),
+    linkWhatsApp: Yup.string(),
 });
 
 export { defaultValues, userSchema };

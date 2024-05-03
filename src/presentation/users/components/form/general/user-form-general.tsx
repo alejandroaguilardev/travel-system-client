@@ -183,28 +183,40 @@ export const UserFormGeneral = () => {
             </Stack>
             {
                 isUser &&
-                <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
-                    {isAdmin ?
-                        <Stack width="100%">
-                            <Alert severity='info'>
-                                Este es un usuario administrador tiene todos los permisos
-                            </Alert>
+                <>
+                    <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+                        {isAdmin ?
+                            <Stack width="100%">
+                                <Alert severity='info'>
+                                    Este es un usuario administrador tiene todos los permisos
+                                </Alert>
+                            </Stack>
+                            :
+                            <AutocompleteServer<Role>
+                                collection='roles'
+                                sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
+                                globalFilterProperties={[{ field: "name", value: "string" }]}
+                                defaultValue={roles}
+                                callback={handleRoles}
+                                getOptionLabel={(option: Role) => capitalize(option.name)}
+                                textField={{
+                                    label: "Seleccionar roles"
+                                }}
+                                multiple
+                            />
+                        }
+                        <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1} width="100%">
+                            <RHFSwitch
+                                name="isDoctor"
+                                label="¿Este usuario será un veterinario?"
+                                sx={{
+                                    width: "100%"
+                                }}
+                            />
                         </Stack>
-                        :
-                        <AutocompleteServer<Role>
-                            collection='roles'
-                            sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
-                            globalFilterProperties={[{ field: "name", value: "string" }]}
-                            defaultValue={roles}
-                            callback={handleRoles}
-                            getOptionLabel={(option: Role) => capitalize(option.name)}
-                            textField={{
-                                label: "Seleccionar roles"
-                            }}
-                            multiple
-                        />
-                    }
+                    </Stack>
                     <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1} width="100%">
+
                         <RHFSwitch
                             name="isAdvisor"
                             label="¿Este usuario será un asesor?"
@@ -212,15 +224,15 @@ export const UserFormGeneral = () => {
                                 width: "100%"
                             }}
                         />
-                        <RHFSwitch
-                            name="isDoctor"
-                            label="¿Este usuario será un veterinario?"
-                            sx={{
-                                width: "100%"
-                            }}
+                        <RHFTextField
+                            name='linkWhatsApp'
+                            fullWidth
+                            label="Url WhatsApp"
+                            variant="outlined"
+                            inputAdornment
                         />
                     </Stack>
-                </Stack>
+                </>
             }
         </Stack >
     )

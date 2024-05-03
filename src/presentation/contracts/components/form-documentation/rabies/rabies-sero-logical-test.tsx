@@ -17,6 +17,7 @@ import { AlertRedirectButton } from '../../../../../components/alert-redirect-bu
 import { PetNotFoundRedirect } from "../../pet-not-found-redirect/pet-not-found-redirect";
 import { paths } from '../../../../../app/routes/paths';
 import { TopicTabs } from "../../form-topico/topico-form";
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
@@ -49,7 +50,7 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
         }
     });
 
-    const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.rabiesSeroLogicalTest, status: detail.documentation.status, setIsLoading });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.rabiesSeroLogicalTest, status: detail.documentation.status, setIsLoading });
 
     if (!detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded) return <Alert severity="info">En el contrato no incluye la realización del proceso de inspección senasa</Alert>
 
@@ -75,6 +76,7 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
                 <Typography fontWeight="bold">Test serológico de rabia</Typography>
                 <CertificateFormGeneral label="Resultado Recibido?" />
 
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
                 {!isAdmin && !isEdit && <Alert severity="info" >Solo el administrador puedo editar un contrato ya finalizado</Alert>}
 

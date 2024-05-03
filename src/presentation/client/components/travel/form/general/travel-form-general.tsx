@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { Alert, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Stack, Typography } from "@mui/material";
 import RHFTextField from '../../../../../../components/hook-form/rhf-text-field';
 import { useTravelGeneralForm } from "./use-travel-general-form";
 import { RHFDate } from '../../../../../../components/hook-form/rhf-date';
-import { DatePicker } from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers";
 import { fDayjs } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
 
 type Props = {
@@ -68,8 +68,10 @@ export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
             <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
                 {readonly ?
                     <>
-                        <DatePicker value={departureDate} label="Fecha de salida (*)" disabled sx={{ width: "100%" }} />
-                        <DatePicker value={arrivalDate} label="Fecha de llegada (*)" disabled sx={{ width: "100%" }} />
+                        <DateTimePicker value={departureDate} label="Fecha de salida (*)" disabled sx={{ width: "100%" }} format='DD/MM/YYYY HH:mm:ss'
+                        />
+                        <DateTimePicker value={arrivalDate} label="Fecha de llegada (*)" disabled sx={{ width: "100%" }} format='DD/MM/YYYY HH:mm:ss'
+                        />
                     </>
                     :
                     <>

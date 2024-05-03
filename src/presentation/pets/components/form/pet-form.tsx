@@ -25,7 +25,7 @@ export const PetForm: FC<Props> = ({ pet, adopterId, notReload, callback, onCanc
         defaultValues: pet ?? { ...defaultValues, adopter: adopterId ?? defaultValues.adopter },
     });
 
-    const { onSubmit } = useFormPet({ pet, callback });
+    const { onSubmit } = useFormPet({ callback });
 
 
     const tabs = [

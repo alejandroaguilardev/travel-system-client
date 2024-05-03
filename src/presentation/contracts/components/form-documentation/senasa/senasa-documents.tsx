@@ -21,6 +21,7 @@ import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/p
 import { travelDestinationValidate } from "src/modules/contracts/domain/contract-services/travel/travel-destination";
 import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
 import { PetNotFoundRedirect } from '../../pet-not-found-redirect/pet-not-found-redirect';
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 type Props = {
     contractId: string;
@@ -52,7 +53,7 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
         }
     });
 
-    const { onSubmit, isExecuted } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.senasaDocuments, status: detail.documentation.status, setIsLoading });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormCertificate({ contractId, detailId: detail.id, callback, action: DOCUMENTATION_KEYS.senasaDocuments, status: detail.documentation.status, setIsLoading });
 
     const tabs = [
         {
@@ -82,7 +83,8 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
             {
                 isEdit && <>
-                    {!senasaDocuments?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
+                    {!senasaDocuments?.executionDate && !senasaDocuments?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha asignado fecha de inspección</Alert>}
+                    {!senasaDocuments?.isApplied && !isExecuted && <Alert severity="warning">Aùn no se ha marcado que la inspección senasa fue realizada correctamente</Alert>}
 
                     {senasaDocuments?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
                 </>
@@ -97,7 +99,11 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
                     />
                 </TabGenericProvider>
 
-                {!isAdmin && !isEdit && <Alert severity="info" >Solo el administrador puedo editar un contrato ya finalizado</Alert>}
+
+                {!isAdmin && !isEdit
+                    ? <Alert severity="info">Solo el administrador puedo editar un contrato ya finalizado</Alert>
+                    : <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                }
 
                 {(isAdmin || isEdit) &&
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>

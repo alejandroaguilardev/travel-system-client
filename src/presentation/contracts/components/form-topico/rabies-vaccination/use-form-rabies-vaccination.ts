@@ -33,6 +33,7 @@ export const useFormRabiesVaccination = ({ contractId, detail, callback }: Props
 
 
     const handleExpectedDate = (date: Date | null) => {
+        console.log({ date })
         setExpectedDate(date);
     }
 
@@ -42,15 +43,14 @@ export const useFormRabiesVaccination = ({ contractId, detail, callback }: Props
             return;
         }
         try {
-            const response = await contractRabiesVaccinationUpdater(contractDetailService)(contractId, detail.id, data)
-            showNotification("Actualizado correctamente ");
-
             const reVaccinationData: RabiesReVaccinationContract = {
                 ...detail.topico?.rabiesReVaccination!,
                 date: expectedDate ?? undefined,
             }
+            await contractRabiesVaccinationUpdater(contractDetailService)(contractId, detail.id, data)
 
-            await contractRabiesReVaccinationUpdater(contractDetailService)(contractId, detail.id, reVaccinationData)
+
+            const response = await contractRabiesReVaccinationUpdater(contractDetailService)(contractId, detail.id, reVaccinationData)
             showNotification("Actualizado correctamente ");
 
             if (hasSendEmail) {

@@ -74,6 +74,9 @@ export const contractDetailService: ContractDetailService = {
     mailTakingSampleExecuted: async (contractId: string, detailId: string): Promise<void> => {
         await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTakingSampleExecuted`);
     },
+    mailSenasaIntroduceContract: async (contractId: string, detailId: string): Promise<void> => {
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailSenasaIntroduceContract`);
+    },
     mailTravelDetail: async (contractId: string, detailId: string): Promise<void> => {
         await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTravelDetail`);
     },

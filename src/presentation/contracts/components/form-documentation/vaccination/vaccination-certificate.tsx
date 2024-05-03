@@ -7,7 +7,7 @@ import { Contract } from '../../../../../modules/contracts/domain/contract';
 import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
 import { LoadingButton } from "@mui/lab";
 import Label from '../../../../../components/label/label';
-import { DatePicker } from "@mui/x-date-pickers";
+import { DateTimePicker } from '@mui/x-date-pickers';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { useDownloadCertificate } from '../../../hooks/use-download-certificate';
 import { AlertRedirectButton } from '../../../../../components/alert-redirect-button/alert-redirect-button';
@@ -64,13 +64,13 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
                         {
                             (detail.documentation.chipCertificate.hasServiceIncluded || first) &&
                             <Stack my={2}>
-                                <DatePicker
+                                <DateTimePicker
                                     label="Fecha de vacunación"
                                     sx={{
                                         width: "100%"
                                     }}
                                     disabled
-                                    format='DD/MM/YYYY'
+                                    format='DD/MM/YYYY HH:mm:ss'
                                     value={fDayjs(detail.topico?.vaccination?.date)}
 
                                 />

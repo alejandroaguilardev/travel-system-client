@@ -19,6 +19,7 @@ export const userCreateMother = (newUser?: Partial<User>): User => {
         auth: UserAuthMother(newUser?.auth),
         isAdvisor: newUser?.isAdvisor ?? faker.datatype.boolean(),
         isDoctor: newUser?.isDoctor ?? faker.datatype.boolean(),
+        linkWhatsApp: ""
     };
 }
 

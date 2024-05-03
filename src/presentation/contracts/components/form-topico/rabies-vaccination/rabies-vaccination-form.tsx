@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, Box, Button } from "@mui/material";
+import { Alert, Box, Button, TextField } from "@mui/material";
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { ContractDetail } from "../../../../../modules/contracts/domain/contract-detail";
@@ -9,7 +9,7 @@ import { rabiesVaccinationContractObjectSchema, defaultRabiesVaccination } from 
 import { useFormRabiesVaccination } from "./use-form-rabies-vaccination";
 import { RabiesVaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { RabiesVaccinationFormGeneral } from "./rabies-vaccination-form-general";
-import { DatePicker } from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers";
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
@@ -51,11 +51,11 @@ export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contractId,
 
                 <RabiesVaccinationFormGeneral />
 
-                <DatePicker
+                <DateTimePicker
                     label="Fecha programada para la revacuna (*)"
                     onChange={(date: Date | null) => handleExpectedDate(date)}
                     sx={{ width: "100%", my: 2, mb: 4 }}
-                    format='DD/MM/YYYY'
+                    format='DD/MM/YYYY HH:mm:ss'
                     value={fDayjs(expectedDate)}
                 />
                 <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />

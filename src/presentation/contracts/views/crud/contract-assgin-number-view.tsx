@@ -1,14 +1,12 @@
 import { Button, Container, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { paths } from '../../../../app/routes/paths';
-import { RouterLink } from '../../../../app/routes/components';
 import { useSelectedValue } from '../../../../hooks';
 import { Contract } from '../../../../modules/contracts/domain/contract';
 import { ContractTable } from '../../components/table/contract-table';
-import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
-import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
 import { AssignNumberForm } from '../../components/assign-number-form/assign-number-form';
 import { useState } from 'react';
+import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
 
 export default function ContractAssignNumberView() {
     const { selected, handleSelected } = useSelectedValue<Contract>();
@@ -32,10 +30,12 @@ export default function ContractAssignNumberView() {
             {!isLoading && <ContractTable
                 options={{
                     columnQueryFilters: [
+                        ...CONTRACT_STATUS_IN_COURSE,
                         {
                             id: "number",
                             value: ""
-                        }],
+                        }
+                    ],
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
                     renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => handleSelected(row)}>
                         Asignar

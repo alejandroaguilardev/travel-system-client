@@ -23,7 +23,6 @@ export const chipValidationYup = Yup.string()
         'is-true',
         'El chip debe empezar con el dígito 9',
         value => {
-            console.log({ value })
             if (value === "") return true;
             if (value?.substring(0, 1) == "9") return true;
             return false;

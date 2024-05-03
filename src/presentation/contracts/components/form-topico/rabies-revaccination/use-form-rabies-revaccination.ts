@@ -46,15 +46,14 @@ export const useFormRabiesReVaccination = ({ contractId, detail, callback }: Pro
             return;
         }
         try {
-            const response = await contractRabiesReVaccinationUpdater(contractDetailService)(contractId, detail.id, data)
-            showNotification("Actualizado correctamente ");
+            await contractRabiesReVaccinationUpdater(contractDetailService)(contractId, detail.id, data)
 
             const takeSampleData: DocumentationCertificate = {
                 ...detail.documentation?.rabiesSeroLogicalTest!,
                 expectedDate: expectedDate,
             }
 
-            await certificateUpdater(contractDetailService, uuid)(contractId, detail.id, DOCUMENTATION_KEYS.rabiesSeroLogicalTest, takeSampleData, "pending", user?.id ?? "")
+            const response = await certificateUpdater(contractDetailService, uuid)(contractId, detail.id, DOCUMENTATION_KEYS.rabiesSeroLogicalTest, takeSampleData, "pending", user?.id ?? "")
 
             showNotification("Actualizado correctamente ");
             if (hasSendEmail) {

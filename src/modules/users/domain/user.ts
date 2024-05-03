@@ -13,6 +13,7 @@ export interface User {
   auth?: UserAuthInterface;
   isAdvisor?: boolean;
   isDoctor?: boolean;
+  linkWhatsApp?: string;
 }
 
 export interface NewUser extends Omit<User, 'id' | 'roles'> {

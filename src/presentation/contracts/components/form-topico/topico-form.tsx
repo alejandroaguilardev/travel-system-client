@@ -1,5 +1,5 @@
-import { FC, useMemo, useState } from "react";
-import { Alert, Box } from "@mui/material";
+import { FC, useMemo } from "react";
+import { Alert } from "@mui/material";
 import { Pet } from '../../../../modules/pets/domain/pet';
 import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
 import { TabGenericProvider, TabSwitcher } from "../../../../components/tab-generic";

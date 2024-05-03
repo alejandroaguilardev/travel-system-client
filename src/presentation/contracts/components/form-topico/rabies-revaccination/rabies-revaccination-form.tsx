@@ -2,6 +2,7 @@ import { FC } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Box, Button, Divider } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers";
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { ContractDetail } from "../../../../../modules/contracts/domain/contract-detail";
@@ -10,7 +11,6 @@ import { useFormRabiesReVaccination } from "./use-form-rabies-revaccination";
 import { RabiesReVaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { RabiesReVaccinationFormGeneral } from "./rabies-revaccination-form-general";
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
-import { DatePicker } from "@mui/x-date-pickers";
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 
 type Props = {
@@ -51,11 +51,11 @@ export const RabiesReVaccinationForm: FC<Props> = ({ detail, callback, contractI
                     <RabiesReVaccinationFormGeneral />
                     <Divider />
 
-                    <DatePicker
+                    <DateTimePicker
                         label="Fecha programada para la toma de muestra (*)"
                         onChange={(date) => handleExpectedDate(date)}
                         sx={{ width: "100%", my: 2, mb: 4 }}
-                        format='DD/MM/YYYY'
+                        format='DD/MM/YYYY HH:mm:ss'
                         value={fDayjs(expectedDate)}
 
                     />

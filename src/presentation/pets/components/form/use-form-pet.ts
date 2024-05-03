@@ -10,11 +10,10 @@ import { petUpdater } from '../../../../modules/pets/application/update/pet-upda
 import { errorsShowNotification } from '../../../../modules/shared/infrastructure/helpers/errors-show-notification';
 
 type Props = {
-    pet?: Pet;
     callback: (petUpdated: Pet) => void;
 }
 
-export const useFormPet = ({ pet, callback }: Props) => {
+export const useFormPet = ({ callback }: Props) => {
 
     const { reload } = useRouter();
     const { showNotification, showSuccess } = useMessage();
@@ -22,7 +21,7 @@ export const useFormPet = ({ pet, callback }: Props) => {
     const onSubmit: SubmitHandler<NewPet> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
-            const { response, pet: petUpdated } = pet
+            const { response, pet: petUpdated } = data?.id
                 ? await petUpdater(petService, uuid)(data?.id!, data as Pet)
                 : await petCreator(petService, uuid)(data)
 

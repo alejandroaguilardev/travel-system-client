@@ -68,7 +68,7 @@ export default function ContractTestRabiesView({ columnQueryFilters = [] }: Prop
                                                 contractId={selected.id}
                                                 detail={detail}
                                                 callback={callback}
-                                                onCancel={() => handleSelected(null)}
+                                                onCancel={() => { handleSelected(null); setOpen(false) }}
                                                 setIsLoading={setIsLoadingTable}
                                                 status={contract.status}
                                             />
