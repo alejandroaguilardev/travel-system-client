@@ -3,11 +3,11 @@ import { TravelAccompaniedPet } from '../../domain/contract-services/travel/trav
 import { TravelDestination } from '../../domain/contract-services/travel/travel-destination';
 import { TravelPetPerCharge } from '../../domain/contract-services/travel/travel-pet-per-charge';
 
-export const AccompaniedPetUpdater = (contractService: ContractDetailService) => async (contractId: string, detailId: string, accompaniedPet: TravelAccompaniedPet, destination: TravelDestination, petPerCharge: Partial<TravelPetPerCharge>): Promise<ContractDetailUpdateResponse> => {
+export const AccompaniedPetUpdater = (contractService: ContractDetailService) => async (contractId: string, detailId: string, accompaniedPet: TravelAccompaniedPet, destination: TravelDestination, petPerCharge: Partial<TravelPetPerCharge>, observation: string): Promise<ContractDetailUpdateResponse> => {
 
     const { updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge } = accompaniedFormat(accompaniedPet, destination, petPerCharge);
 
-    const response = await contractService.updateAccompaniedPet(contractId, detailId, updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge);
+    const response = await contractService.updateAccompaniedPet(contractId, detailId, updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge, observation);
     return response;
 }
 

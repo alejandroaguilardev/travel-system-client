@@ -6,12 +6,14 @@ import { ErrorMessage } from './error-message';
 
 interface FormInputDateProps extends DatePickerProps<Date> {
     name: string;
+    format?: string;
 }
 
 export const RHFDate: React.FC<FormInputDateProps> = ({
     name,
     label,
     value,
+    format = 'DD/MM/YYYY'
 }) => {
     const { control } = useFormContext();
 
@@ -30,9 +32,9 @@ export const RHFDate: React.FC<FormInputDateProps> = ({
                         sx={{
                             width: "100%"
                         }}
-                        format='DD/MM/YYYY HH:mm:ss'
-                        value={value}
 
+                        value={value}
+                        format={format}
                     />
                     <ErrorMessage name={name} />
                 </Box >

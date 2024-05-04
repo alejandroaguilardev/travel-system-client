@@ -16,6 +16,7 @@ export interface Travel {
     accompaniedPet: TravelAccompaniedPet;
     destination: TravelDestination;
     guideNumber: string,
+    observation?: string;
 }
 
 export interface PartialTravel extends Omit<Partial<Travel>, "airlineReservation" | "petPerCharge" | "accompaniedPet" | "destination"> {

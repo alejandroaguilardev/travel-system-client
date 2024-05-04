@@ -4,7 +4,7 @@ import { ContractDetailService, ContractDetailUpdateResponse } from '../domain/c
 import { ContractDetail, ContractPetUpdater } from '../domain/contract-detail';
 import { Criteria, criteriaToQueryString } from '../../shared/domain/criteria/criteria';
 import { ResponseSearch } from '../../shared/domain/response/response-search';
-import { Documentation } from '../domain/contract-services/documentation/documentation';
+import { CertificateDownload, Documentation } from '../domain/contract-services/documentation/documentation';
 import { PartialTravel } from '../domain/contract-services/travel/contract-travel';
 import { Cage } from '../domain/contract-services/cage/cage';
 import { ResponseSuccess } from 'src/modules/shared/domain/response/response-success';
@@ -44,11 +44,13 @@ export const contractDetailService: ContractDetailService = {
         detailId: string,
         accompaniedPet: TravelAccompaniedPet,
         destination: TravelDestination,
-        petPerCharge: TravelPetPerCharge): Promise<ContractDetailUpdateResponse> => {
+        petPerCharge: TravelPetPerCharge,
+        observation: string): Promise<ContractDetailUpdateResponse> => {
         const { data } = await axiosInstance.patch<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/accompanied`, {
             accompaniedPet,
             destination,
-            petPerCharge
+            petPerCharge,
+            observation
         });
         return data;
     },
@@ -65,8 +67,8 @@ export const contractDetailService: ContractDetailService = {
     mailTopicRabiesReVaccination: async (contractId: string, detailId: string): Promise<void> => {
         await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTopicRabiesReVaccination`);
     },
-    mailDetail: async (contractId: string, detailId: string): Promise<void> => {
-        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailDetail`);
+    mailDetail: async (contractId: string, detailId: string, message = ""): Promise<void> => {
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailDetail`, { message });
     },
     mailTakingSample: async (contractId: string, detailId: string): Promise<void> => {
         await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTakingSample`);
@@ -80,15 +82,15 @@ export const contractDetailService: ContractDetailService = {
     mailTravelDetail: async (contractId: string, detailId: string): Promise<void> => {
         await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTravelDetail`);
     },
-    downloadSenasaExcel: async (contractId: string, detailId: string): Promise<{ file: string, name: string }> => {
+    downloadSenasaExcel: async (contractId: string, detailId: string,): Promise<{ file: string, name: string }> => {
         const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${contractId}/${detailId}/excel/senasa`, null, {
             responseType: "blob",
         });
         return { file: data, name: headers["name"] };
 
     },
-    downloadCertificateExcel: async (contractId: string, detailId: string): Promise<{ file: string, name: string }> => {
-        const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${contractId}/${detailId}/excel/certificate`, null, {
+    downloadCertificateExcel: async (contractId: string, detailId: string, certificate: CertificateDownload): Promise<{ file: string, name: string }> => {
+        const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${contractId}/${detailId}/excel/certificate/${certificate}`, null, {
             responseType: "blob"
         });
         return { file: data, name: headers["name"] };

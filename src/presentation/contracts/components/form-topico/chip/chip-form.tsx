@@ -14,11 +14,13 @@ import { SendEmailCheck } from '../../../../../components/send-email-check/send-
 type Props = {
     contractId: string;
     detail: ContractDetail;
+    hasServiceIncluded: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const ChipForm: FC<Props> = ({ detail, callback, contractId, onCancel }) => {
+
+export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIncluded, onCancel }) => {
     const chip = detail?.topico?.chip;
     const chipDefault = detail?.pet?.chip || defaultChip.description;
 
@@ -34,13 +36,12 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, onCancel }) 
         }
     });
 
-    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormChip({ contractId, detail, petId: detail.pet?.id ?? "", callback, });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormChip({ contractId, detail, petId: detail.pet?.id ?? "", hasServiceIncluded, callback });
 
 
     return (
         <>
             <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-
 
                 {!chip?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al microchip</Alert>}
 
@@ -50,8 +51,10 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, onCancel }) 
 
 
                 <ChipFormGeneral />
-
-                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                {
+                    hasServiceIncluded &&
+                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                }
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

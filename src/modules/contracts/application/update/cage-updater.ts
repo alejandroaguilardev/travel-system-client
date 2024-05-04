@@ -18,6 +18,7 @@ export const cageUpdater = (contractService: ContractDetailService, uuid: UuidSe
         },
         confirmation: cage?.confirmation ?? false,
         petTravelAcquisition: cage?.petTravelAcquisition ?? false,
+        isCabinTransporting: cage?.isCabinTransporting ?? false,
     }
 
     const response = await contractService.updateCage(contractId, detailId, updatedCage);

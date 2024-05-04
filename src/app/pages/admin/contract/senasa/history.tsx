@@ -14,7 +14,7 @@ export default function HistorySENASAPage() {
                 <title>Historial Inspección SENASA</title>
             </Helmet>
             <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION}>
-                <ContractSENASAView />
+                <ContractSENASAView title="Historial Senasa" />
             </RoutePermissionGuard>
         </>
     );

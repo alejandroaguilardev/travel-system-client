@@ -22,9 +22,9 @@ export const useAccompaniedForm = ({ contractId, contractDetailId, callback }: P
     const onSubmit: SubmitHandler<TravelAccompaniedSchema> = async (data, event) => {
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
-            const { accompaniedPet, destination, petPerCharge } = data;
+            const { accompaniedPet, destination, petPerCharge, observation = "" } = data;
 
-            const response = await AccompaniedPetUpdater(contractDetailService)(contractId, contractDetailId, accompaniedPet, destination, petPerCharge)
+            const response = await AccompaniedPetUpdater(contractDetailService)(contractId, contractDetailId, accompaniedPet, destination, petPerCharge, observation)
             showNotification("Actualizado con éxito");
             nativeEvent.submitter?.value === "reload"
                 ? reload()

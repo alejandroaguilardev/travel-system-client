@@ -14,7 +14,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ImpContractProvider } from './components/imp-pdf/imp-contract/imp-contract-context';
 import { ImpContractConsumer } from './components/imp-pdf/imp-contract/imp-contract-consumer';
-import ContractPdf from './presentation/contracts/pdf/contract-pdf';
 
 declare global {
   interface Window {
@@ -49,11 +48,7 @@ export default function App() {
                     <AlertModalProvider>
                       <Router />
                     </AlertModalProvider>
-                    <ImpContractConsumer
-                      document={({ contract }) => (
-                        <ContractPdf contract={contract} />
-                      )}
-                    />
+                    <ImpContractConsumer />
                   </ImpContractProvider>
                 </SnackbarProvider>
               </AuthConsumer>

@@ -47,7 +47,7 @@ export default function ClientView() {
                     <Box display="flex" justifyContent="center">
                         <Link component={RouterLink} href={paths.client.history}>
                             <Button variant='outlined' startIcon={<IconWrapper icon="docs" />}>
-                                Ver Historial de operaciones
+                                Ver historial de servicios
                             </Button>
                         </Link>
                     </Box>

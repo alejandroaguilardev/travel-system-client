@@ -21,5 +21,6 @@ export const contractCreateMother = (contract?: Partial<NewContract>): NewContra
         folder: contract?.folder,
         payInInstallments: contract?.payInInstallments ?? payInInstallmentsMother(),
         reasonForCancellation: contract?.reasonForCancellation ?? stringCreateMother(),
+        format: "Europa"
     };
 }

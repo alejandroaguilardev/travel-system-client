@@ -38,8 +38,6 @@ export const CageFormGeneral = ({ pet }: Props) => {
                     />
                 </Stack>
             </Stack>
-            <Typography fontWeight="bold">Jaula Recomendada</Typography>
-            <CageSelected readonly={true} keyField="chosen" />
         </Stack >
     );
 }

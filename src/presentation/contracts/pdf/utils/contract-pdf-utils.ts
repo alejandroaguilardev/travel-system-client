@@ -1,6 +1,6 @@
-import { fCurrency } from "../../../modules/shared/domain/helpers/format-number";
-import { fDateTimeLong } from "../../../modules/shared/infrastructure/helpers/format-time";
-import { Contract } from "../../../modules/contracts/domain/contract";
+import { fCurrency } from "../../../../modules/shared/domain/helpers/format-number";
+import { fDateTimeLong } from "../../../../modules/shared/infrastructure/helpers/format-time";
+import { Contract } from "../../../../modules/contracts/domain/contract";
 
 export const numberPets = (quantity: number): string => quantity.toString().padStart(2, '0');
 

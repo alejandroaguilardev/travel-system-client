@@ -86,16 +86,14 @@ export const AccompaniedFormGeneral = ({ client, notButton }: Props) => {
                     inputAdornment
                     select
                 >
-                    {PROFILE_DOCUMENT.map((document) => (
-                        <MenuItem key={document} value={document}>
-                            {document}
-                        </MenuItem>
-                    ))}
+                    <MenuItem key={PROFILE_DOCUMENT[1]} value={PROFILE_DOCUMENT[1]}>
+                        {PROFILE_DOCUMENT[1]}
+                    </MenuItem>
                 </RHFTextField>
 
                 <RHFTextField
                     name="accompaniedPet.documentNumber"
-                    label="Número de documento (*)"
+                    label="Número de pasaporte (*)"
                     inputAdornment
                 />
             </Stack>

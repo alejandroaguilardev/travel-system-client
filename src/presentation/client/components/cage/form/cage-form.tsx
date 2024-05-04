@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Cage } from '../../../../../modules/contracts/domain/contract-services/cage/cage';
 import FormProvider from '../../../../../components/hook-form/form-provider';
-import { Alert, Box, Button } from '@mui/material';
+import { Alert, Box, Button, Typography } from '@mui/material';
 import { useFormCage } from "./use-form-cage";
 import { cageSchema } from "./cage-validation";
 import { CageFormGeneral } from './cage-form-general';
@@ -11,6 +11,8 @@ import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/d
 import RHFCheckbox from '../../../../../components/hook-form/rhf-checkbox';
 import { CageChosen } from '../../../../../modules/contracts/domain/contract-services/cage/cage-chosen';
 import { Pet } from '../../../../../modules/pets/domain/pet';
+import { CageSelected } from "./cage-selected";
+import RHFSwitch from '../../../../../components/hook-form/rhf-switch';
 
 type Props = {
     contractId: string;
@@ -41,12 +43,27 @@ export const CageForm: FC<Props> = ({ cageRecommendation, pet, cage, onCancel, c
     const { onSubmit } = useFormCage({ contractId, detailId, callback });
     const confirmation = methods.watch("confirmation");
     const petTravelAcquisition = methods.watch("petTravelAcquisition");
+    const isCabinTransporting = methods.watch("isCabinTransporting");
 
     return (
 
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
             <CageFormGeneral pet={pet} />
-
+            <Box mb={4}>
+                <RHFSwitch
+                    sx={{ px: 2 }}
+                    name="isCabinTransporting"
+                    label="¿La mascota será transportada en cabina, de ser así se recomienda una jaula blanda"
+                />
+                {
+                    isCabinTransporting ?
+                        <Alert severity="warning">Recuerde coordinar con la aerolínea para asegurar que su mascota pueda viajar en cabina junto al acompañante.</Alert> :
+                        <>
+                            <Typography fontWeight="bold">Jaula Recomendada</Typography>
+                            <CageSelected readonly={true} keyField="chosen" />
+                        </>
+                }
+            </Box>
             <Alert icon={false} variant='standard' severity={confirmation ? "success" : "error"} sx={{ width: "100%", p: 0, mb: 1 }}>
                 <RHFCheckbox
                     name="confirmation"

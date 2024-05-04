@@ -8,9 +8,9 @@ import { CustomFormEvent } from '../../../../components/hook-form/types';
 import { errorsShowNotification } from '../../../../modules/shared/infrastructure/helpers/errors-show-notification';
 import { useMessage } from '../../../../hooks/use-message';
 import { contractUpdater } from '../../../../modules/contracts/application/update/contract-updater';
-import { ContractProps } from "../../pdf/contract-pdf";
 import { useImpContractContext } from "../../../../components/imp-pdf/imp-contract/imp-contract-context";
 import { TypeofImp } from "../../../../components/imp-pdf/imp-contract/type-contract";
+import { ContractProps } from "../../pdf/format-contract/types";
 
 type Props = {
     contract?: NewContract;

@@ -35,7 +35,7 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
 
     const onSubmit: SubmitHandler<TravelAccompaniedSchema> = async (dataForm) => {
         try {
-            const { accompaniedPet, destination, petPerCharge } = dataForm;
+            const { accompaniedPet, destination, petPerCharge, observation } = dataForm;
             const { updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge } = accompaniedFormat(accompaniedPet, destination, petPerCharge);
 
             const axiosInstance = axios.create({ baseURL: HOST_API });
@@ -43,7 +43,8 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
                 {
                     accompaniedPet: updatedAccompaniedPet,
                     destination: updatedTravelDestination,
-                    petPerCharge: updatedTravelPetPerCharge
+                    petPerCharge: updatedTravelPetPerCharge,
+                    observation
                 },
                 {
                     headers: {

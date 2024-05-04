@@ -8,12 +8,13 @@ export interface TravelAccompaniedSchema {
     petPerCharge: Partial<TravelPetPerCharge>;
     accompaniedPet: TravelAccompaniedPet;
     destination: TravelDestination;
+    observation?: string,
 }
 
 export const defaultValues: TravelAccompaniedSchema = {
     accompaniedPet: {
         name: '',
-        document: 'D.N.I.',
+        document: 'PASAPORTE',
         documentNumber: '',
         phone: '',
         email: '',
@@ -34,6 +35,7 @@ export const defaultValues: TravelAccompaniedSchema = {
         phone: '',
         email: '',
     },
+    observation: '',
 };
 
 export const accompaniedPetSchema: Yup.ObjectSchema<TravelAccompaniedPet> = Yup.object().shape({
@@ -67,7 +69,8 @@ export const petPerChargeSchema: Yup.ObjectSchema<Partial<TravelPetPerCharge>> =
 export const travelAccompaniedSchema: Yup.ObjectSchema<TravelAccompaniedSchema> = Yup.object().shape({
     accompaniedPet: accompaniedPetSchema,
     destination: destinationSchema,
-    petPerCharge: petPerChargeSchema
+    petPerCharge: petPerChargeSchema,
+    observation: Yup.string(),
 });
 
 
@@ -94,5 +97,6 @@ export const getDefaultValues = (travel?: Travel) => ({
         documentNumber: travel?.petPerCharge?.documentNumber || defaultValues.petPerCharge.documentNumber,
         phone: travel?.petPerCharge?.phone || defaultValues.petPerCharge.phone,
         email: travel?.petPerCharge?.email || defaultValues.petPerCharge.email,
-    }
+    },
+    observation: travel?.observation || defaultValues.observation,
 })

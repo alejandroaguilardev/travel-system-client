@@ -63,22 +63,20 @@ export const TopicoForm: FC<Props> = ({ action, contractId, clientId, detail, on
         }];
         if (!detail.pet?.id) return addTabs;
 
-        if (detail.documentation.chipCertificate.hasServiceIncluded) {
-            addTabs.push({
-                label: "Microchip",
-                value: TopicTabs.chip,
-                component: <ChipForm contractId={contractId} detail={detail}
-                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-            })
-        }
-        if (detail.documentation.vaccinationCertificate.hasServiceIncluded) {
-            addTabs.push({
-                label: vaccinationLabel(detail.pet?.type),
-                value: TopicTabs.vaccination,
-                component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
-                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-            })
-        }
+        addTabs.push({
+            label: "Microchip",
+            value: TopicTabs.chip,
+            component: <ChipForm contractId={contractId} detail={detail}
+                hasServiceIncluded={detail.documentation.chipCertificate.hasServiceIncluded}
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+        })
+        addTabs.push({
+            label: vaccinationLabel(detail.pet?.type),
+            value: TopicTabs.vaccination,
+            component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
+                hasServiceIncluded={detail.documentation.vaccinationCertificate.hasServiceIncluded}
+                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+        })
         if (detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded) {
             addTabs.push({
                 label: "Vacuna de Rabia",

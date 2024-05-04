@@ -36,14 +36,13 @@ export default function ContractTravelView({ id }: Props) {
                 {contract.details.map((detail, index) => (
                     <AccordionPet detail={detail} key={detail.id} index={index}>
                         <TravelForm
-                            adviserNumber={contract?.adviser?.profile?.phone ?? null}
+                            adviser={contract?.adviser}
                             onCancel={redirectData}
                             callback={() => false}
                             client={contract.client}
                             contractId={id}
                             detailId={detail.id}
                             travel={detail.travel}
-                            hasServiceIncluded={detail.travel.hasServiceIncluded}
                             isUser
                         />
                     </AccordionPet>

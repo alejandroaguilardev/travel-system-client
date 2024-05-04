@@ -7,10 +7,11 @@ import { RHFDate } from '../../../../components/hook-form/rhf-date';
 import { RHFTextField } from "../../../../components/hook-form";
 
 type Props = {
-    label: string
+    label: string;
+    showDate?: boolean;
 }
 
-export const CertificateFormGeneral = ({ label }: Props) => {
+export const CertificateFormGeneral = ({ label, showDate = true }: Props) => {
     const { watch, setValue } = useFormContext();
 
     const isApplied = watch("isApplied");
@@ -40,7 +41,7 @@ export const CertificateFormGeneral = ({ label }: Props) => {
 
                 />
                 {
-                    isApplied &&
+                    isApplied && showDate &&
                     <RHFDate
                         name="resultDate"
                         value={fDayjs(resultDate)}

@@ -29,3 +29,13 @@ export const userToNewUser = (user: User): NewUser => {
   });
   return { ...user, roles }
 }
+
+export const getLinkWhatApp = (user?: User): string => {
+  if (user?.linkWhatsApp) {
+    return user.linkWhatsApp
+  }
+  if (user?.profile?.phone) {
+    return `https://wa.me/${user.profile.phone}`
+  }
+  return `https://wa.me/51994748870`;
+}

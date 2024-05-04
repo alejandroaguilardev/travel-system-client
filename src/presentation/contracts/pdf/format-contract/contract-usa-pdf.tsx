@@ -1,14 +1,14 @@
 
 
 import { Document, Image, Page, StyleSheet, Text, View, Font } from '@react-pdf/renderer';
-import { pdfStyles } from '../../../theme/pdf';
-import { Contract } from '../../../modules/contracts/domain/contract';
-import { fCurrency } from '../../../modules/shared/domain/helpers/format-number';
-import { fDateTimeLong } from '../../../modules/shared/infrastructure/helpers/format-time';
-import { logoBase64 } from '../../../components/logo/logo-base64';
-import { signatureChristianBase64 } from './signature-christian';
-import { destination, numberPets, priceToPay } from './contract-pdf-utils';
-import { numberToWords } from '../../../modules/shared/domain/helpers/formar-number-words';
+import { pdfStyles } from '../../../../theme/pdf';
+import { fCurrency } from '../../../../modules/shared/domain/helpers/format-number';
+import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers/format-time';
+import { logoBase64 } from '../../../../components/logo/logo-base64';
+import { signatureChristianBase64 } from '../utils/signature-christian';
+import { destination, numberPets, priceToPay } from '../utils/contract-pdf-utils';
+import { numberToWords } from '../../../../modules/shared/domain/helpers/formar-number-words';
+import { ContractProps } from './types';
 
 Font.register({
     family: 'Roboto',
@@ -27,14 +27,8 @@ const Bar = () => (
     <Text style={{ marginTop: 2, marginBottom: 1, height: 3, width: "100%", backgroundColor: "#002060" }} />
 )
 
-export interface ContractProps {
-    contract: Contract;
-}
 
-interface Props extends ContractProps { }
-
-
-const ContractPdf = ({ contract }: Props) => {
+const ContractUsaPdf = ({ contract }: ContractProps) => {
 
     return (
         <Document>
@@ -230,4 +224,4 @@ const ContractPdf = ({ contract }: Props) => {
 
 
 
-export default ContractPdf
+export default ContractUsaPdf

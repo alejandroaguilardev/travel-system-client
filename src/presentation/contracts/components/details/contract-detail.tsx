@@ -19,6 +19,7 @@ import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers
 import Label from '../../../../components/label/label';
 import { statusColor } from '../table/status-color';
 import { TRAVEL_TYPES } from '../../../../modules/contracts/domain/contract-services/travel/contract-travel';
+import { contractDetailStatus } from '../table/columns/contract-detail-status';
 
 interface ContractDetailsProps {
     contract: Contract;
@@ -136,9 +137,7 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Estado:</TableCell>
                                 <TableCell sx={{ width: "50%" }}>
-                                    <Label color={statusColor(contract.status)}>
-                                        {CONTRACT_STATUS.find(_ => _.value === detail.documentation.status)?.label}
-                                    </Label>
+                                    {contractDetailStatus(contract.details, "documentation")}
                                 </TableCell>
                             </TableRow>
                             <TableRow hover>
@@ -184,7 +183,7 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Estado:</TableCell>
                                 <TableCell sx={{ width: "50%" }}>
-                                    <Label color={statusColor(contract.status)}>
+                                    <Label color={statusColor(detail.cage.status)}>
                                         {CONTRACT_STATUS.find(_ => _.value === detail.cage.status)?.label}
                                     </Label>
                                 </TableCell>
@@ -211,7 +210,7 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Estado:</TableCell>
                                 <TableCell sx={{ width: "50%" }}>
-                                    <Label color={statusColor(contract.status)}>
+                                    <Label color={statusColor(detail.travel.status)}>
                                         {CONTRACT_STATUS.find(_ => _.value === detail.travel.status)?.label}
                                     </Label>
                                 </TableCell>

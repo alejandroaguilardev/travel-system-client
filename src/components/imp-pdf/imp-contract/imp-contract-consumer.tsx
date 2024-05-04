@@ -1,14 +1,21 @@
-import { Contract } from 'src/modules/contracts/domain/contract';
+import { FC } from 'react';
 import { PdfBlob } from '../pdf-blob';
 import { PdfViewerDialog } from '../pdf-viewer-dialog';
 import { ImpContractContext } from './imp-contract-context';
+import { ContractAsiaPdf, ContractEuropaPdf, ContractLatamPdf, ContractUsaPdf } from '../../../presentation/contracts/pdf/format-contract';
+import { Contract } from '../../../modules/contracts/domain/contract';
 
-interface Props {
-    document: ({ contract }: { contract: Contract }) => JSX.Element;
-    onClose?: () => void;
-};
 
-export function ImpContractConsumer({ document, onClose }: Props) {
+const SelectContract: FC<{ contract: Contract }> = ({ contract }) => {
+    if ("Europa" === contract.format) return <ContractEuropaPdf contract={contract} />
+    if ("América del Norte" === contract.format) return <ContractUsaPdf contract={contract} />
+    if ("América Latina" === contract.format) return <ContractLatamPdf contract={contract} />
+    if ("Europa" === contract.format) return <ContractAsiaPdf contract={contract} />
+
+    return <ContractAsiaPdf contract={contract} />
+}
+
+export function ImpContractConsumer() {
     return (
         <ImpContractContext.Consumer>
             {({ dataProps, handleDataViewerPdf, closeDialogViewer, isOpenPdf, isOpenViewer }) => (
@@ -19,13 +26,12 @@ export function ImpContractConsumer({ document, onClose }: Props) {
                             isOpen={isOpenViewer}
                             onClose={() => {
                                 closeDialogViewer();
-                                if (onClose) onClose();
                             }} >
-                            {document({ contract: dataProps })}
+                            <SelectContract contract={dataProps} />
                         </PdfViewerDialog>
                     }
                     {dataProps && isOpenPdf && <PdfBlob handleDataViewerPdf={handleDataViewerPdf}>
-                        {document({ contract: dataProps })}
+                        <SelectContract contract={dataProps} />
                     </PdfBlob>}
                 </>
             )

@@ -22,6 +22,8 @@ import { travelDestinationValidate } from "src/modules/contracts/domain/contract
 import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
 import { PetNotFoundRedirect } from '../../pet-not-found-redirect/pet-not-found-redirect';
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
+import { paths } from '../../../../../app/routes/paths';
+import { AlertRedirectButton } from '../../../../../components/alert-redirect-button/alert-redirect-button';
 
 type Props = {
     contractId: string;
@@ -72,10 +74,11 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
         return <PetNotFoundRedirect contractId={contractId} pet={detail?.pet} />
     }
 
-    if (!isPetValidateDataCompleted(detail?.pet)) return <Alert severity="error">Faltan llenar todos los datos de la mascota</Alert>
     if (!detail.travel.airlineReservation.departureDate) return <ErrorSenasaTravelDate contractId={contractId} />
-    if (!travelDestinationValidate(detail.travel.destination)) return <Alert severity="error">Faltan llenar todos los datos del destino a donde se dirige la mascota</Alert>
-    if (!travelAccompaniedPetValidate(detail.travel?.accompaniedPet)) return <Alert severity="error">Faltan llenar todos los datos del acompañante de la mascota</Alert>
+
+    if (!travelDestinationValidate(detail.travel.destination)) return <AlertRedirectButton alert={{ label: "Faltan llenar todos los datos del destino a donde se dirige la mascota", color: "error" }} button={{ label: "Ir a la toma de muestra", redirect: paths.dashboard.contractTravel.update(contractId) }} />
+
+    if (!travelAccompaniedPetValidate(detail.travel?.accompaniedPet)) return <AlertRedirectButton alert={{ label: "Faltan llenar todos los datos del acompañante de la mascota", color: "error" }} button={{ label: "Ir a la toma de muestra", redirect: paths.dashboard.contractTravel.update(contractId) }} />
 
 
     return (
@@ -83,7 +86,7 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
             {
                 isEdit && <>
-                    {!senasaDocuments?.executionDate && !senasaDocuments?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha asignado fecha de inspección</Alert>}
+                    {!senasaDocuments?.executionDate && !senasaDocuments?.isApplied && !isExecuted && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha asignado fecha de inspección</Alert>}
                     {!senasaDocuments?.isApplied && !isExecuted && <Alert severity="warning">Aùn no se ha marcado que la inspección senasa fue realizada correctamente</Alert>}
 
                     {senasaDocuments?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}

@@ -7,4 +7,5 @@ export interface Cage {
   chosen: CageChosen;
   confirmation?: boolean;
   petTravelAcquisition?: boolean;
+  isCabinTransporting?: boolean;
 }

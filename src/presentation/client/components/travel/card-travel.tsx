@@ -7,6 +7,7 @@ import { useBoolean } from '../../../../hooks/use-boolean';
 import { DialogContract } from '../dialog/dialog-contract';
 import { TravelForm } from './form/travel-form';
 import { useContractStore } from '../../../../state/contract/contract-store';
+import { travelAccompaniedPetValidate } from '../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
 
 type Props = {
     travel: Travel;
@@ -17,6 +18,14 @@ type Props = {
 export default function CardTravel({ travel, contractId, detailId }: Props) {
     const dialog = useBoolean();
     const { onSelected, onSelectedDetail, contract } = useContractStore();
+
+    const labelStatus = (travel: Travel) => {
+        const status = CONTRACT_STATUS.find(_ => _.value === travel.status);
+        if (status?.value === "completed") return status.label;
+
+        if (!travelAccompaniedPetValidate(travel.accompaniedPet)) return "Debe indicar el acompañante";
+        return status?.label ?? "";
+    }
 
     return (
         <>
@@ -52,7 +61,7 @@ export default function CardTravel({ travel, contractId, detailId }: Props) {
                         sx={{ color: 'primary.main', typography: 'caption' }}
                     >
                         <Label color={statusColor(travel.status)} width="100%" >
-                            {CONTRACT_STATUS.find(_ => _.value === travel.status)?.label}
+                            {labelStatus(travel)}
                         </Label>
                     </Stack>
 
@@ -87,12 +96,11 @@ export default function CardTravel({ travel, contractId, detailId }: Props) {
                     onClose={dialog.onFalse}
                 >
                     <TravelForm
-                        adviserNumber={contract?.adviser?.profile?.phone ?? null}
+                        adviser={contract?.adviser ?? null}
                         onCancel={dialog.onFalse}
                         contractId={contractId}
                         client={contract.client}
                         travel={travel}
-                        hasServiceIncluded={travel.hasServiceIncluded}
                         detailId={detailId}
                         callback={(response) => {
                             onSelected(response?.contract ?? null);

@@ -34,6 +34,7 @@ export const travelSchema: Yup.ObjectSchema<PartialTravel> = Yup.object().shape(
     }),
     hasServiceIncluded: Yup.boolean(),
     guideNumber: Yup.string(),
+    observation: Yup.string(),
 
 });
 

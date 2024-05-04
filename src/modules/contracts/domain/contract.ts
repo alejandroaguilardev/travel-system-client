@@ -15,6 +15,7 @@ export interface Contract extends ContractPayments {
     details: ContractDetail[];
     adviser: User;
     price: number;
+    format: string;
     finishClient?: boolean;
     reasonForCancellation?: string;
     user: string;
@@ -36,3 +37,5 @@ export interface NewPostContract extends Omit<NewContract, "details"> {
 export interface ContractPayments {
     payInInstallments?: PayInInstallment[];
 }
+
+

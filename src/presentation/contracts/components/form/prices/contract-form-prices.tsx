@@ -1,4 +1,4 @@
-import { FormControlLabel, InputAdornment, Paper, Stack, Switch, TextField, Typography } from '@mui/material';
+import { FormControlLabel, InputAdornment, MenuItem, Paper, Stack, Switch, TextField, Typography } from '@mui/material';
 import { RHFTextField } from '../../../../../components/hook-form';
 import { useContractFormPrices } from './use-contract-form-prices';
 import { Counter } from '../../../../../components/counter/counter';
@@ -16,6 +16,19 @@ export const ContractFormPrices = () => {
                 my: 3,
             }}>
             <Stack spacing={1} marginBottom={2}>
+                <Typography variant='h5' mb={2}>Formato contrato</Typography>
+                <Stack spacing={1} marginBottom={1}>
+                    <RHFTextField
+                        name="format"
+                        label="Formato de contrato"
+                        select
+                    >
+                        <MenuItem value="Europa" >Europa</MenuItem>
+                        <MenuItem value="América del Norte" >América del Norte</MenuItem>
+                        <MenuItem value="América Latina" >América Latina</MenuItem>
+                        <MenuItem value="Asia" >Asia</MenuItem>
+                    </RHFTextField>
+                </Stack>
                 <Typography variant='h5' mb={2}>Resumen de Pago</Typography>
                 <Stack spacing={1} marginBottom={1}>
                     <RHFTextField

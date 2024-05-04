@@ -55,6 +55,13 @@ export const DestinationFormGeneral = ({ notButton }: Props) => {
                     label="Dirección destino (*)"
                     inputAdornment
                 />
+                <RHFTextField
+                    name="observation"
+                    label="Observaciones"
+                    multiline
+                    rows={3}
+
+                />
             </Stack>
         </>
     )

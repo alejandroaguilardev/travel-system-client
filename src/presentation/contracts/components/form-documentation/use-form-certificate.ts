@@ -10,6 +10,7 @@ import { useState } from "react";
 import { ContractStatus } from '../../../../modules/contracts/domain/contract-status';
 import { useAuthContext } from '../../../auth/hooks/use-auth-context';
 import { useHasSendEmail } from '../../../../hooks/use-has-send-email';
+import { topicMessageMail } from "../../helpers/topic-get-message";
 
 type Props = {
     contractId: string;
@@ -33,7 +34,7 @@ export const useFormCertificate = ({ contractId, detailId, action, status, callb
             showNotification("Actualizado correctamente ");
             if (hasSendEmail) {
                 data.isApplied
-                    ? contractDetailService.mailDetail(contractId, detailId)
+                    ? contractDetailService.mailDetail(contractId, detailId, topicMessageMail(action))
                     : contractDetailService.mailSenasaIntroduceContract(contractId, detailId);
             }
             setIsExecuted(true);

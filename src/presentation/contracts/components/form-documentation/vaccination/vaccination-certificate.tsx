@@ -15,6 +15,8 @@ import { paths } from '../../../../../app/routes/paths';
 import { TopicTabs } from "../../form-topico/topico-form";
 import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/pet';
 import { PetNotFoundRedirect } from "../../pet-not-found-redirect/pet-not-found-redirect";
+import { CertificateDownload } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { CertificationAlert } from "../certification-alert/certification-alert";
 
 type Props = {
     contract: Contract;
@@ -41,7 +43,7 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
     }
 
     return (
-        <>
+        <CertificationAlert contractId={contract.id} detail={detail}>
             {
                 vaccinationCertificate?.isApplied ?
                     <Stack>
@@ -76,7 +78,7 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
                                 />
                                 <Label color="success" width="100%" my={2}>Completado</Label>
                                 <LoadingButton
-                                    onClick={() => downloadCertificate(contract.id, detail.id)}
+                                    onClick={() => downloadCertificate(contract.id, detail.id, CertificateDownload.VACCINATION)}
                                     disabled={isLoading}
                                     loading={isLoading}
                                     variant='outlined'
@@ -89,8 +91,6 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
                     </Stack>
                     : <AlertRedirectButton alert={{ label: "Aùn no se ha guardado la información de la persona que será titular de los documentos", color: "warning" }} button={{ label: "Ir Ir a vacunación de la mascota", redirect: paths.dashboard.faseDocumentation.topico.management(contract.id, TopicTabs.vaccination) }} />
             }
-
-        </>
-
+        </CertificationAlert>
     );
 };

@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import uuid from '../../../../../modules/shared/infrastructure/adapter/uuid';
 import { ContractDetail, NewContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
-import { Pet } from '../../../../../modules/pets/domain/pet';
-import { usePetDialogContext } from '../../../../pets/components/search/pet-dialog-context';
 import { detailInit } from '../contract-validations';
 
 

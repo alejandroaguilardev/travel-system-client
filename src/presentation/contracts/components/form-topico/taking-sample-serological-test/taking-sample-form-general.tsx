@@ -36,6 +36,7 @@ export const TakingSampleSerologicalTestContractFormGeneral = () => {
                     >
 
                         <MenuItem value="PR">Muestra PR</MenuItem>
+                        <MenuItem value="RV">Muestra RV</MenuItem>
                         <MenuItem value="AYU">Muestra AYU</MenuItem>
                     </RHFTextField>
                 </Stack>

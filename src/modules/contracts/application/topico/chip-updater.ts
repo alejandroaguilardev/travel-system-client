@@ -5,8 +5,6 @@ import { PetService } from '../../../pets/domain/pet.service';
 
 export const contractChipUpdater = (contractDetailService: ContractDetailService, petService: PetService) => async (contractId: string, detailId: string, petId: string, chip: ChipContract): Promise<ContractDetailUpdateResponse> => {
 
-    chip.executed = true;
-
     await petService.updateChip(petId, chip.description!, chip.date!);
     const response = await contractDetailService.updateTopico(contractId, detailId, TOPICO_KEYS.chip, { chip });
     return response;

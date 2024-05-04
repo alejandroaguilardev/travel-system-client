@@ -2,7 +2,7 @@ import { Contract } from './contract';
 import { ContractDetail, ContractPetUpdater } from './contract-detail';
 import { Criteria } from '../../shared/domain/criteria/criteria';
 import { ResponseSearch } from '../../shared/domain/response/response-search';
-import { Documentation } from './contract-services/documentation/documentation';
+import { CertificateDownload, Documentation } from './contract-services/documentation/documentation';
 import { Cage } from './contract-services/cage/cage';
 import { PartialTravel } from './contract-services/travel/contract-travel';
 import { TravelPetPerCharge } from './contract-services/travel/travel-pet-per-charge';
@@ -29,15 +29,16 @@ export interface ContractDetailService {
         detailId: string,
         accompaniedPet: TravelAccompaniedPet,
         destination: TravelDestination,
-        petPerCharge: TravelPetPerCharge
+        petPerCharge: TravelPetPerCharge,
+        observation: string,
     ): Promise<ContractDetailUpdateResponse>;
     updatePet(contractId: string, details: ContractPetUpdater[]): Promise<ResponseSuccess>;
     mailTopicRabiesReVaccination(contractId: string, detailId: string): Promise<void>;
-    mailDetail(contractId: string, detailId: string): Promise<void>;
+    mailDetail(contractId: string, detailId: string, message?: string): Promise<void>;
     mailTravelDetail(contractId: string, detailId: string): Promise<void>;
     mailTakingSample(contractId: string, detailId: string): Promise<void>;
     mailTakingSampleExecuted(contractId: string, detailId: string): Promise<void>;
     mailSenasaIntroduceContract(contractId: string, detailId: string): Promise<void>;
     downloadSenasaExcel(contractId: string, detailId: string): Promise<{ file: string, name: string }>;
-    downloadCertificateExcel(contractId: string, detailId: string): Promise<{ file: string, name: string }>;
+    downloadCertificateExcel(contractId: string, detailId: string, certificate: CertificateDownload): Promise<{ file: string, name: string }>;
 }

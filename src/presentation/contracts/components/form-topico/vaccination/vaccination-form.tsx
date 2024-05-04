@@ -15,11 +15,12 @@ type Props = {
     title: string;
     contractId: string;
     detail: ContractDetail;
+    hasServiceIncluded: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const VaccinationForm: FC<Props> = ({ title, detail, callback, contractId, onCancel }) => {
+export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded, contractId, callback, onCancel }) => {
     const vaccination = detail?.topico?.vaccination;
     const methods = useForm({
         resolver: yupResolver<VaccinationContract>(vaccinationContractObjectSchema),
@@ -33,7 +34,7 @@ export const VaccinationForm: FC<Props> = ({ title, detail, callback, contractId
         }
     });
 
-    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormVaccination({ contractId, detail, callback });
+    const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormVaccination({ contractId, detail, callback, hasServiceIncluded });
 
 
     return (
@@ -46,7 +47,9 @@ export const VaccinationForm: FC<Props> = ({ title, detail, callback, contractId
                 {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
                 <VaccinationFormGeneral title={title} />
-                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                {hasServiceIncluded &&
+                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                }
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

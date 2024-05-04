@@ -12,9 +12,10 @@ import { useSelectedContract } from '../../hooks/use-selected-contract';
 
 type Props = {
     columnQueryFilters?: MRT_ColumnFiltersState;
+    title: string;
 }
 
-export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
+export default function ContractSENASAView({ columnQueryFilters = [], title }: Props) {
     const columns = useColumnsSenasa();
     const { selected, handleSelected, isLoading, open, setOpen } = useSelectedContract();
     const [isLoadingTable, setIsLoadingTable] = useState(false);
@@ -27,7 +28,7 @@ export default function ContractSENASAView({ columnQueryFilters = [] }: Props) {
     return (
         <Container maxWidth='xl'>
             <CustomBreadcrumbs
-                heading="Inspección SENASA"
+                heading={title}
                 links={[
                     { name: 'SENASA', href: paths.dashboard.contracts.root },
                     {

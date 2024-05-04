@@ -27,6 +27,7 @@ const detailInit: NewContractDetail = {
         status: "pending",
         confirmation: false,
         petTravelAcquisition: false,
+        isCabinTransporting: false,
 
     },
     pet: undefined,
@@ -67,6 +68,7 @@ const detailInit: NewContractDetail = {
             directionDestination: "",
         },
         guideNumber: '',
+        observation: '',
     },
     documentation: {
         status: 'none',
@@ -92,12 +94,14 @@ const defaultValues: NewContract = {
     price: 0,
     payInInstallments: [],
     reasonForCancellation: "",
+    format: "",
 
 };
 
 const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
     id: Yup.string(),
     folder: Yup.string(),
+    format: Yup.string().required('El formato de contrato es requerido'),
     number: Yup.string(),
     client: Yup.string().required('El cliente es requerido'),
     startDate: Yup.date().required('La fecha de inicio es requerida'),

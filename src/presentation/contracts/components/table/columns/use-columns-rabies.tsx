@@ -109,6 +109,7 @@ export const useColumnsRabies = () => {
                         const type = _.topico?.takingSampleSerologicalTest?.typeSample;
                         let color: LabelColor = "default";
                         if (type === "PR") color = "info";
+                        if (type === "RV") color = "info";
                         if (type === "AYU") color = "warning";
                         return <Label color={color} width="100%">{type}
                         </Label>

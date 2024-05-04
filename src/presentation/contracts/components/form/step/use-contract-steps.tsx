@@ -7,10 +7,11 @@ import { StepType } from '../../../../../components/stepper/types';
 import { NewContract } from '../../../../../modules/contracts/domain/contract';
 import { useMessage } from '../../../../../hooks/use-message';
 import { ContractFormPrices } from '../prices/contract-form-prices';
+import { countries } from '../../../../../modules/shared/domain/helpers/countries';
 
 
 export const useContractSteps = () => {
-    const { getValues } = useFormContext<NewContract>();
+    const { getValues, setValue } = useFormContext<NewContract>();
     const { showNotification } = useMessage();
 
     const steps: StepType[] = useMemo(() => [
@@ -55,7 +56,8 @@ export const useContractSteps = () => {
                     }
                 })
                 if (errorStep) return;
-
+                const format = formatContract(values.details?.[0].travel?.destination?.countryDestination);
+                setValue("format", format);
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
             }
@@ -72,3 +74,16 @@ export const useContractSteps = () => {
         steps
     };
 };
+
+
+const formatContract = (value?: string): string => {
+    const country = countries.find(_ => value === _.name_es);
+    if (!country) return "Europa";
+
+    if (country.continent_en === "Europa") return country.continent_es;
+    if (country.name_en === "United States" || country.name_en === "Canada") return country.continent_es;
+    if (country.continent_en === "South America") return "América Latina";
+    if (country.continent_en === "North America") return "América Latina";
+    if (country.continent_en === "Asia") return country.continent_en;
+    return "Europa"
+}

@@ -23,3 +23,10 @@ export const DOCUMENTATION_KEYS = {
   senasaDocuments: "senasaDocuments",
   emotionalSupportCertificate: "emotionalSupportCertificate",
 };
+
+
+export enum CertificateDownload {
+  MICROCHIP = "chipCertificate",
+  HEALTH = "healthCertificate",
+  VACCINATION = "vaccinationCertificate",
+} 

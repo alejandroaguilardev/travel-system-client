@@ -13,7 +13,7 @@ export const PetNotFoundRedirect: FC<Props> = ({ contractId, pet }) => {
     let message = 'No se ha registrado asignado mascota al contrato'
 
     if (!pet?.chip) {
-        message = "No se ha registrado asignado mascota al contrato";
+        message = "No se ha indicado el número de microchip de la mascota";
     } else if (!pet.name) {
         message = "No se ha indicado el nombre de la mascota en al contrato";
     } else if (!pet.race) {

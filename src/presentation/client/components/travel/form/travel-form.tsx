@@ -15,23 +15,23 @@ import { AccompaniedFormGeneral } from "../../accompanied-form/steps/accompanied
 import { DestinationFormGeneral } from "../../accompanied-form/steps/destination-form";
 import { ChargeFormGeneral } from '../../accompanied-form/steps/charge-form-general';
 import { AccompaniedStep } from "../../accompanied-form/steps/accompanied-steps";
-import { CommunicateAdviser } from "src/components/communicate-adviser/communicate-adviser";
-import { User } from '../../../../../modules/users/domain/user';
+import { User, getLinkWhatApp } from '../../../../../modules/users/domain/user';
+import { ContactWhatsApp } from "../../../../../components/contact-whats-app/contact-whats-app";
 
 type Props = {
     contractId: string;
     detailId: string;
     travel: Travel;
-    hasServiceIncluded: boolean;
     callback: (response?: ContractDetailUpdateResponse) => void
     onCancel: () => void;
-    adviserNumber: string | null;
+    adviser?: User;
     client: User;
     isUser?: boolean;
 
 }
 
-export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, adviserNumber, callback, onCancel, hasServiceIncluded, contractId }) => {
+
+export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, adviser, callback, onCancel, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<PartialTravel>(travelSchema),
         defaultValues: {
@@ -39,30 +39,15 @@ export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, advise
             airlineReservation: {
                 ...travel.airlineReservation,
                 departureAirport: travel.airlineReservation?.departureAirport || defaultValues.airlineReservation.departureAirport
-            }
+            },
         },
     });
 
+
     const { onSubmit } = useFormTravel({ contractId, detailId, callback });
 
-    const edit = (travel.status !== "completed") || !hasServiceIncluded;
+    const edit = (travel.status === "completed");
     const tabs = [
-        {
-            value: "Reserva",
-            component: <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-                <TravelFormGeneral hasServiceIncluded={!isUser ?? hasServiceIncluded} />
-                {(edit || isUser) &&
-                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                            Cancelar
-                        </Button>
-                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                            Actualizar
-                        </Button>
-                    </Box>
-                }
-            </FormProvider>
-        },
         {
             value: "Datos del acompañante",
             component: <AccompaniedForm
@@ -76,17 +61,34 @@ export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, advise
                     <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={false} status={travel?.status ?? "pending"} client={client} />
                     :
                     <>
-                        <CommunicateAdviser number={adviserNumber} />
                         <AccompaniedFormGeneral notButton />
                         <DestinationFormGeneral notButton />
                         {travel?.typeTraveling === "charge" &&
                             <ChargeFormGeneral notButton />
                         }
+                        <ContactWhatsApp url={getLinkWhatApp(adviser)} text="Contactar Asesor" />
                     </>
                 }
 
             </AccompaniedForm>
 
+        },
+        {
+            value: "Reserva",
+            component: <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
+                <TravelFormGeneral hasServiceIncluded={edit} />
+                {(!edit || isUser) ?
+                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            Actualizar
+                        </Button>
+                    </Box>
+                    : <ContactWhatsApp url={getLinkWhatApp(adviser)} text="Contactar Asesor" />
+                }
+            </FormProvider>
         },
     ]
 

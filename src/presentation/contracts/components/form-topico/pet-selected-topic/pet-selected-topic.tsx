@@ -36,7 +36,7 @@ export const PetSelectedTopic: FC<Props> = ({ pet, callback, adopterId, onCancel
             <SelectPetExist clientId={adopterId} handleSelected={handleChangePet} />
 
             <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-                <PetFormGeneral hasMeasurementsAndWeight hasRecommendation hasChip />
+                <PetFormGeneral hasMeasurementsAndWeight hasRecommendation />
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

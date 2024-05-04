@@ -17,5 +17,6 @@ export const cageSchema: Yup.ObjectSchema<Cage> = Yup.object().shape({
         'La confirmación es obligatoria',
         value => value === true
     ),
-    petTravelAcquisition: Yup.boolean()
+    petTravelAcquisition: Yup.boolean(),
+    isCabinTransporting: Yup.boolean()
 });

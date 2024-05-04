@@ -11,4 +11,6 @@ export const contractGlobalFilterProperties: FilterProperty[] = [
     { field: "client.profile.name", value: "string" },
     { field: "client.profile.lastName", value: "string" },
     { field: "client.profile.documentNumber", value: "string" },
+    { field: "details.pet.name", value: "string" },
+    { field: "details.pet.chip", value: "string" },
 ];

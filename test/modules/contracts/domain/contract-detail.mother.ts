@@ -18,6 +18,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
             chosen: chosenCreateMother(),
             confirmation: faker.datatype.boolean(),
             petTravelAcquisition: faker.datatype.boolean(),
+            isCabinTransporting: faker.datatype.boolean(),
         },
         documentation: {
             chipCertificate: {
@@ -129,6 +130,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 cityDestination: "",
                 directionDestination: "",
             },
+            observation: "",
         },
     };
 

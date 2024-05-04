@@ -18,7 +18,15 @@ export const chipObjectSchema: Yup.ObjectSchema<ChipContract> = Yup.object().sha
     hasIncluded: Yup.boolean(),
     executed: Yup.boolean(),
     date: Yup.date(),
-    description: chipValidationYup.required("El microchip es requerido"),
+    description: chipValidationYup.test(
+        'is-true',
+        'El chip es requerido',
+        function (value) {
+            const { executed } = this.parent;
+            if (!value && executed) return false;
+            return true
+        }
+    ),
     observation: Yup.string(),
     user: Yup.string(),
 });

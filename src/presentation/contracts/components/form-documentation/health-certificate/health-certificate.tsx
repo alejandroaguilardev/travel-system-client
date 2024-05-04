@@ -9,7 +9,7 @@ import { DocumentationCertificate } from '../../../../../modules/contracts/domai
 import { certificateSchema, defaultValues } from "../certificate-validation";
 import { useFormCertificate } from "../use-form-certificate";
 import FormProvider from "../../../../../components/hook-form/form-provider";
-import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { CertificateDownload, DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { CertificateFormGeneral } from "../certificate-form-general";
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 import { Contract } from '../../../../../modules/contracts/domain/contract';
@@ -20,6 +20,7 @@ import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/d
 import { paths } from '../../../../../app/routes/paths';
 import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/pet';
 import { PetNotFoundRedirect } from "../../pet-not-found-redirect/pet-not-found-redirect";
+import { CertificationAlert } from '../certification-alert/certification-alert';
 
 type Props = {
     contractId: string;
@@ -52,55 +53,46 @@ export const HealthCertificateForm: FC<Props> = ({ detail, callback, contractId,
 
     if (!methods.watch("hasServiceIncluded")) return <Alert sx={{ mt: 1 }} severity="error">El servicio no está incluido en este contrato</Alert>
 
-
-    if (!isPetValidateDataCompleted(detail.pet) || !detail?.pet) {
-        return <PetNotFoundRedirect contractId={contract.id} pet={detail?.pet} />
-    }
-
-    if (!travelAccompaniedPetValidate(detail.travel.accompaniedPet)) {
-        return detail.travel.typeTraveling === "accompanied"
-            ? <AlertRedirectButton alert={{ label: "Aùn no se ha guardado la información  relacionada a la persona que acompañará a la mascota", color: "warning" }} button={{ label: "Ir a Fase Reserva", redirect: paths.dashboard.contractTravel.update(contract.id) }} />
-            : <AlertRedirectButton alert={{ label: "Aùn no se ha guardado la información de la persona que será titular de los documentos", color: "warning" }} button={{ label: "Ir a Fase Reserva", redirect: paths.dashboard.contractTravel.update(contract.id) }} />
-    }
-
     return (
-        <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-            <Typography fontWeight="bold">Certificado de salud</Typography>
-            {!healthCertificate?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
+        <CertificationAlert contractId={contract.id} detail={detail}>
+            <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
+                <Typography fontWeight="bold">Certificado de salud</Typography>
+                {!healthCertificate?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al certificado</Alert>}
 
-            {healthCertificate?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                {healthCertificate?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
 
-            {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
+                {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
-            <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <CertificateFormGeneral label="¿Certificado realizado?" />
-                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
+                    <CertificateFormGeneral label="¿Certificado realizado?" />
+                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 
-                {(healthCertificate?.isApplied || isExecuted) &&
-                    <LoadingButton
-                        onClick={() => downloadCertificate(contract.id, detail.id)}
-                        disabled={isLoading}
-                        loading={isLoading}
-                        variant='outlined'
-                        fullWidth
-                        sx={{ mb: 1 }}
-                    >  Descargar datos del certificado en excel
-                    </LoadingButton>
-                }
+                    {(healthCertificate?.isApplied || isExecuted) &&
+                        <LoadingButton
+                            onClick={() => downloadCertificate(contract.id, detail.id, CertificateDownload.HEALTH)}
+                            disabled={isLoading}
+                            loading={isLoading}
+                            variant='outlined'
+                            fullWidth
+                            sx={{ mb: 1 }}
+                        >  Descargar datos del certificado en excel
+                        </LoadingButton>
+                    }
 
 
-                {healthCertificate?.hasServiceIncluded &&
-                    <Box display="flex" gap={1} justifyContent="center" >
-                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                            Cancelar
-                        </Button>
-                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                            {healthCertificate?.isApplied ? "Actualizar Certificado de salud" : "Guardar Certificado de salud"}
-                        </Button>
+                    {healthCertificate?.hasServiceIncluded &&
+                        <Box display="flex" gap={1} justifyContent="center" >
+                            <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                                Cancelar
+                            </Button>
+                            <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                                {healthCertificate?.isApplied ? "Actualizar Certificado de salud" : "Guardar Certificado de salud"}
+                            </Button>
 
-                    </Box>
-                }
-            </Stack>
-        </FormProvider>
+                        </Box>
+                    }
+                </Stack>
+            </FormProvider>
+        </CertificationAlert>
     );
 };
