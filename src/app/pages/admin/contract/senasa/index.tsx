@@ -9,7 +9,9 @@ import { CONTRACT_STATUS_IN_COURSE } from '../../../../../presentation/contracts
 
 export default function ContractSENASAPage() {
     const { user } = useAuthContext();
-    const columnQueryFilters: MRT_ColumnFiltersState = [...CONTRACT_STATUS_IN_COURSE];
+    const columnQueryFilters: MRT_ColumnFiltersState = [
+        ...CONTRACT_STATUS_IN_COURSE,
+    ];
 
     return (
         <>

@@ -15,9 +15,18 @@ type Props = {
     finish: boolean;
 };
 
+const labelStatus = (documentation: Documentation): string => {
+
+    if (documentation.status === "pending") return "EN PROCESO";
+    if (documentation.clientStatus !== "completed") return "FALTAN DOCUMENTOS";
+    return CONTRACT_STATUS.find(_ => _.value === documentation.clientStatus)?.label ?? "PENDIENTE";
+}
+
 export default function CardDocumentation({ documentation, finish, contractId, detailId }: Props) {
     const dialog = useBoolean();
     const { onSelected, onSelectedDetail } = useContractStore();
+
+
 
     return (
         <>
@@ -52,14 +61,14 @@ export default function CardDocumentation({ documentation, finish, contractId, d
                         alignItems="center"
                         sx={{ color: 'primary.main', typography: 'caption' }}
                     >
-                        <Label color={statusColor(documentation.status)} width="100%" >
-                            {CONTRACT_STATUS.find(_ => _.value === documentation.status)?.label}
+                        <Label color={statusColor(documentation.clientStatus)} width="100%" >
+                            {labelStatus(documentation)}
                         </Label>
                     </Stack>
 
                     <ListItemText
                         sx={{ my: 1, }}
-                        secondary={documentation.status === "completed"
+                        secondary={documentation.clientStatus === "completed"
                             ? "TODOS LOS DOCUMENTOS RECIBIDOS. LISTOS PARA EL SIGUIENTE PASO. ¡GRACIAS!."
                             : "FALTAN DOCUMENTOS NECESARIOS. POR FAVOR, PROPORCIONE LA INFORMACIÓN."}
                         secondaryTypographyProps={{
@@ -70,7 +79,7 @@ export default function CardDocumentation({ documentation, finish, contractId, d
                     />
                     <Box display="flex" justifyContent="center" my={2}>
                         {
-                            documentation.status === "completed" ?
+                            documentation.clientStatus === "completed" ?
                                 <Alert variant='outlined' >REQUISITOS COMPLETADOS</Alert>
                                 :
                                 <Button variant='outlined' color="error" fullWidth >Consultar Requisitos</Button>

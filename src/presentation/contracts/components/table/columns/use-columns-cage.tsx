@@ -1,13 +1,63 @@
 import { MRT_ColumnDef } from 'material-react-table'
 import { useMemo } from 'react'
-import { Contract } from '../../../../../modules/contracts/domain/contract'
+import { Contract, correlativeToString } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { contractDetailStatus, contractDetailsPetNames } from './contract-detail-status';
+import { contractDetailStatus, contractDetailsPetNames, dateDepartureIsLastWeek } from './contract-detail-status';
 
 
 export const useColumnsCage = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
+            {
+                header: 'Mascota',
+                accessorKey: 'details.profile.lastName',
+                accessorFn: ({ details }) => contractDetailsPetNames(details),
+                minSize: 170,
+                enableColumnFilter: false,
+            },
+            {
+                header: 'Fecha de viaje',
+                accessorKey: 'details.travel.airlineReservation.departureDate',
+                Cell: ({ cell }) => {
+                    const dates = cell.row.original.details.map(_ => _.travel.airlineReservation.departureDate);
+                    return dateDepartureIsLastWeek(dates)
+                },
+                minSize: 200
+            },
+            {
+                header: "F. E. de viaje",
+                accessorKey: 'estimatedDate',
+                accessorFn: (row) => dateDepartureIsLastWeek([row.estimatedDate]),
+                minSize: 200
+            },
+            {
+                header: 'Tipo',
+                accessorKey: 'details.cage.chosen.typeCage',
+                Cell: ({ cell }) => {
+                    const dates = cell.row.original.details.map(_ => _.cage.chosen.typeCage);
+                    return dates.join(", ")
+                },
+                minSize: 200
+            },
+            {
+                header: 'Modelo',
+                accessorKey: 'details.cage.chosen.modelCage',
+                Cell: ({ cell }) => {
+                    const dates = cell.row.original.details.map(_ => _.cage.chosen.modelCage);
+                    return dates.join(", ")
+                },
+                minSize: 200
+            },
+            {
+                header: 'Dimensión',
+                accessorKey: 'details.cage.chosen.dimensionsCage',
+                Cell: ({ cell }) => {
+                    const dates = cell.row.original.details.map(_ => _.cage.chosen.dimensionsCage);
+                    return dates.join(", ")
+                },
+                minSize: 200
+            },
+
             {
                 header: 'Estado',
                 accessorKey: 'details.cage.status',
@@ -19,19 +69,7 @@ export const useColumnsCage = () => {
                 ],
                 minSize: 200,
             },
-            {
-                header: 'Mascota',
-                accessorKey: 'details.profile.lastName',
-                accessorFn: ({ details }) => contractDetailsPetNames(details),
-                minSize: 170,
-                enableColumnFilter: false,
-            },
-            {
-                header: 'Fecha',
-                accessorKey: 'startDate',
-                accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY'),
-                minSize: 150
-            },
+
             {
                 header: 'Nombre',
                 accessorKey: 'client.profile.name',
@@ -57,28 +95,27 @@ export const useColumnsCage = () => {
                 minSize: 170
             },
             {
-                header: 'Nombre de la Mascota',
-                accessorKey: 'details.documentation.chipCertificate.isApplied',
-                Cell: ({ cell }) => {
-                    const pets = cell.row.original.details.map(_ => _.pet?.name);
-                    return pets.join(", ")
-                },
-                minSize: 200,
-            },
-            {
                 header: 'Asesor',
                 accessorKey: 'adviser.profile.name',
                 minSize: 200,
             },
             {
-                header: 'Modelo de jaula',
-                accessorKey: 'details.cage.chosen.modelCage',
-                Cell: ({ cell }) => {
-                    const dates = cell.row.original.details.map(_ => _.cage.chosen.modelCage);
-                    return dates.join(", ")
-                },
-                minSize: 200
+                header: 'Folio',
+                accessorKey: 'folder',
+                minSize: 170,
             },
+            {
+                header: 'F.Número',
+                accessorKey: 'number',
+                minSize: 170,
+            },
+            {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                minSize: 170,
+            },
+
         ],
         [],
     );

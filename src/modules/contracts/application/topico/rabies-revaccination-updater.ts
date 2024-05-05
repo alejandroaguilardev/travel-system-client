@@ -3,7 +3,6 @@ import { TOPICO_KEYS, RabiesReVaccinationContract } from '../../domain/contract-
 
 
 export const contractRabiesReVaccinationUpdater = (contractDetailService: ContractDetailService) => async (contractId: string, detailId: string, rabiesReVaccination: RabiesReVaccinationContract): Promise<ContractDetailUpdateResponse> => {
-    rabiesReVaccination.executed = true;
 
     const response = await contractDetailService.updateTopico(contractId, detailId, TOPICO_KEYS.rabiesReVaccination, { rabiesReVaccination });
     return response;

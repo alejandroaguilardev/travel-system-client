@@ -10,7 +10,7 @@ import { certificateSchema, defaultValues } from "../certificate-validation";
 import { useFormCertificate } from "../use-form-certificate";
 import FormProvider from "../../../../../components/hook-form/form-provider";
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
-import { ContractStatus } from '../../../../../modules/contracts/domain/contract-status';
+import { ContractDetailStatus } from '../../../../../modules/contracts/domain/contract-status';
 import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 import { CertificateFormGeneral } from "../certificate-form-general";
 import { AlertRedirectButton } from '../../../../../components/alert-redirect-button/alert-redirect-button';
@@ -21,7 +21,7 @@ import { SendEmailCheck } from '../../../../../components/send-email-check/send-
 
 type Props = {
     contractId: string;
-    status: ContractStatus;
+    status: ContractDetailStatus;
     detail: ContractDetail;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;

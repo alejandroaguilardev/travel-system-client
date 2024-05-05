@@ -92,6 +92,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 observation: "",
             },
             status: contractStatusCreateMother(),
+            clientStatus: contractStatusCreateMother(),
         },
         travel: {
             guideNumber: '',
@@ -106,6 +107,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 destinationAirport: "",
                 departureDate: null,
                 arrivalDate: null,
+                itinerary: "",
             },
             petPerCharge: {
                 name: "",

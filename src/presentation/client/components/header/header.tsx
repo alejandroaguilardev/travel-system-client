@@ -5,6 +5,7 @@ import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-s
 import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import Label from '../../../../components/label/label';
 import { capitalize } from '../../../../modules/shared/domain/helpers/capitalize';
+import { correlativeToString } from '../../../../modules/contracts/domain/contract';
 
 
 const Header = () => {
@@ -15,7 +16,7 @@ const Header = () => {
             <Box mb={1} display={{ xs: "block", md: "flex" }} justifyContent="space-between" alignItems="center">
                 <ListItemText
                     primary={`Nombre: ${capitalize(contractDetail?.pet?.name || "Mascota")} `}
-                    secondary={`N° de contrato: ${contract?.number}`}
+                    secondary={`N° de contrato: ${correlativeToString(contract?.correlative)}`}
 
                     primaryTypographyProps={{
                         typography: 'subtitle1',
@@ -60,8 +61,8 @@ const Header = () => {
 
             </Box>
 
-            <Label color={contract?.status === "completed" ? "success" : "error"} width="100%" mb={1} sx={{ height: 40, fontWeight: "bold" }}  >
-                {CONTRACT_STATUS.find(_ => contract?.status === _.value)?.label}
+            <Label color={contract?.status.client === "completed" ? "success" : "error"} width="100%" mb={1} sx={{ height: 40, fontWeight: "bold" }}  >
+                {CONTRACT_STATUS.find(_ => contract?.status.client === _.value)?.label}
             </Label>
             <Divider sx={{ mb: 2 }} />
         </>

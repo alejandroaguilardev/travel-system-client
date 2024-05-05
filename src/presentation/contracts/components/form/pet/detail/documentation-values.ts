@@ -6,7 +6,7 @@ export type DocumentationSwitches = {
 export const documentationSwitches: DocumentationSwitches[] = [
     {
         name: 'chipCertificate',
-        label: 'Certificado de chip'
+        label: 'Certificado de chip',
     },
     {
         name: 'vaccinationCertificate',

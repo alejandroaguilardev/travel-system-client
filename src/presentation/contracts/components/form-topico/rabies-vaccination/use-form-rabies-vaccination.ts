@@ -8,7 +8,7 @@ import { RabiesReVaccinationContract, RabiesVaccinationContract } from '../../..
 import { contractRabiesVaccinationUpdater } from "../../../../../modules/contracts/application/topico/rabies-vaccination-updater";
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { contractRabiesReVaccinationUpdater } from '../../../../../modules/contracts/application/topico/rabies-revaccination-updater';
-import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import { fDaySum, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 
 type Props = {
     contractId: string;
@@ -29,7 +29,8 @@ export const useFormRabiesVaccination = ({ contractId, detail, callback }: Props
     const [isExecuted, setsExecuted] = useState(false);
 
     const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail();
-    const [expectedDate, setExpectedDate] = useState<Date | null>(detail.topico?.rabiesReVaccination?.date ?? null)
+    const [expectedDate, setExpectedDate] = useState<Date | null>(detail.topico?.rabiesReVaccination?.date ?? fDaySum(new Date(), 21),
+    )
 
 
     const handleExpectedDate = (date: Date | null) => {

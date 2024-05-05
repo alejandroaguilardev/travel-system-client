@@ -1,18 +1,19 @@
 import { FC } from "react";
-import { Alert, Stack, Typography } from "@mui/material";
+import { Alert, Stack, Typography, InputAdornment } from '@mui/material';
 import RHFTextField from '../../../../../../components/hook-form/rhf-text-field';
 import { useTravelGeneralForm } from "./use-travel-general-form";
 import { RHFDate } from '../../../../../../components/hook-form/rhf-date';
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { fDayjs } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
+import Iconify from '../../../../../../components/iconify/iconify';
 
 type Props = {
-    hasServiceIncluded: boolean;
+    hasServiceIncluded: boolean
+    readonly: boolean;
 }
 
-export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
-    const { code, typeTraveling, departureDate, arrivalDate, editPermit } = useTravelGeneralForm();
-    const readonly = editPermit(hasServiceIncluded)
+export const TravelFormGeneral: FC<Props> = ({ readonly, hasServiceIncluded }) => {
+    const { code, typeTraveling, departureDate, arrivalDate } = useTravelGeneralForm();
 
     return (
         <Stack spacing={1} my={1}>
@@ -92,6 +93,21 @@ export const TravelFormGeneral: FC<Props> = ({ hasServiceIncluded }) => {
 
 
                 }
+            </Stack>
+
+            <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
+                <RHFTextField
+                    name="airlineReservation.itinerary"
+                    label="Itinerario (Indicar Trayecto) (*)"
+                    placeholder="Lima-Bogota-Madrid"
+                    InputProps={{
+                        readOnly: readonly,
+                        startAdornment: <InputAdornment position="start">
+                            <Iconify icon="mdi:text" />
+                        </InputAdornment>
+                    }}
+                    style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+                />
             </Stack>
 
             {

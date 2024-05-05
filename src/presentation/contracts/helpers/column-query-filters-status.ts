@@ -13,3 +13,10 @@ export const CONTRACT_STATUS_CAGE_IN_COURSE = [
 export const CONTRACT_STATUS_TRAVEL_IN_COURSE = [
     { id: "status", value: "pending" },
 ] as const;
+
+
+export const CONTRACT_SORT_PENDING_DEFAULT = [
+    { id: "details.travel.airlineReservation.code", desc: true },
+    { id: "details.travel.airlineReservation.departureDate", desc: false },
+    { id: "estimatedDate", desc: false },
+] as const;

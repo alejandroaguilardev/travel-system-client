@@ -13,7 +13,7 @@ const itemsContractRegister = (user: User | null): ItemSubMenu[] => {
         contractRegister.push({ title: 'Nuevo contrato', path: paths.dashboard.contracts.new });
 
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
-        contractRegister.push({ title: 'Asignar número de folio', path: paths.dashboard.contracts.number });
+        contractRegister.push({ title: 'Asignar folio', path: paths.dashboard.contracts.number });
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CREATE) &&
         contractRegister.push({ title: 'Cuotas por Pagar', path: paths.dashboard.contracts.payList });
     return contractRegister;

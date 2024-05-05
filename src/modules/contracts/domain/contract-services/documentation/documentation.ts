@@ -1,8 +1,9 @@
-import { ContractStatus } from '../../contract-status';
+import { ContractDetailStatus } from '../../contract-status';
 import { DocumentationCertificate } from './documentation-certificate';
 
 export interface Documentation {
-  status: ContractStatus;
+  status: ContractDetailStatus;
+  clientStatus: ContractDetailStatus;
   chipCertificate: DocumentationCertificate;
   vaccinationCertificate: DocumentationCertificate;
   rabiesSeroLogicalTest: DocumentationCertificate;

@@ -6,6 +6,7 @@ import { ContractFormCage } from '../../../../contracts/components/form/cage/con
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { usePetFormGeneral } from './use-pet-form-general';
+import RHFSwitch from '../../../../../components/hook-form/rhf-switch';
 
 type Props = {
     hasClient?: boolean;
@@ -62,8 +63,8 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                     label="Especie (*)"
                     select
                 >
-                    <MenuItem value="Perro">Perro</MenuItem>
-                    <MenuItem value="Gato">Gato</MenuItem>
+                    <MenuItem value="Canino">Canino</MenuItem>
+                    <MenuItem value="Felino">Felino</MenuItem>
                     <MenuItem value="Hurón">Hurón</MenuItem>
                     <MenuItem value="Otros">Otros</MenuItem>
                 </RHFTextField>
@@ -105,8 +106,12 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                         No
                     </MenuItem>
                 </RHFTextField>
-
             </Stack>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+                <RHFSwitch name="isBrachycephalic" label="¿La especie es braquiocefálica?" />
+                <RHFSwitch name="isPotentiallyDangerous" label="¿La especie es potencialmente peligrosa?" />
+            </Stack>
+
             {
                 hasMeasurementsAndWeight &&
                 <Stack flexWrap="wrap" spacing={1} marginBottom={3}>

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Box, ListItemText, Stack, Typography } from '@mui/material';
-import { Contract } from '../../../../modules/contracts/domain/contract';
+import { Contract, correlativeToString } from '../../../../modules/contracts/domain/contract';
 import { ShadowCard } from '../../../../components/card/card-shadow';
 import { fDate } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import { useContractStore } from '../../../../state/contract/contract-store';
@@ -27,7 +27,7 @@ export const ListContract: FC<Props> = ({ contracts = [] }) => {
                                     title={
                                         <ListItemText
                                             sx={{ mb: 1, textAlign: "center" }}
-                                            primary={`N° ${_.number}`}
+                                            primary={`N° ${correlativeToString(_?.correlative)}`}
                                             primaryTypographyProps={{
                                                 typography: 'subtitle1',
                                             }}

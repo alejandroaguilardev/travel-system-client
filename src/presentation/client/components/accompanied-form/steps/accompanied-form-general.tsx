@@ -24,10 +24,12 @@ export const AccompaniedFormGeneral = ({ client, notButton }: Props) => {
 
     const setOwnerInAccompanied = () => {
         const clientName = `${client?.profile?.name ?? ""} ${client?.profile?.secondName ?? ""} ${client?.profile?.lastName ?? ""} ${client?.profile?.secondLastName ?? ""}`;
+        const documentNumber = client?.profile?.document === "PASAPORTE" ? client?.profile?.documentNumber : "";
+
         setValue("accompaniedPet", {
             name: clientName,
-            document: client?.profile?.document ?? "",
-            documentNumber: client?.profile?.documentNumber ?? "",
+            document: "PASAPORTE",
+            documentNumber: documentNumber,
             phone: client?.profile?.phone ?? "",
             email: client?.email ?? "",
             direction: client?.profile?.direction ?? "",

@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 import { MRT_ColumnDef } from 'material-react-table'
-import { Contract } from '../../../../../modules/contracts/domain/contract';
+import { Contract, correlativeToString } from '../../../../../modules/contracts/domain/contract';
 import { fDate, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import Label from '../../../../../components/label/label';
 import { LabelColor } from '../../../../../components/label/types';
 import { Box } from '@mui/material';
 import { PayInInstallment } from '../../../../../modules/contracts/domain/payment-summary';
-import { contractDetailsPetNames } from './contract-detail-status';
+import { contractDetailsPetNames, dateDepartureIsLastWeek } from './contract-detail-status';
 
 const statusPaymentRender = (contract: Contract): JSX.Element => {
     const { payInInstallments = [] } = contract;
@@ -64,6 +64,12 @@ export const useColumnsPayment = () => {
                 enableColumnFilter: false,
             },
             {
+                header: "F. E. de viaje",
+                accessorKey: 'estimatedDate',
+                accessorFn: (row) => fDate(row.estimatedDate, "DD/MM/YYYY"),
+                minSize: 200
+            },
+            {
                 header: 'Mascota',
                 accessorKey: 'details.profile.lastName',
                 accessorFn: ({ details }) => contractDetailsPetNames(details),
@@ -91,7 +97,22 @@ export const useColumnsPayment = () => {
                 minSize: 170
             },
             {
-                header: 'Fecha de Inicio',
+                header: 'Fecha de viaje',
+                accessorKey: 'details.travel.airlineReservation.departureDate',
+                Cell: ({ cell }) => {
+                    const dates = cell.row.original.details.map(_ => _.travel.airlineReservation.departureDate);
+                    return dateDepartureIsLastWeek(dates)
+                },
+                minSize: 200
+            },
+            {
+                header: "F. E. de viaje",
+                accessorKey: 'estimatedDate',
+                accessorFn: (row) => dateDepartureIsLastWeek([row.estimatedDate]),
+                minSize: 200
+            },
+            {
+                header: 'Fecha de contrato',
                 accessorKey: 'startDate',
                 accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY HH:mm:ss'),
                 minSize: 200
@@ -108,8 +129,14 @@ export const useColumnsPayment = () => {
                 minSize: 170,
             },
             {
-                header: 'Número',
+                header: 'F.Número',
                 accessorKey: 'number',
+                minSize: 170,
+            },
+            {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
                 minSize: 170,
             },
 

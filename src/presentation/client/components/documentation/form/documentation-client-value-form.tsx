@@ -50,6 +50,7 @@ export const DocumentationClientValueForm: FC<Props> = ({ name, label, edit, can
                 icon={false}
             >
                 <Box fontWeight="bold" display="flex" alignItems="center" >
+                    {isApplied ? "Finalizado | " : ""}
                     {label}
                     <Typography
                         sx={{

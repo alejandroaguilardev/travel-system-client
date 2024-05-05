@@ -1,6 +1,6 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
-import { DatePicker, DatePickerProps } from '@mui/x-date-pickers/DatePicker';
+import { DateTimePicker, DatePickerProps } from '@mui/x-date-pickers';
 import { Box } from '@mui/material';
 import { ErrorMessage } from './error-message';
 
@@ -21,7 +21,7 @@ export const RHFDate: React.FC<FormInputDateProps> = ({
             control={control}
             render={({ field }) => (
                 <Box width="100%" >
-                    <DatePicker
+                    <DateTimePicker
                         label={label}
                         inputRef={field.ref}
                         onChange={(date) => {
@@ -30,7 +30,7 @@ export const RHFDate: React.FC<FormInputDateProps> = ({
                         sx={{
                             width: "100%"
                         }}
-                        format='DD/MM/YYYY'
+                        format='DD/MM/YYYY HH:mm:ss'
                         value={value}
 
                     />

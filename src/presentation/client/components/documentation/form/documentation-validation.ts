@@ -4,6 +4,7 @@ import { CONTRACT_STATUS } from '../../../../../modules/contracts/domain/contrac
 
 export const documentationSchema: Yup.ObjectSchema<Documentation> = Yup.object().shape({
     status: Yup.string().required('Campo requerido').oneOf(CONTRACT_STATUS.map((status) => status.value)),
+    clientStatus: Yup.string().required('Campo requerido').oneOf(CONTRACT_STATUS.map((status) => status.value)),
     vaccinationCertificate: Yup.object().shape({
         hasServiceIncluded: Yup.boolean().required('Campo requerido'),
         isApplied: Yup.boolean().required('Campo requerido'),

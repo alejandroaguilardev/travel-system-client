@@ -6,6 +6,7 @@ import { useSearchByIdContract } from '../../hooks/use-search-by-id-contract';
 import { ContractForm } from '../../components/form/contract-form';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
 import { contractToNewContract } from '../../../../modules/contracts/domain/contract-to-new-contract';
+import { correlativeToString } from '../../../../modules/contracts/domain/contract';
 
 type Props = {
     id: string;
@@ -22,7 +23,7 @@ export default function ContractEditView({ id }: Props) {
             <Container maxWidth='xl'>
                 <CustomBreadcrumbs
                     sx={{ display: "inline" }}
-                    heading={`Editar: ${contract?.number} `}
+                    heading={`Editar: ${correlativeToString(contract?.correlative)} `}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Contratos', href: paths.dashboard.contracts.root },

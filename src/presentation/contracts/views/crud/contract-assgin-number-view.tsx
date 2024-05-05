@@ -19,7 +19,7 @@ export default function ContractAssignNumberView() {
     return (
         <Container maxWidth='xl'>
             <CustomBreadcrumbs
-                heading="Asignación de Número de contrato"
+                heading="Asignación de Folio"
                 links={[
                     { name: 'Contratos', href: paths.dashboard.contracts.root },
                     {

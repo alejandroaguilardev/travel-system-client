@@ -21,10 +21,10 @@ export const vaccinationContractObjectSchema: Yup.ObjectSchema<VaccinationContra
 
 
 export const vaccinationType = (type?: string): string => {
-    if (type?.toLowerCase() === "perro") {
+    if (type?.toLowerCase() === "canino") {
         return "Distemper, Parvovirosis, Leptospirosis, Parainfluenza, Adenovirus"
     }
-    if (type?.toLowerCase() === "gato") {
+    if (type?.toLowerCase() === "felino") {
         return "Rinotraqueitis, panleucopenia, calicivirus";
     }
     return type ?? "";

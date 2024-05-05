@@ -40,46 +40,13 @@ export const ContractTable: FC<Props> = ({ options }) => {
             },
             {
                 header: 'Estado',
-                accessorKey: 'status',
+                accessorKey: 'status.petTravel',
                 Cell: ({ cell }) => {
                     const { status } = cell.row.original
-                    return <Label color={statusColor(status)}>{CONTRACT_STATUS.find(_ => _.value === status)?.label}</Label>
+                    return <Label color={statusColor(status.petTravel)}>{CONTRACT_STATUS.find(_ => _.value === status.petTravel)?.label}</Label>
                 },
                 accessorFn: (row) => row.status,
                 minSize: 170
-            },
-            {
-                header: 'Fase Documentación',
-                accessorKey: 'details.documentation.status',
-                Cell: ({ cell }) => contractDetailStatus(cell.row.original.details, "documentation"),
-                filterVariant: "select",
-                filterSelectOptions: [
-                    { text: "Completado", value: true },
-                    { text: "Todos", value: false }
-                ],
-                minSize: 200,
-            },
-            {
-                header: 'Fase Jaula',
-                accessorKey: 'details.cage.status',
-                Cell: ({ cell }) => contractDetailStatus(cell.row.original.details, "cage"),
-                filterVariant: "select",
-                filterSelectOptions: [
-                    { text: "Completado", value: true },
-                    { text: "Todos", value: false }
-                ],
-                minSize: 200,
-            },
-            {
-                header: 'Fase Reserva',
-                accessorKey: 'details.travel.status',
-                Cell: ({ cell }) => contractDetailStatus(cell.row.original.details, "travel"),
-                filterVariant: "select",
-                filterSelectOptions: [
-                    { text: "Completado", value: true },
-                    { text: "Todos", value: false }
-                ],
-                minSize: 200,
             },
             {
                 header: 'Mascota',
@@ -121,8 +88,13 @@ export const ContractTable: FC<Props> = ({ options }) => {
                 minSize: 170,
             },
             {
-                header: 'Número',
+                header: 'F.Número',
                 accessorKey: 'number',
+                minSize: 170,
+            },
+            {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
                 minSize: 170,
             },
 

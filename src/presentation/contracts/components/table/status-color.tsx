@@ -1,7 +1,7 @@
-import { ContractStatus } from '../../../../modules/contracts/domain/contract-status';
+import { ContractDetailStatus } from '../../../../modules/contracts/domain/contract-status';
 import { LabelColor } from '../../../../components/label/types';
 
-export const statusColor = (status: ContractStatus): LabelColor => {
+export const statusColor = (status: ContractDetailStatus): LabelColor => {
     let color: LabelColor = "default";
 
     if (status === "pending") {

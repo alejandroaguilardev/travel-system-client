@@ -1,11 +1,11 @@
 import { MRT_ColumnDef } from 'material-react-table'
 import { useMemo } from 'react'
 import Label from '../../../../../components/label';
-import { Contract } from '../../../../../modules/contracts/domain/contract'
+import { Contract, correlativeToString } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
-import { contractDetailsPetNames } from './contract-detail-status';
+import { contractDetailsPetNames, dateDepartureIsLastWeek } from './contract-detail-status';
 
 
 const detailsStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTATION_KEYS): JSX.Element => {
@@ -49,6 +49,21 @@ const detailsStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTAT
 export const useColumnsDocumentation = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
+            {
+                header: 'Fecha de viaje',
+                accessorKey: 'details.travel.airlineReservation.departureDate',
+                Cell: ({ cell }) => {
+                    const dates = cell.row.original.details.map(_ => _.travel.airlineReservation.departureDate);
+                    return dateDepartureIsLastWeek(dates)
+                },
+                minSize: 200
+            },
+            {
+                header: "F. E. de viaje",
+                accessorKey: 'estimatedDate',
+                accessorFn: (row) => dateDepartureIsLastWeek([row.estimatedDate]),
+                minSize: 200
+            },
             {
                 header: 'Mascota',
                 accessorKey: 'details.profile.lastName',
@@ -127,10 +142,10 @@ export const useColumnsDocumentation = () => {
                 minSize: 300,
             },
             {
-                header: 'Fecha de Inicio',
+                header: 'Fecha de contrato',
                 accessorKey: 'startDate',
-                accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY HH:mm:ss'),
-                minSize: 210
+                accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY'),
+                minSize: 150
             },
             {
                 header: 'Folio',
@@ -138,8 +153,14 @@ export const useColumnsDocumentation = () => {
                 minSize: 170,
             },
             {
-                header: 'Número',
+                header: 'F.Número',
                 accessorKey: 'number',
+                minSize: 170,
+            },
+            {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
                 minSize: 170,
             },
 

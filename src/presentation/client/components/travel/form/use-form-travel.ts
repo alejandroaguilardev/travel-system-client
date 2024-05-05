@@ -17,6 +17,10 @@ export const useFormTravel = ({ contractId, detailId, callback }: Props) => {
     const { showNotification } = useMessage();
 
     const onSubmit: SubmitHandler<PartialTravel> = async (data) => {
+        if (data.typeTraveling === "charge" && !data.guideNumber) {
+            showNotification("Debe indicar el número de guía", { variant: "error" })
+            return;
+        }
         try {
             const response = await travelUpdater(contractDetailService, uuid)(contractId, detailId, data)
             showNotification("Actualizado correctamente ");

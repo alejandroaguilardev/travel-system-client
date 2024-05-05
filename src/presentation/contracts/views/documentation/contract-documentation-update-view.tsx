@@ -9,6 +9,7 @@ import { useRouter } from '../../../../app/routes/hooks/use-router';
 import { DocumentationContractForm } from '../../components/form-documentation/documentation-form';
 import { DetailInfoContext, DetailInfoProvider } from '../../context/contract-detail-context';
 import { DOCUMENTATION_KEYS } from '../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { correlativeToString } from '../../../../modules/contracts/domain/contract';
 
 type Props = {
     id: string;
@@ -32,7 +33,7 @@ export default function ContractDocumentationUpdateView({ id, action = DOCUMENTA
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Contratos', href: paths.dashboard.contracts.root },
-                        { name: `${contractSearch?.number}` },
+                        { name: `${correlativeToString(contractSearch?.correlative)}` },
                     ]}
                 />
                 <DetailInfoProvider defaultContract={contractSearch}>

@@ -9,6 +9,7 @@ import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { DetailInfoProvider, DetailInfoContext } from '../../context/contract-detail-context';
 import { useState } from 'react';
 import { useSelectedContract } from '../../hooks/use-selected-contract';
+import { CONTRACT_SORT_PENDING_DEFAULT } from '../../helpers/column-query-filters-status';
 
 type Props = {
     columnQueryFilters?: MRT_ColumnFiltersState;
@@ -47,7 +48,7 @@ export default function ContractTestRabiesView({ columnQueryFilters = [] }: Prop
                             value: true
                         }
                     ],
-                    sortingQueryFilters: [{ id: "startDate", desc: true }],
+                    sortingQueryFilters: [...CONTRACT_SORT_PENDING_DEFAULT],
                     renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => { setOpen(true); handleSelected(row) }}>
                         Gestión
                     </Button>
@@ -73,7 +74,7 @@ export default function ContractTestRabiesView({ columnQueryFilters = [] }: Prop
                                                     setOpen(false)
                                                 }}
                                                 setIsLoading={setIsLoadingTable}
-                                                status={contract.status}
+                                                status={contract.status.petTravel}
                                             />
 
                                         </AccordionPet>

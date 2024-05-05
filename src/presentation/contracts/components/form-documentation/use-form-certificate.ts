@@ -7,7 +7,7 @@ import uuid from "../../../../modules/shared/infrastructure/adapter/uuid";
 import { contractDetailService } from '../../../../modules/contracts/infrastructure/contract-detail.service';
 import { certificateUpdater } from '../../../../modules/contracts/application/update/certificate-updater';
 import { useState } from "react";
-import { ContractStatus } from '../../../../modules/contracts/domain/contract-status';
+import { ContractDetailStatus } from '../../../../modules/contracts/domain/contract-status';
 import { useAuthContext } from '../../../auth/hooks/use-auth-context';
 import { useHasSendEmail } from '../../../../hooks/use-has-send-email';
 import { topicMessageMail } from "../../helpers/topic-get-message";
@@ -16,7 +16,7 @@ type Props = {
     contractId: string;
     detailId: string;
     action: string,
-    status: ContractStatus,
+    status: ContractDetailStatus,
     callback: (response: ContractDetailUpdateResponse) => void;
     setIsLoading?: (isLoading: boolean) => void;
 }

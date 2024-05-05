@@ -5,9 +5,10 @@ import { Counter } from '../../../../../components/counter/counter';
 import { DatePicker } from '@mui/x-date-pickers';
 import { IconWrapper } from '../../../../../components/icon-wrapper';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import { RHFDate } from 'src/components/hook-form/rhf-date';
 
 export const ContractFormPrices = () => {
-    const { priceTotal, counter, payInInstallments, isPayInstallments, handleIsPayInstallments, handleCounter, handleCuotaChange, handlePercentageChange } = useContractFormPrices();
+    const { priceTotal, counter, payInInstallments, isPayInstallments, estimatedDate, handleIsPayInstallments, handleCounter, handleCuotaChange, handlePercentageChange } = useContractFormPrices();
 
     return (
         <Paper
@@ -15,9 +16,9 @@ export const ContractFormPrices = () => {
                 p: 3,
                 my: 3,
             }}>
-            <Stack spacing={1} marginBottom={2}>
-                <Typography variant='h5' mb={2}>Formato contrato</Typography>
-                <Stack spacing={1} marginBottom={1}>
+            <Stack spacing={1} marginBottom={2} >
+                <Typography variant='h5' mb={2}>Condiciones del Contrato</Typography>
+                <Stack spacing={1} marginBottom={1} direction={{ xs: "column", md: "row" }} gap={1}>
                     <RHFTextField
                         name="format"
                         label="Formato de contrato"
@@ -28,8 +29,12 @@ export const ContractFormPrices = () => {
                         <MenuItem value="América Latina" >América Latina</MenuItem>
                         <MenuItem value="Asia" >Asia</MenuItem>
                     </RHFTextField>
+                    <RHFDate
+                        label="Fecha estimada de viaje"
+                        name='estimatedDate'
+                        value={fDayjs(estimatedDate)}
+                    />
                 </Stack>
-                <Typography variant='h5' mb={2}>Resumen de Pago</Typography>
                 <Stack spacing={1} marginBottom={1}>
                     <RHFTextField
                         name="price"

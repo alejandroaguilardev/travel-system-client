@@ -43,6 +43,8 @@ export const petUpdaterFormat = (pet: Pet): Pet => {
             weight: pet.measurementsAndWeight?.weight,
             width: pet.measurementsAndWeight?.width,
         },
+        isBrachycephalic: pet.isBrachycephalic,
+        isPotentiallyDangerous: pet.isPotentiallyDangerous,
     }
 
     delete petUpdated.user;

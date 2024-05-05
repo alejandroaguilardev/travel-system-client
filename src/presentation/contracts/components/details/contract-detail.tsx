@@ -19,7 +19,7 @@ import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers
 import Label from '../../../../components/label/label';
 import { statusColor } from '../table/status-color';
 import { TRAVEL_TYPES } from '../../../../modules/contracts/domain/contract-services/travel/contract-travel';
-import { contractDetailStatus } from '../table/columns/contract-detail-status';
+import { contractDetailStatus, contractDetailStatusClient } from '../table/columns/contract-detail-status';
 
 interface ContractDetailsProps {
     contract: Contract;
@@ -77,6 +77,16 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                         <TableRow hover>
                             <TableCell sx={{ width: "50%" }}>
                                 <Typography variant="subtitle1" gutterBottom>
+                                    Fecha Estimada de Viaje:
+                                </Typography>
+                            </TableCell>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography>{contract.endDate ? fDateTimeLong(contract.estimatedDate) : "--"}</Typography>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow hover>
+                            <TableCell sx={{ width: "50%" }}>
+                                <Typography variant="subtitle1" gutterBottom>
                                     Cliente:
                                 </Typography>
                             </TableCell>
@@ -97,12 +107,12 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                                 </Typography>
                             </TableCell>
                             <TableCell sx={{ width: "50%" }}>
-                                <Label color={statusColor(contract.status)}>
-                                    {CONTRACT_STATUS.find(_ => _.value === contract.status)?.label}
+                                <Label color={statusColor(contract.status.petTravel)}>
+                                    {CONTRACT_STATUS.find(_ => _.value === contract.status.petTravel)?.label}
                                 </Label>
                             </TableCell>
                         </TableRow>
-                        {contract?.reasonForCancellation && contract.status === "canceled" &&
+                        {contract?.reasonForCancellation && contract.status.petTravel === "canceled" &&
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>
                                     <Typography variant="subtitle1" gutterBottom>
@@ -137,7 +147,17 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                             <TableRow hover>
                                 <TableCell sx={{ width: "50%" }}>Estado:</TableCell>
                                 <TableCell sx={{ width: "50%" }}>
-                                    {contractDetailStatus(contract.details, "documentation")}
+                                    <Label color={statusColor(detail.documentation.status)}>
+                                        {CONTRACT_STATUS.find(_ => _.value === detail.documentation.status)?.label}
+                                    </Label>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow hover>
+                                <TableCell sx={{ width: "50%" }}>Estado del cliente:</TableCell>
+                                <TableCell sx={{ width: "50%" }}>
+                                    <Label color={statusColor(detail.documentation.clientStatus)}>
+                                        {CONTRACT_STATUS.find(_ => _.value === detail.documentation.clientStatus)?.label}
+                                    </Label>
                                 </TableCell>
                             </TableRow>
                             <TableRow hover>
@@ -181,11 +201,21 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                     <Table sx={{ width: "100%" }}>
                         <TableBody>
                             <TableRow hover>
-                                <TableCell sx={{ width: "50%" }}>Estado:</TableCell>
+                                <TableCell sx={{ width: "50%" }}>Estado del cliente:</TableCell>
                                 <TableCell sx={{ width: "50%" }}>
                                     <Label color={statusColor(detail.cage.status)}>
                                         {CONTRACT_STATUS.find(_ => _.value === detail.cage.status)?.label}
                                     </Label>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow hover>
+                                <TableCell sx={{ width: "50%" }}>Recomendada:</TableCell>
+                                <TableCell sx={{ width: "50%" }}>
+                                    Tipo: {capitalize(detail.pet?.cageRecommendation?.typeCage)}
+                                    <Divider />
+                                    Modelo: {capitalize(detail.pet?.cageRecommendation?.modelCage)} {" "}
+                                    <Divider />
+                                    Dimensión: {capitalize(detail.pet?.cageRecommendation?.dimensionsCage)}
                                 </TableCell>
                             </TableRow>
                             <TableRow hover>
@@ -208,7 +238,7 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                     <Table sx={{ width: "100%" }}>
                         <TableBody>
                             <TableRow hover>
-                                <TableCell sx={{ width: "50%" }}>Estado:</TableCell>
+                                <TableCell sx={{ width: "50%" }}>Estado del cliente:</TableCell>
                                 <TableCell sx={{ width: "50%" }}>
                                     <Label color={statusColor(detail.travel.status)}>
                                         {CONTRACT_STATUS.find(_ => _.value === detail.travel.status)?.label}
@@ -241,6 +271,12 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                                 <TableCell sx={{ width: "50%" }}>
                                     {detail.travel.airlineReservation?.arrivalDate ? fDateTimeLong(detail.travel.airlineReservation?.arrivalDate) : "--"}
                                     {capitalize(detail.travel.airlineReservation?.destinationAirport)}
+                                </TableCell>
+                            </TableRow>
+                            <TableRow hover>
+                                <TableCell sx={{ width: "50%" }}>Itinerario:</TableCell>
+                                <TableCell sx={{ width: "50%" }}>
+                                    {detail.travel.airlineReservation?.itinerary ?? "--"}
                                 </TableCell>
                             </TableRow>
                             <TableRow hover>
@@ -281,7 +317,7 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                             Volver Atrás
                         </Button>
                     </Box>
-                </Paper>
+                </Paper >
             ))
             }
         </ >

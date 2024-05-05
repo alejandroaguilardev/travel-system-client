@@ -14,6 +14,7 @@ const payInInstallmentInit: PayInInstallment = {
 export const useContractFormPrices = () => {
     const { setValue, watch } = useFormContext();
     const payInInstallments: PayInInstallment[] = watch("payInInstallments") ?? [];
+    const estimatedDate = watch("estimatedDate") || null;
     const [isPayInstallments, setIsPayInstallments] = useState(payInInstallments.length > 1);
 
     const priceTotal = watch("price");
@@ -72,6 +73,7 @@ export const useContractFormPrices = () => {
         priceTotal,
         payInInstallments,
         isPayInstallments,
+        estimatedDate,
         handleIsPayInstallments,
         handleCounter,
         handlePercentageChange,

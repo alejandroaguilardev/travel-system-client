@@ -11,7 +11,7 @@ export const CageFormGeneral = ({ pet }: Props) => {
 
     return (
         <Stack spacing={1} my={1}>
-            <Alert variant='outlined' sx={{ width: "100%" }} severity="info">Recomendamos siempre que la jaula tenga dos comedero y un bebedero</Alert>
+            <Alert variant='outlined' sx={{ width: "100%", fontWeight: "bold" }} severity="error">Recomendamos siempre que la jaula tenga dos comedero y un bebedero</Alert>
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <Typography fontWeight="bold">Medidas de la Mascota</Typography>

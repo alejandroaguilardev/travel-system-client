@@ -1,11 +1,11 @@
 import { MRT_ColumnDef } from 'material-react-table'
 import { useMemo } from 'react'
 import Label from '../../../../../components/label';
-import { Contract } from '../../../../../modules/contracts/domain/contract'
+import { Contract, correlativeToString } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
-import { contractDetailsPetNames } from './contract-detail-status';
+import { contractDetailsPetNames, dateDepartureIsLastWeek } from './contract-detail-status';
 
 
 const detailsStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTATION_KEYS): JSX.Element => {
@@ -41,9 +41,18 @@ export const useColumnsSenasa = () => {
                 minSize: 200,
             },
             {
-                header: 'Fecha',
-                accessorKey: 'startDate',
-                accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY'),
+                header: 'Fecha de viaje',
+                accessorKey: 'details.travel.airlineReservation.departureDate',
+                Cell: ({ cell }) => {
+                    const dates = cell.row.original.details.map(_ => _.travel.airlineReservation.departureDate);
+                    return dateDepartureIsLastWeek(dates)
+                },
+                minSize: 200
+            },
+            {
+                header: "F. E. de viaje",
+                accessorKey: 'estimatedDate',
+                accessorFn: (row) => dateDepartureIsLastWeek([row.estimatedDate]),
                 minSize: 200
             },
             {
@@ -79,28 +88,11 @@ export const useColumnsSenasa = () => {
                 minSize: 170
             },
             {
-                header: 'Nombre de la Mascota',
-                accessorKey: 'details.documentation.chipCertificate.isApplied',
-                Cell: ({ cell }) => {
-                    const pets = cell.row.original.details.map(_ => _.pet?.name);
-                    return pets.join(", ")
-                },
-                minSize: 200,
-            },
-            {
                 header: 'Asesor',
                 accessorKey: 'adviser.profile.name',
                 minSize: 200,
             },
-            {
-                header: 'Fecha de viaje',
-                accessorKey: 'details.travel.airlineReservation.departureDate',
-                Cell: ({ cell }) => {
-                    const dates = cell.row.original.details.map(_ => fDate(_.travel.airlineReservation.departureDate, 'DD/MM/YYYY'));
-                    return dates.join(", ")
-                },
-                minSize: 200
-            },
+
             {
                 header: 'Presentar en senasa',
                 accessorKey: 'details.documentation.senasaDocuments.executionDate',
@@ -120,7 +112,28 @@ export const useColumnsSenasa = () => {
                 minSize: 200
             },
 
-
+            {
+                header: 'Fecha de contrato',
+                accessorKey: 'startDate',
+                accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY'),
+                minSize: 150
+            },
+            {
+                header: 'Folio',
+                accessorKey: 'folder',
+                minSize: 170,
+            },
+            {
+                header: 'F.Número',
+                accessorKey: 'number',
+                minSize: 170,
+            },
+            {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                minSize: 170,
+            },
         ],
         [],
     );

@@ -1,6 +1,6 @@
 import { FC, useMemo, useState } from 'react';
 import { MRT_ColumnDef, MRT_ColumnFiltersState, MRT_SortingState } from 'material-react-table';
-import { Contract } from '../../../../modules/contracts/domain/contract';
+import { Contract, correlativeToString } from '../../../../modules/contracts/domain/contract';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { fDate } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import Label from '../../../../components/label/label';
@@ -59,10 +59,20 @@ export const ContractClientTable: FC<Props> = ({ options }) => {
             },
             {
                 header: 'Estado',
-                accessorKey: 'status',
+                accessorKey: 'status.client',
                 Cell: ({ cell }) => {
                     const { status } = cell.row.original
-                    return <Label color={statusColor(status)}>{CONTRACT_STATUS.find(_ => _.value === status)?.label}</Label>
+                    return <Label color={statusColor(status.client)}>{CONTRACT_STATUS.find(_ => _.value === status.client)?.label}</Label>
+                },
+                accessorFn: (row) => row.status,
+                minSize: 200
+            },
+            {
+                header: 'PetTravel',
+                accessorKey: 'status.petTravel',
+                Cell: ({ cell }) => {
+                    const { status } = cell.row.original
+                    return <Label color={statusColor(status.petTravel)}>{CONTRACT_STATUS.find(_ => _.value === status.petTravel)?.label}</Label>
                 },
                 accessorFn: (row) => row.status,
                 minSize: 200
@@ -86,6 +96,12 @@ export const ContractClientTable: FC<Props> = ({ options }) => {
                 accessorKey: 'endDate',
                 accessorFn: (row) => row.endDate ? fDate(row.endDate, 'DD/MM/YYYY HH:mm:ss') : "--",
                 minSize: 200
+            },
+            {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                minSize: 170,
             },
         ],
         [],

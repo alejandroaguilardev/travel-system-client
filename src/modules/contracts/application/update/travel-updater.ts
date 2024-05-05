@@ -20,6 +20,7 @@ export const travelUpdater = (contractService: ContractDetailService, uuid: Uuid
             destinationAirport: travel.airlineReservation.destinationAirport,
             departureDate: travel.airlineReservation.departureDate,
             arrivalDate: travel.airlineReservation.arrivalDate,
+            itinerary: travel.airlineReservation.itinerary,
         },
         guideNumber: travel?.guideNumber ?? ""
     }

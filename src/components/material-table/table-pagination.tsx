@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { MRT_SortingState, MRT_ColumnFiltersState } from "material-react-table";
 import TableWrapper, { TableWrapperProps } from "./table-wrapper";
 import { useMaterialReactPagination } from '../../hooks/use-material-table-pagination';
@@ -7,6 +7,7 @@ import { Collections } from '../../modules/shared/domain/collections';
 import { materialReactTableToCriteria } from './helpers/material-react-table-to-criteria';
 import { GlobalFilterProperties } from '../../modules/shared/domain/criteria/global-filter-properties';
 import { conditionPersistence } from "./helpers/condition-persistence";
+import { globalFilterProperties } from '../../presentation/pets/components/search/search-pet';
 
 type TablePaginationProps<T extends Record<string, any>> = Omit<TableWrapperProps<T>, 'data'> & {
     name: string;
@@ -44,6 +45,9 @@ export function TablePagination<T extends Record<string, any>>({
     const { rows, count, isLoading } = useSwrQueryPagination<T>({ key: name, criteria, search: conditionPersistence(collection) })
 
 
+    useEffect(() => {
+
+    }, [])
     return (
         <TableWrapper<T>
             enableRowActions
@@ -65,6 +69,15 @@ export function TablePagination<T extends Record<string, any>>({
                 sorting,
             }}
             onSortingChange={setSorting}
+            muiSearchTextFieldProps={{
+                InputProps: {
+                    endAdornment: <></>
+                },
+                inputProps: {
+                    endAdornment: <></>
+                },
+
+            }}
             {...rest}
             data={rows}
         />

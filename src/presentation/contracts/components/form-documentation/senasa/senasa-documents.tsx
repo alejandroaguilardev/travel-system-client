@@ -14,9 +14,8 @@ import { TabGenericProvider } from '../../../../../components/tab-generic/contex
 import { TabSwitcher } from '../../../../../components/tab-generic/tab-switcher';
 import { SENASAFormResult } from "./senasa-result";
 import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
-import { ContractStatus } from '../../../../../modules/contracts/domain/contract-status';
+import { ContractDetailStatus } from '../../../../../modules/contracts/domain/contract-status';
 import { ErrorSenasaTravelDate } from "./errorsConditions/error-travel-date";
-import { ErrorSenasaCountry } from "./errorsConditions/error-senasa-country";
 import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/pet';
 import { travelDestinationValidate } from "src/modules/contracts/domain/contract-services/travel/travel-destination";
 import { travelAccompaniedPetValidate } from '../../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
@@ -27,7 +26,7 @@ import { AlertRedirectButton } from '../../../../../components/alert-redirect-bu
 
 type Props = {
     contractId: string;
-    status: ContractStatus;
+    status: ContractDetailStatus;
     detail: ContractDetail;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;

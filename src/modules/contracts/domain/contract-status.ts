@@ -1,6 +1,6 @@
-export type ContractStatus = 'none' | 'pending' | 'in-process' | 'completed' | 'canceled' | 'suspended';
+export type ContractDetailStatus = 'none' | 'pending' | 'in-process' | 'completed' | 'canceled' | 'suspended';
 
-export const CONTRACT_STATUS: { value: ContractStatus, label: string }[] = [
+export const CONTRACT_STATUS: { value: ContractDetailStatus, label: string }[] = [
     {
         value: "none",
         label: " NINGUNO"
@@ -27,7 +27,7 @@ export const CONTRACT_STATUS: { value: ContractStatus, label: string }[] = [
     },
 ]
 
-export const statusError = (status: ContractStatus, endDate: Date | null) => {
+export const statusError = (status: ContractDetailStatus, endDate: Date | null) => {
     if (
         (status === 'canceled' ||
             status === 'none' ||

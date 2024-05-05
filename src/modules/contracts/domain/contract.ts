@@ -1,16 +1,21 @@
-import { ContractStatus } from './contract-status';
+import { ContractDetailStatus } from './contract-status';
 import { User } from '../../users/domain/user';
 import { ContractDetail, NewContractDetail, NewPostContractDetail } from './contract-detail';
-import { CustomerPayment } from './customer-payments';
 import { PayInInstallment } from './payment-summary';
 
+export interface ContractStatus {
+    petTravel: ContractDetailStatus,
+    client: ContractDetailStatus,
+}
 export interface Contract extends ContractPayments {
     id: string;
+    correlative?: number;
     folder: string;
     number: string;
     client: User;
     status: ContractStatus;
     startDate: Date;
+    estimatedDate: Date;
     endDate: Date | null;
     details: ContractDetail[];
     adviser: User;
@@ -21,7 +26,7 @@ export interface Contract extends ContractPayments {
     user: string;
 }
 
-export interface NewContract extends Omit<Contract, "id" | "endDate" | "client" | "status" | "details" | "user" | "folder" | "number" | "adviser" | "finishClient"> {
+export interface NewContract extends Omit<Contract, "id" | "endDate" | "client" | "status" | "correlative" | "details" | "user" | "folder" | "number" | "adviser" | "finishClient"> {
     id?: string;
     client: string;
     details: NewContractDetail[];
@@ -39,3 +44,8 @@ export interface ContractPayments {
 }
 
 
+
+export const correlativeToString = (value?: number): string => {
+    if (!value) return '';
+    return value.toString().padStart(8, '0');
+} 

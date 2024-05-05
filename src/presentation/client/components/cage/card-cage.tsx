@@ -18,6 +18,14 @@ type Props = {
     pet?: Pet;
 };
 
+const labelStatus = (cage: Cage, pet?: Pet): string => {
+
+    if (!pet?.cageRecommendation?.modelCage) return "EN PROCESO";
+    if (cage.status === "pending") return "DEBE INDICAR LA JAULA";
+    return CONTRACT_STATUS.find(_ => _.value === cage.status)?.label ?? "PENDIENTE";
+}
+
+
 export default function CardCage({ pet, cage, contractId, detailId, finish }: Props) {
     const dialog = useBoolean();
     const { onSelected, onSelectedDetail } = useContractStore();
@@ -56,7 +64,7 @@ export default function CardCage({ pet, cage, contractId, detailId, finish }: Pr
                         sx={{ color: 'primary.main', typography: 'caption' }}
                     >
                         <Label color={statusColor(cage.status)} width="100%" >
-                            {CONTRACT_STATUS.find(_ => _.value === cage.status)?.label}
+                            {labelStatus(cage, pet)}
                         </Label>
                     </Stack>
 

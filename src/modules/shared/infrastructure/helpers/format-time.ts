@@ -26,12 +26,16 @@ export function fDayjs(date: InputValue): any {
     return dayjs(date).locale('es')
 }
 
-export function fDayRest(date: InputValue, year: number, day: number, format = 'DD MMMM YYYY') {
-    return dayjs(date).subtract(year, 'year').subtract(day, 'day').format(format);
+export function fDayRest(date: InputValue, year: number, day: number) {
+    return dayjs(date).subtract(year, 'year').subtract(day, 'day').toDate();
 }
 
-export function fDaySum(date: InputValue, cant: number, format = 'DD MMMM YYYY') {
-    return dayjs(date).add(cant, "day").format(format);
+export function fDaySum(date: InputValue, cant: number) {
+    return dayjs(date).add(cant, "day").toDate();
+}
+
+export function fDayDiffDays(date1: InputValue, date2: InputValue) {
+    return Math.floor((dayjs(date1).diff(dayjs(date2)) / 1000) / (60 * 60 * 24));
 }
 
 export function fDayDiffString(date: InputValue) {

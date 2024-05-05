@@ -5,7 +5,7 @@ import { RouterLink } from '../../../../app/routes/components';
 import { ContractTable } from '../../components/table/contract-table';
 import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
 import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
-import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
+import { CONTRACT_SORT_PENDING_DEFAULT, CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
 import { useColumnsDocumentation } from '../../components/table/columns/use-columns-documentation';
 import { RenderRowActionMenuItem } from '../../../../components/material-table/render-row-action-menu-item';
 import { DOCUMENTATION_KEYS } from '../../../../modules/contracts/domain/contract-services/documentation/documentation';
@@ -38,7 +38,7 @@ export default function ContractDocumentationView() {
             <ContractTable
                 options={{
                     columnQueryFilters: [...CONTRACT_STATUS_IN_COURSE],
-                    sortingQueryFilters: [{ id: "startDate", desc: true }],
+                    sortingQueryFilters: [...CONTRACT_SORT_PENDING_DEFAULT],
                     columns,
                     renderRowActionMenuItems: (row) => [
                         <RenderRowActionMenuItem

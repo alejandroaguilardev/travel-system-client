@@ -13,9 +13,11 @@ const defaultValues: NewPet = {
     color: "",
     image: "",
     country: "Perú",
-    type: "Perro",
+    type: "Canino",
     sterilized: "No",
     adopter: "",
+    isBrachycephalic: false,
+    isPotentiallyDangerous: false,
 };
 
 export const chipValidationYup = Yup.string()
@@ -78,6 +80,8 @@ const generalSchema = {
         ),
 
     adopter: Yup.string().required("El adopter es requerido"),
+    isBrachycephalic: Yup.boolean().required("ebe indicar si la mascota es braquicefalia"),
+    isPotentiallyDangerous: Yup.boolean().required("Debe indicar si la mascota es potencialmente peligrosa"),
     user: Yup.string(),
 }
 const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape(generalSchema)

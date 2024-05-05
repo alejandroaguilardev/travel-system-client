@@ -8,7 +8,7 @@ import { ContractTable } from '../../components/table/contract-table';
 import { PermissionGuard } from '../../../permission/components/guard/permission-guard';
 import { AuthGroup, AuthPermission } from '../../../../modules/auth/domain/auth-permission';
 import { useState } from 'react';
-import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
+import { CONTRACT_SORT_PENDING_DEFAULT, CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
 import { FinishContract } from '../../components/finish/finish-contract';
 import { IconWrapper } from 'src/components/icon-wrapper';
 import { CancelContract } from '../../components/finish/cancel-contract';
@@ -49,7 +49,7 @@ export default function ContractFinishView() {
                     columnQueryFilters: [
                         ...CONTRACT_STATUS_IN_COURSE,
                     ],
-                    sortingQueryFilters: [{ id: "startDate", desc: true }],
+                    sortingQueryFilters: [...CONTRACT_SORT_PENDING_DEFAULT],
                     renderRowActionMenuItems: (row) => [
                         <MenuItem key="finish" onClick={() => {
                             handleSelected(row);

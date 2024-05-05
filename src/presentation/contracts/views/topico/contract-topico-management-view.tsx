@@ -8,6 +8,7 @@ import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
 import { TopicTabs, TopicoForm } from '../../components/form-topico/topico-form';
 import { DetailInfoContext, DetailInfoProvider } from '../../context/contract-detail-context';
+import { correlativeToString } from '../../../../modules/contracts/domain/contract';
 
 type Props = {
     id: string;
@@ -30,7 +31,7 @@ export default function ContractTopicoManagementView({ id, action = TopicTabs.ad
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Topico', href: paths.dashboard.faseDocumentation.topico.list },
-                        { name: `${contractSearch?.number}` },
+                        { name: `${correlativeToString(contractSearch?.correlative)}` },
                     ]}
                 />
                 <DetailInfoProvider defaultContract={contractSearch}>

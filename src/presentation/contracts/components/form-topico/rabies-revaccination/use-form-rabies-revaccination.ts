@@ -6,7 +6,7 @@ import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/d
 import { contractDetailService } from "../../../../../modules/contracts/infrastructure/contract-detail.service";
 import { RabiesReVaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { contractRabiesReVaccinationUpdater } from "../../../../../modules/contracts/application/topico/rabies-revaccination-updater";
-import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import { fDaySum, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { DocumentationCertificate } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation-certificate';
 import uuid from 'src/modules/shared/infrastructure/adapter/uuid';
@@ -32,7 +32,12 @@ export const useFormRabiesReVaccination = ({ contractId, detail, callback }: Pro
     const { showNotification } = useMessage();
     const { user } = useAuthContext();
     const [isExecuted, setsExecuted] = useState(false);
-    const [expectedDate, setExpectedDate] = useState<Date | null>(detail.documentation.rabiesSeroLogicalTest.expectedDate)
+    const [expectedDate, setExpectedDate] = useState<Date | null>(
+        detail.topico?.rabiesReVaccination.executed
+            ? detail.documentation.rabiesSeroLogicalTest.expectedDate
+            : fDaySum(new Date(), 30)
+    );
+
     const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail();
 
     const handleExpectedDate = (date: Date | null) => {
@@ -46,6 +51,7 @@ export const useFormRabiesReVaccination = ({ contractId, detail, callback }: Pro
             return;
         }
         try {
+            data.executed = true;
             await contractRabiesReVaccinationUpdater(contractDetailService)(contractId, detail.id, data)
 
             const takeSampleData: DocumentationCertificate = {

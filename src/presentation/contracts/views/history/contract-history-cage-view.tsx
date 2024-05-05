@@ -7,7 +7,8 @@ import { CageForm } from '../../../client/components/cage/form/cage-form';
 import { NotFoundView } from '../../../error';
 import { AccordionPet } from '../../components/accordion-pet/accordion-pet';
 import { useRouter } from '../../../../app/routes/hooks/use-router';
-import { CagePetFound } from 'src/presentation/client/components/cage/cage-pet-found';
+import { CagePetFound } from '../../../../presentation/client/components/cage/cage-pet-found';
+import { correlativeToString } from '../../../../modules/contracts/domain/contract';
 
 type Props = {
     id: string;
@@ -28,11 +29,11 @@ export default function ContractCageHistoryView({ id }: Props) {
             <Container maxWidth='xl'>
                 <CustomBreadcrumbs
                     sx={{ display: "inline" }}
-                    heading={`Requisitos de Jaula: ${contract?.number} `}
+                    heading={`Requisitos de Jaula: ${correlativeToString(contract?.correlative)} `}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
                         { name: 'Contratos', href: paths.dashboard.contracts.root },
-                        { name: `${contract?.number}` },
+                        { name: `${correlativeToString(contract?.correlative)}` },
                     ]}
                 />
                 {contract.details.map((detail, index) => (

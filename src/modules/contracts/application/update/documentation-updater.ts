@@ -10,6 +10,7 @@ export const documentationUpdater = (contractService: ContractDetailService, uui
 
     const updaterDocumentation: Documentation = {
         status: documentation.status,
+        clientStatus: documentation.clientStatus,
         vaccinationCertificate: {
             hasServiceIncluded: documentation.vaccinationCertificate.hasServiceIncluded,
             isRequired: documentation.vaccinationCertificate.isRequired,

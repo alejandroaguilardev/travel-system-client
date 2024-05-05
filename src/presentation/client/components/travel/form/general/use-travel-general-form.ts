@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useAuthContext } from '../../../../../auth/hooks/use-auth-context';
-import { fDayjs, fDaySum } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
+import { fDaySum, fDate } from '../../../../../../modules/shared/infrastructure/helpers/format-time';
 import { TypeTraveling } from '../../../../../../modules/contracts/domain/contract-services/travel/contract-travel';
 
 
@@ -15,14 +15,6 @@ export const useTravelGeneralForm = () => {
   const petPerCharge = watch('petPerCharge');
   const departureDate = watch("airlineReservation.departureDate");
   const arrivalDate = watch("airlineReservation.arrivalDate");
-
-  const editPermit = (readonly: boolean): boolean => {
-    if (readonly) {
-      return readonly;
-    }
-
-    return false;
-  }
 
   useEffect(() => {
     if (!airlineReservation) {
@@ -40,9 +32,9 @@ export const useTravelGeneralForm = () => {
   useEffect(() => {
     if (departureDate) {
       if (typeTraveling === "charge") {
-        setValue("airlineReservation.arrivalDate", fDaySum(departureDate, 2, "YYYY MM DD"))
+        setValue("airlineReservation.arrivalDate", fDate(fDaySum(departureDate, 2), "YYYY MM DD"))
       } else {
-        setValue("airlineReservation.arrivalDate", fDaySum(departureDate, 1, "YYYY MM DD"))
+        setValue("airlineReservation.arrivalDate", fDate(fDaySum(departureDate, 1), "YYYY MM DD"))
       }
     }
   }, [departureDate]);
@@ -52,6 +44,5 @@ export const useTravelGeneralForm = () => {
     code,
     departureDate,
     arrivalDate,
-    editPermit,
   }
 }

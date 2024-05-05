@@ -9,6 +9,7 @@ import { DetailInfoProvider, DetailInfoContext } from '../../context/contract-de
 import { useState } from 'react';
 import { MRT_ColumnFiltersState } from 'material-react-table';
 import { useSelectedContract } from '../../hooks/use-selected-contract';
+import { CONTRACT_SORT_PENDING_DEFAULT } from '../../helpers/column-query-filters-status';
 
 type Props = {
     columnQueryFilters?: MRT_ColumnFiltersState;
@@ -47,7 +48,7 @@ export default function ContractSENASAView({ columnQueryFilters = [], title }: P
                             value: true
                         }
                     ],
-                    sortingQueryFilters: [{ id: "startDate", desc: true }],
+                    sortingQueryFilters: [...CONTRACT_SORT_PENDING_DEFAULT],
                     renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => {
                         setOpen(true);
                         handleSelected(row);
@@ -75,7 +76,7 @@ export default function ContractSENASAView({ columnQueryFilters = [], title }: P
                                                 callback={callback}
                                                 onCancel={() => { handleSelected(null); setOpen(false) }}
                                                 setIsLoading={setIsLoadingTable}
-                                                status={contract.status}
+                                                status={contract.status.petTravel}
                                             />
 
                                         </AccordionPet>

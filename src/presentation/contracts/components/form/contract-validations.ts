@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { NewContract } from '../../../../modules/contracts/domain/contract';
 import { DocumentationCertificate } from '../../../../modules/contracts/domain/contract-services/documentation/documentation-certificate';
 import { NewContractDetail } from '../../../../modules/contracts/domain/contract-detail';
+import { fDaySum } from '../../../../modules/shared/infrastructure/helpers/format-time';
 
 const certificate: DocumentationCertificate = {
     hasServiceIncluded: false,
@@ -43,6 +44,7 @@ const detailInit: NewContractDetail = {
             destinationAirport: "",
             departureDate: null,
             arrivalDate: null,
+            itinerary: "",
         },
         petPerCharge: {
             name: "",
@@ -72,7 +74,8 @@ const detailInit: NewContractDetail = {
     },
     documentation: {
         status: 'none',
-        vaccinationCertificate: { ...certificate },
+        clientStatus: 'none',
+        vaccinationCertificate: { ...certificate, },
         healthCertificate: { ...certificate },
         chipCertificate: { ...certificate },
         senasaDocuments: { ...certificate },
@@ -89,6 +92,7 @@ const defaultValues: NewContract = {
     folder: "",
     number: "",
     startDate: new Date(),
+    estimatedDate: fDaySum(new Date(), 180),
     details: [{ ...detailInit }],
     adviser: '',
     price: 0,
@@ -105,6 +109,7 @@ const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
     number: Yup.string(),
     client: Yup.string().required('El cliente es requerido'),
     startDate: Yup.date().required('La fecha de inicio es requerida'),
+    estimatedDate: Yup.date().required('La fecha estimada de viaje es requerida'),
     details: Yup.array().required('Los detalles del contrato son requeridos'),
     adviser: Yup.string().required('Debe indicar el asesor del cliente'),
     reasonForCancellation: Yup.string(),

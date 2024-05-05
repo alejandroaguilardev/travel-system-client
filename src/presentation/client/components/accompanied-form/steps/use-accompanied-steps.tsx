@@ -27,6 +27,7 @@ export const useAccompaniedSteps = ({ hasCharge, notButton, client }: Props) => 
             icon: <IconWrapper icon="departure" width={24} />,
             handleNext: (setActiveStep) => {
                 const { accompaniedPet } = getValues();
+
                 if (!accompaniedPet.name) {
                     showNotification('Ingrese el nombre del remitente', { variant: "error" });
                     return;

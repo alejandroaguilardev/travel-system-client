@@ -2,7 +2,7 @@ import { Container } from '@mui/material';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
 import { paths } from '../../../../app/routes/paths';
 import { ContractTable } from '../../components/table/contract-table';
-import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
+import { CONTRACT_SORT_PENDING_DEFAULT, CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
 import { RenderRowActionMenuItem } from 'src/components/material-table/render-row-action-menu-item';
 import { useColumnsTopico } from '../../components/table/columns/use-columns-topico';
 import { TopicTabs } from '../../components/form-topico/topico-form';
@@ -24,7 +24,7 @@ export default function ContractTopicoView() {
             <ContractTable
                 options={{
                     columnQueryFilters: [...CONTRACT_STATUS_IN_COURSE],
-                    sortingQueryFilters: [{ id: "startDate", desc: true }],
+                    sortingQueryFilters: [...CONTRACT_SORT_PENDING_DEFAULT],
                     columns,
                     renderRowActionMenuItems: (row) => {
                         const addActionsItems = [<RenderRowActionMenuItem

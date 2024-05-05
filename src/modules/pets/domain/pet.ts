@@ -2,6 +2,7 @@ import { Status } from "../../shared/domain/status";
 import { PetGender } from "./pet-gender";
 import { CageChosen } from '../../contracts/domain/contract-services/cage/cage-chosen';
 import { MeasurementsAndWeight } from "./pet-measurements-and-weight";
+import { ContractTopico } from '../../contracts/domain/contract-services/topico/contract-topico';
 
 export interface Pet {
     id: string;
@@ -21,9 +22,12 @@ export interface Pet {
     user?: string;
     cageRecommendation?: CageChosen;
     measurementsAndWeight?: MeasurementsAndWeight;
+    isBrachycephalic: boolean;
+    isPotentiallyDangerous: boolean;
+    topico?: ContractTopico;
 }
 
-export interface NewPet extends Omit<Pet, 'id' | 'chip' | 'chipDate' | 'status' | 'user' | "cageRecommendation" | "measurementsAndWeight"> {
+export interface NewPet extends Omit<Pet, 'id' | 'chip' | 'chipDate' | 'status' | 'user' | "cageRecommendation" | "measurementsAndWeight" | "topico"> {
     id?: string;
     chip?: string;
     chipDate?: Date | null;

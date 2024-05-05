@@ -1,8 +1,8 @@
 import { CageChosen } from './cage-chosen';
-import { ContractStatus } from '../../contract-status';
+import { ContractDetailStatus } from '../../contract-status';
 
 export interface Cage {
-  status: ContractStatus;
+  status: ContractDetailStatus;
   hasServiceIncluded: boolean;
   chosen: CageChosen;
   confirmation?: boolean;

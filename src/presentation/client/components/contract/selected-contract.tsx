@@ -36,13 +36,13 @@ export const SelectedContract: FC<Props> = ({ contract, contractDetail }) => {
                     documentation={contractDetail.documentation}
                     contractId={contract.id}
                     detailId={contractDetail.id}
-                    finish={statusError(contract.status, contract.endDate)}
+                    finish={statusError(contract.status.client, contract.endDate)}
                 />
                 <CardCage
                     cage={contractDetail.cage}
                     contractId={contract.id}
                     detailId={contractDetail.id}
-                    finish={statusError(contract.status, contract.endDate)}
+                    finish={statusError(contract.status.client, contract.endDate)}
                     pet={contractDetail?.pet}
                 />
                 <CardTravel
@@ -51,7 +51,7 @@ export const SelectedContract: FC<Props> = ({ contract, contractDetail }) => {
                     detailId={contractDetail.id}
                 />
             </Box>
-            {contract?.status === "completed" &&
+            {contract?.status.client === "completed" &&
                 <Button
                     onClick={handleFinishClick}
                     variant='contained'

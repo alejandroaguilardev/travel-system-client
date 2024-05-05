@@ -26,7 +26,7 @@ export const ContractRenderRowActionsMenuItems = ({ onSelected, deleteItem, row 
 
         <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.EDIT} key="edit">
             {
-                (row.status === "pending" || row.status === "in-process") &&
+                (row.status.petTravel === "pending" || row.status.petTravel === "in-process") &&
                 <RenderRowActionMenuItem
                     item={{
                         name: "Editar",
@@ -38,7 +38,7 @@ export const ContractRenderRowActionsMenuItems = ({ onSelected, deleteItem, row 
         </PermissionGuard>,
 
         <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.DELETE} key="remove">
-            {(row.status === "pending" || row.status === "in-process") &&
+            {(row.status.petTravel === "pending" || row.status.petTravel === "in-process") &&
                 <RenderRowActionMenuItemButton<Contract>
                     item={{
                         name: "Eliminar",

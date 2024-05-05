@@ -13,7 +13,10 @@ export const petCreateMother = (pet?: Partial<NewPet>): NewPet => ({
     color: pet?.color ?? faker.color.human(),
     image: pet?.image ?? faker.internet.url(),
     country: pet?.country ?? faker.location.country(),
-    type: pet?.type ?? "Perro",
+    type: pet?.type ?? "Canino",
     sterilized: pet?.sterilized ?? faker.datatype.boolean() ? "Si" : "No",
     adopter: pet?.adopter ?? uuidCreateMother(),
+    isBrachycephalic: pet?.isBrachycephalic ?? faker.datatype.boolean(),
+    isPotentiallyDangerous: pet?.isPotentiallyDangerous ?? faker.datatype.boolean(),
+
 })

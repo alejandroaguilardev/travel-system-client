@@ -7,6 +7,7 @@ import { Contract } from '../../../../modules/contracts/domain/contract';
 import { ContractTable } from '../../components/table/contract-table';
 import { useColumnsPayment } from '../../components/table/columns/use-columns-payment';
 import { UpdatePaymentForm } from '../../components/payment/update-payment-form';
+import { CONTRACT_SORT_PENDING_DEFAULT } from '../../helpers/column-query-filters-status';
 
 export default function ContractPaymentView() {
     const columns = useColumnsPayment();
@@ -31,7 +32,7 @@ export default function ContractPaymentView() {
             {!isLoading && <ContractTable
                 options={{
                     columns,
-                    sortingQueryFilters: [{ id: "startDate", desc: true }],
+                    sortingQueryFilters: [...CONTRACT_SORT_PENDING_DEFAULT],
                     renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => handleSelected(row)}>
                         Revisar
                     </Button>

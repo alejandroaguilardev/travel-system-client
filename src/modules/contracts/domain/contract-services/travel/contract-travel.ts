@@ -1,4 +1,4 @@
-import { ContractStatus } from '../../contract-status';
+import { ContractDetailStatus } from '../../contract-status';
 import { TravelAccompaniedPet } from './travel-accompanied-pet';
 import { TravelAirlineReservation } from './travel-airline-reservation';
 import { TravelDestination } from './travel-destination';
@@ -7,7 +7,7 @@ import { TravelPetPerCharge } from './travel-pet-per-charge';
 export type TypeTraveling = 'accompanied' | 'charge' | 'none';
 
 export interface Travel {
-    status: ContractStatus;
+    status: ContractDetailStatus;
     hasServiceIncluded: boolean;
     hasServiceAccompanied: boolean;
     typeTraveling: TypeTraveling;

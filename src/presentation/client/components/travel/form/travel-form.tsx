@@ -17,6 +17,7 @@ import { ChargeFormGeneral } from '../../accompanied-form/steps/charge-form-gene
 import { AccompaniedStep } from "../../accompanied-form/steps/accompanied-steps";
 import { User, getLinkWhatApp } from '../../../../../modules/users/domain/user';
 import { ContactWhatsApp } from "../../../../../components/contact-whats-app/contact-whats-app";
+import { isTravelAccompaniedFormEdit, isTravelReserveFormEdit } from "./travel-utils";
 
 type Props = {
     contractId: string;
@@ -46,7 +47,10 @@ export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, advise
 
     const { onSubmit } = useFormTravel({ contractId, detailId, callback });
 
-    const edit = (travel.status === "completed");
+
+    const editAccompaniedForm = isUser || isTravelAccompaniedFormEdit(travel);
+    const editTravel = isUser || isTravelReserveFormEdit(travel);
+
     const tabs = [
         {
             value: "Datos del acompañante",
@@ -55,9 +59,9 @@ export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, advise
                 contractId={contractId}
                 contractDetailId={detailId}
                 callback={callback}
-                notButton={!isUser}
+                notButton={!editAccompaniedForm}
             >
-                {isUser ?
+                {(editAccompaniedForm) ?
                     <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={false} status={travel?.status ?? "pending"} client={client} />
                     :
                     <>
@@ -76,8 +80,8 @@ export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, advise
         {
             value: "Reserva",
             component: <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-                <TravelFormGeneral hasServiceIncluded={edit} />
-                {(!edit || isUser) ?
+                <TravelFormGeneral hasServiceIncluded={travel.hasServiceIncluded} readonly={!editTravel} />
+                {(editTravel) ?
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                             Cancelar
