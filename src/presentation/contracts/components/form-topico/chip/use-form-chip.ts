@@ -31,8 +31,11 @@ export const useFormChip = ({ contractId, detail, petId, callback, hasServiceInc
 
     const onSubmit: SubmitHandler<VaccinationContract> = async (data) => {
         try {
-            const response = await contractChipUpdater(contractDetailService, petService)(contractId, detail.id, petId, data);
 
+            if (data.description) {
+                data.executed = true;
+            }
+            const response = await contractChipUpdater(contractDetailService, petService)(contractId, detail.id, petId, data);
             const certificate: DocumentationCertificate = {
                 ...detail.documentation.chipCertificate,
                 isApplied: true,

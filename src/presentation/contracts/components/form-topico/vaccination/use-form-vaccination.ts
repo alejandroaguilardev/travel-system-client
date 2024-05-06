@@ -30,6 +30,9 @@ export const useFormVaccination = ({ contractId, detail, hasServiceIncluded, cal
 
     const onSubmit: SubmitHandler<VaccinationContract> = async (data) => {
         try {
+            if (data.description) {
+                data.executed = true;
+            }
             const response = await contractVaccinationUpdater(contractDetailService)(contractId, detail.id, data);
             const certificate: DocumentationCertificate = {
                 ...detail.documentation.chipCertificate,
