@@ -20,12 +20,15 @@ export const ChipFormGeneral = () => {
                     <TopicoSearchUser />
                 </Stack>
                 <Divider />
-                <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-                    <RHFSwitch
-                        name="executed"
-                        label="¿La mascota ya tiene la implantación de chip?"
-                    />
-                </Stack>
+                {!chipHasIncluded &&
+                    <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                        <RHFSwitch
+                            name="executed"
+                            label="¿La mascota ya tiene la implantación de chip?"
+                        />
+                    </Stack>
+
+                }
                 {
                     (chipHasIncluded || executed) &&
                     <>

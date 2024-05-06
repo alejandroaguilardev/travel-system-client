@@ -5,7 +5,9 @@ import { AutocompleteSelectorClient } from "../../../../components/autocomplete/
 import { ErrorMessage } from "../../../../components/hook-form";
 
 export const AssignNumberFormGeneral = () => {
-    const { folder, number, handleFolder, handleNumber } = useContractFolderForm();
+    const { folder, number, quantity, handleQuantity, handleFolder, handleNumber } = useContractFolderForm();
+
+
 
     return (
         <Stack spacing={1} marginBottom={1} direction={{ xs: "column", md: "row" }}>
@@ -13,6 +15,7 @@ export const AssignNumberFormGeneral = () => {
                 <SearchFolder
                     folder={folder}
                     handleFolder={handleFolder}
+                    handleQuantity={handleQuantity}
                     field='folder'
                 />
             </Box>
@@ -22,7 +25,7 @@ export const AssignNumberFormGeneral = () => {
                         textField={{
                             label: "Número de contrato"
                         }}
-                        items={Array.from({ length: typeof folder === "string" ? 0 : folder?.quantity ?? 0 }, (_, index) => ({ number: index + 1 }))}
+                        items={quantity}
                         defaultValue={{ number }}
                         getOptionLabel={(d) => {
                             if (typeof d !== "string") return d?.number?.toString() ?? "";

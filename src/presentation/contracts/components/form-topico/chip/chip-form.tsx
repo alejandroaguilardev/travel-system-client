@@ -27,7 +27,7 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIn
     const methods = useForm({
         resolver: yupResolver<ChipContract>(chipObjectSchema),
         defaultValues: {
-            hasIncluded: chip?.hasIncluded || defaultChip.hasIncluded,
+            hasIncluded: detail.documentation.chipCertificate?.hasServiceIncluded || defaultChip.hasIncluded,
             executed: chip?.executed || defaultChip.executed,
             date: chip?.date || defaultChip.date,
             description: chip?.description || chipDefault,

@@ -10,9 +10,10 @@ const globalFilterProperties = [
 ];
 
 type Props = Partial<Criteria> & {
-    folder: Folder | string | null;
+    folder: string | null;
     field: string;
-    handleFolder: (folder: Folder | string | null) => void;
+    handleFolder: (folder: string) => void;
+    handleQuantity: (quantity: number) => void;
     textField?: TextFieldProps;
     newPerson?: boolean;
 }
@@ -21,6 +22,7 @@ export const SearchFolder = ({
     folder,
     field,
     handleFolder,
+    handleQuantity,
     textField = {
         label: "Seleccionar folder",
         placeholder: "Buscar y seleccionar un folder...",
@@ -31,13 +33,21 @@ export const SearchFolder = ({
 
     return (
         <>
-            <AutocompleteServer<Folder | string >
+            <AutocompleteServer<string >
                 {...rest}
                 collection='folders'
+                formatOptions={(rows: Folder[]) => rows.map((r) => r.name)}
                 sorting={[{ orderBy: "name", orderType: OrderValue.ASC }]}
                 globalFilterProperties={globalFilterProperties}
                 defaultValue={folder}
-                callback={(value) => handleFolder(value as Folder | string | null)}
+                callback={(value: any) => {
+                    console.log(value)
+                    const name: any = typeof value === "string" ? value : value?.name;
+                    const quantity: any = typeof value === "string" ? 300 : value?.quantity;
+                    handleFolder(name);
+                    console.log(quantity)
+                    handleQuantity(quantity)
+                }}
                 getOptionLabel={(option) => {
                     if (typeof option === "string") return option;
                     return option.name

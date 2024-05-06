@@ -1,19 +1,21 @@
-import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Folder } from '../../../../modules/folders/domain/folder';
+import { useState } from 'react';
 
 export const useContractFolderForm = () => {
-    const { setValue, getValues } = useFormContext();
-    const [folder, setFolder] = useState<Folder | string | null>(null);
+    const { setValue, watch } = useFormContext();
 
-    const number: number = getValues("number");
+    const folder: string = watch("folder");
+    const number: number = watch("number");
 
-    const handleFolder = (value: Folder | string | null) => {
-        const update = typeof value === "string" ? value : value?.name;
-        console.log({ value })
-        console.log({ update })
-        setFolder(value);
-        setValue("folder", update ?? "");
+    const [quantity, setQuantity] = useState<any>([]);
+    const handleQuantity = (value: number) => {
+        console.log(value)
+        setQuantity(Array.from({ length: value }, (_, index) => ({ number: index + 1 })));
+    }
+
+    const handleFolder = (value: string | null) => {
+        setValue("folder", value ?? "");
+        setValue("number", "");
     }
 
     const handleNumber = (value?: number) => {
@@ -23,6 +25,8 @@ export const useContractFolderForm = () => {
     return {
         folder,
         number,
+        quantity,
+        handleQuantity,
         handleFolder,
         handleNumber
     }

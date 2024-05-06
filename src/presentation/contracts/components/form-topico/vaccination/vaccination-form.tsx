@@ -25,7 +25,7 @@ export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded, 
     const methods = useForm({
         resolver: yupResolver<VaccinationContract>(vaccinationContractObjectSchema),
         defaultValues: {
-            hasIncluded: vaccination?.hasIncluded || defaultVaccination.hasIncluded,
+            hasIncluded: detail.documentation.vaccinationCertificate?.hasServiceIncluded || defaultVaccination.hasIncluded,
             executed: vaccination?.executed || defaultVaccination.executed,
             date: vaccination?.date || defaultVaccination.date,
             description: vaccination?.description || vaccinationType(detail.pet?.type),

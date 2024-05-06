@@ -24,13 +24,14 @@ export const VaccinationFormGeneral = ({ title }: Props) => {
                     <TopicoSearchUser />
                 </Stack>
                 <Divider />
-
-                <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-                    <RHFSwitch
-                        name="executed"
-                        label={`¿La mascota ya tiene la ${title}?`}
-                    />
-                </Stack>
+                {!hasIncluded &&
+                    <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                        <RHFSwitch
+                            name="executed"
+                            label={`¿La mascota ya tiene la ${title}?`}
+                        />
+                    </Stack>
+                }
 
                 {(hasIncluded || executed) &&
                     <>
