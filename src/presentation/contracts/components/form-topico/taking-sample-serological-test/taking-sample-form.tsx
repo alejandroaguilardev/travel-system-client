@@ -61,7 +61,7 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
                     </Box>
                 </FormProvider >}
 
-            {!detail.topico?.rabiesReVaccination.executed && <Alert severity="error">Aùn no se ha guardado la revacunación de rabia en el sistema</Alert>}
+            {!detail.topico?.rabiesReVaccination.executed && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha guardado la revacunación de rabia en el sistema</Alert>}
 
             {!detail.topico?.chipReview.executed && <Alert severity="error">Aùn no se ha realizado la revisión del microchip en el sistema</Alert>}
 

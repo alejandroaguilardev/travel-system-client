@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { VaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
+import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 
 export const defaultVaccination: VaccinationContract = {
     hasIncluded: false,
@@ -28,4 +29,34 @@ export const vaccinationType = (type?: string): string => {
         return "Rinotraqueitis, panleucopenia, calicivirus";
     }
     return type ?? "";
+}
+
+
+
+export const petVaccinationDefaultValues = (detail: ContractDetail) => {
+    const vaccination = detail?.topico?.vaccination;
+    const dataExits = detail?.pet?.topico?.vaccination;
+
+    if (vaccination?.date) {
+        return {
+            hasIncluded: detail.documentation.vaccinationCertificate?.hasServiceIncluded || defaultVaccination.hasIncluded,
+            executed: vaccination?.executed || defaultVaccination.executed,
+            date: vaccination?.date || defaultVaccination.date,
+            description: vaccination?.description || vaccinationType(detail.pet?.type),
+            observation: vaccination?.observation || defaultVaccination.observation,
+            user: vaccination?.user || defaultVaccination.user
+        }
+    }
+
+    if (dataExits?.date) {
+        return {
+            hasIncluded: detail.documentation.vaccinationCertificate?.hasServiceIncluded || defaultVaccination.hasIncluded,
+            executed: dataExits?.executed || defaultVaccination.executed,
+            date: dataExits?.date || defaultVaccination.date,
+            description: dataExits?.description || vaccinationType(detail.pet?.type),
+            observation: dataExits?.observation || defaultVaccination.observation,
+            user: dataExits?.user || defaultVaccination.user
+        }
+    }
+    return defaultVaccination;
 }

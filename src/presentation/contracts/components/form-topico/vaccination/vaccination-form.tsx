@@ -5,7 +5,7 @@ import { Alert, Box, Button } from "@mui/material";
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { ContractDetail } from "../../../../../modules/contracts/domain/contract-detail";
-import { vaccinationContractObjectSchema, defaultVaccination, vaccinationType } from "./vaccination-validation";
+import { vaccinationContractObjectSchema, petVaccinationDefaultValues } from "./vaccination-validation";
 import { useFormVaccination } from "./use-form-vaccination";
 import { VaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { VaccinationFormGeneral } from "./vaccination-form-general";
@@ -24,14 +24,7 @@ export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded, 
     const vaccination = detail?.topico?.vaccination;
     const methods = useForm({
         resolver: yupResolver<VaccinationContract>(vaccinationContractObjectSchema),
-        defaultValues: {
-            hasIncluded: detail.documentation.vaccinationCertificate?.hasServiceIncluded || defaultVaccination.hasIncluded,
-            executed: vaccination?.executed || defaultVaccination.executed,
-            date: vaccination?.date || defaultVaccination.date,
-            description: vaccination?.description || vaccinationType(detail.pet?.type),
-            observation: vaccination?.observation || defaultVaccination.observation,
-            user: vaccination?.user || defaultVaccination.user
-        }
+        defaultValues: petVaccinationDefaultValues(detail)
     });
 
     const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormVaccination({ contractId, detail, callback, hasServiceIncluded });

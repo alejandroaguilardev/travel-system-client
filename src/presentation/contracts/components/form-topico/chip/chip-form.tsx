@@ -5,7 +5,7 @@ import { Alert, Box, Button } from "@mui/material";
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { ContractDetail } from "../../../../../modules/contracts/domain/contract-detail";
-import { chipObjectSchema, defaultChip } from "./chip-validation";
+import { chipObjectSchema, petDefaultValues } from "./chip-validation";
 import { ChipContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { ChipFormGeneral } from "./chip-form-general";
 import { useFormChip } from "./use-form-chip";
@@ -20,24 +20,16 @@ type Props = {
 }
 
 
+
 export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIncluded, onCancel }) => {
     const chip = detail?.topico?.chip;
-    const chipDefault = detail?.pet?.chip || defaultChip.description;
 
     const methods = useForm({
         resolver: yupResolver<ChipContract>(chipObjectSchema),
-        defaultValues: {
-            hasIncluded: detail.documentation.chipCertificate?.hasServiceIncluded || defaultChip.hasIncluded,
-            executed: chip?.executed || defaultChip.executed,
-            date: chip?.date || defaultChip.date,
-            description: chip?.description || chipDefault,
-            observation: chip?.observation || defaultChip.observation,
-            user: chip?.user || defaultChip.user
-        }
+        defaultValues: petDefaultValues(detail)
     });
 
     const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormChip({ contractId, detail, petId: detail.pet?.id ?? "", hasServiceIncluded, callback });
-
 
     return (
         <>

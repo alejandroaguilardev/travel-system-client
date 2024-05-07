@@ -1,11 +1,11 @@
 import { FC } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, Box, Button, TextField } from "@mui/material";
+import { Alert, Box, Button } from "@mui/material";
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { ContractDetail } from "../../../../../modules/contracts/domain/contract-detail";
-import { rabiesVaccinationContractObjectSchema, defaultRabiesVaccination } from "./rabies-vaccination-validation";
+import { rabiesVaccinationContractObjectSchema, petRabiesVaccinationDefaultValues } from "./rabies-vaccination-validation";
 import { useFormRabiesVaccination } from "./use-form-rabies-vaccination";
 import { RabiesVaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { RabiesVaccinationFormGeneral } from "./rabies-vaccination-form-general";
@@ -25,14 +25,7 @@ export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contractId,
 
     const methods = useForm({
         resolver: yupResolver<RabiesVaccinationContract>(rabiesVaccinationContractObjectSchema),
-        defaultValues: {
-            hasIncluded: rabiesVaccination?.hasIncluded || defaultRabiesVaccination.hasIncluded,
-            executed: rabiesVaccination?.executed || defaultRabiesVaccination.executed,
-            date: rabiesVaccination?.date || defaultRabiesVaccination.date,
-            description: rabiesVaccination?.description || defaultRabiesVaccination.description,
-            observation: rabiesVaccination?.observation || defaultRabiesVaccination.observation,
-            user: rabiesVaccination?.user || defaultRabiesVaccination.user
-        }
+        defaultValues: petRabiesVaccinationDefaultValues(detail)
     });
 
     const { onSubmit, isExecuted, expectedDate, hasSendEmail, handleExpectedDate, onChangeHasSendEmail } = useFormRabiesVaccination({ contractId, detail, callback });
