@@ -33,7 +33,7 @@ export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded, 
     return (
         <>
             <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-                {!hasServiceIncluded && <Alert severity="error" >Esta servicio no esta incluido en el contrato</Alert>}
+                {!hasServiceIncluded && !isExecuted && <Alert severity="error" sx={{ mb: 1 }}>Esta servicio no esta incluido en el contrato</Alert>}
                 {hasServiceIncluded && !vaccination?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la vacuna</Alert>}
 
                 {vaccination?.executed && !isExecuted && <Alert severity="info">Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
