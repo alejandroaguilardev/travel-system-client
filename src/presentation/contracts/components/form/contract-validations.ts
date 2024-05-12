@@ -45,6 +45,7 @@ const detailInit: NewContractDetail = {
             departureDate: null,
             arrivalDate: null,
             itinerary: "",
+            archive: ""
         },
         petPerCharge: {
             name: "",
@@ -63,6 +64,7 @@ const detailInit: NewContractDetail = {
             district: "",
             province: "",
             department: "",
+            image: ""
         },
         destination: {
             countryDestination: "",

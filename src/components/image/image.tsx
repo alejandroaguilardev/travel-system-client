@@ -25,6 +25,7 @@ export type ImageProps = BoxProps &
         overlay?: string;
         ratio?: ImageRatio;
         disabledEffect?: boolean;
+        objectFit?: string;
     };
 
 const Image = forwardRef<HTMLSpanElement, ImageProps>(
@@ -48,6 +49,7 @@ const Image = forwardRef<HTMLSpanElement, ImageProps>(
             visibleByDefault,
             wrapperClassName,
             useIntersectionObserver,
+            objectFit = "cover",
             sx,
             ...other
         },
@@ -91,7 +93,7 @@ const Image = forwardRef<HTMLSpanElement, ImageProps>(
                 sx={{
                     width: 1,
                     height: 1,
-                    objectFit: 'cover',
+                    objectFit,
                     verticalAlign: 'bottom',
                     ...(!!ratio && {
                         top: 0,

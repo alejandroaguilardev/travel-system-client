@@ -8,6 +8,7 @@ import { userService } from '../../../../../modules/users/infrastructure/user.se
 export const usePetFormGeneral = () => {
     const { setValue, watch, getValues } = useFormContext();
     const chip = watch("chip");
+    const image: string = watch("image");
     const birthDate: Date = fDayjs(watch("birthDate"));
     const chipDate: Date = fDayjs(watch("chipDate"));
 
@@ -46,9 +47,10 @@ export const usePetFormGeneral = () => {
     return {
         chip,
         client,
-        handleClient,
         birthDate,
         chipDate,
+        image,
+        handleClient,
         handleChip,
     }
 }

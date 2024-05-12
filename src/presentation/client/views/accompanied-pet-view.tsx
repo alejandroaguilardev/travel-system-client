@@ -19,6 +19,9 @@ import { errorsShowNotification } from '../../../modules/shared/infrastructure/h
 import { travelAccompaniedPetValidate } from '../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
 import { travelDestinationValidate } from '../../../modules/contracts/domain/contract-services/travel/travel-destination';
 import { travelPetPerChargeValidate } from '../../../modules/contracts/domain/contract-services/travel/travel-pet-per-charge';
+import { uploadImage } from '../../../modules/shared/infrastructure/upload/upload-image';
+import { useLoadImage } from '../../../hooks/use-load-image';
+import { useFileImageStore } from '../../../state/upload/file-image-store';
 
 type Props = {
     contractId: string;
@@ -30,6 +33,8 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
     const [isUpdate, setIsUpdate] = useState(false);
 
     const { isLoading, contractDetail } = useSearchByIdContractDetail(contractId, contractDetailId, token);
+    const { imageFile: imagePassport } = useLoadImage("arraybuffer", "private", contractDetail?.travel.accompaniedPet?.image, token);
+    const { fileImage } = useFileImageStore();
 
     const { showNotification } = useMessage();
 
@@ -37,6 +42,13 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
         try {
             const { accompaniedPet, destination, petPerCharge, observation } = dataForm;
             const { updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge } = accompaniedFormat(accompaniedPet, destination, petPerCharge);
+
+            let {image} = accompaniedPet;
+
+            if (fileImage) {
+                image = await uploadImage(fileImage, `${accompaniedPet.document}-${accompaniedPet.documentNumber}`, "private")
+            }
+            accompaniedPet.image = image;
 
             const axiosInstance = axios.create({ baseURL: HOST_API });
             await axiosInstance.patch(`${endpoints.contracts.detail}/${contractId}/${contractDetailId}/accompanied`,
@@ -120,8 +132,13 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
                         notButton={false}
                         onSubmit={onSubmit}
                     >
-                        <AccompaniedStep hasCharge={contractDetail?.travel?.typeTraveling === "charge"}
-                            notButton={false} status={contractDetail?.travel?.status ?? "pending"} />
+                        <AccompaniedStep
+                            hasCharge={contractDetail?.travel?.typeTraveling === "charge"}
+                            imagePassport={imagePassport}
+                            notButton={false}
+                            status={contractDetail?.travel?.status ?? "pending"}
+
+                        />
                     </AccompaniedForm>
                 </>
             }

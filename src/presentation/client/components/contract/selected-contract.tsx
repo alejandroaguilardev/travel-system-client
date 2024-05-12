@@ -48,7 +48,7 @@ export const SelectedContract: FC<Props> = ({ contract, contractDetail }) => {
                 <CardTravel
                     travel={contractDetail.travel}
                     contractId={contract.id}
-                    detailId={contractDetail.id}
+                    detail={contractDetail}
                 />
             </Box>
             {contract?.status.client === "completed" &&

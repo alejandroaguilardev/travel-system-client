@@ -38,7 +38,7 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
 
     return (
         <>
-            {(detail.topico?.rabiesReVaccination.executed && detail.topico?.chipReview?.executed) &&
+            {(detail.topico?.rabiesReVaccination.executed && (detail.topico?.chipReview?.executed || !detail.documentation.chipCertificate.hasServiceIncluded)) &&
                 < FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
 
                     {!takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha guardado la información relacionada a la toma de muestra</Alert>}

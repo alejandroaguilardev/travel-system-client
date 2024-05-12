@@ -26,11 +26,11 @@ export function fDayjs(date: InputValue): any {
     return dayjs(date).locale('es')
 }
 
-export function fDayRest(date: InputValue, year: number, day: number) {
+export function fDayRest(date: InputValue, year: number, day: number): Date {
     return dayjs(date).subtract(year, 'year').subtract(day, 'day').toDate();
 }
 
-export function fDaySum(date: InputValue, cant: number) {
+export function fDaySum(date: InputValue, cant: number): Date {
     return dayjs(date).add(cant, "day").toDate();
 }
 

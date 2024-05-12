@@ -41,7 +41,7 @@ export default function ContractTravelView({ id }: Props) {
                             callback={() => false}
                             client={contract.client}
                             contractId={id}
-                            detailId={detail.id}
+                            detail={detail}
                             travel={detail.travel}
                             isUser
                         />

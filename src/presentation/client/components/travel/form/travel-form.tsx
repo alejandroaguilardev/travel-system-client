@@ -18,21 +18,22 @@ import { AccompaniedStep } from "../../accompanied-form/steps/accompanied-steps"
 import { User, getLinkWhatApp } from '../../../../../modules/users/domain/user';
 import { ContactWhatsApp } from "../../../../../components/contact-whats-app/contact-whats-app";
 import { isTravelAccompaniedFormEdit, isTravelReserveFormEdit } from "./travel-utils";
+import { useLoadImage } from '../../../../../hooks/use-load-image';
+import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
+import { useLoadFile } from '../../../../../hooks/use-load-file';
 
 type Props = {
     contractId: string;
-    detailId: string;
+    detail: ContractDetail;
     travel: Travel;
     callback: (response?: ContractDetailUpdateResponse) => void
     onCancel: () => void;
     adviser?: User;
     client: User;
     isUser?: boolean;
-
 }
 
-
-export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, adviser, callback, onCancel, contractId }) => {
+export const TravelForm: FC<Props> = ({ travel, detail, isUser, client, adviser, callback, onCancel, contractId }) => {
     const methods = useForm({
         resolver: yupResolver<PartialTravel>(travelSchema),
         defaultValues: {
@@ -44,9 +45,9 @@ export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, advise
         },
     });
 
-
-    const { onSubmit } = useFormTravel({ contractId, detailId, callback });
-
+    const { onSubmit } = useFormTravel({ contractId, detail, callback });
+    const { imageFile } = useLoadImage("arraybuffer", "private", travel?.accompaniedPet?.image);
+    const { archiveFile } = useLoadFile(travel?.airlineReservation?.archive);
 
     const editAccompaniedForm = isUser || isTravelAccompaniedFormEdit(travel);
     const editTravel = isUser || isTravelReserveFormEdit(travel);
@@ -57,15 +58,15 @@ export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, advise
             component: <AccompaniedForm
                 travel={travel}
                 contractId={contractId}
-                contractDetailId={detailId}
+                contractDetailId={detail.id}
                 callback={callback}
                 notButton={!editAccompaniedForm}
             >
                 {(editAccompaniedForm) ?
-                    <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={false} status={travel?.status ?? "pending"} client={client} />
+                    <AccompaniedStep hasCharge={travel?.typeTraveling === "charge"} notButton={false} status={travel?.status ?? "pending"} client={client} imagePassport={imageFile} isUser={editAccompaniedForm} />
                     :
                     <>
-                        <AccompaniedFormGeneral notButton />
+                        <AccompaniedFormGeneral notButton imagePassport={imageFile} />
                         <DestinationFormGeneral notButton />
                         {travel?.typeTraveling === "charge" &&
                             <ChargeFormGeneral notButton />
@@ -80,7 +81,7 @@ export const TravelForm: FC<Props> = ({ travel, detailId, isUser, client, advise
         {
             value: "Reserva",
             component: <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-                <TravelFormGeneral hasServiceIncluded={travel.hasServiceIncluded} readonly={!editTravel} />
+                <TravelFormGeneral hasServiceIncluded={travel.hasServiceIncluded} pet={detail.pet} readonly={!editTravel} archiveFile={archiveFile} />
                 {(editTravel) ?
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

@@ -19,7 +19,10 @@ import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers
 import Label from '../../../../components/label/label';
 import { statusColor } from '../table/status-color';
 import { TRAVEL_TYPES } from '../../../../modules/contracts/domain/contract-services/travel/contract-travel';
-import { contractDetailStatus, contractDetailStatusClient } from '../table/columns/contract-detail-status';
+import { getImage } from '../../../../modules/shared/infrastructure/upload/upload-image';
+import { getFile } from '../../../../modules/shared/infrastructure/upload/upload-file';
+import { useMessage } from '../../../../hooks/use-message';
+import { downloadFile } from '../../../../modules/shared/infrastructure/helpers/blob-archive';
 
 interface ContractDetailsProps {
     contract: Contract;
@@ -28,6 +31,31 @@ interface ContractDetailsProps {
 const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
     const { back } = useRouter();
     const theme = useTheme();
+    const { showNotification } = useMessage();
+
+    const downloadImage = (name?: string) => {
+        if (!name) return;
+        getImage(name, 'stream', "private").then((response) => {
+            downloadFile(new Blob([response.image]), response?.name ?? "");
+        }).catch((e) => {
+            console.log(e)
+            showNotification("No se logró descargar el archivo", { variant: "error" })
+        })
+    }
+
+
+    const downloadReserve = (name: string) => {
+        if (!name) return;
+        getFile(name).then((response) => {
+            const archive = response.file;
+            downloadFile(new Blob([archive]), response.name);
+        }).catch((e) => {
+            console.log(e)
+            showNotification("No se logró descargar el archivo", { variant: "error" })
+        })
+    }
+
+
 
     return (
         <>
@@ -311,6 +339,27 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                         </TableBody>
                     </Table>
                     <Divider sx={{ marginY: theme.spacing(2) }} />
+
+                    <Box display="flex" mb={4} justifyContent="center" gap={2}>
+                        {
+                            detail?.travel?.accompaniedPet?.image ?
+                                <Button variant='contained' onClick={() => downloadImage(detail.travel.accompaniedPet.image)}>
+                                    Ver adjunto pasaporte
+                                </Button>
+                                : <Button variant='contained' disabled>
+                                    No se ha adjuntado el Pasaporte
+                                </Button>
+                        }
+                        {
+                            detail?.travel?.airlineReservation.archive ?
+                                <Button variant='contained' onClick={() => downloadReserve(detail.travel.airlineReservation.archive)}>
+                                    Ver adjunto reserva
+                                </Button>
+                                : <Button variant='contained' disabled>
+                                    No se ha adjuntado la reserva
+                                </Button>
+                        }
+                    </Box>
 
                     <Box width="100%" display="flex" justifyContent="center">
                         <Button variant="outlined" onClick={back}>

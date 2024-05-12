@@ -8,14 +8,15 @@ import { DialogContract } from '../dialog/dialog-contract';
 import { TravelForm } from './form/travel-form';
 import { useContractStore } from '../../../../state/contract/contract-store';
 import { travelAccompaniedPetValidate } from '../../../../modules/contracts/domain/contract-services/travel/travel-accompanied-pet';
+import { ContractDetail } from '../../../../modules/contracts/domain/contract-detail';
 
 type Props = {
     travel: Travel;
     contractId: string;
-    detailId: string;
+    detail: ContractDetail;
 };
 
-export default function CardTravel({ travel, contractId, detailId }: Props) {
+export default function CardTravel({ travel, contractId, detail }: Props) {
     const dialog = useBoolean();
     const { onSelected, onSelectedDetail, contract } = useContractStore();
 
@@ -101,7 +102,7 @@ export default function CardTravel({ travel, contractId, detailId }: Props) {
                         contractId={contractId}
                         client={contract.client}
                         travel={travel}
-                        detailId={detailId}
+                        detail={detail}
                         callback={(response) => {
                             onSelected(response?.contract ?? null);
                             onSelectedDetail(response?.contractDetail ?? null);

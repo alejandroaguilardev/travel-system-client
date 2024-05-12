@@ -32,6 +32,7 @@ export const travelSchema: Yup.ObjectSchema<PartialTravel> = Yup.object().shape(
         departureDate: Yup.date().required("Indica la fecha de salida"),
         arrivalDate: Yup.date().required("Indica la fecha de llegada"),
         itinerary: Yup.string().required("Indique el itinerario de viaje"),
+        archive: Yup.string(),
         user: Yup.string()
     }),
     hasServiceIncluded: Yup.boolean(),

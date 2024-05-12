@@ -6,6 +6,7 @@ export interface TravelAirlineReservation {
     departureDate: Date | null;
     arrivalDate: Date | null;
     itinerary: string;
+    archive: string;
 };
 
 

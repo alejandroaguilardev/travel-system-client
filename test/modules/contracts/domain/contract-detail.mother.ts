@@ -108,6 +108,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 departureDate: null,
                 arrivalDate: null,
                 itinerary: "",
+                archive: ""
             },
             petPerCharge: {
                 name: "",
@@ -126,6 +127,7 @@ export const contractDetailCreateMother = (details?: NewContractDetail[]): NewCo
                 district: "",
                 province: "",
                 department: "",
+                image: '',
             },
             destination: {
                 countryDestination: "",

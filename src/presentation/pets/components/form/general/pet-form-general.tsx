@@ -7,16 +7,19 @@ import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { usePetFormGeneral } from './use-pet-form-general';
 import RHFSwitch from '../../../../../components/hook-form/rhf-switch';
+import Image from 'src/components/image/image';
+import { HOST_ASSETS_IMAGES } from '../../../../../app/config/config-global';
 
 type Props = {
     hasClient?: boolean;
     hasMeasurementsAndWeight?: boolean;
     hasRecommendation?: boolean;
     hasChip?: boolean;
+    hasImage?: boolean;
 }
 
-export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = false, hasRecommendation = false, hasChip = false }: Props) => {
-    const { chip, chipDate, birthDate, client, handleClient, handleChip } = usePetFormGeneral();
+export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = false, hasRecommendation = false, hasChip = false, hasImage = false }: Props) => {
+    const { chip, chipDate, birthDate, client, image, handleClient } = usePetFormGeneral();
 
     return (
         <Stack spacing={1} marginBottom={1}>
@@ -147,6 +150,13 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                     <ContractFormCage keyValue='cageRecommendation' />
                     <CageSelected keyField="cageRecommendation" readonly />
                 </>
+            }
+            {hasImage &&
+                <Image
+                    src={`${HOST_ASSETS_IMAGES}/${image}`}
+                    height={200}
+                    objectFit='contain'
+                />
             }
 
         </Stack>

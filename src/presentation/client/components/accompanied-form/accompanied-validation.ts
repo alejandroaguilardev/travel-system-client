@@ -22,6 +22,7 @@ export const defaultValues: TravelAccompaniedSchema = {
         district: '',
         province: '',
         department: '',
+        image: '',
     },
     destination: {
         countryDestination: '',
@@ -48,6 +49,7 @@ export const accompaniedPetSchema: Yup.ObjectSchema<TravelAccompaniedPet> = Yup.
     district: Yup.string().required('El distrito es un campo obligatorio'),
     province: Yup.string().required('La provincia es un campo obligatorio'),
     department: Yup.string().required('El departamento es un campo obligatorio'),
+    image: Yup.string(),
 });
 
 
@@ -85,6 +87,7 @@ export const getDefaultValues = (travel?: Travel) => ({
         district: travel?.accompaniedPet?.district || defaultValues.accompaniedPet.district,
         province: travel?.accompaniedPet?.province || defaultValues.accompaniedPet.province,
         department: travel?.accompaniedPet?.department || defaultValues.accompaniedPet.department,
+        image: travel?.accompaniedPet?.image || defaultValues.accompaniedPet.image,
     },
     destination: {
         countryDestination: travel?.destination?.countryDestination || defaultValues.destination.countryDestination,

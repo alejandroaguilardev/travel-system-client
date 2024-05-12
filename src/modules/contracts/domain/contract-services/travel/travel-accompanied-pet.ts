@@ -8,11 +8,12 @@ export interface TravelAccompaniedPet {
     district: string;
     province: string;
     department: string;
+    image?: string;
 };
 
 
 export const travelAccompaniedPetValidate = (values: TravelAccompaniedPet): boolean => {
-    const { name, document, documentNumber, phone, email, direction, district, province, department } = values;
+    const { name, document, documentNumber, phone, email, direction, district, province, department, image } = values;
 
     if (
         !!name &&
@@ -23,7 +24,8 @@ export const travelAccompaniedPetValidate = (values: TravelAccompaniedPet): bool
         !!department &&
         !!province &&
         !!district &&
-        !!direction
+        !!direction &&
+        !!image
     ) {
         return true;
     }

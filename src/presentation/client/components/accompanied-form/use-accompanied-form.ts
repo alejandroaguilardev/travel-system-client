@@ -7,6 +7,8 @@ import { AccompaniedPetUpdater } from '../../../../modules/contracts/application
 import { contractDetailService } from '../../../../modules/contracts/infrastructure/contract-detail.service';
 import { TravelAccompaniedSchema } from "./accompanied-validation";
 import { ContractDetailUpdateResponse } from '../../../../modules/contracts/domain/contract-detail.service';
+import { uploadImage } from '../../../../modules/shared/infrastructure/upload/upload-image';
+import { useFileImageStore } from '../../../../state/upload/file-image-store';
 
 type Props = {
     contractId: string;
@@ -15,7 +17,7 @@ type Props = {
 }
 
 export const useAccompaniedForm = ({ contractId, contractDetailId, callback }: Props) => {
-
+    const { fileImage } = useFileImageStore();
     const { reload } = useRouter();
     const { showNotification } = useMessage();
 
@@ -23,7 +25,13 @@ export const useAccompaniedForm = ({ contractId, contractDetailId, callback }: P
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
             const { accompaniedPet, destination, petPerCharge, observation = "" } = data;
+            let {image} = accompaniedPet;
 
+            if (fileImage) {
+                image = await uploadImage(fileImage, `${accompaniedPet.document}-${accompaniedPet.documentNumber}`, "private")
+            }
+
+            accompaniedPet.image = image;
             const response = await AccompaniedPetUpdater(contractDetailService)(contractId, contractDetailId, accompaniedPet, destination, petPerCharge, observation)
             showNotification("Actualizado con éxito");
             nativeEvent.submitter?.value === "reload"

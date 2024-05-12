@@ -23,6 +23,7 @@ export const accompaniedFormat = (accompaniedPet: TravelAccompaniedPet, destinat
         department: accompaniedPet.department || "",
         phone: accompaniedPet.phone || "",
         email: accompaniedPet.email || "",
+        image: accompaniedPet.image || "",
     };
 
     const updatedTravelDestination: TravelDestination = {

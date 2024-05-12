@@ -9,23 +9,26 @@ import IconWrapper from '../../../../../components/icon-wrapper/icon-wrapper';
 import { TravelAccompaniedSchema } from '../accompanied-validation';
 import { Box } from '@mui/material';
 import { User } from '../../../../../modules/users/domain/user';
+import { useFileImageStore } from '../../../../../state/upload/file-image-store';
 
 type Props = {
     hasCharge: boolean;
     notButton: boolean;
+    imagePassport: string | null
     client?: User;
 }
 
-export const useAccompaniedSteps = ({ hasCharge, notButton, client }: Props) => {
+export const useAccompaniedSteps = ({ hasCharge, notButton, client, imagePassport }: Props) => {
+    const { fileImage } = useFileImageStore();
     const { getValues } = useFormContext<TravelAccompaniedSchema>();
     const { showNotification } = useMessage();
 
     const steps: StepType[] = useMemo(() => [
         {
             value: " Salida",
-            component: <AccompaniedFormGeneral notButton={notButton} client={client} />,
+            component: <AccompaniedFormGeneral notButton={notButton} client={client} imagePassport={imagePassport} />,
             icon: <IconWrapper icon="departure" width={24} />,
-            handleNext: (setActiveStep) => {
+            handleNext: async (setActiveStep) => {
                 const { accompaniedPet } = getValues();
 
                 if (!accompaniedPet.name) {
@@ -69,6 +72,10 @@ export const useAccompaniedSteps = ({ hasCharge, notButton, client }: Props) => 
                     showNotification('Indique la dirección del remitente', { variant: "error" });
                     return;
                 }
+                if (!fileImage && !accompaniedPet.image) {
+                    showNotification('Suba la imagen del pasaporte', { variant: "error" });
+                    return;
+                }
 
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
             }
@@ -86,7 +93,7 @@ export const useAccompaniedSteps = ({ hasCharge, notButton, client }: Props) => 
         },
 
 
-    ], [getValues, showNotification]);
+    ], [getValues, showNotification, fileImage, imagePassport]);
 
     return {
         steps

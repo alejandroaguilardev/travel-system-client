@@ -31,7 +31,7 @@ export const PetForm: FC<Props> = ({ pet, adopterId, notReload, callback, onCanc
     const tabs = [
         {
             value: "Datos Generales",
-            component: <PetFormGeneral hasClient hasChip />
+            component: <PetFormGeneral hasClient hasChip hasImage />
         },
     ]
 
