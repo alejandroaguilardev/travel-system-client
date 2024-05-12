@@ -4,25 +4,32 @@ import { RHFSwitch, RHFTextField } from "../../../../../components/hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { TopicoSearchUser } from "../topico-search-user";
+import { useEffect } from "react";
+import { Pet } from '../../../../../modules/pets/domain/pet';
+import { vaccinationType } from "./vaccination-validation";
 
 type Props = {
     title: string;
+    pet?: Pet;
 }
 
-export const VaccinationFormGeneral = ({ title }: Props) => {
-    const { watch } = useFormContext();
+export const VaccinationFormGeneral = ({ title, pet }: Props) => {
+    const { watch, setValue } = useFormContext();
     const hasIncluded = watch("hasIncluded");
     const date = fDayjs(watch("date"));
     const executed = watch("executed");
 
+    useEffect(() => {
+        if (executed) {
+            setValue("description", vaccinationType(pet?.type))
+        } else {
+            setValue("description", "")
+        }
+    }, [executed])
 
     return (
         <>
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">{title}</Typography>
-                <Stack spacing={2}>
-                    <TopicoSearchUser />
-                </Stack>
                 <Divider />
                 {!hasIncluded &&
                     <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
@@ -35,6 +42,10 @@ export const VaccinationFormGeneral = ({ title }: Props) => {
 
                 {(hasIncluded || executed) &&
                     <>
+                        <Typography fontWeight="bold">{title}</Typography>
+                        <Stack spacing={2}>
+                            <TopicoSearchUser />
+                        </Stack>
                         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                             <RHFDate
                                 name="date"

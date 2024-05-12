@@ -31,7 +31,10 @@ export const useFormChip = ({ contractId, detail, petId, callback, hasServiceInc
 
     const onSubmit: SubmitHandler<VaccinationContract> = async (data) => {
         try {
-
+            if (hasServiceIncluded && !data.description) {
+                showNotification("Debe ingresar el microchip", { variant: "error" })
+                return;
+            }
             if (data.description) {
                 data.executed = true;
             }

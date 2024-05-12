@@ -5,9 +5,9 @@ import { HOST_ASSETS_IMAGES } from "src/app/config/config-global";
 export type ImageUploadType = "private" | "public";
 export type ImageGetType = "arraybuffer" | "stream";
 
-export const uploadImage = async (file: File, name: string, type: ImageUploadType, token?: string): Promise<string> => {
+export const uploadImage = async (file: File, name: string, route: ImageUploadType, token?: string): Promise<string> => {
     if (token) {
-        const { data } = await axios.post<{ url: string }>(`uploads/image/${type}`, { file, name }, {
+        const { data } = await axios.post<{ url: string }>(`uploads/image/${route}`, { file, name }, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
@@ -15,7 +15,7 @@ export const uploadImage = async (file: File, name: string, type: ImageUploadTyp
         });
         return data.url;
     }
-    const { data } = await axiosInstance.post<{ url: string }>(`uploads/image/${type}`, { file, name }, {
+    const { data } = await axiosInstance.post<{ url: string }>(`uploads/image/${route}`, { file, name }, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }

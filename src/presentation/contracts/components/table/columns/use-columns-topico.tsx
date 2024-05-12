@@ -6,17 +6,31 @@ import { fDate } from '../../../../../modules/shared/infrastructure/helpers/form
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { TOPICO_KEYS } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { contractDetailsPetNames, dateDepartureIsLastWeek } from './contract-detail-status';
+import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 
 
-const detailsTopicoStatus = (details: ContractDetail[], value: keyof typeof TOPICO_KEYS): JSX.Element => {
-    let pending = details?.length ?? 0;
+const detailsTopicoStatus = (details: ContractDetail[], value: keyof typeof TOPICO_KEYS, documentation: keyof typeof DOCUMENTATION_KEYS): JSX.Element => {
+    let pending = 0;
+    let notIncluded = 0;
     let completed = 0;
-    details.forEach(_ => {
-        completed += _.topico?.[value]?.executed ? 1 : 0;
-    })
+
+    for (const _ of details) {
+        if (!_.documentation?.[documentation]?.hasServiceIncluded) {
+            notIncluded += 1;
+            continue;
+        }
+        if (_.documentation?.[documentation]?.hasServiceIncluded) {
+            pending += 1;
+            continue;
+        }
+        completed += 1;
+    }
 
     pending -= completed;
     return <>
+        {notIncluded > 0 &&
+            <Label color="default">{notIncluded > 1 ? notIncluded : ""} No Incluido</Label>
+        }
         {pending > 0 &&
             <Label color="error">{pending > 1 ? pending : ""} Pendiente</Label>
         }
@@ -70,7 +84,7 @@ export const useColumnsTopico = () => {
             {
                 header: 'Microchip',
                 accessorKey: 'details.topico.chip.executed',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "chip"),
+                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "chip", "chipCertificate"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -81,7 +95,7 @@ export const useColumnsTopico = () => {
             {
                 header: 'Vacuna',
                 accessorKey: 'details.topico.vaccination.executed',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "vaccination"),
+                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "vaccination", "vaccinationCertificate"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -92,7 +106,7 @@ export const useColumnsTopico = () => {
             {
                 header: 'Vac. de rabia',
                 accessorKey: 'details.topico.rabiesVaccination.executed',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "rabiesVaccination"),
+                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "rabiesVaccination", "rabiesSeroLogicalTest"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -103,7 +117,7 @@ export const useColumnsTopico = () => {
             {
                 header: 'ReVac. de Rabia',
                 accessorKey: 'details.topico.rabiesReVaccination.executed',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "rabiesReVaccination"),
+                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "rabiesReVaccination", "rabiesSeroLogicalTest"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -114,7 +128,7 @@ export const useColumnsTopico = () => {
             {
                 header: 'Rev. Microchip',
                 accessorKey: 'details.topico.chipReview.executed',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "chipReview"),
+                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "chipReview", "rabiesSeroLogicalTest"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -125,7 +139,7 @@ export const useColumnsTopico = () => {
             {
                 header: 'Toma de muestra',
                 accessorKey: 'details.topico.takingSampleSerologicalTest.executed',
-                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "takingSampleSerologicalTest"),
+                Cell: ({ cell }) => detailsTopicoStatus(cell.row.original.details, "takingSampleSerologicalTest", "rabiesSeroLogicalTest"),
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },

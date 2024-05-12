@@ -17,10 +17,6 @@ export const ChipFormGeneral = () => {
     return (
         <>
             <Stack flexWrap="wrap" spacing={2} marginBottom={3}>
-                <Typography fontWeight="bold">{hasIncluded ? "Implantación de Chip" : "Revisar si la mascota tiene chip"}</Typography>
-                <Stack spacing={2}>
-                    <TopicoSearchUser />
-                </Stack>
                 <Divider />
                 {!hasIncluded &&
                     <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
@@ -34,6 +30,10 @@ export const ChipFormGeneral = () => {
                 {
                     (hasIncluded || executed) &&
                     <>
+                        <Typography fontWeight="bold">{hasIncluded ? "Implantación de Chip" : "Revisar si la mascota tiene chip"}</Typography>
+                        <Stack spacing={2}>
+                            <TopicoSearchUser />
+                        </Stack>
                         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                             <RHFDate
                                 name="date"

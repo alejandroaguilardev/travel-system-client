@@ -34,8 +34,8 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIn
     return (
         <>
             <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-
-                {!chip?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al microchip</Alert>}
+                {!hasServiceIncluded && <Alert severity="error" >Esta servicio no esta incluido en el contrato</Alert>}
+                {hasServiceIncluded && !chip?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al microchip</Alert>}
 
                 {chip?.executed && !isExecuted && <Alert severity="info">Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
 

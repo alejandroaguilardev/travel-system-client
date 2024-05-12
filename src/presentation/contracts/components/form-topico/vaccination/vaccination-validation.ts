@@ -15,7 +15,7 @@ export const vaccinationContractObjectSchema: Yup.ObjectSchema<VaccinationContra
     hasIncluded: Yup.boolean(),
     executed: Yup.boolean(),
     date: Yup.date(),
-    description: Yup.string().required("La vacuna es requerido"),
+    description: Yup.string(),
     observation: Yup.string(),
     user: Yup.string(),
 });
@@ -37,12 +37,17 @@ export const petVaccinationDefaultValues = (detail: ContractDetail) => {
     const vaccination = detail?.topico?.vaccination;
     const dataExits = detail?.pet?.topico?.vaccination;
 
+    let description = defaultVaccination.description;
+    if (detail.documentation.vaccinationCertificate?.hasServiceIncluded) {
+        description = vaccinationType(detail.pet?.type);
+    }
+
     if (vaccination?.date) {
         return {
             hasIncluded: detail.documentation.vaccinationCertificate?.hasServiceIncluded || defaultVaccination.hasIncluded,
             executed: vaccination?.executed || defaultVaccination.executed,
             date: vaccination?.date || defaultVaccination.date,
-            description: vaccination?.description || vaccinationType(detail.pet?.type),
+            description: vaccination?.description || description,
             observation: vaccination?.observation || defaultVaccination.observation,
             user: vaccination?.user || defaultVaccination.user
         }
