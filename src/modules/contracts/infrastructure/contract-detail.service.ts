@@ -65,22 +65,22 @@ export const contractDetailService: ContractDetailService = {
         return data;
     },
     mailTopicRabiesReVaccination: async (contractId: string, detailId: string): Promise<void> => {
-        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTopicRabiesReVaccination`);
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/notificationTopicRabiesReVaccination`);
     },
     mailDetail: async (contractId: string, detailId: string, message = ""): Promise<void> => {
-        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailDetail`, { message });
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/notificationDetail`, { message });
     },
     mailTakingSample: async (contractId: string, detailId: string): Promise<void> => {
-        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTakingSample`);
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/notificationTakingSample`);
     },
     mailTakingSampleExecuted: async (contractId: string, detailId: string): Promise<void> => {
-        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTakingSampleExecuted`);
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/notificationTakingSampleExecuted`);
     },
     mailSenasaIntroduceContract: async (contractId: string, detailId: string): Promise<void> => {
-        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailSenasaIntroduceContract`);
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/notificationSenasaIntroduceContract`);
     },
     mailTravelDetail: async (contractId: string, detailId: string): Promise<void> => {
-        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/mailTravelDetail`);
+        await axiosInstance.post<ContractDetailUpdateResponse>(`${endpoints.contracts.detail}/${contractId}/${detailId}/notificationTravelDetail`);
     },
     downloadSenasaExcel: async (contractId: string, detailId: string,): Promise<{ file: string, name: string }> => {
         const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${contractId}/${detailId}/excel/senasa`, null, {
