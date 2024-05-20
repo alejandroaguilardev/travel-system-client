@@ -26,4 +26,8 @@ export const endpoints = {
         client: '/contracts/client',
         detail: '/contract-detail',
     },
+    incident: {
+        root: '/incidents',
+        notification: '/incidents/notification',
+    }
 };

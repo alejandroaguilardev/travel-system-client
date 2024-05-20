@@ -50,6 +50,7 @@ export function TablePagination<T extends Record<string, any>>({
     }, [])
     return (
         <TableWrapper<T>
+            enableRowSelection={false}
             enableRowActions
             enableHiding
             manualFiltering

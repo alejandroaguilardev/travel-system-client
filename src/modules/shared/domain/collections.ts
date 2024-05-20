@@ -7,6 +7,8 @@ export const COLLECTIONS = {
     cages: 'cages',
     pets: 'pets',
     folders: 'folders',
+    incidents: 'incidents',
+    incidentsNotification: 'incidents-notifications',
 } as const;
 
 export type Collections = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];

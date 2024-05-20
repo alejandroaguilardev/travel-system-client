@@ -16,12 +16,20 @@ const itemsUsers = (user: User | null): ItemSubMenu[] => {
     return users;
 }
 
+const itemsErrors = (user: User | null): ItemSubMenu[] => {
+    const users: ItemSubMenu[] = [];
+
+    hasPermission(user, AuthGroup.INCIDENTS, AuthPermission.LIST) && users.push({ title: 'General', path: paths.dashboard.incidents.root });
+    hasPermission(user, AuthGroup.INCIDENTS, AuthPermission.LIST) && users.push({ title: 'Notificaciones', path: paths.dashboard.incidents.notification });
+
+    return users;
+}
+
 
 
 export const itemsAdministration = (user: User | null): ItemMenu[] => {
     const administration: ItemMenu[] = [];
     const users = itemsUsers(user);
-
 
     if (users.length > 0) {
         administration.push({
@@ -32,9 +40,19 @@ export const itemsAdministration = (user: User | null): ItemMenu[] => {
         });
     }
 
-
     hasPermission(user, AuthGroup.FOLDERS, AuthPermission.LIST) && administration.push({ title: 'Registrar Expedientes', path: paths.dashboard.folders.root, icon: ICONS_MENU.folder })
-    hasPermission(user, AuthGroup.CAGES, AuthPermission.LIST) && administration.push({ title: 'Registrar Jaulas', path: paths.dashboard.cages.root, icon: ICONS_MENU.kanban })
+    hasPermission(user, AuthGroup.CAGES, AuthPermission.LIST) && administration.push({ title: 'Registrar Jaulas', path: paths.dashboard.cages.root, icon: ICONS_MENU.kanban });
+
+
+    const incidents = itemsErrors(user);
+    if (users.length > 0) {
+        administration.push({
+            title: 'Incidencias',
+            path: paths.dashboard.incidents.root,
+            icon: ICONS_MENU.external,
+            children: incidents,
+        });
+    }
 
     return administration;
 }

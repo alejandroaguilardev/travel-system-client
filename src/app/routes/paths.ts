@@ -105,5 +105,11 @@ export const paths = {
       view: (id: string) => `${ROOTS.DASHBOARD_USER}/permisos/${id}/visualizar`,
       edit: (id: string) => `${ROOTS.DASHBOARD_USER}/permisos/${id}/editar`,
     },
+    incidents: {
+      root: `${ROOTS.DASHBOARD}/incidencias`,
+      view: (id: string) => `${ROOTS.DASHBOARD}/incidencias/${id}/visualizar`,
+      notification: `${ROOTS.DASHBOARD}/incidencias-notificaciones`,
+      notificationView: (id: string) => `${ROOTS.DASHBOARD_USER}/incidencias-notificaciones/${id}/visualizar`,
+    },
   },
 };

@@ -7,6 +7,7 @@ import { contractService } from '../../../modules/contracts/infrastructure/contr
 import { cageService } from '../../../modules/cages/infrastructure/cages.service';
 import { petService } from '../../../modules/pets/infrastructure/pets.service';
 import { folderService } from '../../../modules/folders/infrastructure/folders.service';
+import { incidentService } from '../../../modules/incidents/infrastructure/indicent.service';
 
 export const conditionPersistence = (collection: Collections): ServiceSearch => {
     switch (collection) {
@@ -24,6 +25,10 @@ export const conditionPersistence = (collection: Collections): ServiceSearch => 
             return petService.search;
         case COLLECTIONS.folders:
             return folderService.search;
+        case COLLECTIONS.incidents:
+            return incidentService.search;
+        case COLLECTIONS.incidentsNotification:
+            return incidentService.searchNotification;
         default:
             throw new Error("No existe la colección");
     }

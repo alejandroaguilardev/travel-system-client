@@ -59,6 +59,9 @@ const FoldersPage = lazy(() => import('../../pages/admin/folders'));
 const FoldersNewPage = lazy(() => import('../../pages/admin/folders/new'));
 const FoldersIdPage = lazy(() => import('../../pages/admin/folders/[id]/index'));
 
+const IncidentPage = lazy(() => import('../../pages/admin/incidencias'));
+const IncidentNotificationPage = lazy(() => import('../../pages/admin/incidencias/notificaciones'));
+
 export const dashboardRoutes = [
   {
     path: 'dashboard',
@@ -171,6 +174,18 @@ export const dashboardRoutes = [
           { element: <UserPage />, index: true },
           { path: 'crear', element: <UserNewPage /> },
           { path: ':id/:action', element: <UserIdPage /> },
+        ],
+      },
+      {
+        path: 'incidencias',
+        children: [
+          { element: <IncidentPage />, index: true },
+        ],
+      },
+      {
+        path: 'incidencias-notificaciones',
+        children: [
+          { element: <IncidentNotificationPage />, index: true },
         ],
       },
     ],
