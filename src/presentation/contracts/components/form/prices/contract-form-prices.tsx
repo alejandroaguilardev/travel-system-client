@@ -21,7 +21,7 @@ export const ContractFormPrices = () => {
                 <Stack spacing={1} marginBottom={1} direction={{ xs: "column", md: "row" }} gap={1}>
                     <RHFTextField
                         name="format"
-                        label="Formato de contrato"
+                        label="Formato de contrato (*)"
                         select
                     >
                         <MenuItem value="Europa" >Europa</MenuItem>
@@ -30,7 +30,7 @@ export const ContractFormPrices = () => {
                         <MenuItem value="Asia" >Asia</MenuItem>
                     </RHFTextField>
                     <RHFDate
-                        label="Fecha estimada de viaje"
+                        label="Fecha estimada de viaje (*)"
                         name='estimatedDate'
                         value={fDayjs(estimatedDate)}
                     />

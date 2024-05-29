@@ -5,10 +5,12 @@ import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { TopicoSearchUser } from "../topico-search-user";
 
+type Props = {
+    hasServiceIncluded: boolean;
+}
 
-export const ChipFormGeneral = () => {
+export const ChipFormGeneral = ({ hasServiceIncluded }: Props) => {
     const { watch } = useFormContext();
-    const hasIncluded = watch("hasIncluded");
     const executed = watch("executed");
     const date = fDayjs(watch("date"));
 
@@ -18,7 +20,7 @@ export const ChipFormGeneral = () => {
         <>
             <Stack flexWrap="wrap" spacing={2} marginBottom={3}>
                 <Divider />
-                {!hasIncluded &&
+                {!hasServiceIncluded &&
                     <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                         <RHFSwitch
                             name="executed"
@@ -28,9 +30,9 @@ export const ChipFormGeneral = () => {
 
                 }
                 {
-                    (hasIncluded || executed) &&
+                    (hasServiceIncluded || executed) &&
                     <>
-                        <Typography fontWeight="bold">{hasIncluded ? "Implantación de Chip" : "Revisar si la mascota tiene chip"}</Typography>
+                        <Typography fontWeight="bold">{hasServiceIncluded ? "Implantación de Chip" : "Revisar si la mascota tiene chip"}</Typography>
                         <Stack spacing={2}>
                             <TopicoSearchUser />
                         </Stack>
@@ -38,7 +40,7 @@ export const ChipFormGeneral = () => {
                             <RHFDate
                                 name="date"
                                 value={date}
-                                label={hasIncluded ? "Fecha de cuando le implantaron el chip implantación (*)" : "Fecha de la implantación del microchip(*)"}
+                                label={hasServiceIncluded ? "Fecha de la implantación del microchip(*)" : "Fecha de cuando le implantaron el chip implantación (*)"}
                             />
 
                             <RHFTextField

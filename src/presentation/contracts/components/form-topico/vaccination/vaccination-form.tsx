@@ -40,7 +40,7 @@ export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded, 
 
                 {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
-                <VaccinationFormGeneral title={title} pet={detail?.pet} />
+                <VaccinationFormGeneral title={title} pet={detail?.pet} hasServiceIncluded={hasServiceIncluded} />
                 {hasServiceIncluded &&
                     <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
                 }

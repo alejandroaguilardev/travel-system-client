@@ -11,27 +11,19 @@ import { vaccinationType } from "./vaccination-validation";
 type Props = {
     title: string;
     pet?: Pet;
+    hasServiceIncluded: boolean;
 }
 
-export const VaccinationFormGeneral = ({ title, pet }: Props) => {
-    const { watch, setValue } = useFormContext();
-    const hasIncluded = watch("hasIncluded");
+export const VaccinationFormGeneral = ({ title, hasServiceIncluded }: Props) => {
+    const { watch } = useFormContext();
     const date = fDayjs(watch("date"));
     const executed = watch("executed");
-
-    useEffect(() => {
-        if (executed) {
-            setValue("description", vaccinationType(pet?.type))
-        } else {
-            setValue("description", "")
-        }
-    }, [executed])
 
     return (
         <>
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <Divider />
-                {!hasIncluded &&
+                {!hasServiceIncluded &&
                     <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                         <RHFSwitch
                             name="executed"
@@ -40,7 +32,7 @@ export const VaccinationFormGeneral = ({ title, pet }: Props) => {
                     </Stack>
                 }
 
-                {(hasIncluded || executed) &&
+                {(hasServiceIncluded || executed) &&
                     <>
                         <Typography fontWeight="bold">{title}</Typography>
                         <Stack spacing={2}>
@@ -50,7 +42,7 @@ export const VaccinationFormGeneral = ({ title, pet }: Props) => {
                             <RHFDate
                                 name="date"
                                 value={date}
-                                label={hasIncluded ? "Fecha de cuando aplicaron la vacuna" : "Fecha de la vacuna"}
+                                label={hasServiceIncluded ? "Fecha de la vacuna" : "Fecha de cuando aplicaron la vacuna"}
                             />
 
                             <RHFTextField

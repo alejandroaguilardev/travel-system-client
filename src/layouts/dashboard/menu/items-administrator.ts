@@ -40,8 +40,8 @@ export const itemsAdministration = (user: User | null): ItemMenu[] => {
         });
     }
 
-    hasPermission(user, AuthGroup.FOLDERS, AuthPermission.LIST) && administration.push({ title: 'Registrar Expedientes', path: paths.dashboard.folders.root, icon: ICONS_MENU.folder })
     hasPermission(user, AuthGroup.CAGES, AuthPermission.LIST) && administration.push({ title: 'Registrar Jaulas', path: paths.dashboard.cages.root, icon: ICONS_MENU.kanban });
+    hasPermission(user, AuthGroup.FOLDERS, AuthPermission.LIST) && administration.push({ title: 'Registrar Expedientes', path: paths.dashboard.folders.root, icon: ICONS_MENU.folder })
 
 
     const incidents = itemsErrors(user);

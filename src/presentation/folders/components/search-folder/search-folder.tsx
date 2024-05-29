@@ -24,7 +24,7 @@ export const SearchFolder = ({
     handleFolder,
     handleQuantity,
     textField = {
-        label: "Seleccionar folder",
+        label: "Indicar folder",
         placeholder: "Buscar y seleccionar un folder...",
     },
     newPerson = true,

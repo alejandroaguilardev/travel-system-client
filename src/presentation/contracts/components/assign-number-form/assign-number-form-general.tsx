@@ -23,7 +23,7 @@ export const AssignNumberFormGeneral = () => {
                 <Box width="100%">
                     <AutocompleteSelectorClient<{ number: number }>
                         textField={{
-                            label: "Número de contrato"
+                            label: "Numeró de expediente"
                         }}
                         items={quantity}
                         defaultValue={{ number }}
@@ -42,6 +42,9 @@ export const AssignNumberFormGeneral = () => {
                     placeholder='Acreditado-N° aún sin expediente'
                     fullWidth
                     disabled
+                    sx={{
+                        cursor: "not-allowed"
+                    }}
                 />
             }
 

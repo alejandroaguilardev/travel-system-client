@@ -42,7 +42,7 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIn
                 {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
 
-                <ChipFormGeneral />
+                <ChipFormGeneral hasServiceIncluded={hasServiceIncluded} />
                 {
                     hasServiceIncluded &&
                     <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />

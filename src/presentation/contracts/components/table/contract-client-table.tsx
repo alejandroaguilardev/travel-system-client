@@ -116,7 +116,7 @@ export const ContractClientTable: FC<Props> = ({ options }) => {
                 manualFiltering
                 manualPagination
                 manualSorting
-
+                enableRowSelection={false}
                 columns={columns}
                 renderRowActionMenuItems={({ row }) => [
                     <MenuItem key={row.id} onClick={() => {

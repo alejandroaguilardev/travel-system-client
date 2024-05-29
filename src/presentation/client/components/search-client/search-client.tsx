@@ -44,7 +44,7 @@ export const SearchClient = ({
     field,
     handleClient,
     textField = {
-        label: "Seleccionar cliente(*)",
+        label: "Buscar y Seleccionar cliente(*)",
         placeholder: "Buscar y seleccionar un cliente...",
     },
     newPerson = true,

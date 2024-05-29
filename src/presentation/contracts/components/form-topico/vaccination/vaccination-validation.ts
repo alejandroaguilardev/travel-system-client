@@ -37,9 +37,8 @@ export const petVaccinationDefaultValues = (detail: ContractDetail) => {
     const vaccination = detail?.topico?.vaccination;
     const dataExits = detail?.pet?.topico?.vaccination;
 
-    let description = defaultVaccination.description;
     if (detail.documentation.vaccinationCertificate?.hasServiceIncluded) {
-        description = vaccinationType(detail.pet?.type);
+        defaultVaccination.description = vaccinationType(detail.pet?.type);
     }
 
     if (vaccination?.date) {
@@ -47,7 +46,7 @@ export const petVaccinationDefaultValues = (detail: ContractDetail) => {
             hasIncluded: detail.documentation.vaccinationCertificate?.hasServiceIncluded || defaultVaccination.hasIncluded,
             executed: vaccination?.executed || defaultVaccination.executed,
             date: vaccination?.date || defaultVaccination.date,
-            description: vaccination?.description || description,
+            description: vaccination?.description || vaccinationType(detail.pet?.type),
             observation: vaccination?.observation || defaultVaccination.observation,
             user: vaccination?.user || defaultVaccination.user
         }

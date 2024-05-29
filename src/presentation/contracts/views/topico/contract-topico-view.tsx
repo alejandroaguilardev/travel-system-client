@@ -13,9 +13,9 @@ export default function ContractTopicoView() {
     return (
         <Container maxWidth='xl'>
             <CustomBreadcrumbs
-                heading="Fase Topico"
+                heading="Fase Tópico"
                 links={[
-                    { name: 'Topico', href: paths.dashboard.faseDocumentation.topico.list },
+                    { name: 'Tópico', href: paths.dashboard.faseDocumentation.topico.list },
                     {
                         name: 'Listado',
                     }

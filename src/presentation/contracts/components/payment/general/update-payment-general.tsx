@@ -1,42 +1,59 @@
 import { DatePicker } from '@mui/x-date-pickers';
-import { Box, Button, Dialog, DialogContent, DialogTitle, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import { useUpdatePaymentGeneral } from './use-update-payment-general';
 import Label from '../../../../../components/label';
 import { fDate, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { customerPaymentSaldo } from '../../../../../modules/contracts/domain/customer-payments';
+import { CustomerPayment, customerPaymentSaldo } from '../../../../../modules/contracts/domain/customer-payments';
 import { PayInInstallment } from '../../../../../modules/contracts/domain/payment-summary';
 import { useSelectedValue } from '../../../../../hooks/use-selected-value';
 import { fCurrency } from '../../../../../modules/shared/domain/helpers/format-number';
+import { useBoolean } from '../../../../../hooks';
+import { useState } from 'react';
 
 const today = fDayjs(new Date());
+
+interface ConfirmPayTotal {
+    isPay: boolean;
+    index: number;
+    price: number;
+    customerPayments: CustomerPayment[];
+}
 
 export const UpdatePaymentGeneral = () => {
     const { selected, handleSelected } = useSelectedValue<{ payInInstallment: PayInInstallment, index: number }>();
     const { payInInstallments, handleIsPay, dateCustomer, handlePayParcial, priceCustomer, setDate, setPriceCustomer } = useUpdatePaymentGeneral();
+
+    const { value, onTrue, onFalse } = useBoolean(false);
+    const [isPayValues, setIsPayValues] = useState<ConfirmPayTotal | null>(null);
+
+    const handleIsPayValues = ({ isPay, index, price, customerPayments }: ConfirmPayTotal) => {
+        setIsPayValues({ isPay, index, price, customerPayments });
+        onTrue();
+    }
+    const handleClose = () => {
+        setIsPayValues(null);
+        onFalse();
+    }
     return (
         <Stack spacing={1} marginBottom={1}>
             <Table>
                 <TableHead>
-                    <TableCell>Acciones</TableCell>
+                    <TableCell>Estado</TableCell>
                     <TableCell>Fecha estimada</TableCell>
                     <TableCell>Costo</TableCell>
                     <TableCell>Saldo por pagar</TableCell>
-                    <TableCell>Estado</TableCell>
+                    <TableCell>Acciones</TableCell>
                 </TableHead>
                 <TableBody>
                     {payInInstallments?.map((_, i) => (
                         <TableRow key={i}>
-                            <TableCell sx={{ display: "flex" }}>
-                                <Button variant='contained' color={_.isPay ? "error" : "primary"} sx={{ mr: 1 }} onClick={() => handleIsPay(i, customerPaymentSaldo(_?.price, _?.customerPayments))} fullWidth>
-                                    {_.isPay ? "Cancelar Pago" : "Pago total"}
-                                </Button>
-                                <Button variant='outlined' fullWidth onClick={() => {
-                                    handleSelected({ payInInstallment: _, index: i });
-                                    setDate(new Date());
-                                    setPriceCustomer(customerPaymentSaldo(_?.price, _?.customerPayments));
-                                }}>
-                                    Pago Parcial
-                                </Button>
+                            <TableCell>
+                                <Label
+                                    color={_.isPay ? "success" : "error"}
+                                    sx={{ px: 4, py: 3, width: "100%" }}
+                                >
+                                    {_.isPay ? "Pagado" : "No Pagado"}
+                                </Label>
                             </TableCell>
                             <TableCell>
                                 <Label sx={{ width: "100%" }} color={today.isAfter(_.date) ? "error" : "default"} >{fDate(_.date, "DD/MM/YYYY")}</Label>
@@ -57,15 +74,18 @@ export const UpdatePaymentGeneral = () => {
                                         width: "100%"
                                     }}
                                 />
-
                             </TableCell>
-                            <TableCell>
-                                <Label
-                                    color={_.isPay ? "success" : "error"}
-                                    sx={{ px: 4, py: 3, width: "100%" }}
-                                >
-                                    {_.isPay ? "Pagado" : "No Pagado"}
-                                </Label>
+                            <TableCell sx={{ display: "flex" }}>
+                                <Button variant='contained' color={_.isPay ? "error" : "primary"} sx={{ mr: 1 }} onClick={() => handleIsPayValues({ index: i, isPay: _.isPay, price: _.price, customerPayments: _?.customerPayments ?? [] })} fullWidth>
+                                    {_.isPay ? "Cancelar Pago" : "Pago total"}
+                                </Button>
+                                <Button variant='outlined' color='success' disabled={_.isPay} fullWidth onClick={() => {
+                                    handleSelected({ payInInstallment: _, index: i });
+                                    setDate(new Date());
+                                    setPriceCustomer(customerPaymentSaldo(_?.price, _?.customerPayments));
+                                }}>
+                                    Pago Parcial
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -157,6 +177,16 @@ export const UpdatePaymentGeneral = () => {
                 </Dialog>
             }
 
+            <Dialog open={value} onClose={handleClose}>
+                <DialogTitle>Confirmar Acción</DialogTitle>
+                <DialogContent>
+                    ¿Esta seguro de realizar la siguiente acción de  {isPayValues?.isPay ? "Cancelar Pago esto hará que se borrén los pagos parciales realizados anteriormente" : "realizar un Pago total"}?
+                </DialogContent>
+                <DialogActions>
+                    <Button variant="outlined" onClick={() => onFalse()}>Cancelar</Button>
+                    <Button variant="contained" onClick={() => handleIsPay(isPayValues?.index ?? 0, customerPaymentSaldo(isPayValues?.price, isPayValues?.customerPayments))}>Aceptar</Button>
+                </DialogActions>
+            </Dialog>
         </Stack >
     )
 }

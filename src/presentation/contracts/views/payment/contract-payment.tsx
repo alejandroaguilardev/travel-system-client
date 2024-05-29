@@ -21,7 +21,7 @@ export default function ContractPaymentView() {
     return (
         <Container maxWidth='xl'>
             <CustomBreadcrumbs
-                heading="Contratos Pagos"
+                heading="Cuotas por pagar"
                 links={[
                     { name: 'Contratos', href: paths.dashboard.contracts.root },
                     {

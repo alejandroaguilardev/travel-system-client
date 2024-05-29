@@ -27,11 +27,6 @@ export default function DashboardView() {
                 <Typography variant="body1" gutterBottom >
                     Explora a fondo y no dudes en contactarnos si necesitas ayuda o tienes alguna pregunta. ¡Estamos aquí para hacer que tu experiencia sea excepcional!
                 </Typography>
-                <Link component={RouterLink} href={paths.dashboard.contracts.root} underline="none">
-                    <Button variant="contained" fullWidth color="primary" >
-                        Ver contratos
-                    </Button>
-                </Link>
             </Box>
         </Container>
     );

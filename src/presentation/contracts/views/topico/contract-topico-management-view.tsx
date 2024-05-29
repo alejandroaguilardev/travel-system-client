@@ -27,10 +27,10 @@ export default function ContractTopicoManagementView({ id, action = TopicTabs.ad
             <Container maxWidth='xl'>
                 <CustomBreadcrumbs
                     sx={{ display: "inline" }}
-                    heading={`Requisitos de Topico: ${contractSearch?.client?.profile?.name} `}
+                    heading={`Requisitos de Tópico: ${contractSearch?.client?.profile?.name} `}
                     links={[
                         { name: 'Inicio', href: paths.dashboard.root },
-                        { name: 'Topico', href: paths.dashboard.faseDocumentation.topico.list },
+                        { name: 'Tópico', href: paths.dashboard.faseDocumentation.topico.list },
                         { name: `${correlativeToString(contractSearch?.correlative)}` },
                     ]}
                 />
