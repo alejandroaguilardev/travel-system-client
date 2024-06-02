@@ -81,7 +81,7 @@ export const AccompaniedFormGeneral = ({ client, notButton, imagePassport }: Pro
                 <Divider />
                 <RHFTextField
                     name="accompaniedPet.name"
-                    label="Nombre (*)"
+                    label="Nombres y Apellidos (*)"
                     inputAdornment
                 />
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>

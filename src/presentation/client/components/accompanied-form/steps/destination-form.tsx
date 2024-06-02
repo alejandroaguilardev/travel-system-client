@@ -1,7 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { Stack, TextField, Typography } from "@mui/material"
 import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
-import { AutocompleteSelectorClient } from '../../../../../components/autocomplete/client/autocomplete-selector-client';
 import { countries } from '../../../../../modules/shared/domain/helpers/countries';
 
 type Props = {
@@ -9,8 +8,7 @@ type Props = {
 }
 
 export const DestinationFormGeneral = ({ notButton }: Props) => {
-    const { setValue, watch } = useFormContext();
-    const handleCountry = (value: string) => setValue("destination.countryDestination", value);
+    const { watch } = useFormContext();
     const country = watch("destination.countryDestination") || null;
 
     return (
@@ -21,27 +19,12 @@ export const DestinationFormGeneral = ({ notButton }: Props) => {
                     Destino de la mascota:
                 </Typography>
 
-                {
-                    notButton
-                        ? <TextField
-                            value={countries.find(_ => _.name_es === country)?.name_es ?? ""}
-                            label="País Destino (*)"
-                            variant="outlined"
-                            disabled
-                        />
-                        : <AutocompleteSelectorClient
-                            textField={{
-                                label: "País Destino (*)"
-                            }}
-                            items={countries}
-                            defaultValue={countries.find(_ => _.name_es === country) || null}
-                            getOptionLabel={(d: any) => d.name_es}
-                            callback={(value) => {
-                                handleCountry(value?.name_es ?? "");
-                            }}
-                            propertiesFilter={["name_es"]}
-                        />
-                }
+                <TextField
+                    value={countries.find(_ => _.name_es === country)?.name_es ?? ""}
+                    label="País Destino (*)"
+                    variant="outlined"
+                    disabled
+                />
 
 
 

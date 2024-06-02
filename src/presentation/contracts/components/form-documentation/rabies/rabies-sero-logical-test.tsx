@@ -74,7 +74,7 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <Typography fontWeight="bold">Test serológico de rabia</Typography>
-                <CertificateFormGeneral label="Resultado Recibido?" showDate={false} />
+                <CertificateFormGeneral label="¿Resultado Recibido?" showDate={false} />
 
                 <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 

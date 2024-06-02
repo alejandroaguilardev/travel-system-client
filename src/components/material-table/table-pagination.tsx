@@ -7,7 +7,6 @@ import { Collections } from '../../modules/shared/domain/collections';
 import { materialReactTableToCriteria } from './helpers/material-react-table-to-criteria';
 import { GlobalFilterProperties } from '../../modules/shared/domain/criteria/global-filter-properties';
 import { conditionPersistence } from "./helpers/condition-persistence";
-import { globalFilterProperties } from '../../presentation/pets/components/search/search-pet';
 
 type TablePaginationProps<T extends Record<string, any>> = Omit<TableWrapperProps<T>, 'data'> & {
     name: string;

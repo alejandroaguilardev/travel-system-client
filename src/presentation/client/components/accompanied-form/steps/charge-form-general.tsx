@@ -14,7 +14,6 @@ export const ChargeFormGeneral = ({ notButton }: Props) => {
     const { setValue, watch, formState } = useFormContext<TravelAccompaniedSchema>();
     const handlePhone = (value: string) => setValue("petPerCharge.phone", value);
     const phone = watch("petPerCharge.phone");
-    const document = watch("petPerCharge.document");
 
     return (
         <>
@@ -25,7 +24,7 @@ export const ChargeFormGeneral = ({ notButton }: Props) => {
                 </Typography>
                 <RHFTextField
                     name="petPerCharge.name"
-                    label="Nombre (*)"
+                    label="Nombres y Apellidos (*)"
                     inputAdornment
                 />
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>

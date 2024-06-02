@@ -6,7 +6,14 @@ const axiosInstance = axios.create({ baseURL: HOST_API });
 
 axiosInstance.interceptors.response.use(
     (res) => res,
-    (error) => Promise.reject((error.response && error.response.data) || 'No se logró procesar el error, comunicarse con el administrador')
+    (error) => {
+        if (error.response.status === 429) {
+            alert("Too many requests. Please try again later")
+        }
+        return Promise.reject((error.response && error.response.data) || 'No se logró procesar el error, comunicarse con el administrador')
+    }
 );
+
+
 
 export default axiosInstance;

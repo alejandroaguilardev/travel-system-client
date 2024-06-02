@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, Button, Stack } from '@mui/material';
+import { Alert, Stack } from '@mui/material';
 import { useFormContext } from "react-hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
@@ -45,7 +45,7 @@ export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
                 <RHFDate
                     name="executionDate"
                     value={executionDate}
-                    label="Fecha de para presentar en senasa"
+                    label="Fecha para presentar en senasa"
                 />
             </Stack>
 
@@ -56,7 +56,7 @@ export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
                 variant='outlined'
                 fullWidth
                 sx={{ mb: 1 }}
-            >  Descargar Solicitud Senada
+            >  Descargar Excel Solicitud Senasa
             </LoadingButton>
             {error &&
                 <Alert severity='error' >
