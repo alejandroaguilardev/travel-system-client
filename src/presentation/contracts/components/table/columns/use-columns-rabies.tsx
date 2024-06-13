@@ -3,28 +3,8 @@ import { useMemo } from 'react'
 import Label, { LabelColor } from '../../../../../components/label';
 import { Contract, correlativeToString } from '../../../../../modules/contracts/domain/contract'
 import { fDate } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
-import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
-import { contractDetailsPetNames, dateDepartureIsLastWeek } from './contract-detail-status';
+import { contractDetailsPetNames, dateDepartureIsLastWeek, dateDepartureIsLastWeekLabel, detailsStatus } from './contract-detail-status';
 
-
-const detailsStatus = (details: ContractDetail[], value: keyof typeof DOCUMENTATION_KEYS): JSX.Element => {
-    let pending = details?.length ?? 0;
-    let completed = 0;
-    details.forEach(_ => {
-        completed += _.documentation?.[value]?.isApplied ? 1 : 0;
-    })
-
-    pending -= completed;
-    return <>
-        {pending > 0 &&
-            <Label color="error">{pending > 1 ? pending : ""} Pendiente</Label>
-        }
-        {completed > 0 &&
-            <Label color="success">{pending > 1 ? pending : ""}Completado</Label>
-        }
-    </>
-}
 
 export const useColumnsRabies = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
@@ -32,7 +12,27 @@ export const useColumnsRabies = () => {
             {
                 header: 'Estado',
                 accessorKey: 'details.documentation.rabiesSeroLogicalTest.isApplied',
-                Cell: ({ cell }) => detailsStatus(cell.row.original.details, "rabiesSeroLogicalTest"),
+                accessorFn: (row) => {
+                    const { completed, pending } = detailsStatus(row.details, "rabiesSeroLogicalTest");
+                    let values = "";
+                    if (pending > 0) {
+                        values += `${pending > 1 ? pending : ""} Pendiente`;
+                    }
+                    if (completed > 0) {
+                        values += `${completed > 1 ? completed : ""} Completado`;
+                    }
+                },
+                Cell: ({ cell }) => {
+                    const { completed, pending } = detailsStatus(cell.row.original.details, "rabiesSeroLogicalTest");
+                    return <>
+                        {pending > 0 &&
+                            <Label color="error">{pending > 1 ? pending : ""} Pendiente</Label>
+                        }
+                        {completed > 0 &&
+                            <Label color="success">{pending > 1 ? pending : ""}Completado</Label>
+                        }
+                    </>
+                },
                 filterVariant: "select",
                 filterSelectOptions: [
                     { text: "Completado", value: true },
@@ -43,16 +43,26 @@ export const useColumnsRabies = () => {
             {
                 header: 'Fecha de viaje',
                 accessorKey: 'details.travel.airlineReservation.departureDate',
+                accessorFn: (row) => row.details.map(_ => _.travel?.airlineReservation?.departureDate
+                    ? fDate(_.travel.airlineReservation.departureDate, 'DD/MM/YYYY')
+                    : ""
+                ),
                 Cell: ({ cell }) => {
                     const dates = cell.row.original.details.map(_ => _.travel.airlineReservation.departureDate);
-                    return dateDepartureIsLastWeek(dates)
+                    const values = dateDepartureIsLastWeek(dates);
+                    return dateDepartureIsLastWeekLabel(values);
                 },
                 minSize: 200
             },
             {
                 header: "F. E. de viaje",
                 accessorKey: 'estimatedDate',
-                accessorFn: (row) => dateDepartureIsLastWeek([row.estimatedDate]),
+                accessorFn: (row) => row?.estimatedDate ? fDate(row.estimatedDate, 'DD/MM/YYYY') : "",
+                Cell: ({ cell }) => {
+                    const dates = cell.row.original.details.map(_ => _.travel.airlineReservation.departureDate);
+                    const values = dateDepartureIsLastWeek(dates);
+                    return dateDepartureIsLastWeekLabel(values);
+                },
                 minSize: 200
             },
             {
@@ -65,16 +75,19 @@ export const useColumnsRabies = () => {
             {
                 header: 'Nombre',
                 accessorKey: 'client.profile.name',
+                accessorFn: ({ client }) => client?.profile?.name ?? "",
                 minSize: 170
             },
             {
                 header: 'Apellido',
                 accessorKey: 'client.profile.lastName',
+                accessorFn: ({ client }) => client?.profile?.lastName ?? "",
                 minSize: 170
             },
             {
                 header: 'Teléfono',
                 accessorKey: 'client.profile.phone',
+                accessorFn: ({ client }) => client?.profile?.phone ?? "",
                 minSize: 170
             },
             {
@@ -88,12 +101,17 @@ export const useColumnsRabies = () => {
             },
             {
                 header: 'Asesor',
+                accessorFn: ({ adviser }) => adviser?.profile?.name ?? "",
                 accessorKey: 'adviser.profile.name',
                 minSize: 200,
             },
             {
                 header: 'Fecha de T.M',
                 accessorKey: 'details.topico.takingSampleSerologicalTest.date',
+                accessorFn: ({ details }) => {
+                    const dates = details.map(_ => fDate(_.travel.airlineReservation.departureDate, 'DD/MM/YYYY'));
+                    return dates.join(", ")
+                },
                 Cell: ({ cell }) => {
                     const dates = cell.row.original.details.map(_ => fDate(_.travel.airlineReservation.departureDate, 'DD/MM/YYYY'));
                     return dates.join(", ")
@@ -103,8 +121,8 @@ export const useColumnsRabies = () => {
             {
                 header: 'Tipo de Muestra',
                 accessorKey: 'details.topico.takingSampleSerologicalTest.typeSample',
+                accessorFn: ({ details }) => details.map(_ => _?.topico?.takingSampleSerologicalTest?.typeSample),
                 Cell: ({ cell }) => {
-
                     return cell.row.original.details.map(_ => {
                         const type = _.topico?.takingSampleSerologicalTest?.typeSample;
                         let color: LabelColor = "default";
@@ -120,6 +138,10 @@ export const useColumnsRabies = () => {
             {
                 header: 'Fecha del resultado',
                 accessorKey: 'details.documentation.rabiesSeroLogicalTest.resultDate',
+                accessorFn: ({ details }) => {
+                    const dates = details?.map(_ => fDate(_.documentation.rabiesSeroLogicalTest.resultDate, 'DD/MM/YYYY'));
+                    return dates.join(", ")
+                },
                 Cell: ({ cell }) => {
                     const dates = cell.row.original.details.map(_ => fDate(_.documentation.rabiesSeroLogicalTest.resultDate, 'DD/MM/YYYY'));
                     return dates.join(", ")
@@ -135,11 +157,13 @@ export const useColumnsRabies = () => {
             {
                 header: 'Folio',
                 accessorKey: 'folder',
+                accessorFn: (row) => row?.folder ?? "",
                 minSize: 170,
             },
             {
                 header: 'F.Número',
                 accessorKey: 'number',
+                accessorFn: (row) => row?.number ?? "",
                 minSize: 170,
             },
             {

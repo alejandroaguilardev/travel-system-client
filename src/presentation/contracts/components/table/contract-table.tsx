@@ -12,7 +12,7 @@ import { IconButton } from '@mui/material';
 import { IconWrapper } from 'src/components/icon-wrapper';
 import { useImpContractContext } from 'src/components/imp-pdf/imp-contract/imp-contract-context';
 import { TypeofImp } from '../../../../components/imp-pdf/imp-contract/type-contract';
-import { contractDetailStatus, contractDetailsPetNames } from './columns/contract-detail-status';
+import { contractDetailsPetNames } from './columns/contract-detail-status';
 
 type Props = {
     options?: {
@@ -45,28 +45,31 @@ export const ContractTable: FC<Props> = ({ options }) => {
                     const { status } = cell.row.original
                     return <Label color={statusColor(status.petTravel)}>{CONTRACT_STATUS.find(_ => _.value === status.petTravel)?.label}</Label>
                 },
-                accessorFn: (row) => row.status,
+                accessorFn: (row) => CONTRACT_STATUS.find(_ => _.value === row.status.petTravel)?.label,
                 minSize: 170
             },
             {
                 header: 'Mascota',
                 accessorKey: 'details.profile.lastName',
-                accessorFn: ({ details }) => contractDetailsPetNames(details),
+                accessorFn: (row) => contractDetailsPetNames(row.details),
                 minSize: 170,
                 enableColumnFilter: false,
             },
             {
                 header: 'N° Documento',
+                accessorFn: (row) => row?.client?.profile?.documentNumber ?? "",
                 accessorKey: 'client.profile.documentNumber',
                 minSize: 170
             },
             {
                 header: 'Nombre',
+                accessorFn: (row) => row?.client?.profile?.name ?? "",
                 accessorKey: 'client.profile.name',
                 minSize: 170
             },
             {
                 header: 'Apellido',
+                accessorFn: (row) => row?.client?.profile?.lastName ?? "",
                 accessorKey: 'client.profile.lastName',
                 minSize: 170
             },
@@ -84,16 +87,19 @@ export const ContractTable: FC<Props> = ({ options }) => {
             },
             {
                 header: 'Folio',
+                accessorFn: (row) => row?.folder ?? "",
                 accessorKey: 'folder',
                 minSize: 170,
             },
             {
                 header: 'F.Número',
+                accessorFn: (row) => row?.number ?? "",
                 accessorKey: 'number',
                 minSize: 170,
             },
             {
                 header: 'N° Contracto',
+                accessorFn: (row) => row?.correlative ?? "",
                 accessorKey: 'correlative',
                 minSize: 170,
             },

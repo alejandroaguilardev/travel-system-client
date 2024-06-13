@@ -12,7 +12,7 @@ type Props = {
 export const DocumentationFormGeneral: FC<Props> = ({ documentation, role }) => {
     const { switchClient, switchUser, isLoading } = useDocumentFormGeneral(documentation);
 
-    if (isLoading) return <>{Array(9).fill(null).map(() => <Skeleton variant="rectangular" width="100%" height={50} sx={{ mb: 1 }} />)}</>
+    if (isLoading) return <>{Array(9).fill(null).map((_) => <Skeleton key={_} variant="rectangular" width="100%" height={50} sx={{ mb: 1 }} />)}</>
 
     return (
         <Stack flexWrap="wrap" spacing={1} marginBottom={1}>
