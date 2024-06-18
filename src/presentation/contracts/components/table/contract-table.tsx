@@ -103,6 +103,12 @@ export const ContractTable: FC<Props> = ({ options }) => {
                 accessorKey: 'correlative',
                 minSize: 170,
             },
+            {
+                header: 'Formato de contrato',
+                accessorFn: (row) => row?.format ?? "",
+                accessorKey: 'format',
+                minSize: 170,
+            },
 
         ],
         [],

@@ -6,11 +6,15 @@ import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers
 import Label from '../../../../components/label/label';
 import { capitalize } from '../../../../modules/shared/domain/helpers/capitalize';
 import { correlativeToString } from '../../../../modules/contracts/domain/contract';
+import Link from '@mui/material/Link';
+import RouterLink from '../../../../app/routes/components/router-link';
 
 
 const Header = () => {
     const { contract, contractDetail } = useContractStore();
 
+    const guideNumber = contractDetail?.travel?.typeTraveling === "charge" ? `Número de guía: ${contractDetail?.travel?.guideNumber || "-- --"}` : ""
+    const whatsAppUrl = contract?.adviser?.linkWhatsApp || `https://wa.me/${contract?.adviser?.profile?.phone}`;
     return (
         <>
             <Box mb={1} display={{ xs: "block", md: "flex" }} justifyContent="space-between" alignItems="center">
@@ -39,17 +43,14 @@ const Header = () => {
                         width: "100%",
                         textAlign: { xs: "left", md: "right" }
                     }}
-                    primary={
-                        contractDetail?.travel?.typeTraveling === "charge" ?
-                            <>
-                                Número de guía: {contractDetail?.travel?.guideNumber || "-- --"}
-                            </>
-                            : ""}
+                    primary={<Link href={whatsAppUrl} target='_blank' rel="noopener noreferrer" component={RouterLink} color="inherit" sx={{ typography: 'subtitle2' }} display={{ xs: "none", md: "inherit" }}>
+                        ¿Comunícate con tu asesor?
+                    </Link>}
                     primaryTypographyProps={{
                         typography: 'subtitle1',
                     }}
                     secondary={`${contract?.startDate
-                        ? fDateTimeLong(contract.startDate)
+                        ? guideNumber + " " + fDateTimeLong(contract.startDate)
                         : ""}`}
                     secondaryTypographyProps={{
                         mt: 1,

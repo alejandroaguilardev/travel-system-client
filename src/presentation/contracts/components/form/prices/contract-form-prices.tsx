@@ -39,6 +39,7 @@ export const ContractFormPrices = () => {
                     <RHFTextField
                         name="price"
                         label="Precio del contrato en dólares (*)"
+                        placeholder='0'
                         type='number'
                         InputProps={{
                             startAdornment: (

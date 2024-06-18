@@ -30,9 +30,8 @@ export const useColumnsDocumentation = () => {
                 accessorKey: 'estimatedDate',
                 accessorFn: (row) => row?.estimatedDate ? fDate(row.estimatedDate, 'DD/MM/YYYY') : "",
                 Cell: ({ cell }) => {
-                    const dates = cell.row.original.details.map(_ => _.travel.airlineReservation.departureDate);
-                    const values = dateDepartureIsLastWeek(dates);
-                    return dateDepartureIsLastWeekLabel(values);
+                    const dates = dateDepartureIsLastWeek([cell.row.original.estimatedDate]);
+                    return dateDepartureIsLastWeekLabel(dates);
                 },
                 minSize: 200
             },

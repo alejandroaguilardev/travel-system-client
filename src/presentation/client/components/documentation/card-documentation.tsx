@@ -69,7 +69,7 @@ export default function CardDocumentation({ documentation, finish, contractId, d
                     <ListItemText
                         sx={{ my: 1, }}
                         secondary={documentation.clientStatus === "completed"
-                            ? "TODOS LOS DOCUMENTOS RECIBIDOS. LISTOS PARA EL SIGUIENTE PASO. ¡GRACIAS!."
+                            ? "TODOS LOS DOCUMENTOS FINALIZADOS. LISTOS PARA EL SIGUIENTE PASO. ¡GRACIAS!."
                             : "FALTAN DOCUMENTOS NECESARIOS. POR FAVOR, PROPORCIONE LA INFORMACIÓN."}
                         secondaryTypographyProps={{
                             component: 'span',

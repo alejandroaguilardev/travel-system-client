@@ -12,7 +12,7 @@ const SelectContract: FC<{ contract: Contract }> = ({ contract }) => {
     if ("América Latina" === contract.format) return <ContractLatamPdf contract={contract} />
     if ("Europa" === contract.format) return <ContractAsiaPdf contract={contract} />
 
-    return <ContractAsiaPdf contract={contract} />
+    return <ContractLatamPdf contract={contract} />
 }
 
 export function ImpContractConsumer() {

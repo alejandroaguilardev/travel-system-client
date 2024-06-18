@@ -51,7 +51,7 @@ const ContractUsaPdf = ({ contract }: ContractProps) => {
                     <SpacePdf marginBottom={10} />
                     < View>
                         <Text>
-                            Por el presente contrato, el Sr. Christian F. Suarez Nuñez Del Prado, identificado con número D.N.I 41233194 y representante legal de Pet Travel Perú con número de R.U.C: 10412331945, encargado de la gestión y documentación para el viaje de mascotas, deja constancia que,
+                            Por el presente contrato, el Sr. Christian F. Suarez Núñez Del Prado, identificado con número DNI 41233194 y representante legal de Pet Travel Perú con número de RUC: 10412331945, encargado de la gestión y documentación para el viaje de mascotas, deja constancia que:
                         </Text>
                     </View>
                     <SpacePdf marginBottom={10} />
@@ -67,7 +67,7 @@ const ContractUsaPdf = ({ contract }: ContractProps) => {
                         </Text>
 
                         <Text>
-                            Realizará el pago por la suma de {fCurrency(contract.price)} {` (${numberToWords(contract.price)}) `}, para efectos de trámites y gestión de permisos zoosanitarios de exportación de {numberPets(contract.details.length)} {destination(contract)}.
+                            Realizará el pago por la suma de {fCurrency(contract.price)} {` (${numberToWords(contract.price)}) `}, para efectos de trámites de envío de ({numberPets(contract.details.length)}) mascota{contract.details.length > 1 && "s"} cuyo país de destino es: {destination(contract)}.
                         </Text>
                     </View>
 
@@ -81,38 +81,44 @@ const ContractUsaPdf = ({ contract }: ContractProps) => {
                                     De las actividades de la mascota {numberPets(index + 1)}:
                                 </Text>
                                 {
-                                    detail.documentation.chipCertificate.hasServiceIncluded &&
-                                    <Text>
-                                        • Implantación de microchip y/o lectura de microchip con certificado
-                                    </Text>
+                                    detail.documentation.vaccinationCertificate.hasServiceIncluded &&
+                                    <>
+                                        <Text>
+                                            -  Certificado de vacunas en español e inglés
+                                        </Text>
+                                        <Text>
+                                            -  - Vacunación completa
+                                        </Text>
+                                    </>
                                 }
                                 {
-                                    detail.documentation.vaccinationCertificate.hasServiceIncluded &&
+                                    detail.documentation.chipCertificate.hasServiceIncluded &&
                                     <Text>
-                                        • Vacunación total y/o parcial  y certificación.
+                                        - Implantación de microchip y/o lectura de microchip con certificado
                                     </Text>
                                 }
+
                                 {
                                     detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded &&
                                     <>
                                         <Text>
-                                            • Toma de muestra de sangre para análisis serológico de anticuerpos de la rabia.
+                                            - Toma de muestra de sangre (al mes de vacunados) y centrifugación de esta para la obtención del suero para los análisis de titulación de anticuerpos de la rabia. REPORT FAVN.
                                         </Text>
                                         <Text>
-                                            •- Envío de la muestra vía fedex cargo para el laboratorio (homologado por la Comunidad Europea y por el Estado Americano).
+                                            - Envío de la muestra vía fedex cargo para el laboratorio (homologado por la Comunidad Europea y por el Estado Americano).
                                         </Text>
                                     </>
                                 }
 
                                 {detail.documentation.importLicense.hasServiceIncluded &&
                                     <Text>
-                                        • Solicitud de permiso de importación zoo sanitaria según país de destino.
+                                        - Solicitud de permiso de importación zoo sanitaria según país de destino.
                                     </Text>
                                 }
 
                                 {detail.documentation.healthCertificate.hasServiceIncluded &&
                                     <Text>
-                                        • Certificado de salud
+                                        - Certificado de salud
                                     </Text>
                                 }
 
@@ -142,9 +148,24 @@ const ContractUsaPdf = ({ contract }: ContractProps) => {
                     }
 
 
-
                     <SpacePdf marginBottom={10} />
-                    <View style={{ fontSize: 9 }}>
+                    <View >
+                        <Text style={{ fontWeight: "bold", textDecoration: "underline" }}>
+                            ACTIVIDADES CON COSTO ADICIONAL (DEBE CONSULTAR CON SU AEROLÍNEA CUÁL DE LOS DOS DOCUMENTOS A CONTINUACIÓN LE SOLICITAN):
+                        </Text>
+                        <SpacePdf marginBottom={10} />
+                        <Text>
+                            - Inspección sanitaria ante el ministerio de agricultura y entrega de documentos oficiales (SENASA).
+                            *Únicamente si la solicitud de la CDC es aprobada y si la aerolínea se lo exige* Costo 120 dólares.
+                        </Text>
+                        <SpacePdf marginBottom={10} />
+                        <Text>
+                            - Certificado de salud soles (español e inglés) Costo de 200 soles.
+                        </Text>
+                        <SpacePdf marginBottom={10} />
+                        <Text style={{ fontWeight: "bold", textDecoration: "underline" }}>
+                            NOTAS IMPORTANTES:
+                        </Text>
                         <Text>
                             <Text style={{ fontWeight: "bold" }}>Nota 1:</Text> en caso de que “EL CONTRATANTE” solicite la anulación del presente contrato deberá cancelar los servicios prestados y una penalidad de $ 150.00.
                         </Text>

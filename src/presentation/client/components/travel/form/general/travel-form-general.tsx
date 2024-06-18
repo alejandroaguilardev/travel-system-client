@@ -18,9 +18,10 @@ type Props = {
     pet?: Pet;
     readonly: boolean;
     archiveFile: { file: File | null, name: string };
+    estimateDate: Date,
 }
 
-export const TravelFormGeneral: FC<Props> = ({ readonly, hasServiceIncluded, pet, archiveFile }) => {
+export const TravelFormGeneral: FC<Props> = ({ readonly, hasServiceIncluded, pet, archiveFile, estimateDate }) => {
     const { code, typeTraveling, departureDate, arrivalDate } = useTravelGeneralForm();
     const { imageFile } = useLoadImage("arraybuffer", "public", pet?.image);
     const { file, onChangeFile } = useFileStore();
@@ -104,18 +105,16 @@ export const TravelFormGeneral: FC<Props> = ({ readonly, hasServiceIncluded, pet
                                 name="airlineReservation.departureDate"
                                 label="Fecha de salida (*)"
                                 value={fDayjs(departureDate)}
-                                format="DD/MM/YYYY HH:mm:ss"
+                                minDate={fDayjs(estimateDate)}
                             />
                             <RHFDate
                                 name="airlineReservation.arrivalDate"
                                 value={fDayjs(arrivalDate)}
                                 label="Fecha de llegada (*)"
-                                format="DD/MM/YYYY HH:mm:ss"
+                                minDate={fDayjs(estimateDate)}
                             />
 
                         </>
-
-
                     }
                 </Stack>
 

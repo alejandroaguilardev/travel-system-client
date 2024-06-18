@@ -99,7 +99,7 @@ export default function CardTravel({ travel, contractId, detail }: Props) {
                     <TravelForm
                         adviser={contract?.adviser ?? null}
                         onCancel={dialog.onFalse}
-                        contractId={contractId}
+                        contract={contract}
                         client={contract.client}
                         travel={travel}
                         detail={detail}

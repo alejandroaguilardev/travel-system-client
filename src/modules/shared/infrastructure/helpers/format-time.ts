@@ -1,4 +1,4 @@
-import dayjs, { } from 'dayjs';
+import dayjs, { ManipulateType } from 'dayjs';
 import 'dayjs/locale/es';
 
 type InputValue = Date | string | number | null | undefined;
@@ -30,8 +30,8 @@ export function fDayRest(date: InputValue, year: number, day: number): Date {
     return dayjs(date).subtract(year, 'year').subtract(day, 'day').toDate();
 }
 
-export function fDaySum(date: InputValue, cant: number): Date {
-    return dayjs(date).add(cant, "day").toDate();
+export function fDaySum(date: InputValue, cant: number, unit: ManipulateType = "day"): Date {
+    return dayjs(date).add(cant, unit).toDate();
 }
 
 export function fDayDiffDays(date1: InputValue, date2: InputValue) {

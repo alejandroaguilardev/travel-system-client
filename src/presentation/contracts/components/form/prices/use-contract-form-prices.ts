@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { PayInInstallment } from '../../../../../modules/contracts/domain/payment-summary';
-import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import { fDaySum, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 
 const payInInstallmentInit: PayInInstallment = {
     price: 0,
@@ -36,12 +36,14 @@ export const useContractFormPrices = () => {
             if (payInInstallments?.[index]) {
                 updatePayInInstallments.push({
                     ...payInInstallments[index],
+                    date: fDaySum(payInInstallmentInit.date, index + 1, "M"),
                     percentage: 100 / value,
                     price: priceTotal / value
                 });
             } else {
                 updatePayInInstallments.push({
                     ...payInInstallmentInit,
+                    date: fDaySum(payInInstallmentInit.date, index + 1, "M"),
                     percentage: 100 / value,
                     price: priceTotal / value
                 });

@@ -40,7 +40,7 @@ export default function ContractTravelView({ id }: Props) {
                             onCancel={redirectData}
                             callback={() => false}
                             client={contract.client}
-                            contractId={id}
+                            contract={contract}
                             detail={detail}
                             travel={detail.travel}
                             isUser

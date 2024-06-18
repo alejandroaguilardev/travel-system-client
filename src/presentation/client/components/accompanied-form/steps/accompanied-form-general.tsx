@@ -94,9 +94,11 @@ export const AccompaniedFormGeneral = ({ client, notButton, imagePassport }: Pro
                         inputAdornment
                         select
                     >
-                        <MenuItem key={PROFILE_DOCUMENT[1]} value={PROFILE_DOCUMENT[1]}>
-                            {PROFILE_DOCUMENT[1]}
-                        </MenuItem>
+                        {PROFILE_DOCUMENT.map((document) => (
+                            <MenuItem key={document} value={document}>
+                                {document}
+                            </MenuItem>
+                        ))}
                     </RHFTextField>
 
                     <RHFTextField

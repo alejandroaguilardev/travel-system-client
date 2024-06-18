@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import RHFSwitch from '../../../../../components/hook-form/rhf-switch';
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import RHFTextField from '../../../../../components/hook-form/rhf-text-field';
 
 
 export const SENASAFormResult = () => {
@@ -37,6 +38,12 @@ export const SENASAFormResult = () => {
                     name="resultDate"
                     value={fDayjs(resultDate)}
                     label="Fecha de ejecución"
+                />
+            </Stack>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                <RHFTextField
+                    name='observation'
+                    label="Observación"
                 />
             </Stack>
         </>

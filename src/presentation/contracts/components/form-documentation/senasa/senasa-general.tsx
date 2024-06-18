@@ -7,6 +7,7 @@ import { contractDetailService } from '../../../../../modules/contracts/infrastr
 import { useMessage } from '../../../../../hooks/use-message';
 import { downloadFile } from '../../../../../modules/shared/infrastructure/helpers/blob-archive';
 import { LoadingButton } from '@mui/lab';
+import { RHFTextField } from 'src/components/hook-form';
 
 type Props = {
     contractId: string,
@@ -28,7 +29,6 @@ export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
         contractDetailService.downloadSenasaExcel(id, detailId).then((response) => {
             downloadFile(new Blob([response.file]), response.name);
         }).catch((e) => {
-            console.log(e)
             showNotification("No se logró descargar el excel", { variant: "error" })
         }).finally(() => setIsLoading(false));
     }
@@ -45,10 +45,15 @@ export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
                 <RHFDate
                     name="executionDate"
                     value={executionDate}
-                    label="Fecha para presentar en senasa"
+                    label="Fecha para presentar en senasa (*)"
                 />
             </Stack>
-
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                <RHFTextField
+                    name='observation'
+                    label="Observación"
+                />
+            </Stack>
             <LoadingButton
                 onClick={() => downloadSenasa(contractId, contractDetailId)}
                 disabled={isLoading || !isDisabledButtonDownload}

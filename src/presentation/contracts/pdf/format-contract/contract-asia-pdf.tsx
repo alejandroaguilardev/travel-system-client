@@ -44,14 +44,14 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                     <Bar />
                     <SpacePdf marginBottom={10} />
                     <View style={{ ...styles.gridRow, display: "flex", justifyContent: "center", width: "100%" }}>
-                        <Text style={{ ...styles.title, width: "65%", ...styles.important, borderBottom: "2px solid #000" }}> CONTRATO DE SERVICIOS PARA LA EXPORTACIÓN DE MASCOTAS</Text>
+                        <Text style={{ ...styles.title, width: "65%", ...styles.important, borderBottom: "2px solid #000" }}>CONTRATO DE SERVICIOS PARA LA EXPORTACIÓN DE MASCOTAS</Text>
                     </View>
 
 
                     <SpacePdf marginBottom={10} />
                     < View>
                         <Text>
-                            Por el presente contrato, el Sr. Christian F. Suarez Nuñez Del Prado, identificado con número D.N.I 41233194 y representante legal de Pet Travel Perú con número de R.U.C: 10412331945, encargado de la gestión y documentación para el viaje de mascotas, deja constancia que,
+                            Por el presente contrato, el Sr. Christian F. Suarez Núñez Del Prado, identificado con número DNI 41233194 y representante legal de Pet Travel Perú con número de RUC: 10412331945, encargado de la gestión y documentación para el viaje de mascotas, deja constancia que:
                         </Text>
                     </View>
                     <SpacePdf marginBottom={10} />
@@ -59,15 +59,20 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
 
                     <View>
                         <Text style={{ fontWeight: "bold" }}>
-                            El Sr/Sra. <Text style={{ fontWeight: "normal" }}>{contract?.client?.profile?.name} {contract?.client?.profile?.secondName} {contract?.client?.profile?.lastName}  {contract?.client?.profile?.secondLastName}</Text>
+                            El
+                            {contract.client.profile.gender === "male" && "Sr."}
+                            {contract.client.profile.gender === "female" && "Sra."}
+                            {contract.client.profile.gender !== "female" && contract.client.profile.gender !== "male" && "Sr./Sra."}
+
+                            <Text style={{ fontWeight: "normal" }}>{contract?.client?.profile?.name} {contract?.client?.profile?.secondName} {contract?.client?.profile?.lastName}  {contract?.client?.profile?.secondLastName}</Text>
                         </Text>
 
                         <Text style={{ fontWeight: "bold" }}>
-                            Identificado con número de {contract.client.profile.document}<Text style={{ fontWeight: "normal" }}> N°{contract.client.profile.documentNumber}</Text>
+                            Identificado con {contract.client.profile.document}<Text style={{ fontWeight: "normal" }}> N°{contract.client.profile.documentNumber}</Text>
                         </Text>
 
                         <Text>
-                            Realizará el pago por la suma de {fCurrency(contract.price)} {` (${numberToWords(contract.price)}) `}, para efectos de trámites y gestión de permisos zoosanitarios de exportación de {numberPets(contract.details.length)} {destination(contract)}.
+                            Realizará el pago por la suma de {fCurrency(contract.price)} {` (${numberToWords(contract.price)}) `}, para efectos de trámites de envío de ({numberPets(contract.details.length)}) mascota{contract.details.length > 1 && "s"} cuyo país de destino es: {destination(contract)}.
                         </Text>
                     </View>
 
@@ -80,61 +85,68 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                                 <Text style={{ fontWeight: "bold" }}>
                                     De las actividades de la mascota {numberPets(index + 1)}:
                                 </Text>
-                                {
-                                    detail.documentation.chipCertificate.hasServiceIncluded &&
+                                {detail.documentation.healthCertificate.hasServiceIncluded &&
                                     <Text>
-                                        • Implantación de microchip y/o lectura de microchip con certificado
+                                        - Certificado de salud
+                                    </Text>
+                                }
+
+                                {
+                                    detail.documentation.vaccinationCertificate.hasServiceIncluded &&
+                                    <Text>
+                                        - Vacunación completa
                                     </Text>
                                 }
                                 {
                                     detail.documentation.vaccinationCertificate.hasServiceIncluded &&
                                     <Text>
-                                        • Vacunación total y/o parcial  y certificación.
+                                        -  Certificado de Vacunación
+                                    </Text>
+                                }
+                                {
+                                    detail.documentation.chipCertificate.hasServiceIncluded &&
+                                    <Text>
+                                        - Implantación de microchip y/o lectura de microchip con certificado
                                     </Text>
                                 }
                                 {
                                     detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded &&
                                     <>
                                         <Text>
-                                            • Toma de muestra de sangre para análisis serológico de anticuerpos de la rabia.
-                                        </Text>
-                                        <Text>
-                                            •- Envío de la muestra vía fedex cargo para el laboratorio (homologado por la Comunidad Europea y por el Estado Americano).
+                                            - Toma de muestra de sangre para análisis serológico de anticuerpos de la rabia.
                                         </Text>
                                     </>
                                 }
 
                                 {detail.documentation.importLicense.hasServiceIncluded &&
                                     <Text>
-                                        • Solicitud de permiso de importación zoo sanitaria según país de destino.
-                                    </Text>
-                                }
-
-                                {detail.documentation.healthCertificate.hasServiceIncluded &&
-                                    <Text>
-                                        • Certificado de salud
+                                        - Solicitud de permiso de importación zoo sanitaria según país de destino.
                                     </Text>
                                 }
 
                                 {detail.documentation.senasaDocuments.hasServiceIncluded &&
                                     <Text>
-                                        • Apertura de expediente ante el Ministerio de Agricultura del Perú, SENASA-Lima.  *La mascota será llevada a SENASA y será retornada por la tarde para que el propietario pueda recoger a la mascota en nuestras oficinas*
-                                    </Text>
+                                        Apertura de expediente ante el ministerio de agricultura (SENASA).                                    </Text>
                                 }
                                 {detail.documentation.emotionalSupportCertificate.hasServiceIncluded &&
                                     <Text>
-                                        • Certificado de soporte emocional
+                                        - Certificado de soporte emocional
                                     </Text>
                                 }
 
                                 {detail.travel.typeTraveling === "charge" &&
                                     <Text>
-                                        • Envió de mascota por cargo
+                                        - Envió de mascota por cargo
                                     </Text>
                                 }
                                 {detail.travel.hasServiceAccompanied &&
                                     <Text>
-                                        • Servicio de acompañamiento al aeropuerto.
+                                        - Servicio de acompañamiento al aeropuerto.
+                                    </Text>
+                                }
+                                {detail.travel.hasServiceAccompanied &&
+                                    <Text>
+                                        - Entrega de documentos oficiales
                                     </Text>
                                 }
                             </View>
@@ -144,16 +156,26 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
 
 
                     <SpacePdf marginBottom={10} />
-                    <View style={{ fontSize: 9 }}>
-                        <Text>
-                            <Text style={{ fontWeight: "bold" }}>Nota 1:</Text> en caso de que “EL CONTRATANTE” solicite la anulación del presente contrato deberá cancelar los servicios prestados y una penalidad de $ 150.00.
+                    <View >
+                        <Text style={{ fontWeight: "bold", textDecoration: "underline" }}>
+                            NOTAS IMPORTANTES:
                         </Text>
+                        <SpacePdf marginBottom={10} />
                         <Text>
-                            <Text style={{ fontWeight: "bold" }}>Nota 2:</Text>(DEPENDE DE LA OPCIÓN QUE OPTE EL CLIENTE): La aprobación del ingreso de la mascota a {destination(contract)} depende de la aceptación por parte de la CDC en el país destino, solicitud que debe de realizar el mismo cliente. El pago de nuestros servicios y la realización de los trámites mencionados en la presente cotización no garantiza el ingreso de las mascotas a {destination(contract)}. En caso se opte por la opción 2, el cliente debe de solicitar la reserva para la aplicación de vacuna de rabia previo al ingreso a {destination(contract)}.
+                            Nota 1: en caso de que “EL CONTRATANTE” solicite la anulación del presente contrato deberá cancelar los servicios prestados y una penalidad de $ 100.00.  Es responsabilidad del cliente- “EL CONTRATANTE”, averiguar, consultar o preguntar sobre el avance de cada uno de los procesos que se realizará según este acuerdo – contrato.
+                            Los clientes que realicen pagos con tarjeta y soliciten la anulación del contrato le será descontado el 5% del monto, el cual es retenido por la empresa Izipai al momento del pago.
                         </Text>
+                        <SpacePdf marginBottom={10} />
                         <Text>
-                            <Text style={{ fontWeight: "bold" }}>Nota 3:</Text> Recuerde que la CDC indica que es OBLIGATORIO vacunar contra la rabia a su mascota dentro de los 10 primeros días de su llegada a {destination(contract)}, esta información se encuentra indicada en el permiso de importación que le otorgará la CDC.
-                            Es responsabilidad del cliente- “EL CONTRATANTE”, averiguar, consultar o preguntar sobre el avance de cada uno de los procesos que se realizará según este acuerdo – contrato.
+                            Nota 2: La emisión del certificado de salud está estrictamente ligado al estado de salud de la mascota al momento de la evaluación. Si la mascota presenta pulgas, garrapatas, heridas, otitis, problemas dermatológicos u otra afección visible, no se podrá emitir el certificado de salud ni el Zoosanitario de Senasa.
+                        </Text>
+                        <SpacePdf marginBottom={10} />
+                        <Text>
+                            Nota 3: Si la mascota ha tomado medicamentos o ha pasado por algún tratamiento médico, se tendrá que reprogramar la muestra de sangre y la colocación de vacunas. Con respecto a la prueba serológica, el resultado positivo o negativo de este análisis dependerá netamente de la carga inmune de su mascota, Pet travel se hace responsable de llevar a cabo la logística de dicho trámite mas no del resultado.
+                        </Text>
+                        <SpacePdf marginBottom={10} />
+                        <Text>
+                            Nota 4: El cliente debe asegurarse que la aerolínea le permitirá el traslado de su mascota, según peso y medidas máximas que permita la aerolínea y DEBE NOTIFICAR A SU ASESORA SU FECHA DE VIAJE ENVIÁNDONOS SU BOLETO (MÍNIMO 10 DÍAS ANTES DEL VIAJE) PARA COORDINAR LA ENTREGA DE LA DOCUMENTACIÓN EN FÍSICO EN LA VETERINARIA.
                         </Text>
                     </View>
                     <SpacePdf marginBottom={10} />
@@ -167,10 +189,6 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                         <SpacePdf marginBottom={10} />
                         <Text>
                             {priceToPay(contract)}
-                        </Text>
-                        <SpacePdf marginBottom={10} />
-                        <Text>
-                            El Sr. Christian F. Suarez Núñez Del Prado representante de Pet Travel Perú, garantiza el inicio y la culminación total del servicio ofrecido.
                         </Text>
                         <SpacePdf marginBottom={10} />
                         <Text>

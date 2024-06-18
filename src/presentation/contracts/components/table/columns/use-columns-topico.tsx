@@ -12,6 +12,24 @@ export const useColumnsTopico = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
+                header: 'N° Documento',
+                accessorKey: 'client.profile.documentNumber',
+                accessorFn: ({ client }) => client?.profile?.documentNumber ?? "",
+                minSize: 170
+            },
+            {
+                header: 'Nombre',
+                accessorKey: 'client.profile.name',
+                accessorFn: ({ client }) => client?.profile?.name ?? "",
+                minSize: 170
+            },
+            {
+                header: 'Apellido',
+                accessorKey: 'client.profile.lastName',
+                accessorFn: ({ client }) => client?.profile?.lastName ?? "",
+                minSize: 170
+            },
+            {
                 header: 'Mascota',
                 accessorKey: 'details.profile.lastName',
                 accessorFn: ({ details }) => contractDetailsPetNames(details),
@@ -31,31 +49,12 @@ export const useColumnsTopico = () => {
             {
                 header: "F. E. de viaje",
                 accessorKey: 'estimatedDate',
-                accessorFn: (row) => row?.estimatedDate ? fDate(row.estimatedDate, 'DD/MM/YYYY') : "",
+                accessorFn: (row) => row?.estimatedDate ? fDate(row.estimatedDate, 'DD/MM/YYYY') : "--",
                 Cell: ({ cell }) => {
-                    const dates = cell.row.original.details.map(_ => _.travel.airlineReservation.departureDate);
-                    const values = dateDepartureIsLastWeek(dates);
-                    return dateDepartureIsLastWeekLabel(values);
+                    const dates = dateDepartureIsLastWeek([cell.row.original.estimatedDate]);
+                    return dateDepartureIsLastWeekLabel(dates);
                 },
                 minSize: 200
-            },
-            {
-                header: 'N° Documento',
-                accessorKey: 'client.profile.documentNumber',
-                accessorFn: ({ client }) => client?.profile?.documentNumber ?? "",
-                minSize: 170
-            },
-            {
-                header: 'Nombre',
-                accessorKey: 'client.profile.name',
-                accessorFn: ({ client }) => client?.profile?.name ?? "",
-                minSize: 170
-            },
-            {
-                header: 'Apellido',
-                accessorKey: 'client.profile.lastName',
-                accessorFn: ({ client }) => client?.profile?.lastName ?? "",
-                minSize: 170
             },
 
             {
