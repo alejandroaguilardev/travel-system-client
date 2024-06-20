@@ -18,6 +18,7 @@ import { PetNotFoundRedirect } from "../../pet-not-found-redirect/pet-not-found-
 import { paths } from '../../../../../app/routes/paths';
 import { TopicTabs } from "../../form-topico/topico-form";
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
+import { CertificationAlert } from "../certification-alert/certification-alert";
 
 type Props = {
     contractId: string;
@@ -61,37 +62,39 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
     }
 
     return (
-        <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
-            {
-                isEdit && <>
-                    {!rabiesSeroLogicalTest?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al test serológico de rabia</Alert>}
-                    {rabiesSeroLogicalTest?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
-                </>
-            }
-
-
-            {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
-
-            <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                <Typography fontWeight="bold">Test serológico de rabia</Typography>
-                <CertificateFormGeneral label="¿Resultado Finalizado?" showDate={false} />
-
-                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
-
-                {!isAdmin && !isEdit && <Alert severity="info" >Solo el administrador puedo editar un contrato ya finalizado</Alert>}
-
-                {(isAdmin || isEdit) &&
-                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                            Cancelar
-                        </Button>
-                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                            {rabiesSeroLogicalTest?.isApplied ? "Actualizar Test de Rabia" : "Guardar Test de Rabia"}
-                        </Button>
-
-                    </Box>
+        <CertificationAlert contractId={contractId} detail={detail}>
+            <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)} >
+                {
+                    isEdit && <>
+                        {!rabiesSeroLogicalTest?.isApplied && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada al test serológico de rabia</Alert>}
+                        {rabiesSeroLogicalTest?.isApplied && !isExecuted && <Alert severity="info">Recuerda actualizar la información, aún no se han guardado los cambios</Alert>}
+                    </>
                 }
-            </Stack>
-        </FormProvider>
+
+
+                {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
+
+                <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
+                    <Typography fontWeight="bold">Test serológico de rabia</Typography>
+                    <CertificateFormGeneral label="¿Resultado Finalizado?" showDate={false} />
+
+                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+
+                    {!isAdmin && !isEdit && <Alert severity="info" >Solo el administrador puedo editar un contrato ya finalizado</Alert>}
+
+                    {(isAdmin || isEdit) &&
+                        <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                            <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                                Cancelar
+                            </Button>
+                            <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                                {rabiesSeroLogicalTest?.isApplied ? "Actualizar Test de Rabia" : "Guardar Test de Rabia"}
+                            </Button>
+
+                        </Box>
+                    }
+                </Stack>
+            </FormProvider>
+        </CertificationAlert>
     );
 };

@@ -36,14 +36,14 @@ export const useContractFormPrices = () => {
             if (payInInstallments?.[index]) {
                 updatePayInInstallments.push({
                     ...payInInstallments[index],
-                    date: fDaySum(payInInstallmentInit.date, index + 1, "M"),
+                    date: fDaySum(payInInstallmentInit.date, index, "M"),
                     percentage: 100 / value,
                     price: priceTotal / value
                 });
             } else {
                 updatePayInInstallments.push({
                     ...payInInstallmentInit,
-                    date: fDaySum(payInInstallmentInit.date, index + 1, "M"),
+                    date: fDaySum(payInInstallmentInit.date, index, "M"),
                     percentage: 100 / value,
                     price: priceTotal / value
                 });
