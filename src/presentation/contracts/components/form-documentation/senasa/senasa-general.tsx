@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Alert, Stack } from '@mui/material';
 import { useFormContext } from "react-hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
@@ -17,12 +17,11 @@ type Props = {
 export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
     const { watch } = useFormContext();
     const { showNotification } = useMessage();
-    const [isDisabledButtonDownload, setIsDisabledButtonDownload] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const [error, setError] = useState("");
 
     const executionDate = fDayjs(watch("executionDate") ?? null);
+    const error = executionDate ? "Seleccione la fecha para presentar a senasa" : "";
 
     const downloadSenasa = (id: string, detailId: string) => {
         setIsLoading(true);
@@ -33,12 +32,6 @@ export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
         }).finally(() => setIsLoading(false));
     }
 
-    useEffect(() => {
-
-        if (!executionDate) setError("Seleccione la fecha para presentar a senasa");
-        setIsDisabledButtonDownload(executionDate)
-    }, [executionDate]);
-
     return (
         <>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2} mb={2}>
@@ -46,9 +39,8 @@ export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
                     name="executionDate"
                     value={executionDate}
                     label="Fecha para presentar en senasa (*)"
+                    format='DD/MM/YYYY'
                 />
-            </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                 <RHFTextField
                     name='observation'
                     label="Observación"
@@ -56,7 +48,7 @@ export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
             </Stack>
             <LoadingButton
                 onClick={() => downloadSenasa(contractId, contractDetailId)}
-                disabled={isLoading || !isDisabledButtonDownload}
+                disabled={isLoading}
                 loading={isLoading}
                 variant='outlined'
                 fullWidth

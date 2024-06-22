@@ -63,7 +63,7 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
         },
         {
             value: "Resultado del proceso",
-            component: <SENASAFormResult />
+            component: <SENASAFormResult senasaDocuments={senasaDocuments} />
         },
     ]
 

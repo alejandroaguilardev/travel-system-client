@@ -28,12 +28,11 @@ export const AccompaniedFormGeneral = ({ client, notButton, imagePassport }: Pro
 
     const setOwnerInAccompanied = () => {
         const clientName = `${client?.profile?.name ?? ""} ${client?.profile?.secondName ?? ""} ${client?.profile?.lastName ?? ""} ${client?.profile?.secondLastName ?? ""}`;
-        const documentNumber = client?.profile?.document === "PASAPORTE" ? client?.profile?.documentNumber : "";
 
         setValue("accompaniedPet", {
             name: clientName,
-            document: "PASAPORTE",
-            documentNumber: documentNumber,
+            document: client?.profile?.document ?? "PASAPORTE",
+            documentNumber: client?.profile?.documentNumber ?? "",
             phone: client?.profile?.phone ?? "",
             email: client?.email ?? "",
             direction: client?.profile?.direction ?? "",

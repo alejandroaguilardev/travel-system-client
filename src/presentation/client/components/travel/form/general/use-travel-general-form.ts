@@ -17,9 +17,9 @@ export const useTravelGeneralForm = () => {
 
 
   useEffect(() => {
-    if (departureDate) {
+    if (departureDate && !arrivalDate) {
       if (typeTraveling === "charge") {
-        setValue("airlineReservation.arrivalDate", fDaySum("22/10/2221", 2))
+        setValue("airlineReservation.arrivalDate", fDaySum(departureDate, 2))
       } else {
         setValue("airlineReservation.arrivalDate", fDaySum(departureDate, 1))
       }

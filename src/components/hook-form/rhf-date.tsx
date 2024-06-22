@@ -3,7 +3,6 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { DatePicker, DatePickerProps } from '@mui/x-date-pickers/DatePicker';
 import { Box } from '@mui/material';
 import { ErrorMessage } from './error-message';
-import { fDayjs } from 'src/modules/shared/infrastructure/helpers/format-time';
 
 interface FormInputDateProps extends DatePickerProps<Date> {
     name: string;
