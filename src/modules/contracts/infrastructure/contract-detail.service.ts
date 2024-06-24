@@ -12,7 +12,9 @@ import { TravelPetPerCharge } from '../domain/contract-services/travel/travel-pe
 import { TravelAccompaniedPet } from '../domain/contract-services/travel/travel-accompanied-pet';
 import { TravelDestination } from '../domain/contract-services/travel/travel-destination';
 import { ContractTopico } from '../domain/contract-services/topico/contract-topico';
-import { pdfStyles } from '../../../theme/pdf/styles';
+import CDCPdf from '../../../../public/pdf/CDC-RVMR-2023-508.pdf';
+import rabiesPdf from '../../../../public/pdf/rabies-serology.pdf';
+import axios from 'axios';
 
 export const contractDetailService: ContractDetailService = {
     search: async (criteria: Criteria): Promise<ResponseSearch<ContractDetail[]>> => {
@@ -97,8 +99,16 @@ export const contractDetailService: ContractDetailService = {
         return { file: data, name: headers["name"] };
     },
     downloadPdf: async (contractId: string, detailId: string, pdf: PdfDownload): Promise<{ file: string, name: string }> => {
-        const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${pdf}/${contractId}/${detailId}`, null, {
-            responseType: "blob"
+        const response = await axios.get(pdf === PdfDownload.CDCR ? CDCPdf : rabiesPdf, {
+            responseType: 'blob'
+        });
+        const formData = new FormData();
+        formData.append('file', response.data);
+        const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${pdf}/${contractId}/${detailId}`, formData, {
+            responseType: "blob",
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         });
         return { file: data, name: headers["name"] };
     },
