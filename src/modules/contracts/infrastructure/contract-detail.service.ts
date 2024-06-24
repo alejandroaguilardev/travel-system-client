@@ -4,7 +4,7 @@ import { ContractDetailService, ContractDetailUpdateResponse } from '../domain/c
 import { ContractDetail, ContractPetUpdater } from '../domain/contract-detail';
 import { Criteria, criteriaToQueryString } from '../../shared/domain/criteria/criteria';
 import { ResponseSearch } from '../../shared/domain/response/response-search';
-import { CertificateDownload, Documentation } from '../domain/contract-services/documentation/documentation';
+import { CertificateDownload, Documentation, PdfDownload } from '../domain/contract-services/documentation/documentation';
 import { PartialTravel } from '../domain/contract-services/travel/contract-travel';
 import { Cage } from '../domain/contract-services/cage/cage';
 import { ResponseSuccess } from 'src/modules/shared/domain/response/response-success';
@@ -12,6 +12,7 @@ import { TravelPetPerCharge } from '../domain/contract-services/travel/travel-pe
 import { TravelAccompaniedPet } from '../domain/contract-services/travel/travel-accompanied-pet';
 import { TravelDestination } from '../domain/contract-services/travel/travel-destination';
 import { ContractTopico } from '../domain/contract-services/topico/contract-topico';
+import { pdfStyles } from '../../../theme/pdf/styles';
 
 export const contractDetailService: ContractDetailService = {
     search: async (criteria: Criteria): Promise<ResponseSearch<ContractDetail[]>> => {
@@ -95,6 +96,11 @@ export const contractDetailService: ContractDetailService = {
         });
         return { file: data, name: headers["name"] };
     },
-
+    downloadPdf: async (contractId: string, detailId: string, pdf: PdfDownload): Promise<{ file: string, name: string }> => {
+        const { data, headers } = await axiosInstance.post(`${endpoints.contracts.detail}/${pdf}/${contractId}/${detailId}`, null, {
+            responseType: "blob"
+        });
+        return { file: data, name: headers["name"] };
+    },
 
 }

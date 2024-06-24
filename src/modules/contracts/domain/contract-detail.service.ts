@@ -2,7 +2,7 @@ import { Contract } from './contract';
 import { ContractDetail, ContractPetUpdater } from './contract-detail';
 import { Criteria } from '../../shared/domain/criteria/criteria';
 import { ResponseSearch } from '../../shared/domain/response/response-search';
-import { CertificateDownload, Documentation } from './contract-services/documentation/documentation';
+import { CertificateDownload, Documentation, PdfDownload } from './contract-services/documentation/documentation';
 import { Cage } from './contract-services/cage/cage';
 import { PartialTravel } from './contract-services/travel/contract-travel';
 import { TravelPetPerCharge } from './contract-services/travel/travel-pet-per-charge';
@@ -41,4 +41,5 @@ export interface ContractDetailService {
     mailSenasaIntroduceContract(contractId: string, detailId: string): Promise<void>;
     downloadSenasaExcel(contractId: string, detailId: string): Promise<{ file: string, name: string }>;
     downloadCertificateExcel(contractId: string, detailId: string, certificate: CertificateDownload): Promise<{ file: string, name: string }>;
+    downloadPdf(contractId: string, detailId: string, pdfRoute: PdfDownload): Promise<{ file: string, name: string }>;
 }

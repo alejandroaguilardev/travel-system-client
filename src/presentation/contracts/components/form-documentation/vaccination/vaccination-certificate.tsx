@@ -15,8 +15,9 @@ import { paths } from '../../../../../app/routes/paths';
 import { TopicTabs } from "../../form-topico/topico-form";
 import { isPetValidateDataCompleted } from '../../../../../modules/pets/domain/pet';
 import { PetNotFoundRedirect } from "../../pet-not-found-redirect/pet-not-found-redirect";
-import { CertificateDownload } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { CertificateDownload, PdfDownload } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { CertificationAlert } from "../certification-alert/certification-alert";
+import { useDownloadPdf } from '../../../hooks/use-download-pdf';
 
 type Props = {
     contract: Contract;
@@ -28,6 +29,7 @@ type Props = {
 export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
     const [first, setFirst] = useState(false);
     const { downloadCertificate, isLoading } = useDownloadCertificate();
+    const { downloadPdf, isLoading: isLoadingPdf } = useDownloadPdf();
 
     const vaccinationCertificate = detail?.documentation?.vaccinationCertificate;
 
@@ -85,6 +87,16 @@ export const VaccinationCertificateForm: FC<Props> = ({ detail, contract }) => {
                                     fullWidth
                                     sx={{ mb: 1 }}
                                 >  Descargar datos del certificado en excel
+                                </LoadingButton>
+
+                                <LoadingButton
+                                    onClick={() => downloadPdf(contract.id, detail.id, PdfDownload.CDCR)}
+                                    disabled={isLoadingPdf}
+                                    loading={isLoadingPdf}
+                                    variant='outlined'
+                                    fullWidth
+                                    sx={{ mb: 1 }}
+                                >  Descargar  CDC USA
                                 </LoadingButton>
                             </Stack>
                         }

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useForm } from 'react-hook-form';
 import { Alert, Stack, Typography, Box, Button } from '@mui/material';
-
+import { LoadingButton } from "@mui/lab";
 import { ContractDetailUpdateResponse } from '../../../../../modules/contracts/domain/contract-detail.service';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,7 +9,7 @@ import { DocumentationCertificate } from '../../../../../modules/contracts/domai
 import { certificateSchema, defaultValues } from "../certificate-validation";
 import { useFormCertificate } from "../use-form-certificate";
 import FormProvider from "../../../../../components/hook-form/form-provider";
-import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { DOCUMENTATION_KEYS, PdfDownload } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
 import { ContractDetailStatus } from '../../../../../modules/contracts/domain/contract-status';
 import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 import { CertificateFormGeneral } from "../certificate-form-general";
@@ -19,6 +19,7 @@ import { paths } from '../../../../../app/routes/paths';
 import { TopicTabs } from "../../form-topico/topico-form";
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 import { CertificationAlert } from "../certification-alert/certification-alert";
+import { useDownloadPdf } from '../../../hooks/use-download-pdf';
 
 type Props = {
     contractId: string;
@@ -31,6 +32,8 @@ type Props = {
 
 export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLoading, contractId, onCancel }) => {
     const { user } = useAuthContext();
+    const { downloadPdf, isLoading: isLoadingPdf } = useDownloadPdf();
+
     const rabiesSeroLogicalTest = detail?.documentation?.rabiesSeroLogicalTest;
     const isAdmin = user?.auth?.admin;
     const isEdit = !(status === "completed" || status === "canceled");
@@ -77,6 +80,15 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
                 <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                     <Typography fontWeight="bold">Test serológico de rabia</Typography>
                     <CertificateFormGeneral label="¿Resultado Finalizado?" showDate={false} />
+                    <LoadingButton
+                        onClick={() => downloadPdf(contractId, detail.id, PdfDownload.RABIES_SEROLOGY)}
+                        disabled={isLoadingPdf}
+                        loading={isLoadingPdf}
+                        variant='outlined'
+                        fullWidth
+                        sx={{ mb: 1 }}
+                    >  Descargar formato
+                    </LoadingButton>
 
                     <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
 

@@ -30,4 +30,9 @@ export enum CertificateDownload {
   MICROCHIP = "chipCertificate",
   HEALTH = "healthCertificate",
   VACCINATION = "vaccinationCertificate",
-} 
+}
+
+export enum PdfDownload {
+  RABIES_SEROLOGY = "rabies-serology",
+  CDCR = "cdcr-rvmr",
+}
