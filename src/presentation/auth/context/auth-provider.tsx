@@ -18,6 +18,8 @@ const initialState: AuthStateType = {
   loading: true,
 };
 
+// Define the interval for token refresh (e.g., 55 minutes)
+const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // 55 minutes
 
 export function AuthProvider({ children }: Props) {
   const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -34,7 +36,6 @@ export function AuthProvider({ children }: Props) {
         },
       });
     } catch (error) {
-
       dispatch({
         type: Types.INITIAL,
         payload: {
@@ -46,6 +47,8 @@ export function AuthProvider({ children }: Props) {
 
   useEffect(() => {
     initialize();
+    const interval = setInterval(initialize, TOKEN_REFRESH_INTERVAL);
+    return () => clearInterval(interval);
   }, [initialize]);
 
   const login = useCallback(async (document: string, documentNumber: string, password: string, tokenReCaptcha: string) => {
@@ -69,14 +72,12 @@ export function AuthProvider({ children }: Props) {
     }
   }, []);
 
-
   const logout = useCallback(async () => {
     manageAccessToken(null);
     dispatch({
       type: Types.LOGOUT,
     });
   }, []);
-
 
   const update = useCallback(async (user: User) => {
     dispatch({
@@ -86,7 +87,6 @@ export function AuthProvider({ children }: Props) {
       },
     });
   }, []);
-
 
   const checkAuthenticated = state.user ? 'authenticated' : 'unauthenticated';
 
