@@ -16,6 +16,7 @@ type Props = {
 const initialState: AuthStateType = {
   user: null,
   loading: true,
+  authenticated: false
 };
 
 // Define the interval for token refresh (e.g., 55 minutes)
@@ -26,7 +27,7 @@ export function AuthProvider({ children }: Props) {
 
   const initialize = useCallback(async () => {
     try {
-      const accessToken = sessionStorage.getItem(LOCAL_STORAGE_KEYS.accessToken);
+      const accessToken = localStorage.getItem(LOCAL_STORAGE_KEYS.accessToken);
       manageAccessToken(accessToken);
       const user = await authVerify(authService, manageAccessToken)(accessToken);
       dispatch({

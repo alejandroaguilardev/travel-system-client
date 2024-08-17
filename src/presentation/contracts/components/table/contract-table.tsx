@@ -27,7 +27,7 @@ type Props = {
 
 export const ContractTable: FC<Props> = ({ options }) => {
     const { handleTypeImpExecute } = useImpContractContext();
-    const { columns, renderRowActionMenuItems, renderRowActions, columnQueryFilters, sortingQueryFilters, filteredColumns = [] } = options ?? {};
+    const { columns, renderRowActionMenuItems, renderRowActions, columnQueryFilters, sortingQueryFilters } = options ?? {};
 
     const columnsDefault = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [

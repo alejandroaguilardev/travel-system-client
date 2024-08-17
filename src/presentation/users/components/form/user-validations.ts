@@ -26,6 +26,7 @@ const defaultValues: NewUser = {
     status: "active",
     auth: {
         admin: false,
+        user: false,
     },
     isAdvisor: false,
     isDoctor: false,
@@ -69,6 +70,7 @@ const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
     status: Yup.string().oneOf(STATUS),
     auth: Yup.object().shape({
         admin: Yup.boolean(),
+        user: Yup.boolean(),
     }),
     isAdvisor: Yup.boolean(),
     isDoctor: Yup.boolean(),

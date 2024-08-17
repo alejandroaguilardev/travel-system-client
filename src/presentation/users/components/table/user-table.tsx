@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { MRT_ColumnDef } from 'material-react-table';
+import { MRT_ColumnDef, MRT_ColumnFiltersState } from 'material-react-table';
 import { NewUser, User } from '../../../../modules/users/domain/user';
 import { TablePagination } from '../../../../components/material-table/table-pagination';
 import { COLLECTIONS } from '../../../../modules/shared/domain/collections';
@@ -16,10 +16,12 @@ type Props = {
     onSelected: (user: User) => void;
     deleteItem: () => void;
     filteredColumns?: (keyof NewUser)[] | string[];
-    path: 'users' | 'clients'
+    path: 'users' | 'clients';
+    columnQueryFilters?: MRT_ColumnFiltersState | undefined;
+
 }
 
-export const UserTable: FC<Props> = ({ onSelected, deleteItem, path, filteredColumns = [] }) => {
+export const UserTable: FC<Props> = ({ columnQueryFilters, onSelected, deleteItem, path, filteredColumns = [] }) => {
     const allColumns = useMemo<MRT_ColumnDef<User>[]>(
         () => [
             {
@@ -62,7 +64,7 @@ export const UserTable: FC<Props> = ({ onSelected, deleteItem, path, filteredCol
             {
                 header: 'Roles',
                 accessorKey: 'roles',
-                accessorFn: (row) => row.roles.map(_ => _.name).join(","),
+                accessorFn: (row) => row.auth?.admin ? "Administrador, " : "" + row.roles.map(_ => _.name).join(","),
                 minSize: 200
             },
         ],
@@ -76,6 +78,7 @@ export const UserTable: FC<Props> = ({ onSelected, deleteItem, path, filteredCol
             name={UserTable?.displayName || 'table'}
             collection={COLLECTIONS.users}
             columns={columns}
+            columnQueryFilters={columnQueryFilters}
             globalFilterProperties={userGlobalFilterProperties}
             renderRowActionMenuItems={({ row }) => [
                 <PermissionGuard group={AuthGroup.CONTRACTS} permission={AuthPermission.LIST} key="view">

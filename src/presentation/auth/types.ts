@@ -5,7 +5,6 @@ export type AuthContextType = {
   method: string;
   loading: boolean;
   authenticated: boolean;
-  unauthenticated: boolean;
   login: (document: string, documentNumber: string, password: string, tokenReCaptcha: string) => Promise<User>;
   logout: () => Promise<void>;
   update: (user: User) => void;
@@ -27,6 +26,7 @@ export type AuthUserType = User | null;
 export type AuthStateType = {
   status?: string;
   loading: boolean;
+  authenticated: boolean;
   user: AuthUserType;
 };
 

@@ -20,7 +20,14 @@ export const useUserFormGeneral = () => {
                 .then(promises => setRoles(promises))
                 .catch(() => setRoles([]));
         }
-    }, [rolesDefault])
+    }, [rolesDefault]);
+
+    useEffect(() => {
+        if (isUser) {
+            setValue("auth.user", true);
+        }
+    }, [isUser])
+
 
     const handleRoles = (value: Role | Role[] | null) => {
         if (value && Array.isArray(value)) {

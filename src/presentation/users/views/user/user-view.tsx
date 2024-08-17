@@ -43,6 +43,10 @@ export default function UserView() {
                     onSelected={handleSelected}
                     deleteItem={deleteItem.onTrue}
                     path='users'
+                    columnQueryFilters={[
+                        { id: "auth.user", value: true },
+                    ]}
+
                 />
             }
 

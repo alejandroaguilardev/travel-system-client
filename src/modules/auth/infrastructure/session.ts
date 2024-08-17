@@ -4,12 +4,12 @@ import { LOCAL_STORAGE_KEYS } from '../../shared/infrastructure/persistence/loca
 
 export const manageAccessToken = (accessToken: string | null): void => {
     if (accessToken) {
-        sessionStorage.setItem(LOCAL_STORAGE_KEYS.accessToken, accessToken);
+        localStorage.setItem(LOCAL_STORAGE_KEYS.accessToken, accessToken);
 
         axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         const { exp } = jwtDecode(accessToken);
     } else {
-        sessionStorage.removeItem(LOCAL_STORAGE_KEYS.accessToken);
+        localStorage.removeItem(LOCAL_STORAGE_KEYS.accessToken);
         delete axios.defaults.headers.common.Authorization;
     }
 };

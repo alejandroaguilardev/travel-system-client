@@ -2,7 +2,6 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import LoginView from '../../../src/presentation/auth/login-view';
 import { AuthContext } from '../../../src/presentation/auth/context/auth-context';
-import { emailCreateMother } from '../../modules/shared/domain/email.mother';
 import { passwordCreatedMother } from '../../modules/users/domain/password.mother';
 import { numberCreateMother } from '../../modules/contracts/domain/number.mother';
 
@@ -19,7 +18,7 @@ describe('LoginView', () => {
     beforeEach(() => {
         const { container: renderContainer } = render(
             <MemoryRouter>
-                <AuthContext.Provider value={{ login: mockLogin, authenticated: false, loading: false, logout: jest.fn(), method: "jwt", unauthenticated: false, user: null, update: jest.fn() }}>
+                <AuthContext.Provider value={{ login: mockLogin, authenticated: false, loading: false, logout: jest.fn(), method: "jwt", user: null, update: jest.fn() }}>
                     <LoginView />
                 </AuthContext.Provider>
             </MemoryRouter>
