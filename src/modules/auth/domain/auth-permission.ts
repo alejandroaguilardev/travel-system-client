@@ -1,4 +1,5 @@
 export enum AuthGroup {
+    ADMIN = 'Administrador',
     CAGES = 'jaulas',
     CLIENT = 'clientes',
     CONTRACTS = 'contratos',
@@ -9,6 +10,13 @@ export enum AuthGroup {
     USERS = 'usuarios',
     FOLDERS = 'expedientes',
     INCIDENTS = 'incidencias',
+
+    CONTRACT_DOCUMENTATION = 'Fase Documentación',
+    CONTRACT_TOPICO = 'Fase Topico',
+    CONTRACT_CAGE = 'Fase Jaula',
+    CONTRACT_TRAVEL = 'Fase Viaje',
+    CONTRACT_FINISH = 'Finalizar Contratos',
+    CONTRACT_SENASA = 'Inspección Senasa',
 }
 
 export enum AuthPermission {
@@ -17,10 +25,5 @@ export enum AuthPermission {
     CREATE = 'crear',
     EDIT = 'editar',
     DELETE = 'eliminar',
-
-    FINISH = 'finalizar',
-    DOCUMENTATION = 'documentación',
-    TOPICO = 'topico',
-    CAGE = 'jaula',
-    TRAVEL = 'viaje',
+    EXECUTE = 'ejecutar',
 }

@@ -21,16 +21,16 @@ const itemsContractRegister = (user: User | null): ItemSubMenu[] => {
 
 const itemsDocumentation = (user: User | null): ItemSubMenu[] => {
     const documentation: ItemSubMenu[] = [];
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.TOPICO) &&
+    hasPermission(user, AuthGroup.CONTRACT_TOPICO, AuthPermission.LIST) &&
         documentation.push({ title: 'Topico', path: paths.dashboard.faseDocumentation.topico.list });
 
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
+    hasPermission(user, AuthGroup.CONTRACT_TOPICO, AuthPermission.LIST) &&
         documentation.push({ title: 'Test serológico de rabia', path: paths.dashboard.faseDocumentation.testRabies.list });
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
+    hasPermission(user, AuthGroup.CONTRACT_DOCUMENTATION, AuthPermission.LIST) &&
         documentation.push({ title: 'Documentación', path: paths.dashboard.faseDocumentation.documentation.list });
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
+    hasPermission(user, AuthGroup.CONTRACT_SENASA, AuthPermission.LIST) &&
         documentation.push({ title: 'Inspección SENASA', path: paths.dashboard.faseDocumentation.senasa.list });
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.DOCUMENTATION) &&
+    hasPermission(user, AuthGroup.CONTRACT_FINISH, AuthPermission.LIST) &&
         documentation.push({ title: 'Contratos por finalizar', path: paths.dashboard.faseDocumentation.contract });
     return documentation;
 }
@@ -61,13 +61,13 @@ export const itemsContracts = (user: User | null): ItemMenu[] => {
     }
 
 
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.CAGE) &&
+    hasPermission(user, AuthGroup.CONTRACT_CAGE, AuthPermission.LIST) &&
         contracts.push({
             title: 'Fase Jaula',
             path: paths.dashboard.contractCage.list,
             icon: ICONS_MENU.kanban
         });
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.TRAVEL) &&
+    hasPermission(user, AuthGroup.CONTRACT_TRAVEL, AuthPermission.LIST) &&
         contracts.push({
             title: 'Fase Reserva',
             path: paths.dashboard.contractTravel.list,

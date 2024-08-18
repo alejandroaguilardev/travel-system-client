@@ -22,7 +22,7 @@ export default function ContractDocumentationManagementPage() {
             <Helmet>
                 <title>Documentación</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_DOCUMENTATION} permission={AuthPermission.READ}>
                 <ContractDocumentationUpdateView id={id} action={action} />
             </RoutePermissionGuard>
         </>

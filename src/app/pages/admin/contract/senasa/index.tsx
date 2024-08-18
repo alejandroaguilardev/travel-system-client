@@ -18,7 +18,7 @@ export default function ContractSENASAPage() {
             <Helmet>
                 <title>Inspección SENASA</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_DOCUMENTATION} permission={AuthPermission.LIST}>
                 <ContractSENASAView columnQueryFilters={columnQueryFilters} title='Inspección Senasa' />
             </RoutePermissionGuard>
         </>

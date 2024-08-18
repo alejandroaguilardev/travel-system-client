@@ -13,7 +13,7 @@ export default function HistoryTestRabiesPage() {
             <Helmet>
                 <title>Historial de test serológico de rabia</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_TOPICO} permission={AuthPermission.LIST}>
                 <ContractTestRabiesView />
             </RoutePermissionGuard>
         </>

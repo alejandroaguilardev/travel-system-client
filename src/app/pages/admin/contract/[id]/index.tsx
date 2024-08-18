@@ -45,7 +45,7 @@ export default function ContractIdPage() {
             }
 
             {action === RoutesActions.DOCUMENTATION &&
-                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION}>
+                <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_DOCUMENTATION} permission={AuthPermission.EXECUTE}>
                     <ContractDocumentationView id={id} />
                 </RoutePermissionGuard>
             }

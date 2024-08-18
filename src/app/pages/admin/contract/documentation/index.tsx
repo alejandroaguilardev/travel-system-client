@@ -12,7 +12,7 @@ export default function ContractHistorialPage() {
             <Helmet>
                 <title>Contratos Documentación</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_DOCUMENTATION} permission={AuthPermission.LIST}>
                 <ContractDocumentationView />
             </RoutePermissionGuard>
         </>

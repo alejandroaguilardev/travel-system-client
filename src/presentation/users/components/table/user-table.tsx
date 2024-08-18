@@ -64,7 +64,7 @@ export const UserTable: FC<Props> = ({ columnQueryFilters, onSelected, deleteIte
             {
                 header: 'Roles',
                 accessorKey: 'roles',
-                accessorFn: (row) => row.auth?.admin ? "Administrador, " : "" + row.roles.map(_ => _.name).join(","),
+                accessorFn: (row) => row.auth?.admin ? "Super Admin, " : "" + row.roles.map(_ => _.name).join(","),
                 minSize: 200
             },
         ],

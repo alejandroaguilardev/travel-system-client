@@ -16,7 +16,7 @@ export default function ContractTestRabiesPage() {
             <Helmet>
                 <title>Test serológico de rabia</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.DOCUMENTATION}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_TOPICO} permission={AuthPermission.LIST}>
                 <ContractTestRabiesView columnQueryFilters={columnQueryFilters} />
             </RoutePermissionGuard>
         </>

@@ -13,7 +13,7 @@ export default function ContractTravelPage() {
             <Helmet>
                 <title>Reservas</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.TRAVEL}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_TRAVEL} permission={AuthPermission.LIST}>
                 <ContractTravelView />
             </RoutePermissionGuard>
         </>

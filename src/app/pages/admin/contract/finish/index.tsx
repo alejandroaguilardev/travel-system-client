@@ -13,7 +13,7 @@ export default function ContractHistorialPage() {
             <Helmet>
                 <title>Contratos Por Finalizar</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.FINISH}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_FINISH} permission={AuthPermission.LIST}>
                 <ContractFinishView />
             </RoutePermissionGuard>
         </>

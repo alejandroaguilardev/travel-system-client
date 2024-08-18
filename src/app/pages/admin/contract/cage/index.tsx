@@ -13,7 +13,7 @@ export default function ContractCagePage() {
             <Helmet>
                 <title>Contrato Jaulas</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.CAGE}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_CAGE} permission={AuthPermission.LIST}>
                 <ContractCageView />
             </RoutePermissionGuard>
         </>

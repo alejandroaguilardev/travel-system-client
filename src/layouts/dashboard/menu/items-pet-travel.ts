@@ -11,14 +11,14 @@ export const itemsOptions = (user: User | null): ItemMenu[] => {
     const options: ItemMenu[] = [];
 
 
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
+    hasPermission(user, AuthGroup.CONTRACT_SENASA, AuthPermission.LIST) &&
         options.push({
             title: 'Historial SENASA',
             path: paths.dashboard.senasaHistory,
             icon: ICONS_MENU.analytics
         })
 
-    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
+    hasPermission(user, AuthGroup.CONTRACT_TOPICO, AuthPermission.LIST) &&
         options.push({
             title: 'Historial Toma de Muestra',
             path: paths.dashboard.takingSampleHistory,

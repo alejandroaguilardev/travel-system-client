@@ -123,7 +123,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
                     <TableRow hover component="th" scope="row">
                         <TableCell >
                             <Typography variant="subtitle1" gutterBottom>
-                                Administrador:
+                                Super Admin:
                             </Typography>
                         </TableCell>
                         <TableCell>

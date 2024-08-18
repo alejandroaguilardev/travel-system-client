@@ -20,7 +20,7 @@ export default function ContractTravelIdPage() {
             <Helmet>
                 <title>Contrato Reserva</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACTS} permission={AuthPermission.TRAVEL}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_TRAVEL} permission={AuthPermission.READ}>
                 <ContractTravelUpdateView id={id} />
             </RoutePermissionGuard>
         </>
