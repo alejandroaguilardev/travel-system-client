@@ -13,7 +13,7 @@ export default function HistorySENASAPage() {
             <Helmet>
                 <title>Historial Inspección SENASA</title>
             </Helmet>
-            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_DOCUMENTATION} permission={AuthPermission.LIST}>
+            <RoutePermissionGuard user={user} group={AuthGroup.CONTRACT_SENASA} permission={AuthPermission.LIST}>
                 <ContractSENASAView title="Historial Senasa" />
             </RoutePermissionGuard>
         </>

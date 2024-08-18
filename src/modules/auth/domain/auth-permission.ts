@@ -1,12 +1,12 @@
 export enum AuthGroup {
     ADMIN = 'Administrador',
+    PERMISSIONS = 'permisos',
+    ROLES = 'roles',
+
     CAGES = 'jaulas',
     CLIENT = 'clientes',
     CONTRACTS = 'contratos',
-    CONTRACTS_DETAIL = 'detalles de contratos',
-    PERMISSIONS = 'permisos',
     PETS = 'mascotas',
-    ROLES = 'roles',
     USERS = 'usuarios',
     FOLDERS = 'expedientes',
     INCIDENTS = 'incidencias',
