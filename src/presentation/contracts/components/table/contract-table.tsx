@@ -16,7 +16,7 @@ import { contractDetailsPetNames } from './columns/contract-detail-status';
 
 type Props = {
     options?: {
-        columns?: MRT_ColumnDef<Contract>[];
+        columns?: MRT_ColumnDef<Contract>[] | any[];
         columnQueryFilters?: MRT_ColumnFiltersState | undefined;
         sortingQueryFilters?: MRT_SortingState | undefined;
         filteredColumns?: (keyof Contract)[];

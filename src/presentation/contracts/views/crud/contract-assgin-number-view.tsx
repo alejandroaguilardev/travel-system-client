@@ -32,6 +32,7 @@ export default function ContractAssignNumberView() {
                     columnQueryFilters: [
                         ...CONTRACT_STATUS_IN_COURSE,
                     ],
+                    columns: ["startDate", "correlative", "number", "folder", "client.profile.name"],
 
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
                     renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => handleSelected(row)}>
