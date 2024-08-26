@@ -7,10 +7,12 @@ import { ContractTable } from '../../components/table/contract-table';
 import { AssignNumberForm } from '../../components/assign-number-form/assign-number-form';
 import { useState } from 'react';
 import { CONTRACT_STATUS_IN_COURSE } from '../../helpers/column-query-filters-status';
+import { useColumnsFolders } from '../../components/table/columns/use-columns-folders';
 
 export default function ContractAssignNumberView() {
     const { selected, handleSelected } = useSelectedValue<Contract>();
     const [isLoading, setIsLoading] = useState(false);
+    const columns = useColumnsFolders();
 
     const callback = () => {
         handleSelected(null);
@@ -32,7 +34,7 @@ export default function ContractAssignNumberView() {
                     columnQueryFilters: [
                         ...CONTRACT_STATUS_IN_COURSE,
                     ],
-                    columns: ["startDate", "correlative", "number", "folder", "client.profile.name"],
+                    columns,
 
                     sortingQueryFilters: [{ id: "startDate", desc: true }],
                     renderRowActions: (row) => <Button variant='contained' fullWidth onClick={() => handleSelected(row)}>
