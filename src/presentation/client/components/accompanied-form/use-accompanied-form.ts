@@ -30,7 +30,6 @@ export const useAccompaniedForm = ({ contractId, contractDetailId, callback }: P
             if (fileImage) {
                 image = await uploadImage(fileImage, `${accompaniedPet.document}-${accompaniedPet.documentNumber}`, "private");
             }
-            alert("image:" + image)
             const response = await AccompaniedPetUpdater(contractDetailService)(contractId, contractDetailId, { ...accompaniedPet, image }, destination, petPerCharge, observation)
             showNotification("Actualizado con éxito");
             nativeEvent.submitter?.value === "reload"

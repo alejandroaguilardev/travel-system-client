@@ -43,17 +43,16 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
             const { accompaniedPet, destination, petPerCharge, observation } = dataForm;
             const { updatedAccompaniedPet, updatedTravelDestination, updatedTravelPetPerCharge } = accompaniedFormat(accompaniedPet, destination, petPerCharge);
 
-            let {image} = accompaniedPet;
+            let image = accompaniedPet?.image ?? "";
 
             if (fileImage) {
                 image = await uploadImage(fileImage, `${accompaniedPet.document}-${accompaniedPet.documentNumber}`, "private")
             }
-            accompaniedPet.image = image;
 
             const axiosInstance = axios.create({ baseURL: HOST_API });
             await axiosInstance.patch(`${endpoints.contracts.detail}/${contractId}/${contractDetailId}/accompanied`,
                 {
-                    accompaniedPet: updatedAccompaniedPet,
+                    accompaniedPet: { ...updatedAccompaniedPet, image },
                     destination: updatedTravelDestination,
                     petPerCharge: updatedTravelPetPerCharge,
                     observation
@@ -89,7 +88,6 @@ export default function AccompaniedPetView({ contractId, contractDetailId, token
 
     if (isLoading) return <LoadingScreen />;
     if (!contractDetail) return <NotFoundView />;
-
 
 
 
