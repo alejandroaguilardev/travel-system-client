@@ -53,7 +53,7 @@ export const ImportLicenseCertificateForm: FC<Props> = ({ detail, callback, cont
             <Typography fontWeight="bold">Permiso de Importación</Typography>
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <CertificateFormGeneral label="¿Permiso realizado?" />
-                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar notificación al cliente por email y whatsApp" />
 
                 {importLicense?.hasServiceIncluded &&
 

@@ -16,7 +16,8 @@ export const CONTRACT_STATUS_TRAVEL_IN_COURSE = [
 
 
 export const CONTRACT_SORT_PENDING_DEFAULT = [
-    { id: "details.travel.airlineReservation.code", desc: true },
+    { id: "correlative", desc: true },
     { id: "details.travel.airlineReservation.departureDate", desc: false },
+    { id: "details.travel.airlineReservation.code", desc: true },
     { id: "estimatedDate", desc: false },
 ] as const;

@@ -48,7 +48,7 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
                     {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
                     <TakingSampleSerologicalTestContractFormGeneral />
-                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar notificación al cliente por email y whatsApp" />
 
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >

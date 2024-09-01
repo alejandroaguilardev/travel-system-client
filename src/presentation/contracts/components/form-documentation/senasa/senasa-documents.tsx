@@ -104,7 +104,7 @@ export const SenasaDocumentsForm: FC<Props> = ({ detail, setIsLoading, callback,
 
                 {!isAdmin && !isEdit
                     ? <Alert severity="info">Solo el administrador puedo editar un contrato ya finalizado</Alert>
-                    : <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                    : <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar notificación al cliente por email y whatsApp" />
                 }
 
                 {(isAdmin || isEdit) &&

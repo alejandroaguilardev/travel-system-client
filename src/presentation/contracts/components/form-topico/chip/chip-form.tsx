@@ -45,7 +45,7 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIn
                 <ChipFormGeneral hasServiceIncluded={hasServiceIncluded} />
                 {
                     hasServiceIncluded &&
-                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                    <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar notificación al cliente por email y whatsApp" />
                 }
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>

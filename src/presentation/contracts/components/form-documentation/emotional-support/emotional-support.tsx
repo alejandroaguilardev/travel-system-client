@@ -53,7 +53,7 @@ export const EmotionalSupportCertificateForm: FC<Props> = ({ detail, callback, c
 
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <CertificateFormGeneral label="¿Certificado realizado?" />
-                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar notificación al cliente por email y whatsApp" />
 
                 {emotionalSupportCertificate?.hasServiceIncluded &&
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>

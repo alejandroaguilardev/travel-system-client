@@ -51,7 +51,7 @@ export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contractId,
                     format='DD/MM/YYYY HH:mm:ss'
                     value={fDayjs(expectedDate)}
                 />
-                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar correo de notificación al cliente" />
+                <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar notificación al cliente por email y whatsApp" />
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
