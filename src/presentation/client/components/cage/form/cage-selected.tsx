@@ -19,12 +19,12 @@ export const CageSelected: FC<Props> = ({ readonly, keyField }) => {
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
-                            <Iconify icon="mdi:text" />
+                            <Iconify icon={readonly ? "fluent:presence-blocked-10-regular" : "mdi:text"} />
                         </InputAdornment>
                     ),
                     readOnly: readonly
                 }}
-                style={readonly ? { pointerEvents: 'none', opacity: 1 } : {}}
+                style={readonly ? { pointerEvents: 'none', opacity: 1, background: "#eee" } : {}}
             />
             <RHFTextField
                 name={`${keyField}.modelCage`}
@@ -32,12 +32,12 @@ export const CageSelected: FC<Props> = ({ readonly, keyField }) => {
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
-                            <Iconify icon="mdi:text" />
+                            <Iconify icon={readonly ? "fluent:presence-blocked-10-regular" : "mdi:text"} />
                         </InputAdornment>
                     ),
                     readOnly: readonly,
                 }}
-                style={readonly ? { pointerEvents: 'none', opacity: 1 } : {}}
+                style={readonly ? { pointerEvents: 'none', opacity: 1, background: "#eee" } : {}}
 
             />
             <RHFTextField
@@ -47,12 +47,12 @@ export const CageSelected: FC<Props> = ({ readonly, keyField }) => {
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
-                            <Iconify icon="mdi:text" />
+                            <Iconify icon={readonly ? "fluent:presence-blocked-10-regular" : "mdi:text"} />
                         </InputAdornment>
                     ),
                     readOnly: readonly
                 }}
-                style={readonly ? { pointerEvents: 'none', opacity: 1 } : {}}
+                style={readonly ? { pointerEvents: 'none', opacity: 1, background: "#eee" } : {}}
             />
 
         </Stack>

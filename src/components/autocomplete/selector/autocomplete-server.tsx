@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
-import { TextFieldProps, Autocomplete, ListItem, TextField, AutocompleteRenderGetTagProps } from '@mui/material';
+import { TextFieldProps, Autocomplete, ListItem, TextField, AutocompleteRenderGetTagProps, Popper, Paper, Typography, Box } from '@mui/material';
 import { Collections } from '../../../modules/shared/domain/collections';
 import { useAutocompleteServer } from "./use-autocomplete-server";
 import { Criteria } from '../../../modules/shared/domain/criteria/criteria';
+import { PopperComponentAutocomplete } from "../common/popper-component";
 
 interface Props<T> extends Partial<Criteria> {
     collection: Collections;
@@ -27,7 +28,7 @@ export function AutocompleteServer<T>({
     globalFilter,
     sorting,
     start,
-    size,
+    size = 10,
     selectProperties,
     textField,
     multiple = false,
@@ -44,7 +45,7 @@ export function AutocompleteServer<T>({
     disabled = false,
     ...rest
 }: Props<T>) {
-    const { options, option, handleInput, handleChange } = useAutocompleteServer<T>({
+    const { options, option, countTotal, handleInput, handleChange } = useAutocompleteServer<T>({
         collection,
         globalFilterProperties,
         filters,
@@ -92,6 +93,7 @@ export function AutocompleteServer<T>({
             multiple={multiple}
             size={sizeComponent}
             noOptionsText={noOptionsText}
+            PopperComponent={(props: any) => <PopperComponentAutocomplete countTotal={countTotal} size={size} optionsLength={options.length} props={props} />}
             isOptionEqualToValue={(optionOld: any, optionCurrent: any) => {
                 if (typeof optionCurrent === "string") return optionOld === optionCurrent;
                 if (typeof optionCurrent === "object") return optionOld?.id === optionCurrent?.id;

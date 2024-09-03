@@ -1,5 +1,6 @@
 import { TextFieldProps, Autocomplete, ListItem, TextField } from "@mui/material";
 import { useAutocompleteClient } from "./use-autocomplete-client";
+import { PopperComponentAutocomplete } from "../common/popper-component";
 
 interface Props<T> {
     items: T[],
@@ -36,6 +37,7 @@ export function AutocompleteSelectorClient<T>({ items, propertiesFilter, default
             }
             getOptionLabel={getOptionLabel}
             onChange={(e, value: any) => handleChange(value)}
+            PopperComponent={(props: any) => <PopperComponentAutocomplete countTotal={items.length} size={items.length} optionsLength={options.length} props={props} />}
             renderInput={
                 (params) => <TextField {...params} value={input} onChange={handleInput} {...textField} />
             }

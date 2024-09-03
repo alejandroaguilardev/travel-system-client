@@ -15,7 +15,8 @@ interface Props<T> extends Partial<Criteria> {
 
 export const useAutocompleteServer = <T>({ defaultValue, collection, globalFilterProperties, filters, globalFilter: globalFilterDefault = "", sorting, start, size, selectProperties, formatOptions, callback }: Props<T>) => {
 
-    const [options, setOptions] = useState<T[]>([])
+    const [options, setOptions] = useState<T[]>([]);
+    const [countTotal, setCountTotal] = useState(0);
     const [option, setOption] = useState<T | T[] | null>(defaultValue);
     const [globalFilter, setGlobalFilter] = useState<string>(globalFilterDefault);
 
@@ -32,7 +33,7 @@ export const useAutocompleteServer = <T>({ defaultValue, collection, globalFilte
         [filters, globalFilter, sorting, start, size, globalFilterProperties, selectProperties])
 
 
-    const { rows } = useSwrQueryPagination<T>({ key: collection, criteria, search: conditionPersistence(collection) })
+    const result = useSwrQueryPagination<T>({ key: collection, criteria, search: conditionPersistence(collection) })
 
 
     const handleInput = useCallback((value: string) => {
@@ -48,17 +49,15 @@ export const useAutocompleteServer = <T>({ defaultValue, collection, globalFilte
     }, [callback])
 
     useEffect(() => {
-        if (globalFilter) {
-            setOptions(formatOptions ? formatOptions(rows) : rows as T[]);
-        } else {
-            setOptions([]);
-        }
-    }, [rows, formatOptions])
+        setOptions(formatOptions ? formatOptions(result.rows) : result.rows as T[]);
+        setCountTotal(result.count);
+    }, [result, formatOptions])
 
     return {
         input: globalFilter,
         option,
         options,
+        countTotal,
         handleChange,
         handleInput,
     };

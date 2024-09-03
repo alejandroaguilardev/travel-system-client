@@ -1,4 +1,4 @@
-import { Box, Checkbox, Divider, FormControlLabel, MenuItem, Stack, Typography } from '@mui/material';
+import { Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
 import { CageSelected } from '../../../../client/components/cage/form/cage-selected';
 import { SearchClient } from '../../../../client/components/search-client/search-client';
 import { PET_GENDERS, PetGender } from '../../../../../modules/pets/domain/pet-gender';
