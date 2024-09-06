@@ -11,18 +11,18 @@ import IconWrapper from '../../../components/icon-wrapper/icon-wrapper';
 import LoadingScreen from '../../../components/loading-screen/loading-screen';
 
 export default function ClientView() {
-    const { contract: contracts, isLoading } = useQueryContract();
+    const { contract: contracts, isLoading, error } = useQueryContract();
 
     const { contract, contractDetail, onSelected, onSelectedDetail } = useContractStore();
 
     useEffect(() => {
-        if (!isLoading) {
-            onSelected(contracts.length > 0 ? contracts[0] : null);
+        if (!isLoading && !error) {
+            onSelected(contracts?.length > 0 ? contracts[0] : null);
         }
     }, [isLoading, contracts]);
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoading && !error) {
             if (contracts.length > 0) {
                 onSelectedDetail(contracts[0].details.length > 0 ? contracts[0].details[0] : null);
             } else {

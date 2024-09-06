@@ -13,6 +13,7 @@ import { PET_TYPES } from '../../../../../modules/pets/domain/pet-type';
 import { isPetBabyAge, isPrintMessageForMoreOneMonth } from '../../../../../modules/pets/domain/pet-age';
 import { fDate, fDayDiffDays, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { useMemo } from 'react';
+import { ErrorMessage } from '../../../../../components/hook-form/error-message';
 
 type Props = {
     hasClient?: boolean;
@@ -172,6 +173,7 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                     </Typography>
                     <Divider />
                     <ContractFormCage keyValue='cageRecommendation' />
+                    <ErrorMessage name="cageRecommendation.modelCage" />
                     {/* <CageSelected keyField="cageRecommendation" readonly /> */}
                 </>
             }
