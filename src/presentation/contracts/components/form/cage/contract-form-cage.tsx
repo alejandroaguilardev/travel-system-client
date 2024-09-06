@@ -9,12 +9,12 @@ type Props = {
 
 export const ContractFormCage: FC<Props> = ({ keyValue }: Props) => {
 
-    const { handleCageChosen } = useContractFormCage({ keyValue });
+    const { handleCageChosen, cage } = useContractFormCage({ keyValue });
 
     return (
         <Stack spacing={1} marginBottom={1}>
             <SearchCages
-                cage={null}
+                cage={cage ?? null}
                 field='Jaula'
                 handleValue={handleCageChosen}
             />

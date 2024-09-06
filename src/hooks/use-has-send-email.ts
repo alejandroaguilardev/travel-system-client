@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 export const useHasSendEmail = (valueDefault = true) => {
-    const [hasSendEmail, setHasSendEmail] = useState<boolean>(valueDefault);
+    const [hasSendEmail, setHasSendEmail] = useState<boolean>(false);
 
     const onChangeHasSendEmail = (value: boolean): void => {
         setHasSendEmail(value)

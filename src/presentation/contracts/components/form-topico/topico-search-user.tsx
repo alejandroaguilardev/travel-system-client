@@ -66,6 +66,8 @@ export const TopicoSearchUser = () => {
                         <Typography width="100%" textAlign="center" mb={1}>No hemos encontrado  el veterinario en nuestra base de datos</Typography>
                     </Box>
                 }
+                newPerson={false}
+                labelNewPerson="Crear nuevo doctor"
             />
         </Stack>
     )

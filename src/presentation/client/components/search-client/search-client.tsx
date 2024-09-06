@@ -35,7 +35,8 @@ type Props = Partial<Criteria> & {
     field: string;
     handleClient: (user: User | null) => void;
     textField?: TextFieldProps;
-    newPerson?: boolean;
+    newPerson: boolean;
+    labelNewPerson: string;
     noOptionsText?: ReactNode;
 }
 
@@ -47,7 +48,8 @@ export const SearchClient = ({
         label: "Buscar y Seleccionar cliente(*)",
         placeholder: "Buscar y seleccionar un cliente...",
     },
-    newPerson = true,
+    newPerson = false,
+    labelNewPerson,
     noOptionsText,
     ...rest
 }: Props) => {
@@ -77,6 +79,12 @@ export const SearchClient = ({
                 }
 
             />
+            {newPerson && <PermissionGuard group={AuthGroup.CLIENT} permission={AuthPermission.CREATE}>
+                <Button variant="outlined" fullWidth onClick={onTrue}>
+                    Crear nuevo cliente
+                </Button>
+            </PermissionGuard>
+            }
             <ErrorMessage name={field} />
         </>
     )

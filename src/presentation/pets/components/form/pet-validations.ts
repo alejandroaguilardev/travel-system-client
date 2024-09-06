@@ -93,6 +93,7 @@ export const defaultValuesTopic: PetTopic = {
         height: 0,
         width: 0,
         length: 0,
+        updatedAt: undefined,
     },
     cageRecommendation: {
         modelCage: "",
@@ -108,6 +109,7 @@ export const petSchemaTopic: Yup.ObjectSchema<PetTopic> = Yup.object().shape({
         height: Yup.number().required("El alto de la mascota es requerido"),
         width: Yup.number().required("El ancho de la mascota es requerido"),
         length: Yup.number().required("El largo de la mascota es requerido"),
+        updatedAt: Yup.date(),
     }).required("El Peso y las medidas de la mascota es requerido"),
     cageRecommendation: Yup.object().shape({
         modelCage: Yup.string().required("El modelo de la jaula es requerido"),

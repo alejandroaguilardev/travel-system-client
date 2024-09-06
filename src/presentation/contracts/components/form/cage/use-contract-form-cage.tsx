@@ -3,9 +3,9 @@ import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 import { Cage } from '../../../../../modules/cages/domain/cage';
 
 export const useContractFormCage = ({ keyValue = "cage.chosen" }: { keyValue?: string }) => {
-    const { setValue } = useFormContext();
+    const { setValue, getValues } = useFormContext();
     const { user } = useAuthContext();
-
+    const cage = getValues(keyValue);
 
     const handleCageChosen = (cage: Cage | null) => {
         setValue(keyValue, {
@@ -16,6 +16,7 @@ export const useContractFormCage = ({ keyValue = "cage.chosen" }: { keyValue?: s
         }, { shouldValidate: true });
     }
     return {
+        cage,
         handleCageChosen
     }
 }

@@ -200,39 +200,53 @@ export const useColumnsTopico = () => {
 type DetailsTopicoStatus = {
     pending: number,
     notIncluded: number,
+    optional: number,
     completed: number
 }
 
 
 const detailsTopicoStatus = (details: ContractDetail[], value: keyof typeof TOPICO_KEYS, documentation: keyof typeof DOCUMENTATION_KEYS): DetailsTopicoStatus => {
     let pending = 0;
+    let optional = 0;
     let notIncluded = 0;
     let completed = 0;
 
     for (const _ of details) {
+        if (_.documentation?.[documentation]?.hasServiceIncluded && !_.topico?.[value]?.executed && value === "rabiesReVaccination") {
+            optional += 1;
+            continue;
+        }
+
+
         if (!_.documentation?.[documentation]?.hasServiceIncluded) {
             notIncluded += 1;
             continue;
         }
+
         if (_.documentation?.[documentation]?.hasServiceIncluded && !_.topico?.[value]?.executed) {
             pending += 1;
             continue;
         }
-        completed += 1;
+        if (value !== "rabiesReVaccination") {
+            completed += 1;
+        }
     }
 
     pending -= completed;
-    return { pending, notIncluded, completed };
+    return { pending, notIncluded, optional, completed };
 }
 
 
-const detailsTopicoStatusLabel = ({ completed, notIncluded, pending }: DetailsTopicoStatus): JSX.Element => {
+const detailsTopicoStatusLabel = ({ completed, notIncluded, pending, optional }: DetailsTopicoStatus): JSX.Element => {
     return <>
         {notIncluded > 0 &&
             <Label color="default">{notIncluded > 1 ? notIncluded : ""} No Incluido</Label>
         }
         {pending > 0 &&
             <Label color="error">{pending > 1 ? pending : ""} Pendiente</Label>
+        }
+        {optional > 0 &&
+            <Label color="default">{optional > 1 ? optional : ""} Opcional</Label>
         }
         {completed > 0 &&
             <Label color="success">{completed > 1 ? completed : ""}Completado</Label>

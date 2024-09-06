@@ -105,11 +105,11 @@ const ContractDetails: React.FC<ContractDetailsProps> = ({ contract }) => {
                         <TableRow hover>
                             <TableCell sx={{ width: "50%" }}>
                                 <Typography variant="subtitle1" gutterBottom>
-                                    Fecha Estimada de Viaje:
+                                    Fecha Tentativa de Viaje:
                                 </Typography>
                             </TableCell>
                             <TableCell sx={{ width: "50%" }}>
-                                <Typography>{contract.endDate ? fDateTimeLong(contract.estimatedDate) : "--"}</Typography>
+                                <Typography>{contract?.estimatedDate ? fDateTimeLong(contract.estimatedDate) : "--"}</Typography>
                             </TableCell>
                         </TableRow>
                         <TableRow hover>

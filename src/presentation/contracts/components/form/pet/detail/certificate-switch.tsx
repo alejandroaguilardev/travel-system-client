@@ -76,17 +76,16 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, canOptional, n
             <Box width="100%">
                 {(hasServiceIncluded || edit) &&
                     <>
-                        <RHFDate
+                        {/* <RHFDate
                             name={`${name}.expectedDate`}
                             value={fDayjs(expectedDate)}
                             label="Fecha prevista (*)"
-
                             sx={edit ? {
                                 opacity: 0.4,
                                 pointerEvents: "not-allowed",
                                 cursor: "not-allowed"
                             } : {}}
-                        />
+                        /> */}
                         {
                             noExecutionDate && <RHFDate
                                 name={`${name}.resultDate`}

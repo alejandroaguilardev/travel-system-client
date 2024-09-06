@@ -1,4 +1,4 @@
-import { Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
+import { Alert, Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
 import { CageSelected } from '../../../../client/components/cage/form/cage-selected';
 import { SearchClient } from '../../../../client/components/search-client/search-client';
 import { PET_GENDERS, PetGender } from '../../../../../modules/pets/domain/pet-gender';
@@ -9,6 +9,10 @@ import { usePetFormGeneral } from './use-pet-form-general';
 import RHFSwitch from '../../../../../components/hook-form/rhf-switch';
 import Image from 'src/components/image/image';
 import { HOST_ASSETS_IMAGES } from '../../../../../app/config/config-global';
+import { PET_TYPES } from '../../../../../modules/pets/domain/pet-type';
+import { isPetBabyAge, isPrintMessageForMoreOneMonth } from '../../../../../modules/pets/domain/pet-age';
+import { fDate, fDayDiffDays, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
+import { useMemo } from 'react';
 
 type Props = {
     hasClient?: boolean;
@@ -19,7 +23,12 @@ type Props = {
 }
 
 export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = false, hasRecommendation = false, hasChip = false, hasImage = false }: Props) => {
-    const { chip, chipDate, birthDate, client, image, handleClient } = usePetFormGeneral();
+    const { id, type, chip, chipDate, birthDate, dateUpdatedAt, client, image, handleClient } = usePetFormGeneral();
+
+    const alertUpdate: boolean = useMemo(() =>
+        isPrintMessageForMoreOneMonth(fDayjs(birthDate).toDate(), fDayDiffDays(new Date(), fDayjs(dateUpdatedAt).toDate())) &&
+        isPetBabyAge(type, fDayjs(birthDate).toDate()), [birthDate, type, id]);
+
 
     return (
         <Stack spacing={1} marginBottom={1}>
@@ -28,6 +37,8 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                     client={client}
                     handleClient={handleClient}
                     field='adopter'
+                    newPerson={true}
+                    labelNewPerson="Crear nuevo cliente"
                 />
             }
 
@@ -66,10 +77,11 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                     label="Especie (*)"
                     select
                 >
-                    <MenuItem value="Canino">Canino</MenuItem>
-                    <MenuItem value="Felino">Felino</MenuItem>
-                    <MenuItem value="Hurón">Hurón</MenuItem>
-                    <MenuItem value="Otros">Otros</MenuItem>
+                    {PET_TYPES.map((pet) => (
+                        <MenuItem key={pet.value} value={pet.value}>
+                            {pet.label}
+                        </MenuItem>
+                    ))}
                 </RHFTextField>
 
                 <RHFTextField
@@ -118,7 +130,19 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
             {
                 hasMeasurementsAndWeight &&
                 <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
-                    <Typography fontWeight="bold">Medición Antropométrica</Typography>
+                    <Typography fontWeight="bold">
+                        Medición Antropométrica
+                    </Typography>
+                    {
+                        id &&
+                        <Alert severity={alertUpdate ? "error" : "info"}>
+                            {isPetBabyAge(type, fDayjs(birthDate).toDate())
+                                ? `La Mascota es un cachorro se debe hacer seguimiento se sus medidas y peso. Última Actualización fue ${fDate(dateUpdatedAt)}`
+                                : `Última Actualización de las medidas y peso ${fDate(dateUpdatedAt)}`
+                            }
+
+                        </Alert>
+                    }
                     <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                         <RHFTextField
                             name="measurementsAndWeight.height"
@@ -148,7 +172,7 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                     </Typography>
                     <Divider />
                     <ContractFormCage keyValue='cageRecommendation' />
-                    <CageSelected keyField="cageRecommendation" readonly />
+                    {/* <CageSelected keyField="cageRecommendation" readonly /> */}
                 </>
             }
             {hasImage &&

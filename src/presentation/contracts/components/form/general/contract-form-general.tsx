@@ -29,6 +29,9 @@ export const ContractFormGeneral = () => {
                         client={client}
                         handleClient={handleClient}
                         field='client'
+                        newPerson={true}
+                        labelNewPerson="Crear nuevo cliente"
+
                     />
                 </Stack>
                 <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
@@ -41,7 +44,8 @@ export const ContractFormGeneral = () => {
                             label: "Seleccionar Asesor(*)",
                             placeholder: "Buscar Asesor...",
                         }}
-
+                        newPerson={false}
+                        labelNewPerson="Crear nuevo asesor"
                     />
                 </Stack>
                 <AssignNumberFormGeneral />

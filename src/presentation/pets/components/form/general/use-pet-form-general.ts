@@ -4,13 +4,17 @@ import { useFormContext } from 'react-hook-form';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { User } from '../../../../../modules/users/domain/user';
 import { userService } from '../../../../../modules/users/infrastructure/user.service';
+import { MeasurementsAndWeight } from '../../../../../modules/pets/domain/pet-measurements-and-weight';
 
 export const usePetFormGeneral = () => {
     const { setValue, watch, getValues } = useFormContext();
     const chip = watch("chip");
+    const type = watch("type");
+    const id = watch("id");
     const image: string = watch("image");
     const birthDate: Date = fDayjs(watch("birthDate"));
     const chipDate: Date = fDayjs(watch("chipDate"));
+    const { updatedAt: dateUpdatedAt }: MeasurementsAndWeight = watch("measurementsAndWeight");
 
     const [client, setClient] = useState<User | null>(null);
     const clientDefault: string = getValues("adopter");
@@ -45,11 +49,14 @@ export const usePetFormGeneral = () => {
 
 
     return {
+        id,
+        type,
         chip,
         client,
         birthDate,
         chipDate,
         image,
+        dateUpdatedAt,
         handleClient,
         handleChip,
     }

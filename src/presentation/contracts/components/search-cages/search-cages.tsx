@@ -41,7 +41,7 @@ export const SearchCages = ({
                 globalFilterProperties={globalFilterProperties}
                 defaultValue={cage}
                 callback={(value) => handleValue(value as Cage | null)}
-                getOptionLabel={(option: Cage) => `${option.modelCage} ${option.dimensionsCage} ${capitalize(option.typeCage)})`}
+                getOptionLabel={(option: Cage) => option?.modelCage && option?.dimensionsCage && option?.typeCage ? `${option.modelCage} ${option.dimensionsCage} (${capitalize(option.typeCage)})` : ''}
                 textField={textField}
             />
             <ErrorMessage name={field} />
