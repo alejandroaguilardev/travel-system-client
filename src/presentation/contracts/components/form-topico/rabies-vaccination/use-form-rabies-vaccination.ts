@@ -34,7 +34,6 @@ export const useFormRabiesVaccination = ({ contractId, detail, callback }: Props
 
 
     const handleExpectedDate = (date: Date | null) => {
-        console.log({ date })
         setExpectedDate(date);
     }
 

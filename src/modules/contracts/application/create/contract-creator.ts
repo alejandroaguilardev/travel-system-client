@@ -17,14 +17,7 @@ export const contractCreator = (contractService: ContractService, uuid: UuidServ
 
 
 export const contractWithCustomerPayment = (contract: NewPostContract): NewPostContract => {
-    if (contract?.payInInstallments && contract.payInInstallments.length > 0) {
-        contract.payInInstallments[0].customerPayments?.push({
-            date: contract.payInInstallments[0].date,
-            price: contract.payInInstallments[0].price,
-            method: "",
-        });
-        contract.payInInstallments[0].isPay = true;
-    } else {
+    if (!contract?.payInInstallments || contract?.payInInstallments?.length === 0) {
         contract.payInInstallments = [{
             date: contract.startDate,
             isPay: true,
@@ -33,7 +26,7 @@ export const contractWithCustomerPayment = (contract: NewPostContract): NewPostC
             customerPayments: [{
                 date: contract.startDate,
                 price: contract.price,
-                method: "",
+                method: "Pago total sin cuotas",
             }]
         }]
     }

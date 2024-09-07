@@ -41,11 +41,9 @@ export const SearchFolder = ({
                 globalFilterProperties={globalFilterProperties}
                 defaultValue={folder}
                 callback={(value: any) => {
-                    console.log(value)
                     const name: any = typeof value === "string" ? value : value?.name;
                     const quantity: any = typeof value === "string" ? 300 : value?.quantity;
                     handleFolder(name);
-                    console.log(quantity)
                     handleQuantity(quantity)
                 }}
                 getOptionLabel={(option) => {

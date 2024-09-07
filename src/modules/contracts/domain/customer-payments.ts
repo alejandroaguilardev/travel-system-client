@@ -11,3 +11,14 @@ export const customerPaymentSaldo = (price = 0, customerPayments?: CustomerPayme
 
     return price - saldo;
 }
+
+
+export const METHODS_PAYMENTS = ["Efectivo", "Pos", "Transferencia", "Wester"];
+
+
+
+export const validateCancelPay = (isPay: boolean = false, customerPayments: CustomerPayment[] = []): boolean => {
+    if (isPay) return true;
+    if (customerPayments.length > 0) return true;
+    return false;
+}

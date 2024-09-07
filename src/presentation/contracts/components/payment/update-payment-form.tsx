@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ActionsButtonsForm } from "src/components/hook-form/actions-buttons-form";
 import { useMessage } from "src/hooks";
 import { Contract } from "src/modules/contracts/domain/contract";
 import { errorsShowNotification } from "src/modules/shared/infrastructure/helpers/errors-show-notification";
@@ -10,7 +9,8 @@ import { paymentUpdater } from '../../../../modules/contracts/application/update
 import { contractService } from '../../../../modules/contracts/infrastructure/contract.service';
 import uuid from '../../../../modules/shared/infrastructure/adapter/uuid';
 import FormProvider from "../../../../components/hook-form/form-provider";
-import { UpdatePaymentGeneral } from "./general/update-payment-general";
+import { UpdatePaymentFormRender } from "./update-payment-form-render";
+import { DialogProvider } from '../../../../components/dialog-context/dialog-context-generic';
 
 interface Props {
     contract: Contract;
@@ -58,14 +58,12 @@ export const UpdatePaymentForm = ({ contract, callback, setLoading, onCancel }: 
 
     return (
         <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-            <UpdatePaymentGeneral />
-            <ActionsButtonsForm
-                name="Pagos"
-                edit={!!contract}
-                fullWidth
-                notReload
-                onCancel={onCancel}
-            />
+            <DialogProvider>
+                <UpdatePaymentFormRender
+                    contract={contract}
+                    onCancel={onCancel}
+                />
+            </DialogProvider>
         </FormProvider>
     )
 }

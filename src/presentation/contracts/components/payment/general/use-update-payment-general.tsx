@@ -1,29 +1,33 @@
 import { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { PayInInstallment } from '../../../../../modules/contracts/domain/payment-summary';
 import { customerPaymentSaldo } from 'src/modules/contracts/domain/customer-payments';
-import { CustomerPayment } from '../../../../../modules/contracts/domain/customer-payments';
 import { useMessage } from 'src/hooks';
+import { METHODS_PAYMENTS, validateCancelPay } from '../../../../../modules/contracts/domain/customer-payments';
 
 
-export const useUpdatePaymentGeneral = () => {
+export const useUpdatePaymentGeneral = (
+    payInInstallments: PayInInstallment[],
+    onChangeValues: (updatedPayInInstallments: PayInInstallment[]) => void
+) => {
+
     const { showNotification } = useMessage();
     const [dateCustomer, setDate] = useState(new Date());
     const [priceCustomer, setPriceCustomer] = useState(0);
-    const { setValue, watch } = useFormContext();
-    const payInInstallments: PayInInstallment[] = watch("payInInstallments") ?? [];
+    const [methodPayment, setMethodPayment] = useState(METHODS_PAYMENTS[0]);
 
 
-    const handleIsPay = (index: number, saldo: number) => {
+    const handlePayTotalOrCancel = (index: number, saldo: number) => {
         const updatedPayInInstallments = [...payInInstallments];
-        updatedPayInInstallments[index].isPay = !updatedPayInInstallments[index].isPay;
+        const isCancel = validateCancelPay(updatedPayInInstallments[index]?.isPay, updatedPayInInstallments[index]?.customerPayments);
 
-        if (updatedPayInInstallments[index].isPay) {
-            updatedPayInInstallments[index].customerPayments?.push({ date: new Date(), method: "", price: saldo });
+        if (!isCancel) {
+            updatedPayInInstallments[index].isPay = true;
+            updatedPayInInstallments[index].customerPayments?.push({ date: new Date(), method: methodPayment, price: saldo });
         } else {
+            updatedPayInInstallments[index].isPay = false;
             updatedPayInInstallments[index].customerPayments = [];
         }
-        setValue("payInInstallments", updatedPayInInstallments);
+        onChangeValues(updatedPayInInstallments);
     }
 
     const handlePayParcial = (index: number, payInInstallment: PayInInstallment): boolean => {
@@ -39,24 +43,26 @@ export const useUpdatePaymentGeneral = () => {
         updatedPayInInstallments[index].customerPayments?.push({
             date: dateCustomer,
             price,
-            method: ""
+            method: methodPayment,
         });
 
         if (price === saldo) {
             updatedPayInInstallments[index].isPay = true;
         }
-        setValue("payInInstallments", updatedPayInInstallments);
+        onChangeValues(updatedPayInInstallments);
         return true;
     }
+
 
     return {
         dateCustomer,
         priceCustomer,
-        payInInstallments,
+        methodPayment,
+        setMethodPayment,
         setPriceCustomer,
         setDate,
-        handleIsPay,
-        handlePayParcial
+        handlePayTotalOrCancel,
+        handlePayParcial,
     }
 
 }

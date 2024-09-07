@@ -35,7 +35,6 @@ export function fDaySum(date: InputValue, cant: number, unit: ManipulateType = "
 }
 
 export function fDayDiffDays(date1: InputValue, date2: InputValue) {
-    console.log(Math.floor((dayjs(date1).diff(dayjs(date2)) / 1000) / (60 * 60 * 24)))
     return Math.floor((dayjs(date1).diff(dayjs(date2)) / 1000) / (60 * 60 * 24));
 }
 
