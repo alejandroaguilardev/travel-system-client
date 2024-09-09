@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { PayInInstallment } from '../../../../../modules/contracts/domain/payment-summary';
 import { fDaySum, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
@@ -13,22 +13,12 @@ const payInInstallmentInit: PayInInstallment = {
 
 export const useContractFormPrices = () => {
     const { setValue, watch } = useFormContext();
-    const payInInstallments: PayInInstallment[] = watch("payInInstallments") ?? [];
+    const payInInstallments: PayInInstallment[] = watch("payInInstallments") ?? payInInstallmentInit;
     const estimatedDate = watch("estimatedDate") || null;
-    const [isPayInstallments, setIsPayInstallments] = useState(payInInstallments.length > 1);
 
     const priceTotal = watch("price");
 
-    const [counter, setCounter] = useState(payInInstallments.length);
-
-    const handleIsPayInstallments = () => {
-        const value = !isPayInstallments;
-        setValue("payInInstallments", []);
-        setIsPayInstallments(value);
-        if (value) {
-            handleCounter(2)
-        }
-    }
+    const [counter, setCounter] = useState(payInInstallments?.length || 1);
 
     const handleCounter = (value: number) => {
         const updatePayInInstallments: PayInInstallment[] = []
@@ -71,12 +61,10 @@ export const useContractFormPrices = () => {
     };
 
     return {
-        counter,
         priceTotal,
+        counter,
         payInInstallments,
-        isPayInstallments,
         estimatedDate,
-        handleIsPayInstallments,
         handleCounter,
         handlePercentageChange,
         handleCuotaChange
