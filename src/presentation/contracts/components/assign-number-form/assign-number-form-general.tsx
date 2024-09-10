@@ -21,19 +21,12 @@ export const AssignNumberFormGeneral = () => {
             </Box>
             {folder ?
                 <Box width="100%">
-                    <AutocompleteSelectorClient<{ number: number }>
-                        textField={{
-                            label: "Numeró de expediente"
-                        }}
-                        items={quantity}
-                        defaultValue={{ number }}
-                        getOptionLabel={(d) => {
-                            if (typeof d !== "string") return d?.number?.toString() ?? "";
-                            return "";
-                        }}
-                        callback={(value) => handleNumber(value?.number)}
-                        propertiesFilter={["number"]}
-                        freeText
+                    <TextField
+                        type="number"
+                        value={number}
+                        placeholder='Numeró de expediente'
+                        fullWidth
+                        onChange={({ target }) => handleNumber(Number(target?.value) ?? 0)}
                     />
                     <ErrorMessage name="number" />
                 </Box>
