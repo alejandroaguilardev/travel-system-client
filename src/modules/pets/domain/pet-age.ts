@@ -20,11 +20,7 @@ export const isPrintMessageForMoreOneMonth = (birthDate: Date, daysSinceUpdate: 
     const now = new Date();
     const ageInMonths = (now.getFullYear() - birthDate.getFullYear()) * 12 + (now.getMonth() - birthDate.getMonth());
 
-    if (ageInMonths < 3) {
-        return daysSinceUpdate > 7;
-    } else if (ageInMonths >= 3 && ageInMonths < 6) {
-        return daysSinceUpdate > 14;
-    } else if (ageInMonths >= 6 && ageInMonths < 12) {
+    if (ageInMonths < 12) {
         return daysSinceUpdate > 30;
     }
     return false;
