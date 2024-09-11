@@ -10,10 +10,10 @@ import { DialogProvider } from '../../../../../components/dialog-context/dialog-
 import { ContractFormPricesListPay } from './contract-form-prices-list-pay';
 import { customerPaymentSaldo } from '../../../../../modules/contracts/domain/customer-payments';
 import { useEffect } from 'react';
-
+import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
 
 export const ContractFormPrices = () => {
-    const { counter, priceTotal, payInInstallments, estimatedDate, handleCounter, handleCuotaChange, handlePercentageChange } = useContractFormPrices();
+    const { counter, hasSendEmail, isEdit, priceTotal, payInInstallments, estimatedDate, handleCounter, handleCuotaChange, handlePercentageChange, onChangeHasSendEmail } = useContractFormPrices();
 
     useEffect(() => {
         handleCounter(counter);
@@ -136,6 +136,14 @@ export const ContractFormPrices = () => {
                     }
                 </Stack>
             </Stack>
+            {
+                !isEdit &&
+                <SendEmailCheck
+                    value={hasSendEmail}
+                    onChange={onChangeHasSendEmail}
+                    label="Enviar notificación al cliente por email y whatsApp" />
+            }
+
         </Paper>
     )
 }

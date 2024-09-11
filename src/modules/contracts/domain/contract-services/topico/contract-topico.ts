@@ -26,6 +26,7 @@ export interface RabiesVaccinationContract {
 }
 
 export interface RabiesReVaccinationContract {
+    hasIncluded?: boolean;
     executed?: boolean;
     date?: Date;
     description?: string;
@@ -34,6 +35,7 @@ export interface RabiesReVaccinationContract {
 }
 
 export interface ChipReviewContract {
+    hasIncluded?: boolean;
     executed?: boolean;
     date?: Date;
     description?: string;
@@ -42,6 +44,7 @@ export interface ChipReviewContract {
 }
 
 export interface TakingSampleSerologicalTestContract {
+    hasIncluded?: boolean;
     executed?: boolean;
     typeSample?: string;
     date?: Date;

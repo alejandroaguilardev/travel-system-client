@@ -11,6 +11,7 @@ import { contractUpdater } from '../../../../modules/contracts/application/updat
 import { useImpContractContext } from "../../../../components/imp-pdf/imp-contract/imp-contract-context";
 import { TypeofImp } from "../../../../components/imp-pdf/imp-contract/type-contract";
 import { ContractProps } from "../../pdf/format-contract/types";
+import { NewContractEmail } from "./contract-validations";
 
 type Props = {
     contract?: NewContract;
@@ -23,14 +24,17 @@ export const useFormContract = ({ callback, contract }: Props) => {
     const { showNotification, showSuccess } = useMessage();
     const { handleTypeImpExecute } = useImpContractContext<ContractProps>();
 
-    const onSubmit: SubmitHandler<NewContract> = async (data, event) => {
+    const onSubmit: SubmitHandler<NewContractEmail> = async (data, event) => {
+        const { hasSendEmail, isEdit, ...rest } = data;
         const { nativeEvent } = event as CustomFormEvent<HTMLFormElement>;
         try {
             const { message, contract: updateContract } = contract
-                ? await contractUpdater(contractService, uuid)(data?.id!, data)
-                : await contractCreator(contractService, uuid)(data)
+                ? await contractUpdater(contractService, uuid)(rest?.id!, rest)
+                : await contractCreator(contractService, uuid)(rest)
 
-
+            if (!isEdit && hasSendEmail && updateContract?.id) {
+                contractService.notificationNewContract(updateContract?.id);
+            }
 
             handleTypeImpExecute(updateContract?.id ?? "", TypeofImp.IMP)
             showSuccess({ newTitle: message });

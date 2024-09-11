@@ -15,6 +15,8 @@ export const useContractFormPrices = () => {
     const { setValue, watch } = useFormContext();
     const payInInstallments: PayInInstallment[] = watch("payInInstallments") ?? payInInstallmentInit;
     const estimatedDate = watch("estimatedDate") || null;
+    const hasSendEmail = watch("hasSendEmail") || false;
+    const isEdit = watch("isEdit") || false;
 
     const priceTotal = watch("price");
 
@@ -60,13 +62,21 @@ export const useContractFormPrices = () => {
 
     };
 
+    const onChangeHasSendEmail = () => {
+        setValue("hasSendEmail", !hasSendEmail);
+
+    }
+
     return {
+        isEdit,
+        hasSendEmail,
         priceTotal,
         counter,
         payInInstallments,
         estimatedDate,
         handleCounter,
         handlePercentageChange,
-        handleCuotaChange
+        handleCuotaChange,
+        onChangeHasSendEmail
     }
 }

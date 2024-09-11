@@ -46,6 +46,10 @@ export const contractService: ContractService = {
     updatePayment: async (contractId: string, body: ContractPayments): Promise<ResponseSuccess> => {
         const { data } = await axiosInstance.patch(`${endpoints.contracts.root}/${contractId}/payment`, body);
         return data;
+    },
+    notificationNewContract: async (contractId: string): Promise<void> => {
+        const { data } = await axiosInstance.post(`${endpoints.contracts.root}/${contractId}/notification-new-contract`);
+        return data;
     }
 
 } 

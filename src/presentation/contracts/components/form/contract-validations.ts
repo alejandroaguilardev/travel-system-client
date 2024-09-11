@@ -3,6 +3,7 @@ import { NewContract } from '../../../../modules/contracts/domain/contract';
 import { DocumentationCertificate } from '../../../../modules/contracts/domain/contract-services/documentation/documentation-certificate';
 import { NewContractDetail } from '../../../../modules/contracts/domain/contract-detail';
 import { fDaySum } from '../../../../modules/shared/infrastructure/helpers/format-time';
+import { i } from 'vite/dist/node/types.d-aGj9QkWt';
 
 const certificate: DocumentationCertificate = {
     hasServiceIncluded: false,
@@ -13,6 +14,11 @@ const certificate: DocumentationCertificate = {
     resultDate: null,
     isPrint: false,
     observation: ""
+}
+
+export interface NewContractEmail extends NewContract {
+    hasSendEmail?: boolean;
+    isEdit?: boolean;
 }
 
 
@@ -85,10 +91,30 @@ const detailInit: NewContractDetail = {
         importLicense: { ...certificate },
         emotionalSupportCertificate: { ...certificate, isRequired: false },
     },
+    topico: {
+        chip: {
+            hasIncluded: false,
+        },
+        vaccination: {
+            hasIncluded: false,
+        },
+        chipReview: {
+            hasIncluded: false,
+        },
+        rabiesVaccination: {
+            hasIncluded: false,
+        },
+        rabiesReVaccination: {
+            hasIncluded: false,
+        },
+        takingSampleSerologicalTest: {
+            hasIncluded: false,
+        },
+    }
 
 }
 
-const defaultValues: NewContract = {
+const defaultValues: NewContractEmail = {
     id: '',
     client: '',
     folder: "",
@@ -101,10 +127,12 @@ const defaultValues: NewContract = {
     payInInstallments: [],
     reasonForCancellation: "",
     format: "",
-
+    hasSendEmail: false,
+    isEdit: false,
 };
 
-const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
+
+const contractSchema: Yup.ObjectSchema<NewContractEmail> = Yup.object().shape({
     id: Yup.string(),
     folder: Yup.string(),
     format: Yup.string().required('El formato de contrato es requerido'),
@@ -119,6 +147,10 @@ const contractSchema: Yup.ObjectSchema<NewContract> = Yup.object().shape({
     customerPayments: Yup.array(),
     payInInstallments: Yup.array(),
     price: Yup.number().required('Se debe especificar el precio del contrato').min(1, "El precio debe ser mayor a 0"),
+    hasSendEmail: Yup.boolean(),
+    isEdit: Yup.boolean(),
+
+
 });
 
 export { defaultValues, contractSchema, detailInit };
