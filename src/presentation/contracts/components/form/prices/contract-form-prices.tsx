@@ -60,76 +60,80 @@ export const ContractFormPrices = () => {
                     />
                 </Stack>
 
-                <Stack spacing={1} marginBottom={1} display="flex" flexDirection={{ xs: "column", md: "row" }} alignItems="center" >
-                    <Typography variant='subtitle2' >N° DE CUOTAS (la primera cuota se adicionará como pagada)</Typography>
-                    <Counter
-                        counter={counter}
-                        callback={handleCounter}
-                    />
-                </Stack>
+
                 <Stack spacing={1} marginBottom={1}>
-                    {
-                        payInInstallments?.map((pay, index, array) => (
-                            <Stack key={index + "counter"} >
-                                <DialogProvider >
-                                    <Stack display="flex" flexDirection={{ xs: "column", md: "row" }} gap={1}>
-                                        <DatePicker
-                                            label="Fecha de pago (*)"
-                                            sx={{
-                                                width: "100%"
-                                            }}
-                                            format='DD/MM/YYYY'
-                                            value={fDayjs(pay.date)}
-                                        />
-
-                                        <TextField
-                                            label="Cuota Porcentaje (*)"
-                                            type='number'
-                                            value={pay?.percentage ?? 0}
-                                            onChange={(e) => {
-                                                handlePercentageChange(parseFloat(e.target.value) ?? 0, index, array)
-                                            }}
-                                            fullWidth
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <IconWrapper icon='percentage' />
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        />
-                                        <TextField
-                                            label="Cuota (*)"
-                                            type='number'
-                                            value={pay?.price ?? 0}
-                                            onChange={(e) => handleCuotaChange(parseFloat(e.target.value) ?? 0, index, array)}
-                                            fullWidth
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <IconWrapper icon='payMoney' />
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        />
-                                        <TextField
-                                            value={customerPaymentSaldo(pay?.price, pay?.customerPayments).toFixed(2)}
-                                            label="Saldo"
-                                            sx={{
-                                                width: "100%",
-
-                                            }}
-                                            disabled
-                                        />
-                                        <ContractFormPricesListPay
-                                            index={index}
-                                            payInInstallments={array}
-                                            payInInstallment={pay}
-                                        />
-                                    </Stack>
-                                </DialogProvider>
+                    {priceTotal > 0 &&
+                        <>
+                            <Stack spacing={1} marginBottom={1} display="flex" flexDirection={{ xs: "column", md: "row" }} alignItems="center" >
+                                <Typography variant='subtitle2' >N° DE CUOTAS (la primera cuota se adicionará como pagada)</Typography>
+                                <Counter
+                                    counter={counter}
+                                    callback={handleCounter}
+                                />
                             </Stack>
-                        ))}
+                            {payInInstallments?.map((pay, index, array) => (
+                                <Stack key={index + "counter"} >
+                                    <DialogProvider >
+                                        <Stack display="flex" flexDirection={{ xs: "column", md: "row" }} gap={1}>
+                                            <DatePicker
+                                                label="Fecha de pago (*)"
+                                                sx={{
+                                                    width: "100%"
+                                                }}
+                                                format='DD/MM/YYYY'
+                                                value={fDayjs(pay.date)}
+                                            />
+
+                                            <TextField
+                                                label="Cuota Porcentaje (*)"
+                                                type='number'
+                                                value={pay?.percentage ?? 0}
+                                                onChange={(e) => {
+                                                    handlePercentageChange(parseFloat(e.target.value) ?? 0, index, array)
+                                                }}
+                                                fullWidth
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <IconWrapper icon='percentage' />
+                                                        </InputAdornment>
+                                                    )
+                                                }}
+                                            />
+                                            <TextField
+                                                label="Cuota (*)"
+                                                type='number'
+                                                value={pay?.price ?? 0}
+                                                onChange={(e) => handleCuotaChange(parseFloat(e.target.value) ?? 0, index, array)}
+                                                fullWidth
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <IconWrapper icon='payMoney' />
+                                                        </InputAdornment>
+                                                    )
+                                                }}
+                                            />
+                                            <TextField
+                                                value={customerPaymentSaldo(pay?.price, pay?.customerPayments).toFixed(2)}
+                                                label="Saldo"
+                                                sx={{
+                                                    width: "100%",
+
+                                                }}
+                                                disabled
+                                            />
+                                            <ContractFormPricesListPay
+                                                index={index}
+                                                payInInstallments={array}
+                                                payInInstallment={pay}
+                                            />
+                                        </Stack>
+                                    </DialogProvider>
+                                </Stack>
+                            ))}
+                        </>
+                    }
                 </Stack>
             </Stack>
         </Paper>

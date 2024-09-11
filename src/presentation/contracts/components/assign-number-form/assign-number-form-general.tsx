@@ -1,7 +1,6 @@
 import { Box, Stack, TextField } from "@mui/material";
 import { useContractFolderForm } from "./use-contract-folder-form";
 import { SearchFolder } from "../../../folders/components/search-folder/search-folder";
-import { AutocompleteSelectorClient } from "../../../../components/autocomplete/client/autocomplete-selector-client";
 import { ErrorMessage } from "../../../../components/hook-form";
 
 export const AssignNumberFormGeneral = () => {
