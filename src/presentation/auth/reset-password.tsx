@@ -37,7 +37,7 @@ export default function ResetPasswordView() {
     } = methods;
 
     const verificadPassword = (password: string, passwordRepeat: string) => {
-        if (password === passwordRepeat) {
+        if (password.trim() === passwordRepeat.trim()) {
             setErrorMsg("");
             return true;
         }
@@ -50,7 +50,7 @@ export default function ResetPasswordView() {
         try {
             const tokenReCaptcha = await executeReCaptcha();
             manageAccessToken(token ?? null)
-            const response = await authService.resetPassword(data.password);
+            const response = await authService.resetPassword(data.password.trim());
             const user = await login?.(response.user.profile.document, response.user.profile.documentNumber, data.password, tokenReCaptcha);
 
             const access = (user.roles.length > 0 || user?.auth?.admin) ? PATH_AFTER_LOGIN : PATH_AFTER_LOGIN_CLIENT;

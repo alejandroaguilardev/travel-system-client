@@ -27,6 +27,11 @@ export const ResetPasswordForm: FC<Props> = ({ errorMsg }) => {
                         </InputAdornment>
                     ),
                 }}
+                onKeyDown={(e) => {
+                    if (e.key === ' ') {
+                        e.preventDefault();
+                    }
+                }}
             />
             <RHFTextField
                 name="passwordRepeat"
@@ -40,6 +45,11 @@ export const ResetPasswordForm: FC<Props> = ({ errorMsg }) => {
                             </IconButton>
                         </InputAdornment>
                     ),
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === ' ') {
+                        e.preventDefault();
+                    }
                 }}
             />
         </Stack>
