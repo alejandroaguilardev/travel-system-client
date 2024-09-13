@@ -15,7 +15,7 @@ import { TakingSampleSerologicalTestContractForm } from "./taking-sample-serolog
 import { PetSelectedTopic } from "./pet-selected-topic/pet-selected-topic";
 import { contractPetUpdater } from '../../../../modules/contracts/application/update/contract-pet-updater';
 import { contractDetailService } from '../../../../modules/contracts/infrastructure/contract-detail.service';
-import { hasShowReviewChip } from '../../../../modules/contracts/domain/contract-services/topico/contract-topico';
+import { hasIncludedServiceTopico, hasShowReviewChip } from '../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 
 
 export enum TopicTabs {
@@ -63,39 +63,39 @@ export const TopicoForm: FC<Props> = ({ action, contractId, clientId, detail, on
             </>
         }];
         if (!detail.pet?.id) return addTabs;
-        if (detail?.topico?.chip?.hasIncluded) {
+        if (hasIncludedServiceTopico(detail?.topico?.chip)) {
             addTabs.push({
                 label: "Microchip",
                 value: TopicTabs.chip,
                 component: <ChipForm contractId={contractId} detail={detail}
-                    hasServiceIncluded={detail?.topico?.chip?.hasIncluded}
+                    hasServiceIncluded={hasIncludedServiceTopico(detail?.topico?.chip)}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
         }
-        if (detail?.topico?.vaccination?.hasIncluded) {
+        if (hasIncludedServiceTopico(detail?.topico?.vaccination)) {
             addTabs.push({
                 label: vaccinationLabel(detail.pet?.type),
                 value: TopicTabs.vaccination,
                 component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
-                    hasServiceIncluded={detail?.topico?.vaccination?.hasIncluded}
+                    hasServiceIncluded={hasIncludedServiceTopico(detail?.topico?.vaccination)}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
         }
-        if (detail?.topico?.rabiesVaccination?.hasIncluded) {
+        if (hasIncludedServiceTopico(detail?.topico?.rabiesVaccination)) {
             addTabs.push({
                 label: "Vacuna de Rabia",
                 value: TopicTabs.rabiesVaccination,
                 component: <RabiesVaccinationForm contractId={contractId} detail={detail}
-                    hasServiceIncluded={detail?.topico?.rabiesVaccination?.hasIncluded}
+                    hasServiceIncluded={hasIncludedServiceTopico(detail?.topico?.rabiesVaccination)}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
         }
-        if (detail?.topico?.rabiesReVaccination?.hasIncluded) {
+        if (hasIncludedServiceTopico(detail?.topico?.rabiesReVaccination)) {
             addTabs.push({
                 label: "Revacunación de Rabia ",
                 value: TopicTabs.rabiesReVaccination,
                 component: <RabiesReVaccinationForm contractId={contractId} detail={detail}
-                    hasServiceIncluded={detail?.topico?.rabiesReVaccination?.hasIncluded}
+                    hasServiceIncluded={hasIncludedServiceTopico(detail?.topico?.rabiesReVaccination)}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
         }
@@ -110,12 +110,12 @@ export const TopicoForm: FC<Props> = ({ action, contractId, clientId, detail, on
             })
         }
 
-        if (detail?.topico?.takingSampleSerologicalTest?.hasIncluded) {
+        if (hasIncludedServiceTopico(detail?.topico?.takingSampleSerologicalTest)) {
             addTabs.push({
                 label: "Toma de muestra",
                 value: TopicTabs.takingSampleSerologicalTest,
                 component: <TakingSampleSerologicalTestContractForm contractId={contractId} detail={detail}
-                    hasServiceIncluded={detail?.topico?.takingSampleSerologicalTest?.hasIncluded}
+                    hasServiceIncluded={hasIncludedServiceTopico(detail?.topico?.takingSampleSerologicalTest)}
 
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })

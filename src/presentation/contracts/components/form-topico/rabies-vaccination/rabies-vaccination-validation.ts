@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { RabiesVaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
+import { RabiesVaccinationContract, hasIncludedServiceTopico } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 
 export const defaultRabiesVaccination: RabiesVaccinationContract = {
@@ -25,7 +25,7 @@ export const petRabiesVaccinationDefaultValues = (detail: ContractDetail) => {
     const rabiesVaccination = detail?.topico?.rabiesVaccination;
     const dataExits = detail?.pet?.topico?.rabiesVaccination;
 
-    if (rabiesVaccination?.hasIncluded) {
+    if (hasIncludedServiceTopico(rabiesVaccination)) {
         return {
             hasIncluded: rabiesVaccination?.hasIncluded || defaultRabiesVaccination.hasIncluded,
             executed: rabiesVaccination?.executed || defaultRabiesVaccination.executed,
@@ -36,7 +36,7 @@ export const petRabiesVaccinationDefaultValues = (detail: ContractDetail) => {
         }
     }
 
-    if (dataExits?.hasIncluded) {
+    if (hasIncludedServiceTopico(dataExits)) {
         return {
             hasIncluded: detail.topico?.rabiesVaccination?.hasIncluded || defaultRabiesVaccination.hasIncluded,
             executed: dataExits?.executed || defaultRabiesVaccination.executed,

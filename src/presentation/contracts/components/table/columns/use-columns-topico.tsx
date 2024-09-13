@@ -212,18 +212,18 @@ const detailsTopicoStatus = (details: ContractDetail[], topico: keyof typeof TOP
     let completed = 0;
 
     for (const _ of details) {
-        if (_.topico?.[topico]?.hasIncluded && !_.topico?.[topico]?.executed && topico === "chipReview") {
+        if (!_.topico?.[topico]?.executed && topico === "chipReview") {
             optional += 1;
             continue;
         }
 
 
-        if (!_.topico?.[topico]?.hasIncluded) {
+        if (!_.topico?.[topico]?.hasIncluded || !_.topico?.[topico]?.executed) {
             notIncluded += 1;
             continue;
         }
 
-        if (_.topico?.[topico]?.hasIncluded && !_.topico?.[topico]?.executed) {
+        if (_.topico?.[topico]?.executed) {
             pending += 1;
             continue;
         }

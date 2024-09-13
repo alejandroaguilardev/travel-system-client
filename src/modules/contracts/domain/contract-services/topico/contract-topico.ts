@@ -1,3 +1,7 @@
+import dayjs from "dayjs";
+import { Contract } from "../../contract";
+import { DOCUMENTATION_KEYS } from "../documentation/documentation";
+
 export interface ChipContract {
     hasIncluded?: boolean;
     executed?: boolean;
@@ -75,11 +79,27 @@ export const TOPICO_KEYS = {
 
 export const hasShowReviewChip = (topico?: ContractTopico): boolean => {
 
-    if ((topico?.rabiesReVaccination?.hasIncluded
-        || topico?.rabiesVaccination?.hasIncluded)
-        && topico?.takingSampleSerologicalTest?.hasIncluded
+    if (((topico?.rabiesReVaccination?.hasIncluded || topico?.rabiesReVaccination?.executed)
+        || (topico?.rabiesVaccination?.hasIncluded || topico?.rabiesVaccination?.executed))
+        && (topico?.takingSampleSerologicalTest?.hasIncluded || topico?.takingSampleSerologicalTest?.executed)
     ) {
         return true;
     }
     return false;
+}
+
+const dateTopicoUpdateSeparate = dayjs('2024-09-14');
+
+export const hasIncludedServiceTopico = (service: any): boolean => {
+    return service?.hasIncluded || service?.executed;
+}
+
+export const hasIncludedServiceTopicoManyPets = (contract: Contract, topicoKey: keyof typeof TOPICO_KEYS, documentationKey: keyof typeof DOCUMENTATION_KEYS): boolean => {
+    if (dateTopicoUpdateSeparate.isAfter(dayjs(contract.startDate))) {
+        const value = contract.details.filter(_ => _.documentation?.[documentationKey]?.hasServiceIncluded);
+        return value?.length > 0;
+    }
+
+    const value = contract.details.filter((_) => _?.topico?.[topicoKey]?.hasIncluded);
+    return value?.length > 0;
 }

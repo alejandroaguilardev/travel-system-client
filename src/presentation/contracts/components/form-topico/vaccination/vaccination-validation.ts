@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { VaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
+import { VaccinationContract, hasIncludedServiceTopico } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
 
 export const defaultVaccination: VaccinationContract = {
@@ -37,11 +37,11 @@ export const petVaccinationDefaultValues = (detail: ContractDetail) => {
     const vaccination = detail?.topico?.vaccination;
     const dataExits = detail?.pet?.topico?.vaccination;
 
-    if (detail?.topico?.vaccination?.hasIncluded) {
+    if (hasIncludedServiceTopico(vaccination)) {
         defaultVaccination.description = vaccinationType(detail.pet?.type);
     }
 
-    if (vaccination?.hasIncluded) {
+    if (hasIncludedServiceTopico(vaccination)) {
         return {
             hasIncluded: detail?.topico?.vaccination?.hasIncluded || defaultVaccination.hasIncluded,
             executed: vaccination?.executed || defaultVaccination.executed,
@@ -52,7 +52,7 @@ export const petVaccinationDefaultValues = (detail: ContractDetail) => {
         }
     }
 
-    if (dataExits?.hasIncluded) {
+    if (hasIncludedServiceTopico(dataExits)) {
         return {
             hasIncluded: detail?.topico?.vaccination?.hasIncluded || defaultVaccination.hasIncluded,
             executed: dataExits?.executed || defaultVaccination.executed,
