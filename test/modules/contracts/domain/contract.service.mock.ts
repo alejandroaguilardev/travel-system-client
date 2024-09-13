@@ -11,6 +11,7 @@ export const contractServiceMock = {
     cancel: jest.fn(),
     updateFolder: jest.fn(),
     updatePayment: jest.fn(),
+    notificationNewContract: jest.fn(),
 }
 
 export const contractDetailServiceMock = {
