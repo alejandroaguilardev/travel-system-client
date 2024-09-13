@@ -21,7 +21,6 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, canOptional, n
     const { user } = useAuthContext();
     const hasServiceIncluded = watch(`${name}.hasServiceIncluded`);
     const isApplied = watch(`${name}.isApplied`);
-    const expectedDate = watch(`${name}.expectedDate`);
     const executionDate = watch(`${name}.executionDate`);
     const resultDate = watch(`${name}.resultDate`);
     const isRequired = watch(`${name}.isRequired`);
@@ -73,8 +72,8 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, canOptional, n
                     }
                 </Box>
             </Box>
-            <Box width="100%">
-                {(hasServiceIncluded || edit) &&
+            {(edit) &&
+                <Box width="100%">
                     <>
                         {/* <RHFDate
                             name={`${name}.expectedDate`}
@@ -101,8 +100,8 @@ export const CertificateSwitch: FC<Props> = ({ name, label, edit, canOptional, n
 
 
                     </>
-                }
-            </Box>
+                </Box>
+            }
         </Stack>
     )
 }

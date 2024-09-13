@@ -71,3 +71,15 @@ export const TOPICO_KEYS = {
     chipReview: "chipReview",
     takingSampleSerologicalTest: "takingSampleSerologicalTest"
 };
+
+
+export const hasShowReviewChip = (topico?: ContractTopico): boolean => {
+
+    if ((topico?.rabiesReVaccination?.hasIncluded
+        || topico?.rabiesVaccination?.hasIncluded)
+        && topico?.takingSampleSerologicalTest?.hasIncluded
+    ) {
+        return true;
+    }
+    return false;
+}

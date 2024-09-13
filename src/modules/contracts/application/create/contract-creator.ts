@@ -40,6 +40,7 @@ export const contractCreatorFormat = (contract: NewContract, uuid: UuidService):
         details: contract.details.map(({ topico, ...detail }) => {
             return {
                 ...detail,
+                topico,
                 id: detail?.id || uuid.generate(),
                 pet: detail?.pet?.id,
             }

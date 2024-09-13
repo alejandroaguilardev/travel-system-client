@@ -14,16 +14,18 @@ import { SendEmailCheck } from '../../../../../components/send-email-check/send-
 type Props = {
     contractId: string;
     detail: ContractDetail;
+    hasServiceIncluded?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, callback, contractId, onCancel }) => {
+export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, callback, hasServiceIncluded, contractId, onCancel }) => {
     const takingSampleSerologicalTest = detail?.topico?.takingSampleSerologicalTest;
 
     const methods = useForm({
         resolver: yupResolver<TakingSampleSerologicalTestContract>(takingSampleContractObjectSchema),
         defaultValues: {
+            hasIncluded: takingSampleSerologicalTest?.hasIncluded || defaultTakingSampleSerologicalTestContract.hasIncluded,
             executed: takingSampleSerologicalTest?.executed || defaultTakingSampleSerologicalTestContract.executed,
             date: takingSampleSerologicalTest?.date || defaultTakingSampleSerologicalTestContract.date,
             typeSample: takingSampleSerologicalTest?.typeSample || defaultTakingSampleSerologicalTestContract.typeSample,
@@ -41,9 +43,9 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
             {(detail.topico?.rabiesVaccination.executed && (detail.topico?.chipReview?.executed || !detail.documentation.chipCertificate.hasServiceIncluded)) &&
                 < FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
 
-                    {!takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha guardado la información relacionada a la toma de muestra</Alert>}
+                    {!hasServiceIncluded && !takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha guardado la información relacionada a la toma de muestra</Alert>}
 
-                    {takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="info" sx={{ mb: 1 }}>Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
+                    {hasServiceIncluded && takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="info" sx={{ mb: 1 }}>Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
 
                     {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
@@ -54,9 +56,12 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                             Cancelar
                         </Button>
-                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                            {takingSampleSerologicalTest?.executed ? "Actualizar Toma de muestra" : "Guardar Toma de muestra"}
-                        </Button>
+
+                        {hasServiceIncluded &&
+                            <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                                {takingSampleSerologicalTest?.executed ? "Actualizar Toma de muestra" : "Guardar Toma de muestra"}
+                            </Button>
+                        }
 
                     </Box>
                 </FormProvider >}

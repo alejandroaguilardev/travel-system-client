@@ -32,12 +32,12 @@ export const useFormCertificate = ({ contractId, detailId, action, status, callb
         try {
             const response = await certificateUpdater(contractDetailService, uuid)(contractId, detailId, action, data, status, user?.id ?? "")
             showNotification("Actualizado correctamente ");
+            setIsExecuted(true);
             if (hasSendEmail) {
                 data.isApplied
                     ? contractDetailService.mailDetail(contractId, detailId, topicMessageMail(action))
                     : contractDetailService.mailSenasaIntroduceContract(contractId, detailId);
             }
-            setIsExecuted(true);
             callback(response);
         } catch (error) {
             errorsShowNotification(error, showNotification)

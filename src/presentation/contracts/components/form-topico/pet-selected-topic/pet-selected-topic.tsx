@@ -24,7 +24,7 @@ export const PetSelectedTopic: FC<Props> = ({ pet, callback, adopterId, onCancel
         defaultValues: pet ?? { ...defaultValuesTopic, adopter: adopterId },
     });
 
-    const { onSubmit } = useFormPet({ callback });
+    const { onSubmit, isSubmitting } = useFormPet({ callback });
 
     const handleChangePet = (value: Pet | null): void => {
         methods.reset(value ? petUpdaterFormat(value) : { ...defaultValuesTopic, adopter: adopterId });
@@ -36,14 +36,14 @@ export const PetSelectedTopic: FC<Props> = ({ pet, callback, adopterId, onCancel
             <SelectPetExist clientId={adopterId} handleSelected={handleChangePet} />
 
             <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-                <PetFormGeneral hasMeasurementsAndWeight hasRecommendation />
+                <PetFormGeneral hasMeasurementsAndWeight hasRecommendation hasShowChip />
 
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                    <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                    <Button variant="outlined" disabled={isSubmitting} fullWidth onClick={onCancel} >
                         Cancelar
                     </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        Actualizar
+                    <Button type="submit" variant="contained" disabled={isSubmitting} fullWidth >
+                        {pet?.id ? "Actualizar" : "Crear Mascota"}
                     </Button>
 
                 </Box>

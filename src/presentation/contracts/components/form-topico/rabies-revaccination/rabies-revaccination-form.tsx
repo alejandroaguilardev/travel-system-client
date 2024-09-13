@@ -16,16 +16,18 @@ import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/for
 type Props = {
     contractId: string;
     detail: ContractDetail;
+    hasServiceIncluded?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const RabiesReVaccinationForm: FC<Props> = ({ detail, callback, contractId, onCancel }) => {
+export const RabiesReVaccinationForm: FC<Props> = ({ detail, callback, hasServiceIncluded = false, contractId, onCancel }) => {
     const rabiesReVaccination = detail?.topico?.rabiesReVaccination;
 
     const methods = useForm({
         resolver: yupResolver<RabiesReVaccinationContract>(rabiesReVaccinationContractObjectSchema),
         defaultValues: {
+            hasIncluded: rabiesReVaccination?.hasIncluded || defaultRabiesReVaccination.executed,
             executed: rabiesReVaccination?.executed || defaultRabiesReVaccination.executed,
             date: rabiesReVaccination?.date || defaultRabiesReVaccination.date,
             description: rabiesReVaccination?.description || defaultRabiesReVaccination.description,
@@ -34,7 +36,7 @@ export const RabiesReVaccinationForm: FC<Props> = ({ detail, callback, contractI
         }
     });
 
-    const { onSubmit, isExecuted, hasSendEmail, expectedDate, handleExpectedDate, onChangeHasSendEmail } = useFormRabiesReVaccination({ contractId, detail, callback });
+    const { onSubmit, isExecuted, hasSendEmail, expectedDate, handleExpectedDate, onChangeHasSendEmail } = useFormRabiesReVaccination({ contractId, detail, hasServiceIncluded, callback });
 
 
     return (

@@ -25,7 +25,7 @@ export const petRabiesVaccinationDefaultValues = (detail: ContractDetail) => {
     const rabiesVaccination = detail?.topico?.rabiesVaccination;
     const dataExits = detail?.pet?.topico?.rabiesVaccination;
 
-    if (rabiesVaccination?.date) {
+    if (rabiesVaccination?.hasIncluded) {
         return {
             hasIncluded: rabiesVaccination?.hasIncluded || defaultRabiesVaccination.hasIncluded,
             executed: rabiesVaccination?.executed || defaultRabiesVaccination.executed,
@@ -36,9 +36,9 @@ export const petRabiesVaccinationDefaultValues = (detail: ContractDetail) => {
         }
     }
 
-    if (dataExits?.date) {
+    if (dataExits?.hasIncluded) {
         return {
-            hasIncluded: detail.documentation.vaccinationCertificate?.hasServiceIncluded || defaultRabiesVaccination.hasIncluded,
+            hasIncluded: detail.topico?.rabiesVaccination?.hasIncluded || defaultRabiesVaccination.hasIncluded,
             executed: dataExits?.executed || defaultRabiesVaccination.executed,
             date: dataExits?.date || defaultRabiesVaccination.date,
             description: dataExits?.description || defaultRabiesVaccination.description,

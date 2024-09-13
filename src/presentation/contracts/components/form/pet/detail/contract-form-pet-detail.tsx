@@ -4,6 +4,7 @@ import { AutocompleteSelectorClient } from '../../../../../../components/autocom
 import { countries } from '../../../../../../modules/shared/domain/helpers/countries';
 import { CertificateSwitch } from './certificate-switch';
 import { useContractFormPetDetail } from './use-contract-form-pet-detail';
+import { TopicoSwitch } from './topico-switch';
 
 type Props = {
     field: string;
@@ -45,48 +46,69 @@ export const ContractFormPetDetail = ({ field }: Props) => {
                 }
                 <Divider />
             </Stack>
-
-            <Stack spacing={1} marginBottom={1}>
-
-                <Typography>DOCUMENTACIÓN PARA EL VIAJE:</Typography>
-
-                <Stack direction={{ xs: "column", md: "row" }} flexWrap="wrap" spacing={1} marginBottom={1}>
-                    <CertificateSwitch
-                        label='Certificado de chip (*)'
-                        name={`${field}documentation.chipCertificate`}
+            <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+                <Stack spacing={1} marginBottom={1} width="100%">
+                    <Typography>EXÁMENES TÓPICO:</Typography>
+                    <TopicoSwitch
+                        label='Incluir Implantación de chip'
+                        name={`${field}topico.chip`}
                     />
-                    <CertificateSwitch
-                        label='Certificado de vacuna (*)'
-                        name={`${field}documentation.vaccinationCertificate`}
+                    <TopicoSwitch
+                        label='Incluir vacunación general'
+                        name={`${field}topico.vaccination`}
                     />
-
-                    <CertificateSwitch
-                        label='Test serológico de rabia (*)'
-                        name={`${field}documentation.rabiesSeroLogicalTest`}
+                    <TopicoSwitch
+                        label='Incluir vacuna contra la rabia'
+                        name={`${field}topico.rabiesVaccination`}
                     />
-
-                    <CertificateSwitch
-                        label='Certificado de salud (*)'
-                        name={`${field}documentation.healthCertificate`}
+                    <TopicoSwitch
+                        label='Incluir revacunación contra la rabia'
+                        name={`${field}topico.rabiesReVaccination`}
                     />
-
-                    <CertificateSwitch
-                        label='Permiso de importación'
-                        name={`${field}documentation.importLicense`}
-                        canOptional
+                    <TopicoSwitch
+                        label='Incluir toma de muestra para prueba serológica'
+                        name={`${field}topico.takingSampleSerologicalTest`}
                     />
+                </Stack>
+                <Stack spacing={1} marginBottom={1} width="100%">
+                    <Typography>DOCUMENTACIÓN PARA EL VIAJE:</Typography>
+                    <Stack direction={{ xs: "column", md: "row" }} flexWrap="wrap" spacing={1} marginBottom={1}>
+                        <CertificateSwitch
+                            label='Certificado de chip (*)'
+                            name={`${field}documentation.chipCertificate`}
+                        />
+                        <CertificateSwitch
+                            label='Certificado de vacunación (*)'
+                            name={`${field}documentation.vaccinationCertificate`}
+                        />
 
-                    <CertificateSwitch
-                        label='Documentos de SENASA'
-                        name={`${field}documentation.senasaDocuments`}
-                        canOptional
-                    />
+                        <CertificateSwitch
+                            label='Resultado del test serológico de rabia (*)'
+                            name={`${field}documentation.rabiesSeroLogicalTest`}
+                        />
 
-                    <CertificateSwitch
-                        label='Certificado de soporte emocional (opcional)'
-                        name={`${field}documentation.emotionalSupportCertificate`}
-                    />
+                        <CertificateSwitch
+                            label='Certificado de salud veterinaria (*)'
+                            name={`${field}documentation.healthCertificate`}
+                        />
 
+                        <CertificateSwitch
+                            label='Permiso de importación '
+                            name={`${field}documentation.importLicense`}
+                            canOptional
+                        />
+
+                        <CertificateSwitch
+                            label='Documentación oficial de SENASA '
+                            name={`${field}documentation.senasaDocuments`}
+                            canOptional
+                        />
+
+                        <CertificateSwitch
+                            label='Certificado de soporte emocional '
+                            name={`${field}documentation.emotionalSupportCertificate`}
+                        />
+                    </Stack>
                 </Stack>
             </Stack>
         </Stack>

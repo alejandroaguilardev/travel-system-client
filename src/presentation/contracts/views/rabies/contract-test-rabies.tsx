@@ -60,7 +60,7 @@ export default function ContractTestRabiesView({ columnQueryFilters = [] }: Prop
                 <DialogContent sx={{ p: 5 }}>
                     {!!selected && !isLoading ?
                         <DetailInfoProvider defaultContract={selected}>
-                            <DialogTitle mx={2} my={0} textAlign="center"> {selected.folder} {selected.number}</DialogTitle>
+                            <DialogTitle mx={2} my={0} textAlign="center"> Test serológico de rabia: {selected.folder} {selected.number}</DialogTitle>
                             <DetailInfoContext.Consumer>
                                 {({ contract }) => <>
                                     {contract.details?.map((detail, index) => (

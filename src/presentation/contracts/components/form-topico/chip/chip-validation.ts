@@ -38,20 +38,20 @@ export const petDefaultValues = (detail: ContractDetail) => {
     const dataExits = detail?.pet?.topico?.chip;
     const chipDefault = detail?.pet?.chip || defaultChip.description;
 
-    if (chip?.date) {
+    if (chip?.hasIncluded) {
         return {
-            hasIncluded: detail.documentation.chipCertificate?.hasServiceIncluded || defaultChip.hasIncluded,
+            hasIncluded: detail.topico?.chip?.hasIncluded || defaultChip.hasIncluded,
             executed: chip?.executed || defaultChip.executed,
             date: chip?.date || defaultChip.date,
             description: chip?.description || chipDefault,
             observation: chip?.observation || defaultChip.observation,
-            user: chip?.user || defaultChip.user
+            user: chip?.user || defaultChip.user,
         }
     }
 
-    if (dataExits?.date) {
+    if (dataExits?.hasIncluded) {
         return {
-            hasIncluded: detail.documentation.chipCertificate?.hasServiceIncluded || defaultChip.hasIncluded,
+            hasIncluded: detail.topico?.chip?.hasIncluded || defaultChip.hasIncluded,
             executed: dataExits?.executed || defaultChip.executed,
             date: dataExits?.date || defaultChip.date,
             description: dataExits?.description || chipDefault,

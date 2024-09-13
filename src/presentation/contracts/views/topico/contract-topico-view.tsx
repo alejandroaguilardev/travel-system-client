@@ -6,6 +6,7 @@ import { CONTRACT_SORT_PENDING_DEFAULT, CONTRACT_STATUS_IN_COURSE } from '../../
 import { RenderRowActionMenuItem } from 'src/components/material-table/render-row-action-menu-item';
 import { useColumnsTopico } from '../../components/table/columns/use-columns-topico';
 import { TopicTabs } from '../../components/form-topico/topico-form';
+import { hasShowReviewChip } from '../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 
 export default function ContractTopicoView() {
     const columns = useColumnsTopico();
@@ -35,8 +36,7 @@ export default function ContractTopicoView() {
                             }}
                         />];
 
-                        const chipCertificate = row.details.filter(_ => _.documentation.chipCertificate.hasServiceIncluded);
-                        if (chipCertificate.length > 0) {
+                        if (row.details.filter(_ => _?.topico?.chip?.hasIncluded)?.length > 0) {
                             addActionsItems.push(<RenderRowActionMenuItem
                                 item={{
                                     name: "Microchip",
@@ -46,8 +46,7 @@ export default function ContractTopicoView() {
                             />)
                         }
 
-                        const vaccinationCertificate = row.details.filter(_ => _.documentation.vaccinationCertificate.hasServiceIncluded);
-                        if (vaccinationCertificate.length > 0) {
+                        if (row.details.filter(_ => _?.topico?.vaccination?.hasIncluded)?.length > 0) {
                             addActionsItems.push(<RenderRowActionMenuItem
                                 item={{
                                     name: "Vacunación",
@@ -57,8 +56,7 @@ export default function ContractTopicoView() {
                             />)
                         }
 
-                        const rabiesSeroLogicalTest = row.details.filter(_ => _.documentation.rabiesSeroLogicalTest.hasServiceIncluded);
-                        if (rabiesSeroLogicalTest.length > 0) {
+                        if (row?.details?.filter(_ => _?.topico?.rabiesVaccination?.hasIncluded)?.length > 0) {
                             addActionsItems.push(<RenderRowActionMenuItem
                                 item={{
                                     name: "Vacuna de Rabia",
@@ -66,6 +64,8 @@ export default function ContractTopicoView() {
                                     href: paths.dashboard.faseDocumentation.topico.management(row.id, TopicTabs.rabiesVaccination)
                                 }}
                             />)
+                        }
+                        if (row?.details?.filter(_ => _.topico?.rabiesReVaccination?.hasIncluded)?.length > 0) {
                             addActionsItems.push(<RenderRowActionMenuItem
                                 item={{
                                     name: "Revacuna de Rabia",
@@ -75,7 +75,8 @@ export default function ContractTopicoView() {
                             />)
                         }
 
-                        if (chipCertificate.length > 0) {
+                        const reviews: boolean[] = row?.details?.map((detail) => hasShowReviewChip(detail?.topico)) ?? [];
+                        if (reviews.filter(_ => _).length > 0) {
                             addActionsItems.push(<RenderRowActionMenuItem
                                 item={{
                                     name: "Revisión de microchip",
@@ -84,7 +85,7 @@ export default function ContractTopicoView() {
                                 }}
                             />)
                         }
-                        if (rabiesSeroLogicalTest.length > 0) {
+                        if (row?.details?.filter(_ => _?.topico?.takingSampleSerologicalTest?.hasIncluded)?.length > 0) {
                             addActionsItems.push(<RenderRowActionMenuItem
                                 item={{
                                     name: "Toma de muestra",

@@ -13,6 +13,7 @@ import { fDaySum, fDayjs } from '../../../../../modules/shared/infrastructure/he
 type Props = {
     contractId: string;
     detail: ContractDetail;
+    hasServiceIncluded: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
 }
 
@@ -24,13 +25,12 @@ const validateExpectedDate = (date: Date | null): boolean => {
     return fDayjs(date).isValid();
 };
 
-export const useFormRabiesVaccination = ({ contractId, detail, callback }: Props) => {
+export const useFormRabiesVaccination = ({ contractId, detail, hasServiceIncluded, callback }: Props) => {
     const { showNotification } = useMessage();
     const [isExecuted, setsExecuted] = useState(false);
 
-    const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail();
-    const [expectedDate, setExpectedDate] = useState<Date | null>(detail.topico?.rabiesReVaccination?.date ?? fDaySum(new Date(), 21),
-    )
+    const [expectedDate, setExpectedDate] = useState<Date | null>(detail.topico?.rabiesReVaccination?.date ?? fDaySum(new Date(), 21));
+    const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail(hasServiceIncluded);
 
 
     const handleExpectedDate = (date: Date | null) => {

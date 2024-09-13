@@ -23,7 +23,6 @@ export const CertificateFormGeneral = ({ label, showDate = true }: Props) => {
         }
         if (!isApplied) {
             setValue("resultDate", null);
-
         }
     }, [isApplied, resultDate]);
 

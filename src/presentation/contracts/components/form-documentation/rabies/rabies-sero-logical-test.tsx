@@ -60,7 +60,7 @@ export const RabiesTestSerologicalForm: FC<Props> = ({ detail, callback, setIsLo
 
     if (!detail.pet) return <PetNotFoundRedirect contractId={contractId} pet={detail?.pet} />
 
-    if (!detail.topico?.takingSampleSerologicalTest.executed) {
+    if (detail?.topico?.takingSampleSerologicalTest?.hasIncluded && !detail.topico?.takingSampleSerologicalTest.executed) {
         return <AlertRedirectButton alert={{ label: "Aún no se ha tomado la muestra ir a Topico", color: "error" }} button={{ label: "Ir a la toma de muestra", redirect: paths.dashboard.faseDocumentation.topico.management(contractId, TopicTabs.takingSampleSerologicalTest) }} />
     }
 

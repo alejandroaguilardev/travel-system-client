@@ -14,14 +14,14 @@ import { SendEmailCheck } from '../../../../../components/send-email-check/send-
 type Props = {
     contractId: string;
     detail: ContractDetail;
-    hasServiceIncluded: boolean;
+    hasServiceIncluded?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
 
 
-export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIncluded, onCancel }) => {
+export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIncluded = false, onCancel }) => {
     const chip = detail?.topico?.chip;
 
     const methods = useForm({
@@ -48,13 +48,16 @@ export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIn
                     <SendEmailCheck value={hasSendEmail} onChange={onChangeHasSendEmail} label="Enviar notificación al cliente por email y whatsApp" />
                 }
 
+
                 <Box display="flex" gap={1} justifyContent="center" mb={4}>
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                         Cancelar
                     </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {chip?.executed ? "Actualizar Microchip" : "Guardar Microchip"}
-                    </Button>
+                    {hasServiceIncluded &&
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            {chip?.executed ? "Actualizar Microchip" : "Guardar Microchip"}
+                        </Button>
+                    }
 
                 </Box>
             </FormProvider >

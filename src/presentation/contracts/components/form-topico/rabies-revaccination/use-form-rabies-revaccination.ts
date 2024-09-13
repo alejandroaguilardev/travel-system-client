@@ -17,6 +17,7 @@ import { useAuthContext } from '../../../../auth/hooks/use-auth-context';
 type Props = {
     contractId: string;
     detail: ContractDetail;
+    hasServiceIncluded?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
 }
 
@@ -28,7 +29,7 @@ const validateExpectedDate = (date: Date | null): boolean => {
     return fDayjs(date).isValid();
 };
 
-export const useFormRabiesReVaccination = ({ contractId, detail, callback }: Props) => {
+export const useFormRabiesReVaccination = ({ contractId, detail, hasServiceIncluded = false, callback }: Props) => {
     const { showNotification } = useMessage();
     const { user } = useAuthContext();
     const [isExecuted, setsExecuted] = useState(false);
@@ -38,7 +39,7 @@ export const useFormRabiesReVaccination = ({ contractId, detail, callback }: Pro
             : fDaySum(new Date(), 30)
     );
 
-    const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail();
+    const { hasSendEmail, onChangeHasSendEmail } = useHasSendEmail(hasServiceIncluded);
 
     const handleExpectedDate = (date: Date | null) => {
         setExpectedDate(date);

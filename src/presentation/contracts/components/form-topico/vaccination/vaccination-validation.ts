@@ -37,13 +37,13 @@ export const petVaccinationDefaultValues = (detail: ContractDetail) => {
     const vaccination = detail?.topico?.vaccination;
     const dataExits = detail?.pet?.topico?.vaccination;
 
-    if (detail.documentation.vaccinationCertificate?.hasServiceIncluded) {
+    if (detail?.topico?.vaccination?.hasIncluded) {
         defaultVaccination.description = vaccinationType(detail.pet?.type);
     }
 
-    if (vaccination?.date) {
+    if (vaccination?.hasIncluded) {
         return {
-            hasIncluded: detail.documentation.vaccinationCertificate?.hasServiceIncluded || defaultVaccination.hasIncluded,
+            hasIncluded: detail?.topico?.vaccination?.hasIncluded || defaultVaccination.hasIncluded,
             executed: vaccination?.executed || defaultVaccination.executed,
             date: vaccination?.date || defaultVaccination.date,
             description: vaccination?.description || vaccinationType(detail.pet?.type),
@@ -52,9 +52,9 @@ export const petVaccinationDefaultValues = (detail: ContractDetail) => {
         }
     }
 
-    if (dataExits?.date) {
+    if (dataExits?.hasIncluded) {
         return {
-            hasIncluded: detail.documentation.vaccinationCertificate?.hasServiceIncluded || defaultVaccination.hasIncluded,
+            hasIncluded: detail?.topico?.vaccination?.hasIncluded || defaultVaccination.hasIncluded,
             executed: dataExits?.executed || defaultVaccination.executed,
             date: dataExits?.date || defaultVaccination.date,
             description: dataExits?.description || vaccinationType(detail.pet?.type),

@@ -61,7 +61,7 @@ export const EmotionalSupportCertificateForm: FC<Props> = ({ detail, callback, c
                             Cancelar
                         </Button>
                         <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                            {emotionalSupportCertificate?.isApplied ? "Actualizar MicroemotionalSupportCertificate" : "Guardar MicroemotionalSupportCertificate"}
+                            {emotionalSupportCertificate?.isApplied ? "Actualizar Certificado de Soporte Emocional" : "Guardar Certificado de Soporte Emocional"}
                         </Button>
                     </Box>
                 }

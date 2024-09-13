@@ -15,12 +15,12 @@ type Props = {
     title: string;
     contractId: string;
     detail: ContractDetail;
-    hasServiceIncluded: boolean;
+    hasServiceIncluded?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded, contractId, callback, onCancel }) => {
+export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded = false, contractId, callback, onCancel }) => {
     const vaccination = detail?.topico?.vaccination;
     const methods = useForm({
         resolver: yupResolver<VaccinationContract>(vaccinationContractObjectSchema),
@@ -49,9 +49,12 @@ export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded, 
                     <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
                         Cancelar
                     </Button>
-                    <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                        {vaccination?.executed ? "Actualizar Vacuna" : "Guardar Vacuna"}
-                    </Button>
+                    {
+                        hasServiceIncluded &&
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            {vaccination?.executed ? "Actualizar Vacuna" : "Guardar Vacuna"}
+                        </Button>
+                    }
 
                 </Box>
             </FormProvider >

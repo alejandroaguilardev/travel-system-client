@@ -1,5 +1,4 @@
-import { Alert, Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
-import { CageSelected } from '../../../../client/components/cage/form/cage-selected';
+import { Alert, Box, Divider, FormControl, FormControlLabel, MenuItem, Stack, Switch, Typography } from '@mui/material';
 import { SearchClient } from '../../../../client/components/search-client/search-client';
 import { PET_GENDERS, PetGender } from '../../../../../modules/pets/domain/pet-gender';
 import { ContractFormCage } from '../../../../contracts/components/form/cage/contract-form-cage';
@@ -12,24 +11,26 @@ import { HOST_ASSETS_IMAGES } from '../../../../../app/config/config-global';
 import { PET_TYPES } from '../../../../../modules/pets/domain/pet-type';
 import { isPetBabyAge, isPrintMessageForMoreOneMonth } from '../../../../../modules/pets/domain/pet-age';
 import { fDate, fDayDiffDays, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { ErrorMessage } from '../../../../../components/hook-form/error-message';
 
 type Props = {
     hasClient?: boolean;
     hasMeasurementsAndWeight?: boolean;
     hasRecommendation?: boolean;
-    hasChip?: boolean;
+    hasShowChip?: boolean;
     hasImage?: boolean;
 }
 
-export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = false, hasRecommendation = false, hasChip = false, hasImage = false }: Props) => {
+export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = false, hasRecommendation = false, hasShowChip = false, hasImage = false }: Props) => {
     const { id, type, chip, chipDate, birthDate, dateUpdatedAt, client, image, handleClient } = usePetFormGeneral();
 
     const alertUpdate: boolean = useMemo(() =>
         isPrintMessageForMoreOneMonth(fDayjs(birthDate).toDate(), fDayDiffDays(new Date(), fDayjs(dateUpdatedAt).toDate())) &&
         isPetBabyAge(type, fDayjs(birthDate).toDate()), [birthDate, type, id]);
 
+
+    const [hasChip, setHasChip] = useState(!!chip);
 
     return (
         <Stack spacing={1} marginBottom={1}>
@@ -42,8 +43,12 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                     labelNewPerson="Crear nuevo cliente"
                 />
             }
-
-            {hasChip &&
+            {<FormControlLabel
+                control={<Switch onChange={() => setHasChip(!hasChip)} value={hasChip} checked={hasChip} />}
+                label="¿La mascota ya tiene Chip"
+            />
+            }
+            {hasShowChip && hasChip &&
                 <>
                     <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
                         <RHFTextField
@@ -148,18 +153,22 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                         <RHFTextField
                             name="measurementsAndWeight.height"
                             label="Alto(cm) *"
+                            type='number'
                         />
                         <RHFTextField
                             name="measurementsAndWeight.width"
                             label="Ancho(cm) *"
+                            type='number'
                         />
                         <RHFTextField
                             name="measurementsAndWeight.length"
                             label="Largo (cm) *"
+                            type='number'
                         />
                         <RHFTextField
                             name="measurementsAndWeight.weight"
                             label="Peso (kg) *"
+                            type='number'
                         />
                     </Stack>
                 </Stack>

@@ -3,8 +3,8 @@ export interface DocumentationCertificate {
     isRequired: boolean;
     isApplied: boolean;
     expectedDate: Date | null;
-    executionDate: Date | null;
-    resultDate: Date | null;
+    executionDate?: Date | null;
+    resultDate?: Date | null;
     observation?: string;
     isPrint?: boolean;
     user?: string;

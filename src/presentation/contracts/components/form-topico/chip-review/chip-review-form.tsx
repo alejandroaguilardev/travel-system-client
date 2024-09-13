@@ -13,11 +13,12 @@ import { ChipReviewFormGeneral } from "./chip-review-form-general";
 type Props = {
     contractId: string;
     detail: ContractDetail;
+    hasShowReviewChip?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const ChipReviewForm: FC<Props> = ({ detail, callback, contractId, onCancel }) => {
+export const ChipReviewForm: FC<Props> = ({ detail, callback, hasShowReviewChip = false, contractId, onCancel }) => {
     const chipReview = detail?.topico?.chipReview;
 
     const methods = useForm({
@@ -36,31 +37,31 @@ export const ChipReviewForm: FC<Props> = ({ detail, callback, contractId, onCanc
 
     return (
         <>
-            {
-                detail.topico?.chip.executed ?
-                    <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-                        {!chipReview?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la revisión del microchip</Alert>}
+            {(detail.topico?.chip.executed && ((detail.topico?.rabiesVaccination?.executed || detail.topico?.rabiesReVaccination?.executed)) && hasShowReviewChip) &&
+                <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
+                    {!chipReview?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la revisión del microchip</Alert>}
 
-                        {chipReview?.executed && !isExecuted && <Alert severity="info">Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
+                    {chipReview?.executed && !isExecuted && <Alert severity="info">Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
 
-                        {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
+                    {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
 
 
-                        <ChipReviewFormGeneral />
+                    <ChipReviewFormGeneral />
 
-                        <Box display="flex" gap={1} justifyContent="center" mb={4}>
-                            <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
-                                Cancelar
-                            </Button>
-                            <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
-                                {chipReview?.executed ? "Actualizar Revisión de microchip" : "Guardar Revisión de microchip"}
-                            </Button>
+                    <Box display="flex" gap={1} justifyContent="center" mb={4}>
+                        <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
+                            Cancelar
+                        </Button>
+                        <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting} fullWidth >
+                            {chipReview?.executed ? "Actualizar Revisión de microchip" : "Guardar Revisión de microchip"}
+                        </Button>
 
-                        </Box>
-                    </FormProvider >
-
-                    : <Alert severity="error">Aùn no se ha guardado el microchip de la mascota</Alert>
+                    </Box>
+                </FormProvider >
             }
+            {!detail.topico?.chip?.executed && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha guardado el microchip de la mascota</Alert>}
+            {!hasShowReviewChip && <Alert severity="error" sx={{ mb: 1 }}>No es necesaria una revisión de microchip</Alert>}
+            {(!detail.topico?.rabiesVaccination?.executed || !detail.topico?.rabiesReVaccination?.executed) && <Alert severity="error">Debe realizarse la vacunación de rabia primero</Alert>}
 
 
 

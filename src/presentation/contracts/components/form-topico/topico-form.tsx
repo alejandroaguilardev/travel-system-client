@@ -15,6 +15,7 @@ import { TakingSampleSerologicalTestContractForm } from "./taking-sample-serolog
 import { PetSelectedTopic } from "./pet-selected-topic/pet-selected-topic";
 import { contractPetUpdater } from '../../../../modules/contracts/application/update/contract-pet-updater';
 import { contractDetailService } from '../../../../modules/contracts/infrastructure/contract-detail.service';
+import { hasShowReviewChip } from '../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 
 
 export enum TopicTabs {
@@ -62,50 +63,60 @@ export const TopicoForm: FC<Props> = ({ action, contractId, clientId, detail, on
             </>
         }];
         if (!detail.pet?.id) return addTabs;
-
-        addTabs.push({
-            label: "Microchip",
-            value: TopicTabs.chip,
-            component: <ChipForm contractId={contractId} detail={detail}
-                hasServiceIncluded={detail.documentation.chipCertificate.hasServiceIncluded}
-                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-        })
-        addTabs.push({
-            label: vaccinationLabel(detail.pet?.type),
-            value: TopicTabs.vaccination,
-            component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
-                hasServiceIncluded={detail.documentation.vaccinationCertificate.hasServiceIncluded}
-                callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
-        })
-        if (detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded) {
+        if (detail?.topico?.chip?.hasIncluded) {
+            addTabs.push({
+                label: "Microchip",
+                value: TopicTabs.chip,
+                component: <ChipForm contractId={contractId} detail={detail}
+                    hasServiceIncluded={detail?.topico?.chip?.hasIncluded}
+                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+            })
+        }
+        if (detail?.topico?.vaccination?.hasIncluded) {
+            addTabs.push({
+                label: vaccinationLabel(detail.pet?.type),
+                value: TopicTabs.vaccination,
+                component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
+                    hasServiceIncluded={detail?.topico?.vaccination?.hasIncluded}
+                    callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
+            })
+        }
+        if (detail?.topico?.rabiesVaccination?.hasIncluded) {
             addTabs.push({
                 label: "Vacuna de Rabia",
                 value: TopicTabs.rabiesVaccination,
                 component: <RabiesVaccinationForm contractId={contractId} detail={detail}
+                    hasServiceIncluded={detail?.topico?.rabiesVaccination?.hasIncluded}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
+        }
+        if (detail?.topico?.rabiesReVaccination?.hasIncluded) {
             addTabs.push({
                 label: "Revacunación de Rabia ",
                 value: TopicTabs.rabiesReVaccination,
                 component: <RabiesReVaccinationForm contractId={contractId} detail={detail}
+                    hasServiceIncluded={detail?.topico?.rabiesReVaccination?.hasIncluded}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
         }
 
-        if (detail.documentation.chipCertificate.hasServiceIncluded) {
+        if (hasShowReviewChip(detail?.topico)) {
             addTabs.push({
                 label: "Revisión de Microchip",
                 value: TopicTabs.chipReview,
                 component: <ChipReviewForm contractId={contractId} detail={detail}
+                    hasShowReviewChip={hasShowReviewChip(detail?.topico)}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
         }
 
-        if (detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded) {
+        if (detail?.topico?.takingSampleSerologicalTest?.hasIncluded) {
             addTabs.push({
                 label: "Toma de muestra",
                 value: TopicTabs.takingSampleSerologicalTest,
                 component: <TakingSampleSerologicalTestContractForm contractId={contractId} detail={detail}
+                    hasServiceIncluded={detail?.topico?.takingSampleSerologicalTest?.hasIncluded}
+
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
         }

@@ -61,11 +61,11 @@ export const useColumnsTopico = () => {
                 header: 'Microchip',
                 accessorKey: 'details.topico.chip.executed',
                 accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "chip", "chipCertificate");
+                    const values = detailsTopicoStatus(details, "chip");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "chip", "chipCertificate");
+                    const values = detailsTopicoStatus(cell.row.original.details, "chip");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -79,11 +79,11 @@ export const useColumnsTopico = () => {
                 header: 'Vacuna',
                 accessorKey: 'details.topico.vaccination.executed',
                 accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, 'vaccination', "vaccinationCertificate");
+                    const values = detailsTopicoStatus(details, 'vaccination');
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, 'vaccination', "vaccinationCertificate");
+                    const values = detailsTopicoStatus(cell.row.original.details, 'vaccination');
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -97,11 +97,11 @@ export const useColumnsTopico = () => {
                 header: 'Vac. de rabia',
                 accessorKey: 'details.topico.rabiesVaccination.executed',
                 accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "rabiesVaccination", "rabiesSeroLogicalTest");
+                    const values = detailsTopicoStatus(details, "rabiesVaccination");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "rabiesVaccination", "rabiesSeroLogicalTest");
+                    const values = detailsTopicoStatus(cell.row.original.details, "rabiesVaccination");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -115,11 +115,11 @@ export const useColumnsTopico = () => {
                 header: 'ReVac. de Rabia',
                 accessorKey: 'details.topico.rabiesReVaccination.executed',
                 accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "rabiesReVaccination", "rabiesSeroLogicalTest");
+                    const values = detailsTopicoStatus(details, "rabiesReVaccination");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "rabiesReVaccination", "rabiesSeroLogicalTest");
+                    const values = detailsTopicoStatus(cell.row.original.details, "rabiesReVaccination");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -133,11 +133,11 @@ export const useColumnsTopico = () => {
                 header: 'Rev. Microchip',
                 accessorKey: 'details.topico.chipReview.executed',
                 accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "chipReview", "rabiesSeroLogicalTest");
+                    const values = detailsTopicoStatus(details, "chipReview");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "chipReview", "rabiesSeroLogicalTest");
+                    const values = detailsTopicoStatus(cell.row.original.details, "chipReview");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -151,11 +151,11 @@ export const useColumnsTopico = () => {
                 header: 'Toma de muestra',
                 accessorKey: 'details.topico.takingSampleSerologicalTest.executed',
                 accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "takingSampleSerologicalTest", "rabiesSeroLogicalTest");
+                    const values = detailsTopicoStatus(details, "takingSampleSerologicalTest");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "takingSampleSerologicalTest", "rabiesSeroLogicalTest");
+                    const values = detailsTopicoStatus(cell.row.original.details, "takingSampleSerologicalTest");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -205,29 +205,29 @@ type DetailsTopicoStatus = {
 }
 
 
-const detailsTopicoStatus = (details: ContractDetail[], value: keyof typeof TOPICO_KEYS, documentation: keyof typeof DOCUMENTATION_KEYS): DetailsTopicoStatus => {
+const detailsTopicoStatus = (details: ContractDetail[], topico: keyof typeof TOPICO_KEYS): DetailsTopicoStatus => {
     let pending = 0;
     let optional = 0;
     let notIncluded = 0;
     let completed = 0;
 
     for (const _ of details) {
-        if (_.documentation?.[documentation]?.hasServiceIncluded && !_.topico?.[value]?.executed && value === "rabiesReVaccination") {
+        if (_.topico?.[topico]?.hasIncluded && !_.topico?.[topico]?.executed && topico === "chipReview") {
             optional += 1;
             continue;
         }
 
 
-        if (!_.documentation?.[documentation]?.hasServiceIncluded) {
+        if (!_.topico?.[topico]?.hasIncluded) {
             notIncluded += 1;
             continue;
         }
 
-        if (_.documentation?.[documentation]?.hasServiceIncluded && !_.topico?.[value]?.executed) {
+        if (_.topico?.[topico]?.hasIncluded && !_.topico?.[topico]?.executed) {
             pending += 1;
             continue;
         }
-        if (value !== "rabiesReVaccination") {
+        if (topico !== "chipReview") {
             completed += 1;
         }
     }

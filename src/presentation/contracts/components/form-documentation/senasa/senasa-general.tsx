@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Stack } from '@mui/material';
 import { useFormContext } from "react-hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
-    const { watch } = useFormContext();
+    const { watch, formState } = useFormContext();
     const { showNotification } = useMessage();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -31,6 +31,10 @@ export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
             showNotification("No se logró descargar el excel", { variant: "error" })
         }).finally(() => setIsLoading(false));
     }
+
+    useEffect(() => {
+        console.log(formState.errors)
+    }, [formState])
 
     return (
         <>

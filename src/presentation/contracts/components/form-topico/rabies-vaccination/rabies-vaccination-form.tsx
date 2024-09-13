@@ -16,11 +16,12 @@ import { SendEmailCheck } from '../../../../../components/send-email-check/send-
 type Props = {
     contractId: string;
     detail: ContractDetail;
+    hasServiceIncluded?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contractId, onCancel }) => {
+export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contractId, hasServiceIncluded = false, onCancel }) => {
     const rabiesVaccination = detail?.topico?.rabiesVaccination;
 
     const methods = useForm({
@@ -28,14 +29,15 @@ export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contractId,
         defaultValues: petRabiesVaccinationDefaultValues(detail)
     });
 
-    const { onSubmit, isExecuted, expectedDate, hasSendEmail, handleExpectedDate, onChangeHasSendEmail } = useFormRabiesVaccination({ contractId, detail, callback });
+    const { onSubmit, isExecuted, expectedDate, hasSendEmail, handleExpectedDate, onChangeHasSendEmail } = useFormRabiesVaccination({ contractId, detail, hasServiceIncluded, callback });
 
 
     return (
         <>
             <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
+                {!hasServiceIncluded && !isExecuted && <Alert severity="error" sx={{ mb: 1 }}>Esta servicio no esta incluido en el contrato</Alert>}
 
-                {!rabiesVaccination?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la vacuna de rabia</Alert>}
+                {hasServiceIncluded && !rabiesVaccination?.executed && !isExecuted && <Alert severity="error">Aùn no se ha guardado la información relacionada a la vacuna de rabia</Alert>}
 
                 {rabiesVaccination?.executed && !isExecuted && <Alert severity="info">Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
 

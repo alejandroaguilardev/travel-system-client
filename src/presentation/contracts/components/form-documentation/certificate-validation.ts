@@ -4,15 +4,14 @@ import { DocumentationCertificate } from '../../../../modules/contracts/domain/c
 export const certificateSchema: Yup.ObjectSchema<DocumentationCertificate> = Yup.object().shape({
     hasServiceIncluded: Yup.boolean().required('Campo requerido'),
     isApplied: Yup.boolean().required('Campo requerido'),
-    expectedDate: Yup.date().required('La fecha esperada es requerida'),
-    executionDate: Yup.date().required('Campo requerido').nullable(),
-    resultDate: Yup.date().required('Campo requerido').nullable(),
+    expectedDate: Yup.date().nullable().required('La fecha esperada es requerida'),
+    executionDate: Yup.date().nullable(),
+    resultDate: Yup.date().nullable(),
     isRequired: Yup.boolean().required('Campo requerido'),
     isPrint: Yup.boolean(),
     observation: Yup.string(),
     user: Yup.string(),
 });
-
 
 export const defaultValues: DocumentationCertificate = {
     hasServiceIncluded: false,

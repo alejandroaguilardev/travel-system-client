@@ -38,14 +38,17 @@ export const useFormChip = ({ contractId, detail, petId, callback, hasServiceInc
             if (data.description) {
                 data.executed = true;
             }
-            const response = await contractChipUpdater(contractDetailService, petService)(contractId, detail.id, petId, data);
+
+
             const certificate: DocumentationCertificate = {
                 ...detail.documentation.chipCertificate,
                 isApplied: true,
                 executionDate: data?.date ?? null,
                 resultDate: data?.date ?? null,
             }
-            await certificateUpdater(contractDetailService, uuid)(contractId, detail.id, DOCUMENTATION_KEYS.chipCertificate, certificate, "pending", user?.id ?? "")
+            await certificateUpdater(contractDetailService, uuid)(contractId, detail.id, DOCUMENTATION_KEYS.chipCertificate, certificate, "pending", user?.id ?? "");
+
+            const response = await contractChipUpdater(contractDetailService, petService)(contractId, detail.id, petId, data);
 
             if (hasSendEmail) {
                 contractDetailService.mailDetail(contractId, detail.id, topicMessageMail(TOPICO_KEYS.chip));
