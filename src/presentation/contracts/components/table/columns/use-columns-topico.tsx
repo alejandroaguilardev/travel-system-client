@@ -7,6 +7,7 @@ import { ContractDetail } from '../../../../../modules/contracts/domain/contract
 import { TOPICO_KEYS } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { contractDetailsPetNames, dateDepartureIsLastWeek, dateDepartureIsLastWeekLabel } from './contract-detail-status';
 import { DOCUMENTATION_KEYS } from '../../../../../modules/contracts/domain/contract-services/documentation/documentation';
+import { CONSTANTS } from '../../../../../app/config/constants';
 
 export const useColumnsTopico = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
@@ -60,12 +61,12 @@ export const useColumnsTopico = () => {
             {
                 header: 'Microchip',
                 accessorKey: 'details.topico.chip.executed',
-                accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "chip");
+                accessorFn: (row) => {
+                    const values = detailsStatus(row, "chip", "chipCertificate");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "chip");
+                    const values = detailsStatus(cell.row.original, "chip", "chipCertificate");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -78,12 +79,12 @@ export const useColumnsTopico = () => {
             {
                 header: 'Vacuna',
                 accessorKey: 'details.topico.vaccination.executed',
-                accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, 'vaccination');
+                accessorFn: (row) => {
+                    const values = detailsStatus(row, 'vaccination', "vaccinationCertificate");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, 'vaccination');
+                    const values = detailsStatus(cell.row.original, 'vaccination', "vaccinationCertificate");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -96,12 +97,12 @@ export const useColumnsTopico = () => {
             {
                 header: 'Vac. de rabia',
                 accessorKey: 'details.topico.rabiesVaccination.executed',
-                accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "rabiesVaccination");
+                accessorFn: (row) => {
+                    const values = detailsStatus(row, "rabiesVaccination", "rabiesSeroLogicalTest");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "rabiesVaccination");
+                    const values = detailsStatus(cell.row.original, "rabiesVaccination", "rabiesSeroLogicalTest");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -114,12 +115,12 @@ export const useColumnsTopico = () => {
             {
                 header: 'ReVac. de Rabia',
                 accessorKey: 'details.topico.rabiesReVaccination.executed',
-                accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "rabiesReVaccination");
+                accessorFn: (row) => {
+                    const values = detailsStatus(row, "rabiesReVaccination", "rabiesSeroLogicalTest");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "rabiesReVaccination");
+                    const values = detailsStatus(cell.row.original, "rabiesReVaccination", "rabiesSeroLogicalTest");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -132,12 +133,12 @@ export const useColumnsTopico = () => {
             {
                 header: 'Rev. Microchip',
                 accessorKey: 'details.topico.chipReview.executed',
-                accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "chipReview");
+                accessorFn: (row) => {
+                    const values = detailsStatus(row, "chipReview", "chipCertificate");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "chipReview");
+                    const values = detailsStatus(cell.row.original, "chipReview", "chipCertificate");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -150,12 +151,12 @@ export const useColumnsTopico = () => {
             {
                 header: 'Toma de muestra',
                 accessorKey: 'details.topico.takingSampleSerologicalTest.executed',
-                accessorFn: ({ details }) => {
-                    const values = detailsTopicoStatus(details, "takingSampleSerologicalTest");
+                accessorFn: (row) => {
+                    const values = detailsStatus(row, "takingSampleSerologicalTest", "rabiesSeroLogicalTest");
                     return detailsTopicoStatusValues(values);
                 },
                 Cell: ({ cell }) => {
-                    const values = detailsTopicoStatus(cell.row.original.details, "takingSampleSerologicalTest");
+                    const values = detailsStatus(cell.row.original, "takingSampleSerologicalTest", "rabiesSeroLogicalTest");
                     return detailsTopicoStatusLabel(values);
                 },
                 filterVariant: "select",
@@ -205,35 +206,13 @@ type DetailsTopicoStatus = {
 }
 
 
-const detailsTopicoStatus = (details: ContractDetail[], topico: keyof typeof TOPICO_KEYS): DetailsTopicoStatus => {
-    let pending = 0;
-    let optional = 0;
-    let notIncluded = 0;
-    let completed = 0;
-
-    for (const _ of details) {
-        if (!_.topico?.[topico]?.executed && topico === "chipReview") {
-            optional += 1;
-            continue;
-        }
-
-
-        if (!_.topico?.[topico]?.hasIncluded || !_.topico?.[topico]?.executed) {
-            notIncluded += 1;
-            continue;
-        }
-
-        if (_.topico?.[topico]?.executed) {
-            pending += 1;
-            continue;
-        }
-        if (topico !== "chipReview") {
-            completed += 1;
-        }
+const detailsStatus = (contract: Contract, topico: keyof typeof TOPICO_KEYS, documentation: keyof typeof DOCUMENTATION_KEYS): DetailsTopicoStatus => {
+    if (CONSTANTS.TOPICO_UPDATE_CUT_OFF_DATE.getTime() > new Date(contract.startDate).getTime()) {
+        return detailsTopicoDocumentationStatus(contract.details, topico, documentation);
     }
+    return detailsTopicoStatus(contract.details, topico);
 
-    pending -= completed;
-    return { pending, notIncluded, optional, completed };
+
 }
 
 
@@ -265,4 +244,70 @@ const detailsTopicoStatusValues = ({ completed, notIncluded, pending }: DetailsT
         values += `${completed > 1 ? completed : ""} Completado`;
     }
     return values;
+}
+
+
+
+const detailsTopicoStatus = (details: ContractDetail[], topico: keyof typeof TOPICO_KEYS): DetailsTopicoStatus => {
+    let pending = 0;
+    let optional = 0;
+    let notIncluded = 0;
+    let completed = 0;
+
+    for (const _ of details) {
+        if (_.topico?.[topico]?.hasIncluded && !_.topico?.[topico]?.executed && topico === "chipReview") {
+            optional += 1;
+            continue;
+        }
+
+
+        if (!_.topico?.[topico]?.hasIncluded) {
+            notIncluded += 1;
+            continue;
+        }
+
+        if (_.topico?.[topico]?.hasIncluded && !_.topico?.[topico]?.executed) {
+            pending += 1;
+            continue;
+        }
+        if (topico !== "chipReview") {
+            completed += 1;
+        }
+    }
+
+    pending -= completed;
+    return { pending, notIncluded, optional, completed };
+}
+
+
+
+const detailsTopicoDocumentationStatus = (details: ContractDetail[], value: keyof typeof TOPICO_KEYS, documentation: keyof typeof DOCUMENTATION_KEYS): DetailsTopicoStatus => {
+    let pending = 0;
+    let optional = 0;
+    let notIncluded = 0;
+    let completed = 0;
+
+    for (const _ of details) {
+        if (_.documentation?.[documentation]?.hasServiceIncluded && !_.topico?.[value]?.executed && value === "rabiesReVaccination") {
+            optional += 1;
+            continue;
+        }
+
+
+        if (!_.documentation?.[documentation]?.hasServiceIncluded) {
+            notIncluded += 1;
+            continue;
+        }
+
+        if (_.documentation?.[documentation]?.hasServiceIncluded && !_.topico?.[value]?.executed) {
+            pending += 1;
+            continue;
+        }
+        if (value !== "rabiesReVaccination") {
+            completed += 1;
+        }
+    }
+
+    pending -= completed;
+    return { pending, notIncluded, optional, completed };
 }

@@ -1,6 +1,7 @@
-import dayjs from "dayjs";
 import { Contract } from "../../contract";
+import { ContractDetail } from "../../contract-detail";
 import { DOCUMENTATION_KEYS } from "../documentation/documentation";
+import { CONSTANTS } from '../../../../../app/config/constants';
 
 export interface ChipContract {
     hasIncluded?: boolean;
@@ -77,25 +78,30 @@ export const TOPICO_KEYS = {
 };
 
 
-export const hasShowReviewChip = (topico?: ContractTopico): boolean => {
+export const hasShowReviewChip = (contract: Contract, detail: ContractDetail): boolean => {
+    if (CONSTANTS.TOPICO_UPDATE_CUT_OFF_DATE.getTime() > new Date(contract.startDate).getTime()) {
+        return detail?.documentation?.chipCertificate?.hasServiceIncluded
+    }
 
-    if (((topico?.rabiesReVaccination?.hasIncluded || topico?.rabiesReVaccination?.executed)
-        || (topico?.rabiesVaccination?.hasIncluded || topico?.rabiesVaccination?.executed))
-        && (topico?.takingSampleSerologicalTest?.hasIncluded || topico?.takingSampleSerologicalTest?.executed)
+    if (((detail?.topico?.rabiesReVaccination?.hasIncluded || detail?.topico?.rabiesReVaccination?.executed)
+        || (detail?.topico?.rabiesVaccination?.hasIncluded || detail?.topico?.rabiesVaccination?.executed))
+        && (detail?.topico?.takingSampleSerologicalTest?.hasIncluded || detail?.topico?.takingSampleSerologicalTest?.executed)
     ) {
         return true;
     }
     return false;
 }
 
-const dateTopicoUpdateSeparate = dayjs('2024-09-14');
 
-export const hasIncludedServiceTopico = (service: any): boolean => {
-    return service?.hasIncluded || service?.executed;
+export const hasIncludedServiceTopico = (contract: Contract, detail: ContractDetail, topicoKey: keyof typeof TOPICO_KEYS, documentationKey: keyof typeof DOCUMENTATION_KEYS): boolean => {
+    if (CONSTANTS.TOPICO_UPDATE_CUT_OFF_DATE.getTime() > new Date(contract.startDate).getTime()) {
+        return detail?.documentation?.[documentationKey]?.hasServiceIncluded
+    }
+    return !!(detail?.topico?.[topicoKey]?.hasIncluded || detail?.topico?.[topicoKey]?.executed);
 }
 
 export const hasIncludedServiceTopicoManyPets = (contract: Contract, topicoKey: keyof typeof TOPICO_KEYS, documentationKey: keyof typeof DOCUMENTATION_KEYS): boolean => {
-    if (dateTopicoUpdateSeparate.isAfter(dayjs(contract.startDate))) {
+    if (CONSTANTS.TOPICO_UPDATE_CUT_OFF_DATE.getTime() > new Date(contract.startDate).getTime()) {
         const value = contract.details.filter(_ => _.documentation?.[documentationKey]?.hasServiceIncluded);
         return value?.length > 0;
     }
@@ -103,3 +109,4 @@ export const hasIncludedServiceTopicoManyPets = (contract: Contract, topicoKey: 
     const value = contract.details.filter((_) => _?.topico?.[topicoKey]?.hasIncluded);
     return value?.length > 0;
 }
+
