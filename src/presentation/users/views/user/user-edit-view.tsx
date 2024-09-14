@@ -33,6 +33,7 @@ export default function UserEditView({ id }: Props) {
                 />
                 <ConditionUserProvider isUser>
                     <UserForm
+                        isUser
                         callback={redirectData}
                         user={user ? userToNewUser(user) : undefined}
                     />

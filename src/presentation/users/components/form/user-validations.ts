@@ -32,11 +32,14 @@ const defaultValues: NewUser = {
     isDoctor: false,
     linkWhatsApp: "",
 };
-const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
+const userSchema = (isUser: boolean): Yup.ObjectSchema<NewUser> => Yup.object().shape({
     id: Yup.string(),
     email: Yup.string()
-        .required("El email es requerido")
-        .email("El formato del email no es válido"),
+        .when([], {
+            is: () => isUser === false,
+            then: schema => schema.required("El email es requerido"),
+            otherwise: schema => schema.notRequired().nullable(),
+        }),
     roles: Yup.array().of(Yup.string() as Yup.StringSchema<string>),
     profile: Yup.object().shape({
         document: Yup.string()
@@ -53,14 +56,17 @@ const userSchema: Yup.ObjectSchema<NewUser> = Yup.object().shape({
         secondName: Yup.string()
             .max(45, "El segundo nombre debe tener como máximo 45 caracteres"),
         lastName: Yup.string()
-            .required("El apellido es requerido")
-            .min(1, "El apellido debe tener al menos un carácter")
-            .max(45, "El apellido debe tener como máximo 45 caracteres"),
+            .max(45, "El apellido debe tener como máximo 45 caracteres")
+            .when([], {
+                is: () => isUser === false,
+                then: schema => schema.required("El apellido es requerido"),
+                otherwise: schema => schema.notRequired().nullable(),
+            }),
         secondLastName: Yup.string()
             .max(45, "El segundo apellido debe tener como máximo 45 caracteres"),
         phone: Yup.string().required("El teléfono es requerido"),
         gender: Yup.string().oneOf(['male', 'female']).required("El sexo es requerido"),
-        birthDate: Yup.date(),
+        birthDate: Yup.date().nullable(),
         department: Yup.string(),
         province: Yup.string(),
         district: Yup.string(),

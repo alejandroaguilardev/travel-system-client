@@ -6,7 +6,7 @@ export interface ProfileInterface {
     documentNumber: string;
     name: string;
     secondName?: string;
-    lastName: string;
+    lastName?: string;
     secondLastName?: string;
     phone: string;
     gender?: UserGender;

@@ -5,7 +5,7 @@ import { Status } from '../../shared/domain/status';
 
 export interface User {
   id: string,
-  email: string,
+  email?: string,
   roles: Role[],
   profile: ProfileInterface;
   user?: string;

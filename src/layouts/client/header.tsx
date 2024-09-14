@@ -48,16 +48,15 @@ export default function HeaderSimple() {
         <Logo />
 
         <Stack direction="row" alignItems="center" spacing={1} >
+          {(user?.roles && user?.roles?.length > 0 || user?.auth?.admin) &&
+            <Link href={paths.dashboard.root} rel="noopener noreferrer" color="red" component={RouterLink} sx={{ typography: 'subtitle2' }} display={{ xs: "none", md: "inherit" }}>
+              <IconWrapper icon="dashboard" sx={{ mr: 0.2, fontSize: 1, height: 15 }} />
+              Ir al Dashboard
+            </Link>
+          }
           <Link href="https://wa.me/51994748870" target='_blank' rel="noopener noreferrer" component={RouterLink} color="inherit" sx={{ typography: 'subtitle2' }} display={{ xs: "none", md: "inherit" }}>
             ¿Necesitas Ayuda?
           </Link>
-          {user?.roles && user?.roles?.length > 0 &&
-            <Link component={RouterLink} href={paths.dashboard.root}>
-              < IconButton title="Dashboard">
-                <IconWrapper icon="dashboard" />
-              </IconButton>
-            </Link>
-          }
           <SettingsButton />
           <AccountPopover />
         </Stack>

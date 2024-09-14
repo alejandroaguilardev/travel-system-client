@@ -23,7 +23,7 @@ export default function UserNewView() {
                 ]}
             />
             <ConditionUserProvider isUser>
-                <UserForm callback={redirectData} />
+                <UserForm callback={redirectData} isUser />
             </ConditionUserProvider>
         </Container>
     );
