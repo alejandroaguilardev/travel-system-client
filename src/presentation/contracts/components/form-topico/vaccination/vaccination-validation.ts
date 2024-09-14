@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { VaccinationContract, hasIncludedServiceTopico } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
+import { Contract } from '../../../../../modules/contracts/domain/contract';
 
 export const defaultVaccination: VaccinationContract = {
     hasIncluded: false,
@@ -33,15 +34,15 @@ export const vaccinationType = (type?: string): string => {
 
 
 
-export const petVaccinationDefaultValues = (detail: ContractDetail) => {
+export const petVaccinationDefaultValues = (contract: Contract, detail: ContractDetail) => {
     const vaccination = detail?.topico?.vaccination;
     const dataExits = detail?.pet?.topico?.vaccination;
-
-    if (hasIncludedServiceTopico(vaccination)) {
+    const isIncluded = hasIncludedServiceTopico(contract, detail, "vaccination", "vaccinationCertificate")
+    if (isIncluded) {
         defaultVaccination.description = vaccinationType(detail.pet?.type);
     }
 
-    if (hasIncludedServiceTopico(vaccination)) {
+    if (isIncluded) {
         return {
             hasIncluded: detail?.topico?.vaccination?.hasIncluded || defaultVaccination.hasIncluded,
             executed: vaccination?.executed || defaultVaccination.executed,
@@ -52,7 +53,8 @@ export const petVaccinationDefaultValues = (detail: ContractDetail) => {
         }
     }
 
-    if (hasIncludedServiceTopico(dataExits)) {
+    const detailDataExits = { ...detail, topico: detail?.pet?.topico } as ContractDetail;
+    if (hasIncludedServiceTopico(contract, detailDataExits, "vaccination", "vaccinationCertificate")) {
         return {
             hasIncluded: detail?.topico?.vaccination?.hasIncluded || defaultVaccination.hasIncluded,
             executed: dataExits?.executed || defaultVaccination.executed,

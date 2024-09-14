@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { RabiesVaccinationContract, hasIncludedServiceTopico } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
+import { Contract } from '../../../../../modules/contracts/domain/contract';
 
 export const defaultRabiesVaccination: RabiesVaccinationContract = {
     hasIncluded: false,
@@ -21,11 +22,11 @@ export const rabiesVaccinationContractObjectSchema: Yup.ObjectSchema<RabiesVacci
 });
 
 
-export const petRabiesVaccinationDefaultValues = (detail: ContractDetail) => {
+export const petRabiesVaccinationDefaultValues = (contract: Contract, detail: ContractDetail) => {
     const rabiesVaccination = detail?.topico?.rabiesVaccination;
     const dataExits = detail?.pet?.topico?.rabiesVaccination;
 
-    if (hasIncludedServiceTopico(rabiesVaccination)) {
+    if (hasIncludedServiceTopico(contract, detail, "rabiesVaccination", "rabiesSeroLogicalTest")) {
         return {
             hasIncluded: rabiesVaccination?.hasIncluded || defaultRabiesVaccination.hasIncluded,
             executed: rabiesVaccination?.executed || defaultRabiesVaccination.executed,
@@ -36,7 +37,8 @@ export const petRabiesVaccinationDefaultValues = (detail: ContractDetail) => {
         }
     }
 
-    if (hasIncludedServiceTopico(dataExits)) {
+    const detailDataExits = { ...detail, topico: detail?.pet?.topico } as ContractDetail;
+    if (hasIncludedServiceTopico(contract, detailDataExits, "rabiesVaccination", "rabiesSeroLogicalTest")) {
         return {
             hasIncluded: detail.topico?.rabiesVaccination?.hasIncluded || defaultRabiesVaccination.hasIncluded,
             executed: dataExits?.executed || defaultRabiesVaccination.executed,

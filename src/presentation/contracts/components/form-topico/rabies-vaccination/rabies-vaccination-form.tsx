@@ -12,21 +12,23 @@ import { RabiesVaccinationFormGeneral } from "./rabies-vaccination-form-general"
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
+import { Contract } from '../../../../../modules/contracts/domain/contract';
 
 type Props = {
-    contractId: string;
+    contract: Contract;
     detail: ContractDetail;
     hasServiceIncluded?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contractId, hasServiceIncluded = false, onCancel }) => {
+export const RabiesVaccinationForm: FC<Props> = ({ detail, callback, contract, hasServiceIncluded = false, onCancel }) => {
     const rabiesVaccination = detail?.topico?.rabiesVaccination;
+    const contractId = contract.id;
 
     const methods = useForm({
         resolver: yupResolver<RabiesVaccinationContract>(rabiesVaccinationContractObjectSchema),
-        defaultValues: petRabiesVaccinationDefaultValues(detail)
+        defaultValues: petRabiesVaccinationDefaultValues(contract, detail)
     });
 
     const { onSubmit, isExecuted, expectedDate, hasSendEmail, handleExpectedDate, onChangeHasSendEmail } = useFormRabiesVaccination({ contractId, detail, hasServiceIncluded, callback });

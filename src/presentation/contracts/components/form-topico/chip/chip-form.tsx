@@ -10,9 +10,10 @@ import { ChipContract } from '../../../../../modules/contracts/domain/contract-s
 import { ChipFormGeneral } from "./chip-form-general";
 import { useFormChip } from "./use-form-chip";
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
+import { Contract } from '../../../../../modules/contracts/domain/contract';
 
 type Props = {
-    contractId: string;
+    contract: Contract;
     detail: ContractDetail;
     hasServiceIncluded?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
@@ -21,12 +22,13 @@ type Props = {
 
 
 
-export const ChipForm: FC<Props> = ({ detail, callback, contractId, hasServiceIncluded = false, onCancel }) => {
+export const ChipForm: FC<Props> = ({ detail, callback, contract, hasServiceIncluded = false, onCancel }) => {
     const chip = detail?.topico?.chip;
+    const contractId = contract.id;
 
     const methods = useForm({
         resolver: yupResolver<ChipContract>(chipObjectSchema),
-        defaultValues: petDefaultValues(detail)
+        defaultValues: petDefaultValues(contract, detail)
     });
 
     const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormChip({ contractId, detail, petId: detail.pet?.id ?? "", hasServiceIncluded, callback });

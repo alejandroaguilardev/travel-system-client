@@ -10,21 +10,24 @@ import { useFormVaccination } from "./use-form-vaccination";
 import { VaccinationContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { VaccinationFormGeneral } from "./vaccination-form-general";
 import { SendEmailCheck } from '../../../../../components/send-email-check/send-email-check';
+import { Contract } from '../../../../../modules/contracts/domain/contract';
 
 type Props = {
     title: string;
-    contractId: string;
+    contract: Contract;
     detail: ContractDetail;
     hasServiceIncluded?: boolean;
     callback: (response: ContractDetailUpdateResponse) => void;
     onCancel: () => void;
 }
 
-export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded = false, contractId, callback, onCancel }) => {
+export const VaccinationForm: FC<Props> = ({ title, detail, hasServiceIncluded = false, contract, callback, onCancel }) => {
     const vaccination = detail?.topico?.vaccination;
+    const contractId = contract.id;
+
     const methods = useForm({
         resolver: yupResolver<VaccinationContract>(vaccinationContractObjectSchema),
-        defaultValues: petVaccinationDefaultValues(detail)
+        defaultValues: petVaccinationDefaultValues(contract, detail)
     });
 
     const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormVaccination({ contractId, detail, callback, hasServiceIncluded });

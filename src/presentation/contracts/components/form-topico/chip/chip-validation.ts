@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
-import { ChipContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
+import { ChipContract, hasIncludedServiceTopico } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { chipValidationYup } from '../../../../pets/components/form/pet-validations';
 import { ContractDetail } from '../../../../../modules/contracts/domain/contract-detail';
+import { Contract } from '../../../../../modules/contracts/domain/contract';
 
 
 
@@ -33,12 +34,12 @@ export const chipObjectSchema: Yup.ObjectSchema<ChipContract> = Yup.object().sha
 });
 
 
-export const petDefaultValues = (detail: ContractDetail) => {
+export const petDefaultValues = (contract: Contract, detail: ContractDetail) => {
     const chip = detail?.topico?.chip;
     const dataExits = detail?.pet?.topico?.chip;
     const chipDefault = detail?.pet?.chip || defaultChip.description;
 
-    if (chip?.hasIncluded) {
+    if (hasIncludedServiceTopico(contract, detail, "chip", "chipCertificate")) {
         return {
             hasIncluded: detail.topico?.chip?.hasIncluded || defaultChip.hasIncluded,
             executed: chip?.executed || defaultChip.executed,
@@ -49,7 +50,8 @@ export const petDefaultValues = (detail: ContractDetail) => {
         }
     }
 
-    if (dataExits?.hasIncluded) {
+    const detailDataExits = { ...detail, topico: detail?.pet?.topico } as ContractDetail;
+    if (hasIncludedServiceTopico(contract, detailDataExits, "chip", "chipCertificate")) {
         return {
             hasIncluded: detail.topico?.chip?.hasIncluded || defaultChip.hasIncluded,
             executed: dataExits?.executed || defaultChip.executed,

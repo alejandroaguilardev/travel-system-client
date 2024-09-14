@@ -69,7 +69,7 @@ export const TopicoForm: FC<Props> = ({ action, contractId, clientId, detail, on
             addTabs.push({
                 label: "Microchip",
                 value: TopicTabs.chip,
-                component: <ChipForm contractId={contractId} detail={detail}
+                component: <ChipForm contract={contract} detail={detail}
                     hasServiceIncluded={isChip}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
@@ -80,7 +80,7 @@ export const TopicoForm: FC<Props> = ({ action, contractId, clientId, detail, on
             addTabs.push({
                 label: vaccinationLabel(detail.pet?.type),
                 value: TopicTabs.vaccination,
-                component: <VaccinationForm contractId={contractId} detail={detail} title={vaccinationLabel(detail.pet?.type)}
+                component: <VaccinationForm contract={contract} detail={detail} title={vaccinationLabel(detail.pet?.type)}
                     hasServiceIncluded={isVaccination}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })
@@ -90,7 +90,7 @@ export const TopicoForm: FC<Props> = ({ action, contractId, clientId, detail, on
             addTabs.push({
                 label: "Vacuna de Rabia",
                 value: TopicTabs.rabiesVaccination,
-                component: <RabiesVaccinationForm contractId={contractId} detail={detail}
+                component: <RabiesVaccinationForm contract={contract} detail={detail}
                     hasServiceIncluded={isRabiesVaccination}
                     callback={({ contract }) => handleChangeContractInfo(contract)} onCancel={onCancel} />
             })

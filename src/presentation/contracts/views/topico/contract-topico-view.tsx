@@ -75,7 +75,7 @@ export default function ContractTopicoView() {
                             />)
                         }
 
-                        const reviews: boolean[] = row?.details?.map((detail) => hasShowReviewChip(detail?.topico)) ?? [];
+                        const reviews: boolean[] = row?.details?.map((detail) => hasShowReviewChip(row, detail)) ?? [];
                         if (reviews.filter(_ => _).length > 0) {
                             addActionsItems.push(<RenderRowActionMenuItem
                                 item={{
