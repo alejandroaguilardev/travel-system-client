@@ -1,4 +1,4 @@
-import { Alert, Box, Divider, FormControl, FormControlLabel, MenuItem, Stack, Switch, Typography } from '@mui/material';
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControlLabel, MenuItem, Stack, Switch, Typography } from '@mui/material';
 import { SearchClient } from '../../../../client/components/search-client/search-client';
 import { PET_GENDERS, PetGender } from '../../../../../modules/pets/domain/pet-gender';
 import { ContractFormCage } from '../../../../contracts/components/form/cage/contract-form-cage';
@@ -11,8 +11,9 @@ import { HOST_ASSETS_IMAGES } from '../../../../../app/config/config-global';
 import { PET_TYPES } from '../../../../../modules/pets/domain/pet-type';
 import { isPetBabyAge, isPrintMessageForMoreOneMonth } from '../../../../../modules/pets/domain/pet-age';
 import { fDate, fDayDiffDays, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ErrorMessage } from '../../../../../components/hook-form/error-message';
+import { ClientPetsResponse } from '../../../../../modules/pets/domain/pet';
 
 type Props = {
     hasClient?: boolean;
@@ -20,10 +21,11 @@ type Props = {
     hasRecommendation?: boolean;
     hasShowChip?: boolean;
     hasImage?: boolean;
+    petsClient?: ClientPetsResponse[];
 }
 
-export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = false, hasRecommendation = false, hasShowChip = false, hasImage = false }: Props) => {
-    const { id, type, chip, chipDate, birthDate, dateUpdatedAt, client, image, handleClient } = usePetFormGeneral();
+export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = false, hasRecommendation = false, hasShowChip = false, hasImage = false, petsClient = [] }: Props) => {
+    const { id, type, chip, name, chipDate, birthDate, dateUpdatedAt, client, image, handleClient } = usePetFormGeneral();
 
     const alertUpdate: boolean = useMemo(() =>
         isPrintMessageForMoreOneMonth(fDayjs(birthDate).toDate(), fDayDiffDays(new Date(), fDayjs(dateUpdatedAt).toDate())) &&
@@ -31,6 +33,16 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
 
 
     const [hasChip, setHasChip] = useState(!!chip);
+    const [alertRepeatPet, setAlertRepeatPet] = useState(false);
+    const [petClient, setPetClient] = useState<ClientPetsResponse | null>(null);
+
+    useEffect(() => {
+        const count = petsClient.filter((_) => _?.name === name || (chip === _?.chip && chip));
+        if (count.length > 0) {
+            setPetClient(count[0]);
+            setAlertRepeatPet(true);
+        }
+    }, [name, chip]);
 
     return (
         <Stack spacing={1} marginBottom={1}>
@@ -193,6 +205,28 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                     objectFit='contain'
                 />
             }
+            {!id &&
+                <Dialog open={alertRepeatPet} onClose={() => setAlertRepeatPet(false)}>
+                    <DialogTitle mx={2} my={0} textAlign="center">Mascota Duplicada</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText sx={{ mx: 2, my: 0 }}>
+                            El cliente ya tiene una mascota asociada con el nombre <strong>{petClient?.name}</strong>. <br />
+                            ¿No prefieres seleccionar esta mascota en lugar de crear una nueva?
+                            <br />
+                            <strong>ID:</strong> {petClient?.id} <br />
+                            {petClient?.chip && (
+                                <>
+                                    <strong>Chip:</strong> {petClient?.chip}
+                                </>
+                            )}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions sx={{ m: 1, display: "flex", justifyContent: "center" }}>
+                        <Button variant='outlined' color="error" onClick={() => setAlertRepeatPet(false)}>Cerrar</Button>
+                    </DialogActions>
+                </Dialog>
+            }
+
 
         </Stack>
     )

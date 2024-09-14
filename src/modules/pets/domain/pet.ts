@@ -33,6 +33,12 @@ export interface NewPet extends Omit<Pet, 'id' | 'chip' | 'chipDate' | 'status' 
     chipDate?: Date | null;
 };
 
+export interface ClientPetsResponse {
+    id: string;
+    name: string;
+    chip?: string;
+}
+
 export interface PetTopic extends NewPet {
     cageRecommendation: CageChosen;
     measurementsAndWeight: MeasurementsAndWeight;

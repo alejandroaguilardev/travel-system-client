@@ -1,6 +1,6 @@
 import { Box, Button, Dialog, DialogContent, Typography } from '@mui/material';
 import { SearchPet } from '../../../../pets/components/search/search-pet';
-import { Pet } from '../../../../../modules/pets/domain/pet';
+import { ClientPetsResponse, Pet } from '../../../../../modules/pets/domain/pet';
 import { PetDialogForm } from '../../../../pets/components/search/pet-dialog';
 import { PetDialogProvider } from '../../../../pets/components/search/pet-dialog-context';
 import { ClientDialogProvider } from '../../../../client/components/search-client/client-dialog-context';
@@ -9,17 +9,25 @@ import { useSelectedValue } from '../../../../../hooks/use-selected-value';
 
 type Props = {
     clientId: string;
+    petsClient: ClientPetsResponse[];
     handleSelected: (value: Pet | null) => void;
 }
 
-export const SelectPetExist = ({ clientId, handleSelected }: Props) => {
+export const SelectPetExist = ({ clientId, petsClient, handleSelected }: Props) => {
     const { value, onTrue, onFalse } = useBoolean();
     const { selected, handleSelected: handleSelectedPet } = useSelectedValue<Pet | null>();
 
     return (
         <>
             <Button variant="outlined" type="button" onClick={onTrue} fullWidth sx={{ mb: 2 }}>
-                Seleccionar una mascota previa del cliente
+                <span>
+                    Seleccionar una mascota previa del cliente
+                    {petsClient.length > 0 &&
+                        <span style={{ display: "block", width: "100%" }}>
+                            Tiene {petsClient.length} mascota{petsClient.length > 0 && "s"}
+                        </span>
+                    }
+                </span>
             </Button>
 
             <Dialog open={value} onClose={onFalse} maxWidth="md" fullWidth>

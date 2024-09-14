@@ -45,13 +45,13 @@ export const UserTable: FC<Props> = ({ columnQueryFilters, onSelected, deleteIte
             {
                 header: 'Apellido',
                 accessorKey: 'profile.lastName',
-                accessorFn: (row) => row.profile.lastName.toUpperCase(),
+                accessorFn: (row) => row?.profile?.lastName?.toUpperCase() ?? "",
                 minSize: 200
             },
             {
                 header: 'Email',
                 accessorKey: 'email',
-                accessorFn: (row) => row.email.toUpperCase(),
+                accessorFn: (row) => row?.email?.toUpperCase() ?? "",
                 minSize: 200
             },
             {
