@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Alert, Stack } from '@mui/material';
 import { useFormContext } from "react-hook-form";
+import { LoadingButton } from '@mui/lab';
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { contractDetailService } from '../../../../../modules/contracts/infrastructure/contract-detail.service';
-import { useMessage } from '../../../../../hooks/use-message';
-import { downloadFile } from '../../../../../modules/shared/infrastructure/helpers/blob-archive';
-import { LoadingButton } from '@mui/lab';
-import { RHFTextField } from 'src/components/hook-form';
+import { useSenasaExcelDownload } from './use-senasa-excel-download';
+import { RHFTextField } from '../../../../../components/hook-form';
 
 type Props = {
     contractId: string,
@@ -16,21 +14,12 @@ type Props = {
 
 export const SENASAFormGeneral = ({ contractDetailId, contractId }: Props) => {
     const { watch, formState } = useFormContext();
-    const { showNotification } = useMessage();
-    const [isLoading, setIsLoading] = useState(false);
+    const { downloadSenasa, isLoading } = useSenasaExcelDownload();
 
 
     const executionDate = fDayjs(watch("executionDate") ?? null);
     const error = executionDate ? "Seleccione la fecha para presentar a senasa" : "";
 
-    const downloadSenasa = (id: string, detailId: string) => {
-        setIsLoading(true);
-        contractDetailService.downloadSenasaExcel(id, detailId).then((response) => {
-            downloadFile(new Blob([response.file]), response.name);
-        }).catch((e) => {
-            showNotification("No se logró descargar el excel", { variant: "error" })
-        }).finally(() => setIsLoading(false));
-    }
 
     useEffect(() => {
         console.log(formState.errors)

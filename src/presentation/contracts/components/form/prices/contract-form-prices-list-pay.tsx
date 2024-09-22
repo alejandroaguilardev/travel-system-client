@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { PayInInstallment } from '../../../../../modules/contracts/domain/payment-summary';
 import { ConfirmPayTotal, PayInInstallmentSelected } from '../../payment/general/types';
 import { DialogsUpdatePaymentGeneral } from '../../payment/dialogs-update-payment-general';
-import { validateCancelPay } from '../../../../../modules/contracts/domain/customer-payments';
+import { validateTotalOrCancelPay } from '../../../../../modules/contracts/domain/customer-payments';
 import { useContextDialog } from '../../../../../components/dialog-context/dialog-context-generic';
 import { useBoolean } from '../../../../../hooks/use-boolean';
 import { useSelectedValue } from '../../../../../hooks/use-selected-value';
@@ -44,7 +44,7 @@ export const ContractFormPricesListPay = ({ index, payInInstallments, payInInsta
     return (
         <>
             <Button variant='contained'
-                color={validateCancelPay(payInInstallment?.isPay, payInInstallment?.customerPayments) ? "error" : "primary"}
+                color={validateTotalOrCancelPay(payInInstallment?.customerPayments) ? "error" : "primary"}
                 sx={{ mr: 1, minWidth: 150 }}
                 onClick={() => onOpenPayOrCancelButton({
                     index,
@@ -53,7 +53,7 @@ export const ContractFormPricesListPay = ({ index, payInInstallments, payInInsta
                     customerPayments: payInInstallment?.customerPayments ?? []
                 })}
             >
-                {validateCancelPay(payInInstallment.isPay, payInInstallment?.customerPayments)
+                {validateTotalOrCancelPay(payInInstallment?.customerPayments)
                     ? "Cancelar Pago"
                     : "Pago total"}
             </Button>

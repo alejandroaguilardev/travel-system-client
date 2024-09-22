@@ -69,15 +69,6 @@ export const SearchPet = ({ adopterId, index, pet, hasCreate = false, handlePet,
             />
             <PermissionGuard group={AuthGroup.PETS} permission={AuthPermission.CREATE}>
                 <Typography width="100%" textAlign="center" mb={1}>No se ha localizado a la mascota  que está buscando. ¿Desea crear una mascota ahora? </Typography>
-                <Button variant="outlined" fullWidth onClick={() => {
-                    onTrue();
-                    handleIndex(index);
-                }} sx={{
-                    fontWeight: "bold",
-                    opacity: 1
-                }}>
-                    Crear nueva mascota
-                </Button>
             </PermissionGuard>
         </>
     )

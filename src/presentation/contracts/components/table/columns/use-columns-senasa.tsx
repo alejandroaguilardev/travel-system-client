@@ -11,6 +11,12 @@ export const useColumnsSenasa = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                minSize: 170,
+            },
+            {
                 header: 'Estado',
                 accessorKey: 'details.documentation.senasaDocuments.isApplied',
                 accessorFn: (row) => {
@@ -154,12 +160,6 @@ export const useColumnsSenasa = () => {
                 header: 'F.Número',
                 accessorKey: 'number',
                 accessorFn: (row) => row?.number ?? "",
-                minSize: 170,
-            },
-            {
-                header: 'N° Contracto',
-                accessorKey: 'correlative',
-                accessorFn: (row) => correlativeToString(row?.correlative),
                 minSize: 170,
             },
         ],

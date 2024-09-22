@@ -12,6 +12,12 @@ export const useColumnsDocumentation = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                minSize: 170,
+            },
+            {
                 header: 'Fecha de viaje',
                 accessorKey: 'details.travel.airlineReservation.departureDate',
                 accessorFn: (row) => row.details.map(_ => _.travel?.airlineReservation?.departureDate
@@ -168,13 +174,6 @@ export const useColumnsDocumentation = () => {
                 accessorFn: (row) => row?.number ?? "",
                 minSize: 170,
             },
-            {
-                header: 'N° Contracto',
-                accessorKey: 'correlative',
-                accessorFn: (row) => correlativeToString(row?.correlative),
-                minSize: 170,
-            },
-
         ],
         [],
     );

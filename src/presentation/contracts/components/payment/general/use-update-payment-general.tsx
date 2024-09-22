@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { PayInInstallment } from '../../../../../modules/contracts/domain/payment-summary';
 import { customerPaymentSaldo } from 'src/modules/contracts/domain/customer-payments';
 import { useMessage } from 'src/hooks';
-import { METHODS_PAYMENTS, validateCancelPay } from '../../../../../modules/contracts/domain/customer-payments';
+import { METHODS_PAYMENTS, validateTotalOrCancelPay } from '../../../../../modules/contracts/domain/customer-payments';
 
 
 export const useUpdatePaymentGeneral = (
@@ -18,7 +18,7 @@ export const useUpdatePaymentGeneral = (
 
     const handlePayTotalOrCancel = (index: number, saldo: number) => {
         const updatedPayInInstallments = [...payInInstallments];
-        const isCancel = validateCancelPay(updatedPayInInstallments[index]?.isPay, updatedPayInInstallments[index]?.customerPayments);
+        const isCancel = validateTotalOrCancelPay(updatedPayInInstallments[index]?.customerPayments);
 
         if (!isCancel) {
             updatedPayInInstallments[index].isPay = true;

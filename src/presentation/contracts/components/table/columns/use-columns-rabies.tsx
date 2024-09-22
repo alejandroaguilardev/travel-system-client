@@ -10,6 +10,12 @@ export const useColumnsRabies = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                minSize: 170,
+            },
+            {
                 header: 'Estado',
                 accessorKey: 'details.documentation.rabiesSeroLogicalTest.isApplied',
                 accessorFn: (row) => {
@@ -163,12 +169,6 @@ export const useColumnsRabies = () => {
                 header: 'F.Número',
                 accessorKey: 'number',
                 accessorFn: (row) => row?.number ?? "",
-                minSize: 170,
-            },
-            {
-                header: 'N° Contracto',
-                accessorKey: 'correlative',
-                accessorFn: (row) => correlativeToString(row?.correlative),
                 minSize: 170,
             },
         ],

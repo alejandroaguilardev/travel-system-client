@@ -4,7 +4,6 @@ import { fDateTime, fDayjs } from '../../../../../../modules/shared/infrastructu
 import { PayInInstallment } from '../../../../../../modules/contracts/domain/payment-summary';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Divider, FormControl, InputLabel, MenuItem, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import { fCurrency } from '../../../../../../modules/shared/domain/helpers/format-number';
-import { METHODS_PAYMENTS } from '../../../../../../modules/contracts/domain/customer-payments';
 import { MethodPaymentInput } from './method-payment-input';
 
 const today = fDayjs(new Date());

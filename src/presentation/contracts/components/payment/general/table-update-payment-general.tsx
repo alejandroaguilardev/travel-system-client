@@ -1,7 +1,7 @@
 import { Stack, Button, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import Label from '../../../../../components/label';
 import { fDate, fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { customerPaymentSaldo, validateCancelPay } from '../../../../../modules/contracts/domain/customer-payments';
+import { customerPaymentSaldo, validateTotalOrCancelPay } from '../../../../../modules/contracts/domain/customer-payments';
 import { PayInInstallment } from '../../../../../modules/contracts/domain/payment-summary';
 import { HandlePayOrCancelButton } from './types';
 
@@ -65,7 +65,7 @@ export const TableUpdatePaymentGeneral = ({ payInInstallments, onOpenPayOrCancel
                             </TableCell>
                             <TableCell sx={{ display: "flex" }}>
                                 <Button variant='contained'
-                                    color={validateCancelPay(payInInstallment?.isPay, payInInstallment?.customerPayments) ? "error" : "primary"}
+                                    color={validateTotalOrCancelPay(payInInstallment?.customerPayments) ? "error" : "primary"}
                                     sx={{ mr: 1 }}
                                     onClick={() => onOpenPayOrCancelButton({
                                         index,
@@ -74,7 +74,7 @@ export const TableUpdatePaymentGeneral = ({ payInInstallments, onOpenPayOrCancel
                                         customerPayments: payInInstallment?.customerPayments ?? []
                                     })}
                                     fullWidth>
-                                    {validateCancelPay(payInInstallment.isPay, payInInstallment?.customerPayments)
+                                    {validateTotalOrCancelPay(payInInstallment?.customerPayments)
                                         ? "Cancelar Pago"
                                         : "Pago total"}
                                 </Button>

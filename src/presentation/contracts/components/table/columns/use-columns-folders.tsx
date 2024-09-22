@@ -9,17 +9,18 @@ export const useColumnsFolders = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
-                header: 'Fecha de Inicio',
-                accessorKey: 'startDate',
-                accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY HH:mm:ss'),
-                minSize: 200
-            },
-            {
                 header: 'N° Contracto',
                 accessorKey: 'correlative',
                 accessorFn: (row) => correlativeToString(row?.correlative),
                 minSize: 170,
             },
+            {
+                header: 'Fecha de Inicio',
+                accessorKey: 'startDate',
+                accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY HH:mm:ss'),
+                minSize: 200
+            },
+
             {
                 header: 'Folio',
                 accessorFn: (row) => row?.folder ? row?.folder : "",

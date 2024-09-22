@@ -1,4 +1,4 @@
-import { customerPaymentSaldo, validateCancelPay } from '../../../../../../modules/contracts/domain/customer-payments';
+import { customerPaymentSaldo, validateTotalOrCancelPay } from '../../../../../../modules/contracts/domain/customer-payments';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useContextDialog } from '../../../../../../components/dialog-context/dialog-context-generic';
 import { ConfirmPayTotal } from '../types';
@@ -14,7 +14,7 @@ interface Props {
 export const DialogUpdatePaymentGeneralTotal = ({ payValues, methodPayment, handleMethodPayment, handlePayTotalOrCancel }: Props) => {
     const { isOpen, closeDialog } = useContextDialog();
 
-    const isCancelPay = validateCancelPay(payValues?.isPay, payValues?.customerPayments);
+    const isCancelPay = validateTotalOrCancelPay(payValues?.customerPayments);
 
     const handleCloseAction = () => {
         closeDialog();

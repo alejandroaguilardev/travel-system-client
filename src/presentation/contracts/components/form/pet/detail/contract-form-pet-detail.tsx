@@ -93,19 +93,19 @@ export const ContractFormPetDetail = ({ field }: Props) => {
                         />
 
                         <CertificateSwitch
-                            label='Permiso de importación '
+                            label='Permiso de importación'
                             name={`${field}documentation.importLicense`}
                             canOptional
                         />
 
                         <CertificateSwitch
-                            label='Documentación oficial de SENASA '
+                            label='Documentación oficial de SENASA'
                             name={`${field}documentation.senasaDocuments`}
                             canOptional
                         />
 
                         <CertificateSwitch
-                            label='Certificado de soporte emocional '
+                            label='Certificado de soporte emocional'
                             name={`${field}documentation.emotionalSupportCertificate`}
                         />
                     </Stack>

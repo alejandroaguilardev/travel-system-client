@@ -13,12 +13,26 @@ export const customerPaymentSaldo = (price = 0, customerPayments?: CustomerPayme
 }
 
 
-export const METHODS_PAYMENTS = ["Efectivo", "Pos", "Transferencia", "Wester"];
+export const METHODS_PAYMENTS = [
+    "Efectivo en soles",
+    "Efectivo en dólares",
+    "POS",
+    "Transferencia bancaria",
+    "Yape",
+    "Western Union",
+    "PayPal",
+    "Transferencia internacional",
+];
 
 
 
-export const validateCancelPay = (isPay: boolean = false, customerPayments: CustomerPayment[] = []): boolean => {
-    if (isPay) return true;
+export const validateTotalOrCancelPay = (customerPayments: CustomerPayment[] = []): boolean => {
     if (customerPayments.length > 0) return true;
+
+    return false;
+}
+
+export const validateParcialPay = (isPay: boolean = false): boolean => {
+    if (isPay) return true;
     return false;
 }

@@ -70,7 +70,7 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                         {chip ? <RHFDate
                             name="chipDate"
                             value={chipDate}
-                            label="Chip Fecha de instalación"
+                            label="Chip Fecha de instalación (opcional)"
                         /> : <Box width="100%" />}
                     </Stack>
 

@@ -46,7 +46,7 @@ export const TopicoSearchUser = () => {
     }, [user]);
 
     return (
-        <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1} width="100%">
             <SearchClient
                 filters={[
                     {

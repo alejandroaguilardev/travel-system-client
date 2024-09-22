@@ -1,6 +1,6 @@
 import { FC, ReactNode, useMemo } from 'react';
 import { MRT_ColumnDef, MRT_ColumnFiltersState, MRT_SortingState } from 'material-react-table';
-import { Contract } from '../../../../modules/contracts/domain/contract';
+import { Contract, correlativeToString } from '../../../../modules/contracts/domain/contract';
 import { CONTRACT_STATUS } from '../../../../modules/contracts/domain/contract-status';
 import { fDate } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import { COLLECTIONS } from '../../../../modules/shared/domain/collections';
@@ -31,6 +31,12 @@ export const ContractTable: FC<Props> = ({ options }) => {
 
     const columnsDefault = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
+            {
+                header: 'N° Contracto',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                accessorKey: 'correlative',
+                minSize: 170,
+            },
             {
                 header: 'IMP',
                 Cell: ({ row }) => <IconButton onClick={() => handleTypeImpExecute(row.original.id, TypeofImp.VIEWER)}>
@@ -95,12 +101,6 @@ export const ContractTable: FC<Props> = ({ options }) => {
                 header: 'F.Número',
                 accessorFn: (row) => row?.number ?? "",
                 accessorKey: 'number',
-                minSize: 170,
-            },
-            {
-                header: 'N° Contracto',
-                accessorFn: (row) => row?.correlative ?? "",
-                accessorKey: 'correlative',
                 minSize: 170,
             },
             {

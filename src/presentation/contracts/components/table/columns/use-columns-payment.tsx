@@ -14,6 +14,13 @@ export const useColumnsPayment = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                minSize: 170,
+            },
+            {
+
                 header: 'Estado',
                 accessorKey: 'payInInstallments',
                 accessorFn: (row) => {
@@ -134,13 +141,6 @@ export const useColumnsPayment = () => {
                 accessorFn: (row) => row?.number ?? "",
                 minSize: 170,
             },
-            {
-                header: 'N° Contracto',
-                accessorKey: 'correlative',
-                accessorFn: (row) => correlativeToString(row?.correlative),
-                minSize: 170,
-            },
-
         ],
         [],
     );

@@ -8,7 +8,12 @@ import { contractDetailStatus, contractDetailsPetNames, dateDepartureIsLastWeek,
 export const useColumnsTravel = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
-
+            {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                minSize: 170,
+            },
             {
                 header: 'Fecha de viaje',
                 accessorKey: 'details.travel.airlineReservation.departureDate',
@@ -123,12 +128,6 @@ export const useColumnsTravel = () => {
                 header: 'F.Número',
                 accessorKey: 'number',
                 accessorFn: (row) => row?.number ?? "",
-                minSize: 170,
-            },
-            {
-                header: 'N° Contracto',
-                accessorKey: 'correlative',
-                accessorFn: (row) => correlativeToString(row?.correlative),
                 minSize: 170,
             },
         ],

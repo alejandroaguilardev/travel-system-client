@@ -1,4 +1,4 @@
-import { Container, Skeleton } from '@mui/material';
+import { Box, Container, Paper, Skeleton } from '@mui/material';
 import { paths } from '../../../../app/routes/paths';
 import SearchIdNotFound from '../../../../app/routes/guard/search-id-not-found';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs/custom-breadcrumbs';
@@ -29,7 +29,11 @@ export default function ContractIdView({ id }: Props) {
                                     { name: `${correlativeToString(contract?.correlative)}` },
                                 ]}
                             />
-                            <ContractDetail contract={contract!} />
+                            <Paper sx={{ p: 3, my: 3 }}>
+                                <Box>
+                                    <ContractDetail contract={contract!} />
+                                </Box>
+                            </Paper>
                         </Container>
                     </SearchIdNotFound >
             }

@@ -2,6 +2,7 @@ import { Contract } from "../../contract";
 import { ContractDetail } from "../../contract-detail";
 import { DOCUMENTATION_KEYS } from "../documentation/documentation";
 import { CONSTANTS } from '../../../../../app/config/constants';
+import { ContractDetailStatus } from "../../contract-status";
 
 export interface ChipContract {
     hasIncluded?: boolean;
@@ -66,6 +67,7 @@ export interface ContractTopico {
     rabiesReVaccination: RabiesReVaccinationContract;
     chipReview: ChipReviewContract;
     takingSampleSerologicalTest: TakingSampleSerologicalTestContract;
+    status?: ContractDetailStatus;
 }
 
 export const TOPICO_KEYS = {

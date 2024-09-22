@@ -87,7 +87,7 @@ export const ContractFormPrices = () => {
                                             <TextField
                                                 label="Cuota Porcentaje (*)"
                                                 type='number'
-                                                value={pay?.percentage ?? 0}
+                                                value={pay?.percentage?.toFixed(2) ?? 0}
                                                 onChange={(e) => {
                                                     handlePercentageChange(parseFloat(e.target.value) ?? 0, index, array)
                                                 }}

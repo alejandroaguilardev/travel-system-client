@@ -13,6 +13,12 @@ export const useColumnsTopico = () => {
     const columns = useMemo<MRT_ColumnDef<Contract>[]>(
         () => [
             {
+                header: 'N° Contracto',
+                accessorKey: 'correlative',
+                accessorFn: (row) => correlativeToString(row?.correlative),
+                minSize: 170,
+            },
+            {
                 header: 'N° Documento',
                 accessorKey: 'client.profile.documentNumber',
                 accessorFn: ({ client }) => client?.profile?.documentNumber ?? "",
@@ -182,12 +188,6 @@ export const useColumnsTopico = () => {
                 header: 'F.Número',
                 accessorKey: 'number',
                 accessorFn: (row) => row?.number ?? "",
-                minSize: 170,
-            },
-            {
-                header: 'N° Contracto',
-                accessorKey: 'correlative',
-                accessorFn: (row) => correlativeToString(row?.correlative),
                 minSize: 170,
             },
         ],

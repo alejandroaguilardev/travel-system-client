@@ -3,7 +3,7 @@ import { ConfirmPayTotal } from './general/types';
 import { DialogUpdatePaymentGeneralParcial } from './general/update-upayment-general-parcial/dialog-update-payment-general-parcial';
 import { DialogUpdatePaymentGeneralTotal } from './general/update-upayment-general-total/dialog-update-payment-general-total';
 import { useUpdatePaymentGeneral } from './general/use-update-payment-general';
-import { validateCancelPay } from '../../../../modules/contracts/domain/customer-payments';
+import { validateParcialPay } from '../../../../modules/contracts/domain/customer-payments';
 
 type Props = {
     isOpen: boolean;
@@ -43,7 +43,7 @@ export const DialogsUpdatePaymentGeneral = ({ index, isOpen, payValues, payInIns
                         handleClose();
                         setPriceCustomer(0);
                     }}
-                    isDisabled={!validateCancelPay(payInInstallment?.isPay, payInInstallment?.customerPayments)}
+                    isDisabled={!validateParcialPay(payInInstallment?.isPay)}
                 />
             }
 

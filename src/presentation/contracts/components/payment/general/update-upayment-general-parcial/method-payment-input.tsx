@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material'
-import { METHODS_PAYMENTS } from 'src/modules/contracts/domain/customer-payments'
+import { METHODS_PAYMENTS } from '../../../../../../modules/contracts/domain/customer-payments';
 
 type Props = {
     methodPayment: string;

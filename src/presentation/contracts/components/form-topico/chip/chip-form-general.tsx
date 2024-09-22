@@ -33,7 +33,7 @@ export const ChipFormGeneral = ({ hasServiceIncluded }: Props) => {
                     (hasServiceIncluded || executed) &&
                     <>
                         <Typography fontWeight="bold">{hasServiceIncluded ? "Implantación de Chip" : "Revisar si la mascota tiene chip"}</Typography>
-                        <Stack spacing={2}>
+                        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                             <TopicoSearchUser />
                         </Stack>
                         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
