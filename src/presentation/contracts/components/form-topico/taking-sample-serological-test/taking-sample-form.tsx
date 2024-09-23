@@ -38,9 +38,14 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
     const { onSubmit, isExecuted, hasSendEmail, onChangeHasSendEmail } = useFormTakingSampleSerologicalTestContract({ contractId, detailId: detail.id, callback });
 
 
+    const hasIncluded = () => {
+        if (detail.topico?.takingSampleSerologicalTest.hasIncluded) return true;
+        return detail.topico?.rabiesVaccination.executed && (detail.topico?.chipReview.executed || !detail.documentation.chipCertificate.hasServiceIncluded);
+    }
+
     return (
         <>
-            {(detail.topico?.rabiesVaccination.executed && (detail.topico?.chipReview?.executed || !detail.documentation.chipCertificate.hasServiceIncluded)) &&
+            {hasIncluded() &&
                 < FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
 
                     {!hasServiceIncluded && !takingSampleSerologicalTest?.executed && !isExecuted && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha guardado la información relacionada a la toma de muestra</Alert>}
@@ -66,9 +71,11 @@ export const TakingSampleSerologicalTestContractForm: FC<Props> = ({ detail, cal
                     </Box>
                 </FormProvider >}
 
-            {!detail.topico?.rabiesReVaccination.executed && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha guardado la revacunación de rabia en el sistema</Alert>}
+            {!detail.topico?.rabiesReVaccination.executed && detail?.topico?.rabiesReVaccination?.hasIncluded && <Alert severity="error" sx={{ mb: 1 }}>Aùn no se ha guardado la revacunación de rabia en el sistema</Alert>}
 
-            {!detail.topico?.chipReview.executed && <Alert severity="error">Aùn no se ha realizado la revisión del microchip en el sistema</Alert>}
+            {!detail.topico?.chipReview.executed && detail?.topico?.rabiesReVaccination?.hasIncluded && <Alert severity="error">Aùn no se ha realizado la revisión del microchip en el sistema</Alert>}
+
+            {!detail.topico?.chipReview.executed && detail?.topico?.rabiesReVaccination?.hasIncluded && <Alert severity="error">Aùn no se ha realizado la revisión del microchip en el sistema</Alert>}
 
         </>
     )
