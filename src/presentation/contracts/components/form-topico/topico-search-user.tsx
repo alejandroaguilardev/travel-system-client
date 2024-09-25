@@ -14,11 +14,15 @@ export const TopicoSearchUser = () => {
 
     const [client, setClient] = useState<User | null>(null);
     const clientDefault: string = getValues("user");
-
     useEffect(() => {
         if (clientDefault) {
             userService.searchById<User>(clientDefault)
-                .then(response => setClient(response))
+                .then(response => {
+                    if (response?.isDoctor) {
+                        setClient(response);
+                    }
+                })
+                .then()
                 .catch(() => setClient(null));
         }
     }, [clientDefault]);
@@ -26,7 +30,8 @@ export const TopicoSearchUser = () => {
     useEffect(() => {
         if (clientContext) {
             const clientSelected = { ...clientContext, roles: [] } as User;
-            setClient(clientSelected)
+            if (clientSelected?.isDoctor) setClient(clientSelected)
+
             setValue("user", clientContext?.id ?? "");
         }
 
@@ -40,9 +45,9 @@ export const TopicoSearchUser = () => {
 
     useEffect(() => {
         if (user && !clientDefault) {
-            setClient(user)
             setValue("user", user?.id ?? "");
         }
+        if (user?.isDoctor) setClient(user)
     }, [user]);
 
     return (

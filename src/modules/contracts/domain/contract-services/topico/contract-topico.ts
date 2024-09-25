@@ -10,6 +10,7 @@ export interface ChipContract {
     date?: Date;
     description?: string;
     observation?: string;
+    doctorProvince?: string;
     user?: string;
 }
 
@@ -19,6 +20,7 @@ export interface VaccinationContract {
     date?: Date;
     description?: string;
     observation?: string;
+    doctorProvince?: string;
     user?: string;
 }
 
@@ -28,6 +30,7 @@ export interface RabiesVaccinationContract {
     date?: Date;
     description?: string;
     observation?: string;
+    doctorProvince?: string;
     user?: string;
 }
 
@@ -37,6 +40,7 @@ export interface RabiesReVaccinationContract {
     date?: Date;
     description?: string;
     observation?: string;
+    doctorProvince?: string;
     user?: string;
 }
 
@@ -46,6 +50,7 @@ export interface ChipReviewContract {
     date?: Date;
     description?: string;
     observation?: string;
+    doctorProvince?: string;
     user?: string;
 }
 
@@ -56,6 +61,7 @@ export interface TakingSampleSerologicalTestContract {
     date?: Date;
     description?: string;
     observation?: string;
+    doctorProvince?: string;
     user?: string;
 }
 
@@ -67,6 +73,7 @@ export interface ContractTopico {
     rabiesReVaccination: RabiesReVaccinationContract;
     chipReview: ChipReviewContract;
     takingSampleSerologicalTest: TakingSampleSerologicalTestContract;
+    doctorProvince?: string;
     status?: ContractDetailStatus;
 }
 

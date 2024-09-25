@@ -3,7 +3,7 @@ import { Divider, Stack, Typography } from "@mui/material";
 import { RHFSwitch, RHFTextField } from "../../../../../components/hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { TopicoSearchUser } from "../topico-search-user";
+import { DoctorProvince } from "../doctor-province";
 
 export const RabiesVaccinationFormGeneral = () => {
     const { watch } = useFormContext();
@@ -16,7 +16,7 @@ export const RabiesVaccinationFormGeneral = () => {
             <Stack flexWrap="wrap" spacing={1} marginBottom={3}>
                 <Typography fontWeight="bold">Aplicar la vacuna de rabia</Typography>
                 <Stack spacing={2}>
-                    <TopicoSearchUser />
+                    <DoctorProvince />
                 </Stack>
                 <Divider />
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>

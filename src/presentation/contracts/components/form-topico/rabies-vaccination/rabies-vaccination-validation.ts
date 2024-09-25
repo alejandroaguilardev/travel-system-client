@@ -9,6 +9,7 @@ export const defaultRabiesVaccination: RabiesVaccinationContract = {
     date: new Date(),
     description: '',
     observation: '',
+    doctorProvince: '',
     user: '',
 };
 
@@ -18,6 +19,7 @@ export const rabiesVaccinationContractObjectSchema: Yup.ObjectSchema<RabiesVacci
     date: Yup.date(),
     description: Yup.string(),
     observation: Yup.string(),
+    doctorProvince: Yup.string(),
     user: Yup.string(),
 });
 

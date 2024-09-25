@@ -9,6 +9,7 @@ export const defaultVaccination: VaccinationContract = {
     date: new Date(),
     description: '',
     observation: '',
+    doctorProvince: '',
     user: '',
 };
 
@@ -18,6 +19,7 @@ export const vaccinationContractObjectSchema: Yup.ObjectSchema<VaccinationContra
     date: Yup.date(),
     description: Yup.string(),
     observation: Yup.string(),
+    doctorProvince: Yup.string(),
     user: Yup.string(),
 });
 
@@ -49,6 +51,7 @@ export const petVaccinationDefaultValues = (contract: Contract, detail: Contract
             date: vaccination?.date || defaultVaccination.date,
             description: vaccination?.description || vaccinationType(detail.pet?.type),
             observation: vaccination?.observation || defaultVaccination.observation,
+            doctorProvince: vaccination?.doctorProvince || defaultVaccination.doctorProvince,
             user: vaccination?.user || defaultVaccination.user
         }
     }
@@ -61,6 +64,7 @@ export const petVaccinationDefaultValues = (contract: Contract, detail: Contract
             date: dataExits?.date || defaultVaccination.date,
             description: dataExits?.description || vaccinationType(detail.pet?.type),
             observation: dataExits?.observation || defaultVaccination.observation,
+            doctorProvince: defaultVaccination.doctorProvince,
             user: dataExits?.user || defaultVaccination.user
         }
     }

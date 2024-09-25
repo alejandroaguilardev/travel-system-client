@@ -4,6 +4,7 @@ import { RHFTextField } from "../../../../../components/hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 import { TopicoSearchUser } from "../topico-search-user";
+import { DoctorProvince } from "../doctor-province";
 
 export const TakingSampleSerologicalTestContractFormGeneral = () => {
     const { watch } = useFormContext();
@@ -14,9 +15,8 @@ export const TakingSampleSerologicalTestContractFormGeneral = () => {
         <>
             <Stack flexWrap="wrap" spacing={1} my={3}>
                 <Typography fontWeight="bold">Toma de muestra</Typography>
-
                 <Stack spacing={2}>
-                    <TopicoSearchUser />
+                    <DoctorProvince />
                 </Stack>
                 <Divider />
 

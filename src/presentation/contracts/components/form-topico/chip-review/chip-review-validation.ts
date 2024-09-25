@@ -7,6 +7,7 @@ export const defaultChipReview: ChipReviewContract = {
     date: new Date(),
     description: '',
     observation: '',
+    doctorProvince: '',
     user: '',
 };
 
@@ -16,5 +17,6 @@ export const chipReviewContractObjectSchema: Yup.ObjectSchema<ChipReviewContract
     date: Yup.date(),
     description: Yup.string(),
     observation: Yup.string(),
+    doctorProvince: Yup.string(),
     user: Yup.string(),
 });

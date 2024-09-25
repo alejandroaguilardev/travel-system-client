@@ -3,10 +3,8 @@ import { Divider, Stack, Typography } from "@mui/material";
 import { RHFSwitch, RHFTextField } from "../../../../../components/hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { TopicoSearchUser } from "../topico-search-user";
-import { useEffect } from "react";
 import { Pet } from '../../../../../modules/pets/domain/pet';
-import { vaccinationType } from "./vaccination-validation";
+import { DoctorProvince } from "../doctor-province";
 
 type Props = {
     title: string;
@@ -36,7 +34,7 @@ export const VaccinationFormGeneral = ({ title, hasServiceIncluded }: Props) => 
                     <>
                         <Typography fontWeight="bold">{title}</Typography>
                         <Stack spacing={2}>
-                            <TopicoSearchUser />
+                            <DoctorProvince />
                         </Stack>
                         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                             <RHFDate

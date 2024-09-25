@@ -12,6 +12,7 @@ export const defaultChip = {
     date: new Date(),
     description: '',
     observation: '',
+    doctorProvince: '',
     user: '',
 
 };
@@ -29,6 +30,7 @@ export const chipObjectSchema: Yup.ObjectSchema<ChipContract> = Yup.object().sha
             return true
         }
     ),
+    doctorProvince: Yup.string(),
     observation: Yup.string(),
     user: Yup.string(),
 });
@@ -45,6 +47,7 @@ export const petDefaultValues = (contract: Contract, detail: ContractDetail) => 
             executed: chip?.executed || defaultChip.executed,
             date: chip?.date || defaultChip.date,
             description: chip?.description || chipDefault,
+            doctorProvince: chip?.doctorProvince || defaultChip.doctorProvince,
             observation: chip?.observation || defaultChip.observation,
             user: chip?.user || defaultChip.user,
         }
@@ -57,6 +60,7 @@ export const petDefaultValues = (contract: Contract, detail: ContractDetail) => 
             executed: dataExits?.executed || defaultChip.executed,
             date: dataExits?.date || defaultChip.date,
             description: dataExits?.description || chipDefault,
+            doctorProvince: defaultChip.doctorProvince,
             observation: dataExits?.observation || defaultChip.observation,
             user: dataExits?.user || defaultChip.user
         }

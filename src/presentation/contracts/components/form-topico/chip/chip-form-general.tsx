@@ -3,7 +3,7 @@ import { Divider, Stack, Typography } from "@mui/material";
 import { RHFSwitch, RHFTextField } from "../../../../../components/hook-form";
 import { RHFDate } from '../../../../../components/hook-form/rhf-date';
 import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
-import { TopicoSearchUser } from "../topico-search-user";
+import { DoctorProvince } from '../doctor-province';
 
 type Props = {
     hasServiceIncluded: boolean;
@@ -27,14 +27,13 @@ export const ChipFormGeneral = ({ hasServiceIncluded }: Props) => {
                             label="¿La mascota ya tiene la implantación de chip?"
                         />
                     </Stack>
-
                 }
                 {
                     (hasServiceIncluded || executed) &&
                     <>
                         <Typography fontWeight="bold">{hasServiceIncluded ? "Implantación de Chip" : "Revisar si la mascota tiene chip"}</Typography>
                         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-                            <TopicoSearchUser />
+                            <DoctorProvince />
                         </Stack>
                         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                             <RHFDate
