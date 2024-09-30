@@ -28,12 +28,12 @@ const Bar = () => (
 )
 
 
-const ContractAsiaPdf = ({ contract }: ContractProps) => {
+const ContractEuropaPdf = ({ contract }: ContractProps) => {
 
     return (
         <Document>
             <Page size='A4' style={styles.page} >
-                <View style={{ ...styles.container }} >
+                <View style={{ ...styles.container, textAlign: "justify" }} >
                     <Image
                         src={logoBase64}
                         style={{
@@ -49,7 +49,7 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
 
 
                     <SpacePdf marginBottom={10} />
-                    < View>
+                    <View>
                         <Text>
                             Por el presente contrato, el Sr. Christian F. Suarez Núñez Del Prado, identificado con número DNI 41233194 y representante legal de Pet Travel Perú con número de RUC: 10412331945, encargado de la gestión y documentación para el viaje de mascotas, deja constancia que:
                         </Text>
@@ -68,7 +68,7 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                         </Text>
 
                         <Text style={{ fontWeight: "bold" }}>
-                            Identificado con {contract.client.profile.document}<Text style={{ fontWeight: "normal" }}> N°{contract.client.profile.documentNumber}</Text>
+                            Identificado con {contract.client.profile.document}<Text style={{ fontWeight: "normal" }}> n°{contract.client.profile.documentNumber}</Text>
                         </Text>
 
                         <Text>
@@ -83,8 +83,19 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                         contract.details.map((detail, index) => (
                             <View key={detail.id}>
                                 <Text style={{ fontWeight: "bold" }}>
-                                    De las actividades de la mascota {numberPets(index + 1)}:
+                                    ACTIVIDADES QUE INCLUYE EL CONTRATO{contract.details.length > 1 && ` ${numberPets(index + 1)}`}:
                                 </Text>
+
+                                {
+                                    detail.documentation.vaccinationCertificate.hasServiceIncluded &&
+                                    <>
+                                        <Text>
+                                            - Certificado de vacunas
+                                        </Text>
+                                    </>
+                                }
+
+
                                 {detail.documentation.healthCertificate.hasServiceIncluded &&
                                     <Text>
                                         - Certificado de salud
@@ -92,41 +103,47 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                                 }
 
                                 {
-                                    detail.documentation.vaccinationCertificate.hasServiceIncluded &&
-                                    <Text>
-                                        - Vacunación completa
-                                    </Text>
+                                    detail.topico?.vaccination?.hasIncluded &&
+                                    <>
+                                        <Text>
+                                            - Vacunación completa
+                                        </Text>
+                                    </>
                                 }
+
+
                                 {
-                                    detail.documentation.vaccinationCertificate.hasServiceIncluded &&
+                                    detail.topico?.chip?.hasIncluded &&
                                     <Text>
-                                        -  Certificado de Vacunación
+                                        - Implantación de microchip
                                     </Text>
                                 }
-                                {
-                                    detail.documentation.chipCertificate.hasServiceIncluded &&
-                                    <Text>
-                                        - Implantación de microchip y/o lectura de microchip con certificado
-                                    </Text>
-                                }
+
                                 {
                                     detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded &&
                                     <>
                                         <Text>
-                                            - Toma de muestra de sangre para análisis serológico de anticuerpos de la rabia.
+                                            - Toma de muestra de sangre (al mes de vacunados) y centrifugación de la misma para la obtención del suero para los análisis de titulación de anticuerpos de la rabia. REPORT FAVN.
+                                        </Text>
+                                        <Text>
+                                            - Envío de la muestra vía fedex cargo para el laboratorio (homologado por la Comunidad Europea).
+                                        </Text>
+                                        <Text>
+                                            - Apertura de expediente ante el ministerio de agricultura y entrega de documentos oficiales (certificado zoosanitario).
                                         </Text>
                                     </>
+                                }
+
+                                {detail.documentation.senasaDocuments.hasServiceIncluded &&
+                                    <Text>
+                                        - Apertura de expediente ante el ministerio de agricultura y entrega de documentos oficiales (certificado zoosanitario).
+                                    </Text>
                                 }
 
                                 {detail.documentation.importLicense.hasServiceIncluded &&
                                     <Text>
                                         - Solicitud de permiso de importación zoo sanitaria según país de destino.
                                     </Text>
-                                }
-
-                                {detail.documentation.senasaDocuments.hasServiceIncluded &&
-                                    <Text>
-                                        Apertura de expediente ante el ministerio de agricultura (SENASA).                                    </Text>
                                 }
                                 {detail.documentation.emotionalSupportCertificate.hasServiceIncluded &&
                                     <Text>
@@ -144,11 +161,6 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                                         - Servicio de acompañamiento al aeropuerto.
                                     </Text>
                                 }
-                                {detail.travel.hasServiceAccompanied &&
-                                    <Text>
-                                        - Entrega de documentos oficiales
-                                    </Text>
-                                }
                             </View>
                         ))
                     }
@@ -162,7 +174,9 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                         </Text>
                         <SpacePdf marginBottom={10} />
                         <Text>
-                            Nota 1: en caso de que “EL CONTRATANTE” solicite la anulación del presente contrato deberá cancelar los servicios prestados y una penalidad de $ 100.00.  Es responsabilidad del cliente- “EL CONTRATANTE”, averiguar, consultar o preguntar sobre el avance de cada uno de los procesos que se realizará según este acuerdo – contrato.
+                            Nota 1: en caso de que “EL CONTRATANTE” solicite la anulación del presente contrato deberá cancelar los servicios prestados y una penalidad de $ 150.00. Es responsabilidad del cliente- “EL CONTRATANTE”, averiguar, consultar o preguntar sobre el avance de cada uno de los procesos que se realizará según este acuerdo – contrato.
+                        </Text>
+                        <Text >
                             Los clientes que realicen pagos con tarjeta y soliciten la anulación del contrato le será descontado el 5% del monto, el cual es retenido por la empresa Izipai al momento del pago.
                         </Text>
                         <SpacePdf marginBottom={10} />
@@ -171,11 +185,18 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                         </Text>
                         <SpacePdf marginBottom={10} />
                         <Text>
-                            Nota 3: Si la mascota ha tomado medicamentos o ha pasado por algún tratamiento médico, se tendrá que reprogramar la muestra de sangre y la colocación de vacunas. Con respecto a la prueba serológica, el resultado positivo o negativo de este análisis dependerá netamente de la carga inmune de su mascota, Pet travel se hace responsable de llevar a cabo la logística de dicho trámite mas no del resultado.
+                            Nota 3:  Si la mascota ha tomado medicamentos o ha pasado por algún tratamiento médico, se tendrá que reprogramar la muestra de sangre y la colocación de vacunas. Con respecto a la prueba serológica, el resultado positivo o negativo de este análisis dependerá netamente de la carga inmune de su mascota, Pet travel se hace responsable de llevar a cabo la logística de dicho trámite mas no del resultado.
+                        </Text>
+                        <Text>
+                            En caso el cliente no realice el 2do pago en la fecha establecida en el presente contrato no se continuarán los procesos médicos y administrativos (envío de muestra para análisis serológico y revacunas) esto podría atrasar la fecha de viaje de la/las mascotas.
                         </Text>
                         <SpacePdf marginBottom={10} />
                         <Text>
                             Nota 4: El cliente debe asegurarse que la aerolínea le permitirá el traslado de su mascota, según peso y medidas máximas que permita la aerolínea y DEBE NOTIFICAR A SU ASESORA SU FECHA DE VIAJE ENVIÁNDONOS SU BOLETO (MÍNIMO 10 DÍAS ANTES DEL VIAJE) PARA COORDINAR LA ENTREGA DE LA DOCUMENTACIÓN EN FÍSICO EN LA VETERINARIA.
+                        </Text>
+                        <SpacePdf marginBottom={10} />
+                        <Text>
+                            Nota 5: La documentación, requisitos y vigencia de los documentos está sujeta a los cambios dispuestos por el país de destino, Pet Travel no se hace responsable de ello.
                         </Text>
                     </View>
                     <SpacePdf marginBottom={10} />
@@ -190,6 +211,7 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
                         <Text>
                             {priceToPay(contract)}
                         </Text>
+
                         <SpacePdf marginBottom={10} />
                         <Text>
                             Lima,{fDateTimeLong(contract.startDate)}
@@ -242,4 +264,4 @@ const ContractAsiaPdf = ({ contract }: ContractProps) => {
 
 
 
-export default ContractAsiaPdf
+export default ContractEuropaPdf

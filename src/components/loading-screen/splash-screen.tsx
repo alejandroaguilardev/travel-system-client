@@ -11,6 +11,7 @@ import Logo from '../logo';
 export default function SplashScreen({ sx, ...other }: BoxProps) {
   const [mounted, setMounted] = useState(false);
 
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -49,7 +50,7 @@ export default function SplashScreen({ sx, ...other }: BoxProps) {
             repeat: Infinity,
           }}
         >
-          <Logo disabledLink sx={{ width: 64, height: 64 }} />
+          <Logo disabledLink sx={{ width: 180, height: 64 }} />
         </m.div>
 
         <Box

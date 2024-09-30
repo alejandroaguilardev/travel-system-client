@@ -31,10 +31,17 @@ export const useAutocompleteClient = <T>({ items, defaultValue, properties, maxF
         setInput(value);
         if (value?.length < 1) return setOptions(items.slice(0, maxFilter));
 
-        const filter = items.filter((item) =>
-            properties.some((property) =>
+        const filter = items.filter((item) => {
+            // Si `properties` es un array vacío, buscar directamente en los items asumiendo que son strings.
+            if (properties.length === 0) {
+                return String(item).toLowerCase().startsWith(value.toLowerCase());
+            }
+
+            // Si `properties` no está vacío, buscar en las propiedades especificadas de cada objeto.
+            return properties.some((property) =>
                 String(item[property]).toLowerCase().startsWith(value.toLowerCase())
-            )).slice(0, maxFilter);
+            );
+        }).slice(0, maxFilter);
 
         return setOptions(filter);
     };

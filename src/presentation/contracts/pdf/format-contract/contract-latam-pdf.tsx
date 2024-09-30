@@ -9,6 +9,7 @@ import { signatureChristianBase64 } from '../utils/signature-christian';
 import { destination, numberPets, priceToPay } from '../utils/contract-pdf-utils';
 import { numberToWords } from '../../../../modules/shared/domain/helpers/formar-number-words';
 import { ContractProps } from './types';
+import { chip } from '../../../../theme/overrides/components/chip';
 
 Font.register({
     family: 'Roboto',
@@ -90,13 +91,6 @@ const ContractLatamPdf = ({ contract }: ContractProps) => {
                                         - Certificado de salud
                                     </Text>
                                 }
-
-                                {
-                                    detail.documentation.vaccinationCertificate.hasServiceIncluded &&
-                                    <Text>
-                                        - Vacunación completa
-                                    </Text>
-                                }
                                 {
                                     detail.documentation.vaccinationCertificate.hasServiceIncluded &&
                                     <Text>
@@ -104,9 +98,22 @@ const ContractLatamPdf = ({ contract }: ContractProps) => {
                                     </Text>
                                 }
                                 {
-                                    detail.documentation.chipCertificate.hasServiceIncluded &&
+                                    detail.topico?.vaccination?.hasIncluded &&
                                     <Text>
-                                        - Implantación de microchip y/o lectura de microchip con certificado
+                                        - Vacunación completa
+                                    </Text>
+                                }
+                                {
+                                    detail.topico?.chip?.hasIncluded &&
+                                    <Text>
+                                        - Implantación de microchip
+                                    </Text>
+                                }
+
+                                {
+                                    detail.topico?.vaccination?.hasIncluded &&
+                                    <Text>
+                                        - Desparasitación interna de la mascota
                                     </Text>
                                 }
                                 {
@@ -126,7 +133,8 @@ const ContractLatamPdf = ({ contract }: ContractProps) => {
 
                                 {detail.documentation.senasaDocuments.hasServiceIncluded &&
                                     <Text>
-                                        Apertura de expediente ante el ministerio de agricultura (SENASA).                                    </Text>
+                                        Apertura de expediente ante el ministerio de agricultura (SENASA).
+                                    </Text>
                                 }
                                 {detail.documentation.emotionalSupportCertificate.hasServiceIncluded &&
                                     <Text>
@@ -163,6 +171,8 @@ const ContractLatamPdf = ({ contract }: ContractProps) => {
                         <SpacePdf marginBottom={10} />
                         <Text>
                             Nota 1: en caso de que “EL CONTRATANTE” solicite la anulación del presente contrato deberá cancelar los servicios prestados y una penalidad de $ 100.00.  Es responsabilidad del cliente- “EL CONTRATANTE”, averiguar, consultar o preguntar sobre el avance de cada uno de los procesos que se realizará según este acuerdo – contrato.
+                        </Text>
+                        <Text>
                             Los clientes que realicen pagos con tarjeta y soliciten la anulación del contrato le será descontado el 5% del monto, el cual es retenido por la empresa Izipai al momento del pago.
                         </Text>
                         <SpacePdf marginBottom={10} />

@@ -68,7 +68,7 @@ const ContractEuropaPdf = ({ contract }: ContractProps) => {
                         </Text>
 
                         <Text style={{ fontWeight: "bold" }}>
-                            Identificado con {contract.client.profile.document}<Text style={{ fontWeight: "normal" }}> N°{contract.client.profile.documentNumber}</Text>
+                            Identificado con {contract.client.profile.document}<Text style={{ fontWeight: "normal" }}> n°{contract.client.profile.documentNumber}</Text>
                         </Text>
 
                         <Text>
@@ -85,20 +85,12 @@ const ContractEuropaPdf = ({ contract }: ContractProps) => {
                                 <Text style={{ fontWeight: "bold" }}>
                                     ACTIVIDADES QUE INCLUYE EL CONTRATO{contract.details.length > 1 && ` ${numberPets(index + 1)}`}:
                                 </Text>
-                                {
-                                    detail.documentation.chipCertificate.hasServiceIncluded &&
-                                    <Text>
-                                        - Implantación de microchip
-                                    </Text>
-                                }
+
                                 {
                                     detail.documentation.vaccinationCertificate.hasServiceIncluded &&
                                     <>
                                         <Text>
                                             - Certificado de vacunas
-                                        </Text>
-                                        <Text>
-                                            - Vacunación completa
                                         </Text>
                                     </>
                                 }
@@ -111,6 +103,23 @@ const ContractEuropaPdf = ({ contract }: ContractProps) => {
                                 }
 
                                 {
+                                    detail.topico?.vaccination?.hasIncluded &&
+                                    <>
+                                        <Text>
+                                            - Vacunación completa
+                                        </Text>
+                                    </>
+                                }
+
+
+                                {
+                                    detail.topico?.chip?.hasIncluded &&
+                                    <Text>
+                                        - Implantación de microchip
+                                    </Text>
+                                }
+
+                                {
                                     detail.documentation.rabiesSeroLogicalTest.hasServiceIncluded &&
                                     <>
                                         <Text>
@@ -119,12 +128,15 @@ const ContractEuropaPdf = ({ contract }: ContractProps) => {
                                         <Text>
                                             - Envío de la muestra vía fedex cargo para el laboratorio (homologado por la Comunidad Europea).
                                         </Text>
+                                        <Text>
+                                            - Apertura de expediente ante el ministerio de agricultura y entrega de documentos oficiales (certificado zoosanitario).
+                                        </Text>
                                     </>
                                 }
 
                                 {detail.documentation.senasaDocuments.hasServiceIncluded &&
                                     <Text>
-                                        - Apertura de expediente ante el Ministerio de Agricultura del Perú, SENASA-Lima.  *La mascota será llevada a SENASA y será retornada por la tarde para que el propietario pueda recoger a la mascota en nuestras oficinas*
+                                        - Apertura de expediente ante el ministerio de agricultura y entrega de documentos oficiales (certificado zoosanitario).
                                     </Text>
                                 }
 

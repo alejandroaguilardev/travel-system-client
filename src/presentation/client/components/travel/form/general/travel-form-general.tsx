@@ -12,6 +12,7 @@ import { Pet } from '../../../../../../modules/pets/domain/pet';
 import { useFileImageStore } from '../../../../../../state/upload/file-image-store';
 import { useFileStore } from "../../../../../../state/upload/file-store";
 import { downloadFile } from '../../../../../../modules/shared/infrastructure/helpers/blob-archive';
+import { AutocompleteAirportSelect } from "./airport-select";
 
 type Props = {
     hasServiceIncluded: boolean;
@@ -57,7 +58,7 @@ export const TravelFormGeneral: FC<Props> = ({ readonly, hasServiceIncluded, pet
                 }
 
                 <Typography>Reserva de aerolínea </Typography>
-                <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
+                <Stack direction={{ xs: "column", md: "row" }} spacing={1} mb={2}>
                     <RHFTextField
                         name="airlineReservation.code"
                         label="Código de reserva (*)"
@@ -75,23 +76,36 @@ export const TravelFormGeneral: FC<Props> = ({ readonly, hasServiceIncluded, pet
                         style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
                     />
                 </Stack>
-                <RHFTextField
-                    name="airlineReservation.departureAirport"
-                    label="Aeropuerto de salida (*)"
-                    InputProps={{
-                        readOnly: readonly
-                    }}
-                    style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                />
-                <RHFTextField
-                    name="airlineReservation.destinationAirport"
-                    label="Aeropuerto de llegada (*)"
-                    InputProps={{
-                        readOnly: readonly
-                    }}
-                    style={readonly ? { pointerEvents: 'none', opacity: 0.5 } : {}}
-                />
-                <Stack direction={{ xs: "column", md: "row" }} spacing={1}>
+                <Stack direction={{ xs: "column", md: "row" }} spacing={1} mb={2}>
+                    {
+                        readonly
+                            ? <RHFTextField
+                                name="airlineReservation.departureAirport"
+                                label="Aeropuerto de salida (*)"
+                                InputProps={{ readOnly: readonly }}
+                                style={{ pointerEvents: 'none', opacity: 0.5 }}
+                            />
+                            : <AutocompleteAirportSelect
+                                name="airlineReservation.departureAirport"
+                                label="Aeropuerto de salida (*)"
+                            />
+                    }
+                    {
+                        readonly
+                            ? <RHFTextField
+                                name="airlineReservation.destinationAirport"
+                                label="Aeropuerto de llegada (*)"
+                                InputProps={{ readOnly: readonly }}
+                                style={{ pointerEvents: 'none', opacity: 0.5 }}
+                            />
+                            : <AutocompleteAirportSelect
+                                name="airlineReservation.destinationAirport"
+                                label="Aeropuerto de llegada (*)"
+                            />
+                    }
+                </Stack>
+
+                <Stack direction={{ xs: "column", md: "row" }} spacing={1} mb={2}>
                     {readonly ?
                         <>
                             <DateTimePicker value={fDayjs(departureDate)} label="Fecha de salida (*)" disabled sx={{ width: "100%" }} format='DD/MM/YYYY HH:mm:ss'
