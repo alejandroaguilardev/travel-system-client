@@ -68,7 +68,6 @@ The project is developed following the Test-Driven Development (TDD) approach, e
 - **Cypress**: A JavaScript end-to-end testing framework that facilitates the creation and execution of E2E tests. Cypress is utilized to simulate user interactions and behavior, providing a comprehensive testing solution for web applications.
 
 
-
 ## Project Structure
 ![Folders](https://i.ibb.co/WDYB5Jc/struc.png")
 
