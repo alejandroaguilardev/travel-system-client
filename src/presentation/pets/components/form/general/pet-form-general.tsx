@@ -25,11 +25,13 @@ type Props = {
 }
 
 export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = false, hasRecommendation = false, hasShowChip = false, hasImage = false, petsClient = [] }: Props) => {
-    const { id, type, chip, name, chipDate, birthDate, dateUpdatedAt, client, image, handleClient } = usePetFormGeneral();
+    const { id, type, isPuppy, chip, name, chipDate, birthDate, dateUpdatedAt, client, image, handleClient } = usePetFormGeneral();
 
     const alertUpdate: boolean = useMemo(() =>
-        isPrintMessageForMoreOneMonth(fDayjs(birthDate).toDate(), fDayDiffDays(new Date(), fDayjs(dateUpdatedAt).toDate())) &&
-        isPetBabyAge(type, fDayjs(birthDate).toDate()), [birthDate, type, id]);
+        isPuppy &&
+        (isPrintMessageForMoreOneMonth(fDayjs(birthDate).toDate(), fDayDiffDays(new Date(), fDayjs(dateUpdatedAt).toDate())) &&
+            isPetBabyAge(type, fDayjs(birthDate).toDate())),
+        [birthDate, type, id]);
 
 
     const [hasChip, setHasChip] = useState(!!chip);
@@ -143,6 +145,7 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
             <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
                 <RHFSwitch name="isBrachycephalic" label="¿La especie es braquiocefálica?" />
                 <RHFSwitch name="isPotentiallyDangerous" label="¿La especie es potencialmente peligrosa?" />
+                <RHFSwitch name="isPuppy" label="¿La especie es un cachorro?" />
             </Stack>
 
             {
@@ -154,7 +157,7 @@ export const PetFormGeneral = ({ hasClient = false, hasMeasurementsAndWeight = f
                     {
                         id &&
                         <Alert severity={alertUpdate ? "error" : "info"}>
-                            {isPetBabyAge(type, fDayjs(birthDate).toDate())
+                            {(isPuppy || isPetBabyAge(type, fDayjs(birthDate).toDate()))
                                 ? `La Mascota es un cachorro se debe hacer seguimiento se sus medidas y peso. Última Actualización fue ${fDate(dateUpdatedAt)}`
                                 : `Última Actualización de las medidas y peso ${fDate(dateUpdatedAt)}`
                             }

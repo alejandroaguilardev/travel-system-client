@@ -17,6 +17,7 @@ export const useColumnsFolders = () => {
             {
                 header: 'Fecha de Inicio',
                 accessorKey: 'startDate',
+                filterVariant: "date",
                 accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY HH:mm:ss'),
                 minSize: 200
             },

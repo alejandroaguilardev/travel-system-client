@@ -14,6 +14,24 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ImpContractProvider } from './components/imp-pdf/imp-contract/imp-contract-context';
 import { ImpContractConsumer } from './components/imp-pdf/imp-contract/imp-contract-consumer';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+// Establecer la zona horaria de Lima
+dayjs.tz.setDefault('America/Lima');
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready(callback: () => void): void;
+      execute(siteKey: string, options: { action: string }): Promise<string>;
+    };
+  }
+}
 
 declare global {
   interface Window {

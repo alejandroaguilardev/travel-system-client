@@ -82,6 +82,7 @@ const generalSchema = {
     adopter: Yup.string().required("El adopter es requerido"),
     isBrachycephalic: Yup.boolean().required("ebe indicar si la mascota es braquicefalia"),
     isPotentiallyDangerous: Yup.boolean().required("Debe indicar si la mascota es potencialmente peligrosa"),
+    isPuppy: Yup.boolean(),
     user: Yup.string(),
 }
 const petSchema: Yup.ObjectSchema<NewPet> = Yup.object().shape(generalSchema)

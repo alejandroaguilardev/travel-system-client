@@ -19,8 +19,9 @@ export const METHODS_PAYMENTS = [
     "POS",
     "Transferencia bancaria",
     "Yape",
-    "Western Union",
+    'Link de pago',
     "PayPal",
+    "Western Union",
     "Transferencia internacional",
 ];
 

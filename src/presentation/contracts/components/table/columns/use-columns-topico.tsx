@@ -46,6 +46,7 @@ export const useColumnsTopico = () => {
             {
                 header: 'Fecha de viaje',
                 accessorKey: 'details.travel.airlineReservation.departureDate',
+                filterVariant: "date",
                 Cell: ({ cell }) => {
                     const dates = cell.row.original.details.map(_ => _.travel.airlineReservation.departureDate);
                     const values = dateDepartureIsLastWeek(dates);
@@ -56,6 +57,7 @@ export const useColumnsTopico = () => {
             {
                 header: "F. E. de viaje",
                 accessorKey: 'estimatedDate',
+                filterVariant: "date",
                 accessorFn: (row) => row?.estimatedDate ? fDate(row.estimatedDate, 'DD/MM/YYYY') : "--",
                 Cell: ({ cell }) => {
                     const dates = dateDepartureIsLastWeek([cell.row.original.estimatedDate]);

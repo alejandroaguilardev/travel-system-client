@@ -105,6 +105,7 @@ export const useColumnsPayment = () => {
             },
             {
                 header: 'Fecha de viaje',
+                filterVariant: "date",
                 accessorKey: 'details.travel.airlineReservation.departureDate',
                 accessorFn: (row) => row.details.map(_ => _.travel?.airlineReservation?.departureDate
                     ? fDate(_.travel.airlineReservation.departureDate, 'DD/MM/YYYY')
@@ -119,6 +120,7 @@ export const useColumnsPayment = () => {
             },
             {
                 header: 'Fecha de contrato',
+                filterVariant: "date",
                 accessorKey: 'startDate',
                 accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY HH:mm:ss'),
                 minSize: 200
@@ -126,6 +128,7 @@ export const useColumnsPayment = () => {
             {
                 header: 'Fecha de Finalización',
                 accessorKey: 'endDate',
+                filterVariant: "date",
                 accessorFn: (row) => row.endDate ? fDate(row.endDate, 'DD/MM/YYYY HH:mm:ss') : "--",
                 minSize: 200
             },

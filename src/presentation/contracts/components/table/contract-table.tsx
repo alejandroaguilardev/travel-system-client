@@ -82,12 +82,14 @@ export const ContractTable: FC<Props> = ({ options }) => {
             {
                 header: 'Fecha de Inicio',
                 accessorKey: 'startDate',
+                filterVariant: "date",
                 accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY HH:mm:ss'),
                 minSize: 200
             },
             {
                 header: 'Fecha de Finalización',
                 accessorKey: 'endDate',
+                filterVariant: "date",
                 accessorFn: (row) => row.endDate ? fDate(row.endDate, 'DD/MM/YYYY HH:mm:ss') : "--",
                 minSize: 200
             },

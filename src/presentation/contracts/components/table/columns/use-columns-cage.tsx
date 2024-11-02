@@ -24,6 +24,7 @@ export const useColumnsCage = () => {
             {
                 header: 'Fecha de viaje',
                 accessorKey: 'details.travel.airlineReservation.departureDate',
+                filterVariant: "date",
                 accessorFn: (row) => row.details.map(_ => _.travel?.airlineReservation?.departureDate
                     ? fDate(_.travel.airlineReservation.departureDate, 'DD/MM/YYYY')
                     : ""

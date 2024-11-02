@@ -48,6 +48,7 @@ export const useColumnsRabies = () => {
             },
             {
                 header: 'Fecha de viaje',
+                filterVariant: "date",
                 accessorKey: 'details.travel.airlineReservation.departureDate',
                 accessorFn: (row) => row.details.map(_ => _.travel?.airlineReservation?.departureDate
                     ? fDate(_.travel.airlineReservation.departureDate, 'DD/MM/YYYY')
@@ -112,6 +113,7 @@ export const useColumnsRabies = () => {
             },
             {
                 header: 'Fecha de T.M',
+                filterVariant: "date",
                 accessorKey: 'details.topico.takingSampleSerologicalTest.date',
                 accessorFn: ({ details }) => {
                     const dates = details.map(_ => fDate(_.travel.airlineReservation.departureDate, 'DD/MM/YYYY'));
@@ -142,6 +144,7 @@ export const useColumnsRabies = () => {
             },
             {
                 header: 'Fecha del resultado',
+                filterVariant: "date",
                 accessorKey: 'details.documentation.rabiesSeroLogicalTest.resultDate',
                 accessorFn: ({ details }) => {
                     const dates = details?.map(_ => fDate(_.documentation.rabiesSeroLogicalTest.resultDate, 'DD/MM/YYYY'));
@@ -155,6 +158,7 @@ export const useColumnsRabies = () => {
             },
             {
                 header: 'Fecha de contrato',
+                filterVariant: "date",
                 accessorKey: 'startDate',
                 accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY'),
                 minSize: 150

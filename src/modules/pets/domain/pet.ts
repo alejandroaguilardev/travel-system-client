@@ -25,6 +25,7 @@ export interface Pet {
     isBrachycephalic: boolean;
     isPotentiallyDangerous: boolean;
     topico?: Omit<ContractTopico, "chipReview">;
+    isPuppy?: boolean;
 }
 
 export interface NewPet extends Omit<Pet, 'id' | 'chip' | 'chipDate' | 'status' | 'user' | "cageRecommendation" | "measurementsAndWeight" | "topico"> {

@@ -12,6 +12,7 @@ export const usePetFormGeneral = () => {
     const type = watch("type");
     const id = watch("id");
     const name = watch("name");
+    const isPuppy = watch("isPuppy");
     const image: string = watch("image");
     const birthDate: Date = fDayjs(watch("birthDate"));
     const chipDate: Date = fDayjs(watch("chipDate"));
@@ -61,5 +62,6 @@ export const usePetFormGeneral = () => {
         name,
         handleClient,
         handleChip,
+        isPuppy
     }
 }

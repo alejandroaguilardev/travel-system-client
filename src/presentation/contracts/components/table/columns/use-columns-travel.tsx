@@ -16,6 +16,7 @@ export const useColumnsTravel = () => {
             },
             {
                 header: 'Fecha de viaje',
+                filterVariant: "date",
                 accessorKey: 'details.travel.airlineReservation.departureDate',
                 accessorFn: ({ details }) => {
                     const dates = details?.map(_ => fDate(_.documentation.senasaDocuments.executionDate, 'DD/MM/YYYY'));
@@ -83,6 +84,7 @@ export const useColumnsTravel = () => {
             {
                 header: 'Fecha de contrato',
                 accessorKey: 'startDate',
+                filterVariant: "date",
                 accessorFn: (row) => fDate(row.startDate, 'DD/MM/YYYY'),
                 minSize: 150
             },
@@ -108,6 +110,7 @@ export const useColumnsTravel = () => {
             {
                 header: 'Fecha de reserva',
                 accessorKey: 'details.travel.airlineReservation.departureDate',
+                filterVariant: "date",
                 accessorFn: ({ details }) => {
                     const dates = details.map(_ => fDate(_.travel.airlineReservation.departureDate, 'DD/MM/YYYY'));
                     return dates.join(", ");

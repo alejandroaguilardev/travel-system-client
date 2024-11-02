@@ -52,7 +52,8 @@ export const petUpdaterFormat = (pet: Pet): Pet => {
             rabiesVaccination: { ...pet.topico.rabiesVaccination, date: new Date() },
             takingSampleSerologicalTest: { ...pet.topico.takingSampleSerologicalTest, date: new Date() },
             vaccination: { ...pet.topico.vaccination, date: new Date() },
-        } : undefined
+        } : undefined,
+        isPuppy: pet?.isPuppy ?? false
     }
     // topico: pet.topico ? {
     //     chip: { ...pet.topico.chip, date: new Date()) },
