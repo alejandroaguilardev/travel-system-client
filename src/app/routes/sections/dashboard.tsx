@@ -33,6 +33,7 @@ const ContractDocumentationPage = lazy(() => import('../../pages/admin/contract/
 const ContractDocumentationUpdatePage = lazy(() => import('../../pages/admin/contract/documentation/management/index'));
 const ContractTopicoPage = lazy(() => import('../../pages/admin/contract/topico/index'));
 const ContractTopicoManagementPage = lazy(() => import('../../pages/admin/contract/topico/management/index'));
+const ContractHistoryFinish = lazy(() => import('../../pages/admin/contract/history-finish/index'));
 
 const ContractCage = lazy(() => import('../../pages/admin/contract/cage/index'));
 const ContractUpdateCage = lazy(() => import('../../pages/admin/contract/cage/[id]/index'));
@@ -101,6 +102,7 @@ export const dashboardRoutes = [
           { element: <ContractPage />, index: true },
           { path: 'crear', element: <ContractNewPage /> },
           { path: 'asignar-numero', element: <ContractAssignNumber /> },
+          { path: 'finalizados', element: <ContractHistoryFinish /> },
           { path: 'pagos', element: <ContractListPaymentPage /> },
           { path: ':id/:action', element: <ContractIdPage /> },
         ],

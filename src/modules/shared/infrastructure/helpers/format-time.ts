@@ -54,3 +54,15 @@ export function fDayDiffString(date: InputValue) {
     return `${month} meses`;
 };
 
+
+export function fMonthDiffText(date: InputValue): string {
+    const dateNow = dayjs().locale("es");
+    const diffMonths = dateNow.diff(dayjs(date), 'month');
+
+    if (diffMonths === 1) {
+        return "al mes";
+    } else if (diffMonths > 1) {
+        return `a los ${diffMonths} meses`;
+    }
+    return "menos de un mes";
+}

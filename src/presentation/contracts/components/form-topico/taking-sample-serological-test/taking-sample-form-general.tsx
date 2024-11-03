@@ -46,10 +46,6 @@ export const TakingSampleSerologicalTestContractFormGeneral = () => {
                         label="Observaciones"
                     />
                 </Stack>
-
-
-                <TopicoSearchUser />
-
             </Stack>
         </>
     );

@@ -8,10 +8,14 @@ export const CONTRACT_STATUS_DOCUMENTATION_IN_COURSE = [
 ] as const;
 
 export const CONTRACT_STATUS_CAGE_IN_COURSE = [
-    { id: "status", value: "pending" },
+    { id: "status.petTravel", value: "pending" },
 ] as const;
 export const CONTRACT_STATUS_TRAVEL_IN_COURSE = [
-    { id: "status", value: "pending" },
+    { id: "status.petTravel", value: "pending" },
+] as const;
+
+export const CONTRACT_STATUS_FINISH = [
+    { id: "status.petTravel", value: "completed" },
 ] as const;
 
 

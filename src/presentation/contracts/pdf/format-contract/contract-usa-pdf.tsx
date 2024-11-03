@@ -6,7 +6,7 @@ import { fCurrency } from '../../../../modules/shared/domain/helpers/format-numb
 import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import { logoBase64 } from '../../../../components/logo/logo-base64';
 import { signatureChristianBase64 } from '../utils/signature-christian';
-import { destination, numberPets, priceToPay } from '../utils/contract-pdf-utils';
+import { destinationCountry, numberPets, priceToPay } from '../utils/contract-pdf-utils';
 import { numberToWords } from '../../../../modules/shared/domain/helpers/formar-number-words';
 import { ContractProps } from './types';
 
@@ -26,7 +26,9 @@ const SpacePdf = ({ marginBottom = 2 }: { marginBottom?: number }) => (
 const Bar = () => (
     <Text style={{ marginTop: 2, marginBottom: 1, height: 3, width: "100%", backgroundColor: "#002060" }} />
 )
-
+const BarGray = () => (
+    <Text style={{ marginTop: 2, marginBottom: 1, height: 3, width: "100%", backgroundColor: "#BBB" }} />
+)
 
 const ContractUsaPdf = ({ contract }: ContractProps) => {
 
@@ -59,9 +61,7 @@ const ContractUsaPdf = ({ contract }: ContractProps) => {
 
                     <View>
                         <Text style={{ fontWeight: "bold" }}>
-                            {contract.client.profile.gender === "male" && "Sr."}
-                            {contract.client.profile.gender === "female" && "Sra."}
-                            <Text style={{ fontWeight: "normal" }}>{contract?.client?.profile?.name} {contract?.client?.profile?.secondName} {contract?.client?.profile?.lastName}  {contract?.client?.profile?.secondLastName}</Text>
+                            El SR / SRA  <Text style={{ fontWeight: "normal" }}>{contract?.client?.profile?.name} {contract?.client?.profile?.secondName} {contract?.client?.profile?.lastName}  {contract?.client?.profile?.secondLastName}</Text>
                         </Text>
 
                         <Text style={{ fontWeight: "bold" }}>
@@ -69,7 +69,7 @@ const ContractUsaPdf = ({ contract }: ContractProps) => {
                         </Text>
 
                         <Text>
-                            Realizará el pago por la suma de {fCurrency(contract.price)} {` (${numberToWords(contract.price)}) `}, para efectos de trámites de envío de ({numberPets(contract.details.length)}) mascota{contract.details.length > 1 && "s"} cuyo país de destino es: {destination(contract)}.
+                            Realizará el pago por la suma de <Text style={{ fontWeight: "bold" }}>{fCurrency(contract.price)}</Text> {` (${numberToWords(contract.price)} dólares americanos)`}, para efectos de trámites de envío de ({numberPets(contract.details.length)}) mascota{contract.details.length > 1 && "s"} cuyo país de destino es: {destinationCountry(contract)}.
                         </Text>
                     </View>
 
@@ -228,6 +228,7 @@ const ContractUsaPdf = ({ contract }: ContractProps) => {
                             Lima,{fDateTimeLong(contract.startDate)}
                         </Text>
                     </View>
+                    <BarGray />
                     <Image
                         src={signatureChristianBase64}
                         style={{

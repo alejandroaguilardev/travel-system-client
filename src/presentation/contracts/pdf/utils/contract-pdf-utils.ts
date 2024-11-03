@@ -1,34 +1,39 @@
 import { fCurrency } from "../../../../modules/shared/domain/helpers/format-number";
-import { fDateTimeLong } from "../../../../modules/shared/infrastructure/helpers/format-time";
+import { fDate, fMonthDiffText } from "../../../../modules/shared/infrastructure/helpers/format-time";
 import { Contract } from "../../../../modules/contracts/domain/contract";
 
 export const numberPets = (quantity: number): string => quantity.toString().padStart(2, '0');
 
 export const priceToPay = (contract: Contract): string => {
-    const text = `Se realiza el pago a la firma del presente contrato, {{price}}, siendo con fecha ${fDateTimeLong(contract.startDate)}, vía depósito bancario a la cuenta dólares del banco BBVA Continental N° 0011-0366-0200127294 o a la cuenta soles del banco BBVA Continental N° 0011-0366-0200127286.`
+    const text = `Se deberá realizar {{pays}} a la firma del presente contrato {{dates}} Se podrá realizarse en efectivo y/o con depósito bancario a la siguiente cuenta N° 0011-0366-0200127294 cuenta ahorros en dólares del banco BBVA Continental. CCI cuenta ahorros dólares del banco BBVA Continental N° 0011-0366-000200127294-23.`
+
+
+
 
     if (contract?.payInInstallments && contract?.payInInstallments?.length > 1) {
-        const prices = contract?.payInInstallments.map(({ date, percentage, price }, index) => {
-            if (index === 0) {
-                return `con el abono del ${percentage}% del monto acordado en efectivo y/o con transferencia( ${fCurrency(price)} dólares americanos)`
-            }
-            return `el saldo del ${percentage}% (${fCurrency(price)} dólares americanos) deberá ser abonado el ${fDateTimeLong(date)}`
-        })
+        const pays = contract?.payInInstallments.filter(_ => _.isPay);
+        const dates = contract?.payInInstallments.filter(_ => !_.isPay);
 
-        return text.replace("{{price}}", prices.join(", "));
+        return text
+            .replace("{{pays}}", pays.length > 2
+                ? `los pagos ${pays.map(_ => _.percentage).join("%, ")}% ($ ${pays.map(_ => _.price).join(", ")})`
+                : `el pago ${pays[0].percentage}% ($${pays[0].price})`)
+            .replace("{{dates}}", dates.length > 2
+                ? `y los pagos ${dates.map(_ => _.percentage).join("%, ")}% ($ ${dates.map(_ => _.price).join(", ")}) restantes, las fechas ${dates.map(_ => fDate(_.date)).join(", ")}.`
+                : `y el ${dates[1].percentage} ($${dates[1].price}) restante, ${fMonthDiffText(dates[1].date)}.`)
     }
-    return text.replace("{{price}}", `con el abono de ${fCurrency(contract.price)} del monto acordado en efectivo y/o con transferencia`);
+
+
+
+
+    return text
+        .replace("{{pays}}", `el pago del ${fCurrency(contract.price)} `)
+        .replace("{{dates}}", ".")
 }
 
-export const destination = (contract: Contract): string => {
-    if (contract.details.length > 1) {
-        const countries = contract.details.map(_ => _.travel.destination.countryDestination);
-        return countries.length > 0
-            ? `mascotas, cuyos destinos son ${countries.join(",")}`
-            : "mascotas"
-    }
 
-    return contract.details?.[0]?.travel?.destination?.countryDestination
-        ? `mascota, cuyo país de destino es ${contract.details[0].travel.destination.countryDestination}`
-        : "mascota";
+export const destinationCountry = (contract: Contract): string => {
+    const countries = contract.details.map(_ => _.travel.destination.countryDestination);
+    return countries.join(",")
+
 }

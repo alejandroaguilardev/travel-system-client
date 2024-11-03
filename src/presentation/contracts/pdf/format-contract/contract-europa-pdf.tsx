@@ -1,12 +1,12 @@
 
 
-import { Document, Image, Page, StyleSheet, Text, View, Font } from '@react-pdf/renderer';
+import { Document, Image, Page, StyleSheet, Text, View, Font, } from '@react-pdf/renderer';
 import { pdfStyles } from '../../../../theme/pdf';
 import { fCurrency } from '../../../../modules/shared/domain/helpers/format-number';
 import { fDateTimeLong } from '../../../../modules/shared/infrastructure/helpers/format-time';
 import { logoBase64 } from '../../../../components/logo/logo-base64';
 import { signatureChristianBase64 } from '../utils/signature-christian';
-import { destination, numberPets, priceToPay } from '../utils/contract-pdf-utils';
+import { destinationCountry, numberPets, priceToPay } from '../utils/contract-pdf-utils';
 import { numberToWords } from '../../../../modules/shared/domain/helpers/formar-number-words';
 import { ContractProps } from './types';
 
@@ -27,8 +27,13 @@ const Bar = () => (
     <Text style={{ marginTop: 2, marginBottom: 1, height: 3, width: "100%", backgroundColor: "#002060" }} />
 )
 
+const BarGray = () => (
+    <Text style={{ marginTop: 2, marginBottom: 1, height: 3, width: "100%", backgroundColor: "#BBB" }} />
+)
+
 
 const ContractEuropaPdf = ({ contract }: ContractProps) => {
+
 
     return (
         <Document>
@@ -59,12 +64,7 @@ const ContractEuropaPdf = ({ contract }: ContractProps) => {
 
                     <View>
                         <Text style={{ fontWeight: "bold" }}>
-                            El
-                            {contract.client.profile.gender === "male" && "Sr."}
-                            {contract.client.profile.gender === "female" && "Sra."}
-                            {contract.client.profile.gender !== "female" && contract.client.profile.gender !== "male" && "Sr./Sra."}
-
-                            <Text style={{ fontWeight: "normal" }}>{contract?.client?.profile?.name} {contract?.client?.profile?.secondName} {contract?.client?.profile?.lastName}  {contract?.client?.profile?.secondLastName}</Text>
+                            El SR / SRA <Text style={{ fontWeight: "normal" }}>{contract?.client?.profile?.name} {contract?.client?.profile?.secondName} {contract?.client?.profile?.lastName}  {contract?.client?.profile?.secondLastName}</Text>
                         </Text>
 
                         <Text style={{ fontWeight: "bold" }}>
@@ -72,7 +72,7 @@ const ContractEuropaPdf = ({ contract }: ContractProps) => {
                         </Text>
 
                         <Text>
-                            Realizará el pago por la suma de {fCurrency(contract.price)} {` (${numberToWords(contract.price)}) `}, para efectos de trámites de envío de ({numberPets(contract.details.length)}) mascota{contract.details.length > 1 && "s"} cuyo país de destino es: {destination(contract)}.
+                            Realizará el pago por la suma de <Text style={{ fontWeight: "bold" }}>{fCurrency(contract.price)}</Text> {` (${numberToWords(contract.price)} dólares americanos)`}, para efectos de trámites de envío de ({numberPets(contract.details.length)}) mascota{contract.details.length > 1 && "s"} cuyo país de destino es: <Text style={{ fontWeight: "bold" }}>{destinationCountry(contract)}</Text>.
                         </Text>
                     </View>
 
@@ -127,9 +127,6 @@ const ContractEuropaPdf = ({ contract }: ContractProps) => {
                                         </Text>
                                         <Text>
                                             - Envío de la muestra vía fedex cargo para el laboratorio (homologado por la Comunidad Europea).
-                                        </Text>
-                                        <Text>
-                                            - Apertura de expediente ante el ministerio de agricultura y entrega de documentos oficiales (certificado zoosanitario).
                                         </Text>
                                     </>
                                 }
@@ -217,6 +214,7 @@ const ContractEuropaPdf = ({ contract }: ContractProps) => {
                             Lima,{fDateTimeLong(contract.startDate)}
                         </Text>
                     </View>
+                    <BarGray />
                     <Image
                         src={signatureChristianBase64}
                         style={{

@@ -24,7 +24,12 @@ export const itemsOptions = (user: User | null): ItemMenu[] => {
             path: paths.dashboard.takingSampleHistory,
             icon: ICONS_MENU.analytics
         })
-
+    hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
+        options.push({
+            title: 'Historial de contratos Fin.',
+            path: paths.dashboard.contracts.finish,
+            icon: ICONS_MENU.analytics
+        })
     hasPermission(user, AuthGroup.CONTRACTS, AuthPermission.LIST) &&
         options.push({
             title: 'Historial de contratos',
