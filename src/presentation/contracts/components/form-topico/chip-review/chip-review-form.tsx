@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, Box, Button } from "@mui/material";
+import { Alert, Box, Button, Stack, TextField } from "@mui/material";
 import FormProvider from '../../../../../components/hook-form/form-provider';
 import { ContractDetailUpdateResponse } from "../../../../../modules/contracts/domain/contract-detail.service";
 import { ContractDetail } from "../../../../../modules/contracts/domain/contract-detail";
@@ -9,6 +9,8 @@ import { chipReviewContractObjectSchema, defaultChipReview } from "./chip-review
 import { useFormChipReview } from "./use-form-chip-review";
 import { ChipReviewContract } from '../../../../../modules/contracts/domain/contract-services/topico/contract-topico';
 import { ChipReviewFormGeneral } from "./chip-review-form-general";
+import { DatePicker } from "@mui/x-date-pickers";
+import { fDayjs } from '../../../../../modules/shared/infrastructure/helpers/format-time';
 
 type Props = {
     contractId: string;
@@ -32,8 +34,7 @@ export const ChipReviewForm: FC<Props> = ({ detail, callback, hasShowReviewChip 
         }
     });
 
-    const { onSubmit, isExecuted } = useFormChipReview({ contractId, detailId: detail.id, callback });
-
+    const { onSubmit, isExecuted, chipDate, chip, setChip, setChipDate } = useFormChipReview({ contractId, detailId: detail.id, pet: detail.pet, callback });
 
     return (
         <>
@@ -44,9 +45,27 @@ export const ChipReviewForm: FC<Props> = ({ detail, callback, hasShowReviewChip 
                     {chipReview?.executed && !isExecuted && <Alert severity="info">Estos datos ya están guardados y enviados al cliente, sí cambias datos, debes darle click en actualizar</Alert>}
 
                     {isExecuted && < Alert severity="success">Guardado correctamente los cambios</Alert>}
-
-
                     <ChipReviewFormGeneral />
+
+                    <Stack direction={{ xs: "column", md: "row" }} spacing={1} marginBottom={1}>
+                        <TextField
+                            name="chip"
+                            label="Chip"
+                            value={chip}
+                            onChange={(e) => setChip(e.target.value)}
+                            fullWidth
+                        />
+                        <DatePicker
+                            name="chipDate"
+                            value={fDayjs(chipDate)}
+                            label="Chip Fecha de instalación"
+                            onChange={(e) => setChipDate(e)}
+                            format='DD/MM/YYYY'
+                            sx={{
+                                width: "100%"
+                            }}
+                        />
+                    </Stack>
 
                     <Box display="flex" gap={1} justifyContent="center" mb={4}>
                         <Button variant="outlined" disabled={methods.formState.isSubmitting} fullWidth onClick={onCancel} >
